@@ -31,7 +31,7 @@
                   @endeach
                 </div>
               </div>
-              @if(ticket.recipient_id == auth.user.id || auth.user.is_admin == true)
+              @if(ticket.status != 'Abgelehnt' && ticket.status != 'Erledigt' && ticket.status != 'Sistiert' && (ticket.recipient_id === auth.user.id || auth.user.is_admin == true))
                 <div class="dropdown">
                   <button class="btn btn-success btn-sm" type="button" id="statusDropdownButtons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Weiterleiten &rarr;
