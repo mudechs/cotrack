@@ -44,7 +44,7 @@ class PasswordResetController {
       await Mail.send('emails.password_reset', mailData, message => {
         message
           .to(user.email)
-          .from('info@codiac.ch')
+          .from('no-reply@codiacs.ch')
           .subject('Link zum zurücksetzen deines Passworts')
       })
 

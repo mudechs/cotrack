@@ -46,7 +46,7 @@ class RegisterController {
     await Mail.send('emails.confirm_registration', user.toJSON(), message => {
       message
         .to(user.email)
-        .from('info@codiac.ch')
+        .from('no-reply@codiacs.ch')
         .subject('Bitte bestätige deine E-Mail Adresse')
     })
 

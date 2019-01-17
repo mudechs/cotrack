@@ -69,13 +69,13 @@ class TicketController {
     })
 
     // Send confirmation E-Mail if recipient is NOT the author
-    if(ticket.recipient_id != auth.user.id) {
-      const author = await ticket.ticketAuthor().fetch()
+    if(ticket.recipient_id == auth.user.id) {
+      // const author = await ticket.ticketAuthor().fetch()
       const recipient = await ticket.ticketRecipient().fetch()
 
       await Mail.send('emails.new_ticket_notification', ticket.toJSON(), message => {
         message
-          .from(author.email)
+          .from('no-reply@codiacs.ch')
           .to(recipient.email)
           .subject(`Dir wurde ein neues Ticket (#${ticket.id}) zugewiesen.`)
       })
@@ -169,12 +169,12 @@ class TicketController {
 
     // Send confirmation E-Mail if recipient is NOT the author
     if(ticket.recipient_id != auth.user.id) {
-      const author = await ticket.ticketAuthor().fetch()
+      // const author = await ticket.ticketAuthor().fetch()
       const recipient = await ticket.ticketRecipient().fetch()
 
       await Mail.send('emails.new_ticket_notification', ticket.toJSON(), message => {
         message
-          .from(author.email)
+          .from('no-reply@codiacs.ch')
           .to(recipient.email)
           .subject(`Dir wurde ein neues Ticket (#${ticket.id}) zugewiesen.`)
       })

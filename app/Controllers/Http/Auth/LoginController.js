@@ -79,7 +79,7 @@ class LoginController {
             await Mail.send('emails.confirm_2fa_login', mailData, message => {
               message
                 .to(user.email)
-                .from('info@codiac.ch')
+                .from('no-reply@codiacs.ch')
                 .subject('Dein 2FA-Code zum Anmelden')
             })
 
