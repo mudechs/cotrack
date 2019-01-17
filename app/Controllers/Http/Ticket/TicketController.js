@@ -159,7 +159,7 @@ class TicketController {
     return response.route('ticketsShow', { id: ticket.id })
   }
 
-  async changeRecipient({ params, request, session, response }) {
+  async changeRecipient({ params, auth, request, session, response }) {
     const ticket = await Ticket.find(params.id)
 
     ticket.recipient_id = request.input('recipient_id')
