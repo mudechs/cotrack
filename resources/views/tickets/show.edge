@@ -9,22 +9,46 @@
             {{ csrfField() }}
             <input type="hidden" name="status" id="status-input" value="{{ ticket.status }}">
           </form>
+          <form id="recipient-change-form" action="{{ route('ticketsChangeRecipient', { id: ticket.id }) }}" method="post">
+            {{ csrfField() }}
+            <input type="hidden" name="recipient_id" id="recipient-input" value="{{ ticket.recipient_id }}">
+          </form>
           <div class="card-header d-flex justify-content-between align-items-center">
-            <div class="dropdown">
-              <button class="btn btn-warning btn-sm dropdown-toggle" type="button" id="statusDropdownButtons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ ticket.status }}
-              </button>
-              <div class="dropdown-menu" aria-labelledby="statusDropdownButtons">
-                @each(status in statuses)
-                  <a class="
-                    dropdown-item
-                    status-dropdown-item
-                    @if(status.label == ticket.status)
-                      disabled
-                    @endif
-                  " href="#" data-status="{{ status.label }}">{{ status.label }}</a>
-                @endeach
+            <div class="btn-group">
+              <div class="dropdown mr-2">
+                <button class="btn btn-warning btn-sm dropdown-toggle" type="button" id="statusDropdownButtons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ ticket.status }}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="statusDropdownButtons">
+                  @each(status in statuses)
+                    <a class="
+                      dropdown-item
+                      status-dropdown-item
+                      @if(status.label == ticket.status)
+                        disabled
+                      @endif
+                    " href="#" data-status="{{ status.label }}">{{ status.label }}</a>
+                  @endeach
+                </div>
               </div>
+              @if(ticket.recipient_id == auth.user.id || auth.user.is_admin == true)
+                <div class="dropdown">
+                  <button class="btn btn-success btn-sm" type="button" id="statusDropdownButtons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Weiterleiten &rarr;
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="recipientDropdownButtons">
+                    @each(member in project.members)
+                      <a class="
+                        dropdown-item
+                        recipient-dropdown-item
+                        @if(member.id == ticket.recipient_id)
+                          disabled
+                        @endif
+                      " href="#" data-recipient="{{ member.id }}">{{ member.first_name }} {{ member.last_name }}</a>
+                    @endeach
+                  </div>
+                </div>
+              @endif
             </div>
             @if(auth.user.id == ticket.author_id || auth.user.is_admin == true)
               <a href="{{ route('ticketsEdit', { id: ticket.id }) }}" class="btn btn-sm btn-outline-warning"><i class="fas fa-pencil-alt"></i></a>
@@ -34,7 +58,7 @@
             <div class="card-text">
               <h2>#{{ ticket.id }} - {{ ticket.subject }}</h2>
               <hr>
-              <small><b>Projekt: </b><a href="{{ route('projectsShow', { id: ticket.project.id }) }}">{{ ticket.project.title }}</a></small>
+              <small><b>Projekt: </b><a href="{{ route('projectsShow', { id: project.id }) }}">{{ project.title }}</a></small>
               <hr>
               {{{ ticket.description }}}
             </div>
@@ -42,7 +66,7 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div class="card text-white bg-dark">
+        <div class="card text-white bg-dark mb-3">
           <div class="card-body p-2">
             <table class="table table-sm table-borderless text-nowrap m-0">
               <tbody>
@@ -58,6 +82,12 @@
                   <th>Autor:</th>
                   <td>{{ ticket.ticketAuthor.first_name }} {{ ticket.ticketAuthor.last_name }}</td>
                 </tr>
+                @if(ticket.forwarder_id)
+                <tr>
+                  <th>Forwarder:</th>
+                  <td>{{ ticket.ticketForwarder.first_name }} {{ ticket.ticketForwarder.last_name }}</td>
+                </tr>
+                @endif
                 <tr>
                     <th>Empfänger:</th>
                     <td>
@@ -80,6 +110,12 @@
             </table>
           </div>
         </div>
+        <div class="card text-white bg-dark">
+          <div class="card-header text-center">Log</div>
+          <div class="card-body">
+
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -88,6 +124,7 @@
 @section('js')
   <script>
     $(document).ready(function () {
+      // Status wechseln
       $('.status-dropdown-item').on('click', function(e){
         e.preventDefault();
 
@@ -97,6 +134,18 @@
 
         $('#status-change-form').submit();
       });
+
+      // Ticket weiterleiten
+      $('.recipient-dropdown-item').on('click', function(e){
+        e.preventDefault();
+
+        const recipient = $(this).data('recipient');
+        $('#recipient-input').val(recipient);
+        $('#recipientDropdownButtons').text(recipient);
+
+        $('#recipient-change-form').submit();
+      });
+
     });
   </script>
 @endsection

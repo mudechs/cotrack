@@ -4,7 +4,9 @@ const { statuses, priorities } = require('../../../../config/ticket')
 const { validateAll } = use('Validator')
 const Ticket = use('App/Models/Ticket')
 const Project = use('App/Models/Project')
+const User = use('App/Models/User')
 const markdown = require('showdown')
+const Mail = use('Mail')
 
 class TicketController {
   async show({ params, view }) {
@@ -12,7 +14,11 @@ class TicketController {
       .where('id', params.id)
       .with('ticketAuthor')
       .with('ticketRecipient')
-      .with('project')
+      .first()
+
+    const project = await Project.query()
+      .where('id', ticket.project_id)
+      .with('members')
       .first()
 
     const descriptionMd = ticket.description
@@ -22,6 +28,7 @@ class TicketController {
 
     return view.render('tickets.show', {
       ticket: ticket.toJSON(),
+      project: project.toJSON(),
       statuses: statuses
     })
   }
@@ -60,6 +67,19 @@ class TicketController {
       project_id: request.input('project'),
       recipient_id: request.input('recipient')
     })
+
+    // Send confirmation E-Mail if recipient is NOT the author
+    if(ticket.recipient_id != auth.user.id) {
+      const author = await ticket.ticketAuthor().fetch()
+      const recipient = await ticket.ticketRecipient().fetch()
+
+      await Mail.send('emails.new_ticket_notification', ticket.toJSON(), message => {
+        message
+          .from(author.email)
+          .to(recipient.email)
+          .subject(`Dir wurde ein neues Ticket (#${ticket.id}) zugewiesen.`)
+      })
+    }
 
     session.flash({
       notification: {
@@ -133,6 +153,37 @@ class TicketController {
       notification: {
         type: 'success',
         message: 'Die Status wurde erfolgreich geändert.'
+      }
+    })
+
+    return response.route('ticketsShow', { id: ticket.id })
+  }
+
+  async ticketsChangeRecipient({ params, request, session, response }) {
+    const ticket = await Ticket.find(params.id)
+
+    ticket.recipient_id = request.input('recipient_id')
+    ticket.forwarder_id = auth.user.id
+
+    await ticket.save()
+
+    // Send confirmation E-Mail if recipient is NOT the author
+    if(ticket.recipient_id != auth.user.id) {
+      const author = await ticket.ticketAuthor().fetch()
+      const recipient = await ticket.ticketRecipient().fetch()
+
+      await Mail.send('emails.new_ticket_notification', ticket.toJSON(), message => {
+        message
+          .from(author.email)
+          .to(recipient.email)
+          .subject(`Dir wurde ein neues Ticket (#${ticket.id}) zugewiesen.`)
+      })
+    }
+
+    session.flash({
+      notification: {
+        type: 'success',
+        message: 'Das Ticket wurde erfolgreich weitergeleitet.'
       }
     })
 
