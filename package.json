@@ -9,7 +9,7 @@
     "test": "node ace test"
   },
   "engines": {
-    "node": "10.6.0"
+    "node": "11.6.0"
   },
   "keywords": [
     "adonisjs",
