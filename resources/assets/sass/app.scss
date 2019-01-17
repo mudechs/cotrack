@@ -1,0 +1,37 @@
+@import "custom";
+@import "node_modules/bootstrap/scss/bootstrap";
+
+.nav-tabs .nav-link.active {
+  border: none;
+}
+
+.nav-tabs {
+  border-bottom: none;
+}
+
+.nav-link:not(.active) {
+  color: #ba8b00;
+}
+
+.nav-link:hover {
+  color: #FFC008;
+}
+
+.fa-stack {
+  font-size: 0.6rem;
+}
+
+.fa-stack > i {
+  vertical-align: middle;
+}
+
+label, table.table th {
+  font-size: 0.8rem;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+.btn.btn-sm {
+  padding-top: 0;
+  padding-bottom: 0;
+}

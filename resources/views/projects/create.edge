@@ -1,0 +1,68 @@
+@layout('layouts.app')
+
+@section('content')
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <div class="card text-white bg-dark">
+          <div class="card-header text-center">Neues Projekt erstellen</div>
+          <form action="{{ route('projectsStore') }}" method="post">
+            {{ csrfField() }}
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label for="title">Titel</label>
+                    <input
+                      type="text"
+                      class="form-control {{ hasErrorFor('title') ? 'is-invalid' : '' }}"
+                      name="title"
+                      id="title"
+                      autofocus>
+                    {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('title'), hasErrorFor('title')) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="description">Beschreibung</label>
+                    <textarea
+                      name="description"
+                      class="form-control {{ hasErrorFor('description') ? 'is-invalid' : '' }}"
+                      id="description"
+                      rows="10"></textarea>
+                    {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('description'), hasErrorFor('description')) }}
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        name="is_active"
+                        id="is_active"
+                        checked
+                        >
+                      <label class="form-check-label" for="is_active">
+                          Aktiv?
+                      </label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <select name="members" class="custom-select" multiple>
+                      <option value="" selected>Members wählen</option>
+                      @each(member in members)
+                        <option value="{{ member.id }}">{{ member.first_name }} {{ member.last_name }}</option>
+                      @endeach
+                    </select>
+                  </div>
+                </div>
+              </div>
+            <div class="card-footer d-flex justify-content-center">
+              <a href="{{ route('projects') }}" class="btn btn-light mr-2"><i class="fas fa-times"></i></a>
+              <button type="submit" class="btn btn-warning"><i class="far fa-paper-plane fa-fw"></i> Speichern</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+@endsection

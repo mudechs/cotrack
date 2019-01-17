@@ -1,0 +1,134 @@
+@layout('layouts.app')
+
+@section('content')
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-md-9 mb-3">
+        <div class="card text-white bg-dark mb-3">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span>{{ project.title }}</span>
+            @if(auth.user.id == project.author_id || auth.user.is_admin == true)
+              <a href="{{ route('projectsEdit', { id: project.id }) }}" class="btn btn-sm btn-outline-warning"><i class="fas fa-pencil-alt"></i></a>
+            @endif
+          </div>
+          <div class="card-body">
+            <div class="card-text">
+              {{{ project.description }}}
+            </div>
+          </div>
+        </div>
+        <div class="card text-white bg-dark">
+          <div class="card-header text-center">
+            Tickets
+          </div>
+          <ul class="nav" id="tickets" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#open" role="tab" aria-controls="open" aria-selected="true">Offen</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#closed" role="tab" aria-controls="closed" aria-selected="false">Geschlossen</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="ticketsContent">
+            <div class="tab-pane fade show active" id="open" role="tabpanel" aria-labelledby="open-tab">
+              <div class="table-responsive">
+                <table class="table table-dark m-0">
+                  <tbody>
+                    @each(ticket in ticketsOpen)
+                      <tr>
+                        <td scope="row">{{ ticket.id }}</td>
+                        <td>
+                          <span class="badge badge-pill
+                            @each(priority in priorities)
+                            @if(priority.label == $parent.ticket.priority)
+                            badge-{{ priority.color }}
+                            @endif
+                            @endeach
+                          ">{{ ticket.priority }}</span>
+                        </td>
+                        <td class="text-nowrap">{{ ticket.created_at }}</td>
+                        <td><a href="{{ route('ticketsShow', { id: ticket.id }) }}">{{ ticket.subject }}</a></td>
+                        <td>{{ ticket.status }}</td>
+                      </tr>
+                    @endeach
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="closed" role="tabpanel" aria-labelledby="closed-tab">
+              <div class="table-responsive">
+                <table class="table table-dark m-0">
+                  <tbody>
+                    @each(ticket in ticketsClosed)
+                      <tr>
+                        <td scope="row">{{ ticket.id }}</td>
+                        <td>
+                          <span class="badge badge-pill
+                            @each(priority in priorities)
+                            @if(priority.label == $parent.ticket.priority)
+                            badge-{{ priority.color }}
+                            @endif
+                            @endeach
+                          ">{{ ticket.priority }}</span>
+                        </td>
+                        <td class="text-nowrap">{{ ticket.created_at }}</td>
+                        <td><a href="{{ route('ticketsShow', { id: ticket.id }) }}">{{ ticket.subject }}</a></td>
+                        <td>{{ ticket.status }}</td>
+                      </tr>
+                    @endeach
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-white bg-dark">
+          <div class="card-body p-2">
+            <table class="table table-sm table-borderless text-nowrap m-0">
+              <tbody>
+                <tr>
+                  <th scope="row">Status:</th>
+                  <td>
+                    @if(project.is_active == 0)
+                      <span class="text-danger">Inaktiv</span>
+                    @else
+                      <span class="text-success">Aktiv</span>
+                    @endif
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">ID:</th>
+                  <td>{{ project.id }}</td>
+                </tr>
+                <tr>
+                  <th>Autor:</th>
+                  <td>{{ project.projectAuthor.first_name }} {{ project.projectAuthor.last_name }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Erstellt:</th>
+                  <td>{{ project.created_at }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Geändert:</th>
+                  <td>{{ project.updated_at }}</td>
+                </tr>
+                <tr>
+                    <th>Members:</th>
+                    <td>
+                      <ul class="list-unstyled">
+                        @each(member in project.members)
+                          <li><a href="{{ route('usersShow', { id: member.id }) }}">{{ member.first_name }} {{ member.last_name }}</a></li>
+                        @endeach
+                      </ul>
+                    </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+@endsection

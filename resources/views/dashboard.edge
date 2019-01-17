@@ -1,0 +1,89 @@
+@layout('layouts.app')
+
+@section('content')
+  <div class="container-fluid mt-3">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card text-white bg-dark mb-3">
+          <div class="card-header text-center">Mir zugewiesen</div>
+          <div class="list-group list-group-flush">
+            @each(ticket in ticketsAssignedToMe)
+              <a href="{{ route('ticketsShow', { id: ticket.id }) }}" class="list-group-item list-group-item-action text-white bg-dark">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span>
+                    <span class="badge badge-pill badge-secondary">{{ ticket.status }}</span>
+                    <span class="
+                      badge badge-pill
+                      @each(priority in priorities)
+                      @if(priority.label == $parent.ticket.priority)
+                      badge-{{ priority.color }}
+                      @endif
+                      @endeach
+                    ">{{ ticket.priority }}</span>
+                  </span>
+                  <span><small>{{ ticket.created_at }}</small></span>
+                </div>
+                <h6 class=""><i class="fas fa-ticket-alt"></i> {{ ticket.subject }}</h6>
+                <small><b>Projekt: </b>{{ ticket.project.title }}</small>
+              </a>
+            @endeach
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-white bg-dark mb-3">
+          <div class="card-header text-center">Von mir berichtet</div>
+          <div class="list-group list-group-flush">
+            @each(ticket in ticketsAssignedToOthers)
+              <a href="{{ route('ticketsShow', { id: ticket.id }) }}" class="list-group-item list-group-item-action text-white bg-dark">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span>
+                    <span class="badge badge-pill badge-secondary">{{ ticket.status }}</span>
+                    <span class="
+                      badge badge-pill
+                      @each(priority in priorities)
+                      @if(priority.label == $parent.ticket.priority)
+                      badge-{{ priority.color }}
+                      @endif
+                      @endeach
+                    ">{{ ticket.priority }}</span>
+                  </span>
+                  <span><small>{{ ticket.created_at }}</small></span>
+                </div>
+                <h6 class=""><i class="fas fa-ticket-alt"></i> {{ ticket.subject }}</h6>
+                <small><b>Projekt: </b>{{ ticket.project.title }}</small>
+              </a>
+            @endeach
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-white bg-dark mb-3">
+          <div class="card-header text-center">Nicht zugewiesen</div>
+          <div class="list-group list-group-flush">
+            @each(ticket in ticketsNotAssigned)
+              <a href="{{ route('ticketsShow', { id: ticket.id }) }}" class="list-group-item list-group-item-action text-white bg-dark">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span>
+                    <span class="badge badge-pill badge-secondary">{{ ticket.status }}</span>
+                    <span class="
+                      badge badge-pill
+                      @each(priority in priorities)
+                      @if(priority.label == $parent.ticket.priority)
+                      badge-{{ priority.color }}
+                      @endif
+                      @endeach
+                    ">{{ ticket.priority }}</span>
+                  </span>
+                  <span><small>{{ ticket.created_at }}</small></span>
+                </div>
+                <h6 class=""><i class="fas fa-ticket-alt"></i> {{ ticket.subject }}</h6>
+                <small><b>Projekt: </b>{{ ticket.project.title }}</small>
+              </a>
+            @endeach
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+@endsection

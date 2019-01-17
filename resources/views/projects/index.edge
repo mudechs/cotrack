@@ -1,0 +1,46 @@
+@layout('layouts.app')
+
+@section('content')
+  <div class="container mt-3">
+    <div class="card text-white bg-dark">
+      <div class="card-header d-flex justify-content-between align-items-center">
+          <span>Projekte</span>
+          <a href="{{ route('projectsCreate') }}" class="btn btn-sm btn-outline-warning"><i class="fas fa-plus"></i></a>
+      </div>
+      <div class="table-responsive-sm">
+        <table class="table text-nowrap table-dark m-0">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Titel</th>
+              <th scope="col">Erstellt</th>
+              <th scope="col">Autor</th>
+              <th scope="col" class="text-center">Status</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            @each(project in projects)
+              <tr>
+                <td scope="row">{{ project.id }}</td>
+                <td>{{ project.title }}</td>
+                <td>{{ project.created_at }}</td>
+                <td>{{ project.projectAuthor.first_name }} {{ project.projectAuthor.last_name }}</td>
+                <td class="text-center">
+                    @if(user.is_active == 0)
+                      <span class="text-danger">Inaktiv</span>
+                    @else
+                      <span class="text-success">Aktiv</span>
+                    @endif
+                </td>
+                <td class="text-right">
+                  <a href="{{ route('projectsShow', { id: project.id }) }}" class="btn btn-sm btn-warning"><i class="far fa-eye"></i></a>
+                </td>
+              </tr>
+            @endeach
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+@endsection

@@ -1,0 +1,102 @@
+@layout('layouts.app')
+
+@section('content')
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-md-8 mb-3">
+        <div class="card text-white bg-dark">
+          <form id="status-change-form" action="{{ route('ticketsChangeStatus', { id: ticket.id }) }}" method="post">
+            {{ csrfField() }}
+            <input type="hidden" name="status" id="status-input" value="{{ ticket.status }}">
+          </form>
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <div class="dropdown">
+              <button class="btn btn-warning btn-sm dropdown-toggle" type="button" id="statusDropdownButtons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ ticket.status }}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="statusDropdownButtons">
+                @each(status in statuses)
+                  <a class="
+                    dropdown-item
+                    status-dropdown-item
+                    @if(status.label == ticket.status)
+                      disabled
+                    @endif
+                  " href="#" data-status="{{ status.label }}">{{ status.label }}</a>
+                @endeach
+              </div>
+            </div>
+            @if(auth.user.id == ticket.author_id || auth.user.is_admin == true)
+              <a href="{{ route('ticketsEdit', { id: ticket.id }) }}" class="btn btn-sm btn-outline-warning"><i class="fas fa-pencil-alt"></i></a>
+            @endif
+          </div>
+          <div class="card-body">
+            <div class="card-text">
+              <h2>#{{ ticket.id }} - {{ ticket.subject }}</h2>
+              <hr>
+              <small><b>Projekt: </b><a href="{{ route('projectsShow', { id: ticket.project.id }) }}">{{ ticket.project.title }}</a></small>
+              <hr>
+              {{{ ticket.description }}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-white bg-dark">
+          <div class="card-body p-2">
+            <table class="table table-sm table-borderless text-nowrap m-0">
+              <tbody>
+                <tr>
+                  <th scope="row">Priorität:</th>
+                  <td>{{ ticket.priority }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">ID:</th>
+                  <td>{{ ticket.id }}</td>
+                </tr>
+                <tr>
+                  <th>Autor:</th>
+                  <td>{{ ticket.ticketAuthor.first_name }} {{ ticket.ticketAuthor.last_name }}</td>
+                </tr>
+                <tr>
+                    <th>Empfänger:</th>
+                    <td>
+                      @if(ticket.ticketRecipient)
+                        {{ ticket.ticketRecipient.first_name }} {{ ticket.ticketRecipient.last_name }}
+                      @else
+                        nicht zugewiesen
+                      @endif
+                    </td>
+                  </tr>
+                <tr>
+                  <th scope="row">Erstellt:</th>
+                  <td>{{ ticket.created_at }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Geändert:</th>
+                  <td>{{ ticket.updated_at }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+@endsection
+
+@section('js')
+  <script>
+    $(document).ready(function () {
+      $('.status-dropdown-item').on('click', function(e){
+        e.preventDefault();
+
+        const status = $(this).data('status');
+        $('#status-input').val(status);
+        $('#statusDropdownButtons').text(status);
+
+        $('#status-change-form').submit();
+      });
+    });
+  </script>
+@endsection

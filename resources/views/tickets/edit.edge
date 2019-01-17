@@ -1,0 +1,111 @@
+@layout('layouts.app')
+
+@section('content')
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <div class="card text-white bg-dark">
+          <div class="card-header text-center">Ticket bearbeiten</div>
+          <form action="{{ route('ticketsUpdate', { id: ticket.id }) }}" method="post">
+            {{ csrfField() }}
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label for="subject">Betreff</label>
+                    <input
+                      type="text"
+                      class="form-control {{ hasErrorFor('subject') ? 'is-invalid' : '' }}"
+                      name="subject"
+                      id="subject"
+                      value="{{ ticket.subject }}"
+                      autofocus>
+                    {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('subject'), hasErrorFor('subject')) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="description">Beschreibung</label>
+                    <textarea
+                      name="description"
+                      class="form-control {{ hasErrorFor('description') ? 'is-invalid' : '' }}"
+                      id="description"
+                      rows="10">{{ ticket.description }}</textarea>
+                    {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('description'), hasErrorFor('description')) }}
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="description">Priorität</label>
+                    <select name="priority" class="form-control">
+                      @each(priority in priorities)
+                        <option value="{{ priority.label }}"
+                          @if(priority.label == ticket.priority)
+                            selected
+                          @endif
+                        >{{ priority.label }}</option>
+                      @endeach
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="project">Projekt</label>
+                    <select name="project" id="project" class="form-control">
+                      <option value="">Bitte wählen...</option>
+                      @each(project in projects)
+                        <option value="{{ project.id }}"
+                          @if(project.id == ticket.project_id)
+                            selected
+                          @endif
+                        >{{ project.title }}</option>
+                      @endeach
+                    </select>
+                  </div>
+                  <div class="form-group" style="display: none;">
+                    <label for="recipient">Empfänger</label>
+                    <select name="recipient" id="recipient" class="form-control">
+                      <option value="{{ ticket.ticketAuthor.id }}">{{ ticket.ticketAuthor.first_name }} {{ ticket.ticketAuthor.last_name }}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            <div class="card-footer d-flex justify-content-center">
+              <a href="{{ route('dashboard') }}" class="btn btn-light mr-2"><i class="fas fa-times"></i></a>
+              <button type="submit" class="btn btn-warning"><i class="far fa-paper-plane fa-fw"></i> Speichern</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+@endsection
+
+@section('js')
+  <script>
+    $(document).ready(function () {
+      $('#project').on('change', function(){
+        const projectId = $(this).val();
+        const apiUrl = '/api/tickets/projectMembers/' + projectId;
+        const recipient = $('#recipient');
+
+        $.getJSON( apiUrl, function(data) {
+          if(data.length > 0) {
+            let items = [];
+            items.push('<option value="">Bitte wählen...</option>');
+
+            $.each(data, function(key, val) {
+              const fullName = val.first_name + " " + val.last_name;
+              items.push('<option value="' + val.id + '">' + fullName + '</option>');
+            });
+
+            recipient.html(items);
+            recipient.closest('.form-group').fadeIn('fast');
+          } else {
+            console.log('No data');
+            recipient.closest('.form-group').hide();
+          }
+        })
+        .fail(function() {
+          console.log('Error');
+        })
+      });
+    });
+  </script>
+@endsection

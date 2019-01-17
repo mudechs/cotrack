@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="{{ route('dashboard') }}">CoTrack</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="mainNavbar">
+    <ul class="navbar-nav mr-auto">
+      @loggedIn
+        <li class="nav-item {{ activeRoute('projects*') }}">
+          <a class="nav-link" href="{{ route('projectsIndex') }}">Projekte</a>
+        </li>
+        <li class="nav-item {{ activeRoute('users*') }}">
+          <a class="nav-link" href="{{ route('usersIndex') }}">Benutzer</a>
+        </li>
+      @endloggedIn
+    </ul>
+
+    <ul class="navbar-nav">
+      @loggedIn
+        <li class="nav-item {{ activeRoute('tickets*') }}">
+          <a class="btn btn-danger my-2 my-sm-0 mr-3" href="{{ route('ticketsCreate') }}"><i class="fas fa-plus"></i> Ticket</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Hallo <span class="text-warning">{{ auth.user.first_name }} {{ auth.user.last_name }}</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item px-3" href="{{ route('usersShow', { id: auth.user.id }) }}"><i class="fas fa-user-circle fa-fw text-black-50"></i> Mein Profil</a>
+            <a class="dropdown-item px-3" href="{{ route('passwordEdit', { id: auth.user.id }) }}"><i class="fas fa-key fa-fw text-black-50"></i> Passwort ändern</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item px-3" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt fa-fw text-black-50"></i> Abmelden</a>
+          </div>
+        </li>
+      @else
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('register') }}">Registrieren</a>
+        </li>
+        <a class="btn btn-outline-primary my-2 my-sm-0" href="{{ route('login') }}">Anmelden</a>
+      @endloggedIn
+    </ul>
+  </div>
+</nav>
