@@ -1,6 +1,7 @@
 'use strict'
 
-const { statuses, priorities } = require('../../../../config/ticket')
+const Config = use('Config')
+const { statuses, priorities } = Config.get('ticket')
 const { validateAll } = use('Validator')
 const Project = use('App/Models/Project')
 const Ticket = use('App/Models/Ticket')
@@ -95,7 +96,8 @@ class ProjectController {
   async store({ request, auth, session, response }) {
     const validation = await validateAll(request.all(), {
       title: 'required',
-      description: 'required'
+      description: 'required',
+      code: 'required|unique:projects, code'
     })
 
     if (validation.fails()) {
@@ -111,6 +113,7 @@ class ProjectController {
     const project = await Project.create({
       title: request.input('title'),
       description: request.input('description'),
+      code: request.input('code'),
       is_active: isActive,
       author_id: auth.user.id
     })
@@ -164,6 +167,7 @@ class ProjectController {
 
     project.title = request.input('title')
     project.description = request.input('description')
+    project.code = request.input('code')
     project.is_active = isActive
 
     await project.save()

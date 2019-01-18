@@ -7,31 +7,38 @@
         <div class="card text-white bg-dark">
           <form id="status-change-form" action="{{ route('ticketsChangeStatus', { id: ticket.id }) }}" method="post">
             {{ csrfField() }}
-            <input type="hidden" name="status" id="status-input" value="{{ ticket.status }}">
+            <input type="hidden" name="status" id="status-change-input" value="{{ ticket.status }}">
           </form>
           <form id="recipient-change-form" action="{{ route('ticketsChangeRecipient', { id: ticket.id }) }}" method="post">
             {{ csrfField() }}
-            <input type="hidden" name="recipient_id" id="recipient-input" value="{{ ticket.recipient_id }}">
+            <input type="hidden" name="recipient_id" id="recipient-change-input" value="{{ ticket.recipient_id }}">
+          </form>
+          <form id="assign-change-form" action="{{ route('ticketsAssignToMe', { id: ticket.id }) }}" method="post">
+            {{ csrfField() }}
+            <input type="hidden" name="recipient_id" id="recipient-assign-input" value="{{ ticket.recipient_id }}">
+            <input type="hidden" name="status" value="Anerkannt">
           </form>
           <div class="card-header d-flex justify-content-between align-items-center">
             <div class="btn-group">
-              <div class="dropdown mr-2">
-                <button class="btn btn-warning btn-sm dropdown-toggle" type="button" id="statusDropdownButtons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {{ ticket.status }}
-                </button>
-                <div class="dropdown-menu" aria-labelledby="statusDropdownButtons">
-                  @each(status in statuses)
-                    <a class="
-                      dropdown-item
-                      status-dropdown-item
-                      @if(status.label == ticket.status)
-                        disabled
-                      @endif
-                    " href="#" data-status="{{ status.label }}">{{ status.label }}</a>
-                  @endeach
+              @if(ticket.recipient_id == auth.user.id)
+                <div class="dropdown mr-2">
+                  <button class="btn btn-warning btn-sm dropdown-toggle" type="button" id="statusDropdownButtons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ ticket.status }}
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="statusDropdownButtons">
+                    @each(status in statuses)
+                      <a class="
+                        dropdown-item
+                        status-dropdown-item
+                        @if(status.label == ticket.status)
+                          disabled
+                        @endif
+                      " href="#" data-status="{{ status.label }}">{{ status.label }}</a>
+                    @endeach
+                  </div>
                 </div>
-              </div>
-              @if(ticket.status != 'Abgelehnt' && ticket.status != 'Erledigt' && ticket.status != 'Sistiert' && (ticket.recipient_id === auth.user.id || auth.user.is_admin == true))
+              @endif
+              @if(ticket.status != 'Abgelehnt' && ticket.status != 'Erledigt' && ticket.status != 'Sistiert' && ticket.recipient_id === auth.user.id)
                 <div class="dropdown">
                   <button class="btn btn-success btn-sm" type="button" id="statusDropdownButtons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Weiterleiten &rarr;
@@ -48,9 +55,13 @@
                     @endeach
                   </div>
                 </div>
+              @else
+                <button class="btn btn-danger btn-sm" type="button" id="assignToMeButton" data-recipient="{{ auth.user.id }}">
+                  Übernehmen
+                </button>
               @endif
             </div>
-            @if(auth.user.id == ticket.author_id || auth.user.is_admin == true)
+            @if(ticket.author_id == auth.user.id || ticket.recipient_id == auth.user.id )
               <a href="{{ route('ticketsEdit', { id: ticket.id }) }}" class="btn btn-sm btn-outline-warning"><i class="fas fa-pencil-alt"></i></a>
             @endif
           </div>
@@ -124,12 +135,20 @@
 @section('js')
   <script>
     $(document).ready(function () {
+      // Ticket übernehmen
+      $('#assignToMeButton').on('click', function(){
+        const recipient = $(this).data('recipient');
+        $('#recipient-assign-input').val(recipient);
+
+        $('#assign-change-form').submit();
+      });
+
       // Status wechseln
       $('.status-dropdown-item').on('click', function(e){
         e.preventDefault();
 
         const status = $(this).data('status');
-        $('#status-input').val(status);
+        $('#status-change-input').val(status);
         $('#statusDropdownButtons').text(status);
 
         $('#status-change-form').submit();
@@ -140,7 +159,7 @@
         e.preventDefault();
 
         const recipient = $(this).data('recipient');
-        $('#recipient-input').val(recipient);
+        $('#recipient-change-input').val(recipient);
         $('#recipientDropdownButtons').text(recipient);
 
         $('#recipient-change-form').submit();

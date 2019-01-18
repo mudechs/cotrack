@@ -1,6 +1,7 @@
 'use strict'
 
-const { statuses, priorities } = require('../../../config/ticket')
+const Config = use('Config')
+const { statuses, priorities } = Config.get('ticket')
 const Ticket = use('App/Models/Ticket')
 
 class DashboardController {
@@ -23,7 +24,6 @@ class DashboardController {
       .fetch()
 
     const ticketsNotAssigned = await Ticket.query()
-      .where('author_id', auth.user.id)
       .whereNull('recipient_id')
       .whereIn('status', statusesOpen)
       .orderBy('created_at', 'desc')

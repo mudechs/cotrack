@@ -1,6 +1,7 @@
 'use strict'
 
-const { statuses, priorities } = require('../../../../config/ticket')
+const Config = use('Config')
+const { statuses, priorities } = Config.get('ticket')
 const { validateAll } = use('Validator')
 const Ticket = use('App/Models/Ticket')
 const Project = use('App/Models/Project')
@@ -77,7 +78,7 @@ class TicketController {
         message
           .from('no-reply@codiacs.ch')
           .to(recipient.email)
-          .subject(`Dir wurde ein neues Ticket (#${ticket.id}) zugewiesen.`)
+          .subject(`Dir wurde ein neues Ticket [#${ticket.id}] zugewiesen.`)
       })
     }
 
@@ -142,6 +143,35 @@ class TicketController {
     return response.route('ticketsShow', { id: ticket.id })
   }
 
+  async assignToMe({ params, auth, request, session, response }) {
+    const ticket = await Ticket.find(params.id)
+
+    ticket.recipient_id = request.input('recipient_id')
+    ticket.status = request.input('status')
+
+    await ticket.save()
+
+    // Informiere den Author, dass das Ticket anerkannt wurde
+    const author = await ticket.ticketAuthor().fetch()
+    const recipient = await ticket.ticketRecipient().fetch()
+
+    await Mail.send('emails.assigned_ticket_notification', ticket.toJSON(), message => {
+      message
+        .from('no-reply@codiacs.ch')
+        .to(author.email)
+        .subject(`Das Ticket [#${ticket.id}] wurde von ${recipient.first_name} ${recipient.last_name} übernommen.`)
+    })
+
+    session.flash({
+      notification: {
+        type: 'success',
+        message: 'Das Ticket wurde erfolgreich übernommen.'
+      }
+    })
+
+    return response.route('ticketsShow', { id: ticket.id })
+  }
+
   async changeStatus({ params, request, session, response }) {
     const ticket = await Ticket.find(params.id)
 
@@ -176,7 +206,7 @@ class TicketController {
         message
           .from('no-reply@codiacs.ch')
           .to(recipient.email)
-          .subject(`Dir wurde ein neues Ticket (#${ticket.id}) zugewiesen.`)
+          .subject(`Dir wurde ein neues Ticket [#${ticket.id}] zugewiesen.`)
       })
     }
 
@@ -190,7 +220,7 @@ class TicketController {
     return response.route('ticketsShow', { id: ticket.id })
   }
 
-  // API Calls
+  // Private API
   async apiGetProjectMembers({ params, response }) {
     const project = await Project.query()
       .select('id', 'title')
@@ -202,6 +232,46 @@ class TicketController {
       .fetch()
 
     response.send(members)
+  }
+
+  // Public API
+  async apiPublicTicketCreate({ request, response }) {
+    const validation = await validateAll(request.all(), {
+      token: 'required',
+      subject: 'required',
+      description: 'required',
+      priority: 'required',
+      project: 'required',
+      email: 'required'
+    })
+
+    if (validation.fails()) {
+      return response.status(406).send(validation.messages())
+    }
+
+    const ticket = request.all()
+
+    const user = await User.query()
+      .where('email', ticket.email)
+      .first()
+
+    const project = await Project.query()
+      .where('code', ticket.project)
+      .first()
+
+    if (user && project) {
+      await Ticket.create({
+        subject: ticket.subject,
+        description: ticket.description,
+        priority: ticket.priority,
+        author_id: user.id,
+        project_id: project.id
+      })
+
+      return response.status(200).send('Das Ticket wurde erfolgreich übermittelt.')
+    }
+
+    return response.status(500).send('Das Ticket konnte nicht erstellt werden.')
   }
 }
 
