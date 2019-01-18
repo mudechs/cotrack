@@ -18,6 +18,7 @@
                       class="form-control {{ hasErrorFor('title') ? 'is-invalid' : '' }}"
                       name="title"
                       id="title"
+                      value="{{ old('title', '') }}"
                       autofocus>
                     {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('title'), hasErrorFor('title')) }}
                   </div>
@@ -27,7 +28,7 @@
                       name="description"
                       class="form-control {{ hasErrorFor('description') ? 'is-invalid' : '' }}"
                       id="description"
-                      rows="10"></textarea>
+                      rows="10">{{ old('description', '') }}</textarea>
                     {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('description'), hasErrorFor('description')) }}
                   </div>
                 </div>

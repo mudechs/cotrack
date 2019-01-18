@@ -8,48 +8,77 @@ const User = use('App/Models/User')
 const markdown = require('showdown')
 
 class ProjectController {
-  async index({ view }) {
-    const projects = await Project.query()
-      .with('projectAuthor')
-      .fetch()
+  async index({ auth, view }) {
+    let projects = []
+
+    if(auth.user.is_admin) {
+      projects = await Project.query()
+        .where('is_active', true)
+        .with('projectAuthor')
+        .fetch()
+    } else {
+      projects = await Project.query()
+        .where('is_active', true)
+        .where('author_id', auth.user.id)
+        .orWhereHas('members', (builder) => {
+          builder.where('user_id', auth.user.id)
+        })
+        .with('projectAuthor')
+        .fetch()
+    }
 
     return view.render('projects.index', {
       projects: projects.toJSON()
     })
   }
 
-  async show({ params, view }) {
+  async show({ params, auth, session, view, response }) {
     const project = await Project.query()
       .where('id', params.id)
+      .where('author_id', auth.user.id)
+      .orWhereHas('members', (builder) => {
+        builder.where('project_id', params.id)
+      })
       .with('projectAuthor')
       .with('members')
       .first()
 
-    const statusesOpen = await Ticket.ticketStatuses(statuses, 'open')
-    const ticketsOpen = await Ticket.query()
-      .where('project_id', project.id)
-      .whereIn('status', statusesOpen)
-      .orderBy('created_at', 'desc')
-      .fetch()
+    if(project) {
+      const statusesOpen = await Ticket.ticketStatuses(statuses, 'open')
+      const ticketsOpen = await Ticket.query()
+        .where('project_id', project.id)
+        .whereIn('status', statusesOpen)
+        .orderBy('created_at', 'desc')
+        .fetch()
 
-    const statusesClosed = await Ticket.ticketStatuses(statuses, 'closed')
-    const ticketsClosed = await Ticket.query()
-      .where('project_id', project.id)
-      .whereIn('status', statusesClosed)
-      .orderBy('created_at', 'desc')
-      .fetch()
+      const statusesClosed = await Ticket.ticketStatuses(statuses, 'closed')
+      const ticketsClosed = await Ticket.query()
+        .where('project_id', project.id)
+        .whereIn('status', statusesClosed)
+        .orderBy('created_at', 'desc')
+        .fetch()
 
-    const descriptionMd = project.description
-    const md = new markdown.Converter()
+      const descriptionMd = project.description
+      const md = new markdown.Converter()
 
-    project.description = md.makeHtml(descriptionMd)
+      project.description = md.makeHtml(descriptionMd)
 
-    return view.render('projects.show', {
-      project: project.toJSON(),
-      ticketsOpen: ticketsOpen.toJSON(),
-      ticketsClosed: ticketsClosed.toJSON(),
-      priorities: priorities
+      return view.render('projects.show', {
+        project: project.toJSON(),
+        ticketsOpen: ticketsOpen.toJSON(),
+        ticketsClosed: ticketsClosed.toJSON(),
+        priorities: priorities
+      })
+    }
+
+    session.flash({
+      notification: {
+        type: 'error',
+        message: 'Das Projekt kann nicht angezeigt werden.'
+      }
     })
+
+    return response.redirect('back')
   }
 
   async create({ view }) {

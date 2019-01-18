@@ -69,7 +69,7 @@ class TicketController {
     })
 
     // Send confirmation E-Mail if recipient is NOT the author
-    if(ticket.recipient_id == auth.user.id) {
+    if(ticket.recipient_id != auth.user.id) {
       // const author = await ticket.ticketAuthor().fetch()
       const recipient = await ticket.ticketRecipient().fetch()
 
