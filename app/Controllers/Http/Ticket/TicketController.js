@@ -15,6 +15,7 @@ class TicketController {
       .where('id', params.id)
       .with('ticketAuthor')
       .with('ticketRecipient')
+      .with('ticketForwarder')
       .first()
 
     const project = await Project.query()
