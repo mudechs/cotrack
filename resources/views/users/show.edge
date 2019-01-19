@@ -20,7 +20,7 @@
                 <i class="far fa-circle fa-stack-2x"></i>
                 <i class="fas fa-phone fa-stack-1x"></i>
               </span>
-              @if(user.phone)
+              @if(user.phone != null)
                 <a href="tel:{{ user.phone }}">{{ user.phone }}</a>
               @endif
             </div>
@@ -29,7 +29,7 @@
                 <i class="far fa-circle fa-stack-2x"></i>
                 <i class="fas fa-mobile-alt fa-stack-1x"></i>
               </span>
-              @if(user.mobile)
+              @if(user.mobile != null)
                 <a href="tel:{{ user.mobile }}">{{ user.mobile }}</a>
               @endif
             </div>
