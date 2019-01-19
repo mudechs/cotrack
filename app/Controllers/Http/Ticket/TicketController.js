@@ -153,15 +153,17 @@ class TicketController {
     await ticket.save()
 
     // Informiere den Author, dass das Ticket anerkannt wurde
-    const author = await ticket.ticketAuthor().fetch()
-    const recipient = await ticket.ticketRecipient().fetch()
+    if(ticket.recipient_id != ticket.author_id) {
+      const author = await ticket.ticketAuthor().fetch()
+      const recipient = await ticket.ticketRecipient().fetch()
 
-    await Mail.send('emails.assigned_ticket_notification', ticket.toJSON(), message => {
-      message
-        .from('no-reply@codiacs.ch')
-        .to(author.email)
-        .subject(`Das Ticket [#${ticket.id}] wurde von ${recipient.first_name} ${recipient.last_name} übernommen.`)
-    })
+      await Mail.send('emails.assigned_ticket_notification', ticket.toJSON(), message => {
+        message
+          .from('no-reply@codiacs.ch')
+          .to(author.email)
+          .subject(`Das Ticket [#${ticket.id}] wurde von ${recipient.first_name} ${recipient.last_name} übernommen.`)
+      })
+    }
 
     session.flash({
       notification: {
