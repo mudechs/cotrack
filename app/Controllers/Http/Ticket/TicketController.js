@@ -152,7 +152,7 @@ class TicketController {
 
     await ticket.save()
 
-    // Informiere den Author, dass das Ticket anerkannt wurde
+    // Informiere den Author, dass das Ticket übernommen und anerkannt wurde
     if(ticket.recipient_id != ticket.author_id) {
       const author = await ticket.ticketAuthor().fetch()
       const recipient = await ticket.ticketRecipient().fetch()
