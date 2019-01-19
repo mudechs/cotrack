@@ -32,21 +32,6 @@ function scriptRules() {
   }]
 }
 
-function imageLoaderRules() {
-  return [{
-    test: /\.(gif|png|jpe?g|svg)$/i,
-    use: [
-      'file-loader',
-      {
-        loader: 'image-webpack-loader',
-        options: {
-          disable: false, // webpack@2.x and newer
-        },
-      },
-    ]
-  }]
-}
-
 module.exports = {
   entry: [
     './resources/assets/sass/app.scss',
@@ -57,7 +42,7 @@ module.exports = {
     filename: 'public/app.js'
   },
   module: {
-    rules: sassRules().concat(scriptRules()).concat(imageLoaderRules())
+    rules: sassRules().concat(scriptRules())
   },
   plugins: [
     extractSass,

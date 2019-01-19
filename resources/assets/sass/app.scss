@@ -1,6 +1,10 @@
 @import "custom";
 @import "node_modules/bootstrap/scss/bootstrap";
 
+.navbar-brand {
+  font-family: Impact, Charcoal, sans-serif;
+}
+
 .nav-tabs .nav-link.active {
   border: none;
 }
