@@ -80,11 +80,11 @@
     <div class="tab-content mt-3" id="ticketsContent">
       <div class="tab-pane fade show active" id="open" role="tabpanel" aria-labelledby="open-tab">
         <div class="table-responsive">
-          <table class="table table-hover table-borderless table-striped m-0">
+          <table class="table table-hover table-borderless table-striped text-nowrap m-0">
             <tbody>
               @each(ticket in ticketsOpen)
                 <tr class="linkable" data-route="{{ route('ticketsShow', { id: ticket.id }) }}">
-                  <td scope="row" class="text-nowrap">
+                  <td scope="row">
                     <span class="badge badge-pill
                       @each(priority in priorities)
                       @if(priority.label == $parent.ticket.priority)
@@ -94,9 +94,9 @@
                     ">{{ ticket.priority }}</span>
                     <span class="badge badge-pill badge-secondary">{{ ticket.status }}</span>
                   </td>
-                  <td class="text-nowrap">{{ ticket.created_at }}</td>
-                  <td class="text-nowrap"><b>{{ ticket.subject }}</b></td>
-                  <td class="text-nowrap">
+                  <td>{{ ticket.created_at }}</td>
+                  <td><b>{{ ticket.subject }}</b></td>
+                  <td>
                     {{ ticket.ticketAuthor.first_name }} {{ ticket.ticketAuthor.last_name }} &rarr;
                     @if(ticket.ticketRecipient != "null")
                     {{ ticket.ticketRecipient.first_name }} {{ ticket.ticketRecipient.last_name }}
@@ -112,11 +112,11 @@
       </div>
       <div class="tab-pane fade" id="closed" role="tabpanel" aria-labelledby="closed-tab">
         <div class="table-responsive">
-          <table class="table table-hover table-borderless table-striped m-0">
+          <table class="table table-hover table-borderless table-striped text-nowrap m-0">
             <tbody>
               @each(ticket in ticketsClosed)
                 <tr class="linkable" data-route="{{ route('ticketsShow', { id: ticket.id }) }}">
-                  <td scope="row" class="text-nowrap">
+                  <td scope="row">
                     <span class="badge badge-pill
                       @each(priority in priorities)
                       @if(priority.label == $parent.ticket.priority)
@@ -126,9 +126,9 @@
                     ">{{ ticket.priority }}</span>
                     <span class="badge badge-pill badge-secondary">{{ ticket.status }}</span>
                   </td>
-                  <td class="text-nowrap">{{ ticket.created_at }}</td>
-                  <td class="text-nowrap"><b>{{ ticket.subject }}</b></td>
-                  <td class="text-nowrap">
+                  <td>{{ ticket.created_at }}</td>
+                  <td><b>{{ ticket.subject }}</b></td>
+                  <td>
                     {{ ticket.ticketAuthor.first_name }} {{ ticket.ticketAuthor.last_name }} &rarr;
                     @if(ticket.ticketRecipient != "null")
                     {{ ticket.ticketRecipient.first_name }} {{ ticket.ticketRecipient.last_name }}
