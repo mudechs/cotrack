@@ -271,7 +271,7 @@ class TicketController {
       return response.status(200).send('Das Ticket wurde erfolgreich übermittelt.')
     }
 
-    return response.status(500).send('Das Ticket konnte nicht erstellt werden.')
+    return response.status(500).send('Das Ticket konnte nicht erstellt werden weil entweder der User oder das Projekt nicht existieren.')
   }
 }
 
