@@ -152,7 +152,8 @@ class TicketController {
 
     await ticket.save()
 
-    // Informiere den Author, dass das Ticket übernommen und anerkannt wurde
+    /* Informiere den Author, dass das Ticket übernommen und anerkannt wurde.
+    Informiere NICHT, wenn der Author die selbe Person wie der Recipient ist! */
     if(ticket.recipient_id != ticket.author_id) {
       const author = await ticket.ticketAuthor().fetch()
       const recipient = await ticket.ticketRecipient().fetch()
@@ -184,6 +185,8 @@ class TicketController {
 
     const author = await ticket.ticketAuthor().fetch()
 
+    /* Informiere den Recipient, dass sich der Ticket-Status verändert hat.
+    Informiere NICHT, wenn der Author die selbe Person wie der Recipient ist! */
     if(author.id != auth.user.id) {
       await Mail.send('emails.ticket_change_status_notification', ticket.toJSON(), message => {
         message
@@ -211,18 +214,15 @@ class TicketController {
 
     await ticket.save()
 
-    // Send confirmation E-Mail if recipient is NOT the author
-    if(ticket.recipient_id != auth.user.id) {
-      // const author = await ticket.ticketAuthor().fetch()
-      const recipient = await ticket.ticketRecipient().fetch()
+    // Informiere den neuen Recipient, dass ihm ein Ticket zugewiesen wurde
+    const recipient = await ticket.ticketRecipient().fetch()
 
-      await Mail.send('emails.new_ticket_notification', ticket.toJSON(), message => {
-        message
-          .from('no-reply@codiacs.ch')
-          .to(recipient.email)
-          .subject(`Dir wurde ein neues Ticket [#${ticket.id}] zugewiesen.`)
-      })
-    }
+    await Mail.send('emails.new_ticket_notification', ticket.toJSON(), message => {
+      message
+        .from('no-reply@codiacs.ch')
+        .to(recipient.email)
+        .subject(`Dir wurde ein neues Ticket [#${ticket.id}] zugewiesen.`)
+    })
 
     session.flash({
       notification: {
