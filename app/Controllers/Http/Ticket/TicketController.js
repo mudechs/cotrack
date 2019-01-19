@@ -172,12 +172,23 @@ class TicketController {
     return response.route('ticketsShow', { id: ticket.id })
   }
 
-  async changeStatus({ params, request, session, response }) {
+  async changeStatus({ params, request, auth, session, response }) {
     const ticket = await Ticket.find(params.id)
 
     ticket.status = request.input('status')
 
     await ticket.save()
+
+    const author = await ticket.ticketAuthor().fetch()
+
+    if(author.id != auth.user.id) {
+      await Mail.send('emails.ticket_change_status_notification', ticket.toJSON(), message => {
+        message
+          .from('no-reply@codiacs.ch')
+          .to(author.email)
+          .subject(`Das Ticket [#${ticket.id}] wurde auf "${ticket.status}" gesetzt.`)
+      })
+    }
 
     session.flash({
       notification: {
