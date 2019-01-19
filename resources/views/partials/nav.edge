@@ -23,7 +23,7 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Hallo <span class="text-warning">{{ auth.user.first_name }} {{ auth.user.last_name }}</span>
+            Hallo <span class="text-danger">{{ auth.user.first_name }} {{ auth.user.last_name }}</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item px-3" href="{{ route('usersShow', { id: auth.user.id }) }}"><i class="fas fa-user-circle fa-fw text-black-50"></i> Mein Profil</a>

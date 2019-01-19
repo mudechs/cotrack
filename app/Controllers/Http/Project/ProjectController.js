@@ -49,6 +49,8 @@ class ProjectController {
       const ticketsOpen = await Ticket.query()
         .where('project_id', project.id)
         .whereIn('status', statusesOpen)
+        .with('ticketAuthor')
+        .with('ticketRecipient')
         .orderBy('created_at', 'desc')
         .fetch()
 
@@ -56,6 +58,8 @@ class ProjectController {
       const ticketsClosed = await Ticket.query()
         .where('project_id', project.id)
         .whereIn('status', statusesClosed)
+        .with('ticketAuthor')
+        .with('ticketRecipient')
         .orderBy('created_at', 'desc')
         .fetch()
 

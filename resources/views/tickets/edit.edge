@@ -4,7 +4,7 @@
   <div class="container mt-3">
     <div class="row">
       <div class="col-md-10 offset-md-1">
-        <div class="card text-white bg-dark">
+        <div class="card">
           <div class="card-header text-center">Ticket bearbeiten</div>
           <form action="{{ route('ticketsUpdate', { id: ticket.id }) }}" method="post">
             {{ csrfField() }}
@@ -68,7 +68,7 @@
               </div>
             <div class="card-footer d-flex justify-content-center">
               <a href="{{ route('dashboard') }}" class="btn btn-light mr-2"><i class="fas fa-times"></i></a>
-              <button type="submit" class="btn btn-warning"><i class="far fa-paper-plane fa-fw"></i> Speichern</button>
+              <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> Speichern</button>
             </div>
           </form>
         </div>

@@ -4,7 +4,7 @@
   <div class="container mt-3">
     <div class="row">
       <div class="col-md-8 mb-3">
-        <div class="card text-white bg-dark">
+        <div class="card">
           <form id="status-change-form" action="{{ route('ticketsChangeStatus', { id: ticket.id }) }}" method="post">
             {{ csrfField() }}
             <input type="hidden" name="status" id="status-change-input" value="{{ ticket.status }}">
@@ -62,7 +62,7 @@
               @endif
             </div>
             @if(ticket.author_id == auth.user.id || ticket.recipient_id == auth.user.id )
-              <a href="{{ route('ticketsEdit', { id: ticket.id }) }}" class="btn btn-sm btn-outline-warning"><i class="fas fa-pencil-alt"></i></a>
+              <a href="{{ route('ticketsEdit', { id: ticket.id }) }}" class="btn btn-sm btn-outline-secondary"><i class="fas fa-pencil-alt"></i></a>
             @endif
           </div>
           <div class="card-body">
@@ -77,7 +77,7 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div class="card text-white bg-dark mb-3">
+        <div class="card mb-3">
           <div class="card-body p-2">
             <table class="table table-sm table-borderless text-nowrap m-0">
               <tbody>
@@ -121,7 +121,7 @@
             </table>
           </div>
         </div>
-        <div class="card text-white bg-dark">
+        <div class="card">
           <div class="card-header text-center">Log</div>
           <div class="card-body">
 

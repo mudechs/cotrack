@@ -4,7 +4,7 @@
   <div class="container mt-5">
     <div class="row">
       <div class="col-md-4 offset-md-4">
-        <div class="card text-white bg-dark">
+        <div class="card">
           <div class="card-header text-center">Anmelden</div>
           <form action="{{ route('login') }}" method="post">
             {{ csrfField() }}
@@ -52,7 +52,7 @@
             </div>
             <div class="card-footer d-flex justify-content-between align-items-center">
               <a href="{{ route('passwordReset') }}"><small>Passwort vergessen?</small></a>
-              <button type="submit" class="btn btn-warning"><i class="far fa-paper-plane fa-fw"></i> Login</button>
+              <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> Login</button>
             </div>
           </form>
         </div>
