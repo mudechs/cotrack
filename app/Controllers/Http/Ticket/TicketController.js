@@ -87,9 +87,8 @@ class TicketController {
 
     await ticket.save()
 
-    // Send confirmation E-Mail if recipient is NOT the author
+    // Sende eine Notifikation falls der Recipient NICHT der Author isgt
     if(ticket.recipient_id != auth.user.id) {
-      // const author = await ticket.ticketAuthor().fetch()
       const recipient = await ticket.ticketRecipient().fetch()
 
       await Mail.send('emails.new_ticket_notification', ticket.toJSON(), message => {
