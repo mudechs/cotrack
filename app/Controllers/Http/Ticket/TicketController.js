@@ -61,9 +61,19 @@ class TicketController {
       return response.redirect('back')
     }
 
+    // Create Project
+    const ticket = await Ticket.create({
+      subject: request.input('subject'),
+      description: request.input('description'),
+      priority: request.input('priority'),
+      author_id: auth.user.id,
+      project_id: request.input('project'),
+      recipient_id: request.input('recipient')
+    })
+
     const attachments = request.file('attachments')
 
-    await attachments.moveAll(Helpers.publicPath('uploads/tickets'), (file) => {
+    await attachments.moveAll(Helpers.publicPath(`uploads/tickets/${ticket.id}`), (file) => {
       return {
         name: `${new Date().getTime()}.${file.subtype}`
       }
@@ -73,16 +83,9 @@ class TicketController {
       return attachments.errors()
     }
 
-    // Create Project
-    const ticket = await Ticket.create({
-      subject: request.input('subject'),
-      description: request.input('description'),
-      priority: request.input('priority'),
-      author_id: auth.user.id,
-      project_id: request.input('project'),
-      recipient_id: request.input('recipient'),
-      attachments: JSON.stringify(attachments)
-    })
+    ticket.attachments = JSON.stringify(attachments)
+
+    await ticket.save()
 
     // Send confirmation E-Mail if recipient is NOT the author
     if(ticket.recipient_id != auth.user.id) {
