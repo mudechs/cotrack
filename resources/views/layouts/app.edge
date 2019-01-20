@@ -23,6 +23,7 @@
     @if(flashMessage('notification'))
       <script>
         $(document).ready(function () {
+          $('.toast-wrapper').show();
           $('.toast').toast('show');
         });
       </script>

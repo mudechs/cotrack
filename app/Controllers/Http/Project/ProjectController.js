@@ -78,7 +78,7 @@ class ProjectController {
 
     session.flash({
       notification: {
-        type: 'error',
+        type: 'danger',
         message: 'Das Projekt kann nicht angezeigt werden.'
       }
     })

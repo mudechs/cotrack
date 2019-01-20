@@ -9,41 +9,73 @@
           <a href="{{ route('usersCreate') }}" class="btn btn-sm btn-outline-primary"><i class="fas fa-plus"></i></a>
         @endif
       </div>
-      <div class="table-responsive-sm">
-        <table class="table table-hover table-striped table-sm text-nowrap m-0">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Vorname</th>
-              <th scope="col">Nachname</th>
-              <th scope="col">Funktion</th>
-              <th scope="col" class="text-center">Status</th>
-              <th scope="col" class="text-center">Admin</th>
-            </tr>
-          </thead>
-          <tbody>
-            @each(user in users)
-              <tr class="linkable" data-route="{{ route('usersShow', { id: user.id }) }}">
-                <th scope="row">{{ user.id }}</th>
-                <td>{{ user.first_name }}</td>
-                <td>{{ user.last_name }}</td>
-                <td>{{ user.profession }}</td>
-                <td class="text-center">
-                  @if(user.is_active == 0)
-                    <span class="text-danger">Inaktiv</span>
-                  @else
-                    <span class="text-success">Aktiv</span>
-                  @endif
-                </td>
-                <td class="text-center">
-                  @if(user.is_admin == 1)
-                    <i class="fas fa-check"></i>
-                  @endif
-                </td>
-              </tr>
-            @endeach
-          </tbody>
-        </table>
+      <div class="card-body">
+        <ul class="nav nav-pills" id="users" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active" aria-selected="true">Aktiv</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#inactive" role="tab" aria-controls="inactive" aria-selected="false">Inaktiv</a>
+          </li>
+        </ul>
+        <div class="tab-content mt-3" id="usersContent">
+          <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="active-tab">
+            <div class="table-responsive">
+              <table class="table table-hover table-borderless table-striped table-sm text-nowrap m-0">
+                <tbody>
+                  @each(user in usersActive)
+                    <tr class="linkable" data-route="{{ route('usersShow', { id: user.id }) }}">
+                      <th scope="row">{{ user.id }}</th>
+                      <td>{{ user.first_name }}</td>
+                      <td><b>{{ user.last_name }}</b></td>
+                      <td>{{ user.profession }}</td>
+                      <td class="text-center">
+                        @if(user.is_active == 0)
+                          <span class="text-danger">Inaktiv</span>
+                        @else
+                          <span class="text-success">Aktiv</span>
+                        @endif
+                      </td>
+                      <td class="text-center">
+                        @if(user.is_admin == 1)
+                          <i class="fas fa-check"></i>
+                        @endif
+                      </td>
+                    </tr>
+                  @endeach
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="inactive" role="tabpanel" aria-labelledby="inactive-tab">
+            <div class="table-responsive">
+              <table class="table table-hover table-borderless table-striped table-sm text-nowrap m-0">
+                <tbody>
+                  @each(user in usersInactive)
+                    <tr class="linkable" data-route="{{ route('usersShow', { id: user.id }) }}">
+                      <th scope="row">{{ user.id }}</th>
+                      <td>{{ user.first_name }}</td>
+                      <td><b>{{ user.last_name }}</b></td>
+                      <td>{{ user.profession }}</td>
+                      <td class="text-center">
+                        @if(user.is_active == 0)
+                          <span class="text-danger">Inaktiv</span>
+                        @else
+                          <span class="text-success">Aktiv</span>
+                        @endif
+                      </td>
+                      <td class="text-center">
+                        @if(user.is_admin == 1)
+                          <i class="fas fa-check"></i>
+                        @endif
+                      </td>
+                    </tr>
+                  @endeach
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

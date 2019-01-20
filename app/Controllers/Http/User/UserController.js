@@ -6,10 +6,19 @@ const Mail = use('Mail')
 
 class UserController {
   async index({ view }) {
-    const users = await User.all()
+    const usersActive = await User.query()
+      .where('is_active', true)
+      .orderBy('last_name', 'asc')
+      .fetch()
+
+    const usersInactive = await User.query()
+      .where('is_active', false)
+      .orderBy('last_name', 'asc')
+      .fetch()
 
     return view.render('users.index', {
-      users: users.toJSON()
+      usersActive: usersActive.toJSON(),
+      usersInactive: usersInactive.toJSON()
     })
   }
 
@@ -55,36 +64,47 @@ class UserController {
     isAdmin = (isAdmin == 'on')? true : false;
 
     // Create User
-    const user = await User.create({
-      first_name: request.input('first_name'),
-      last_name: request.input('last_name'),
-      profession: request.input('profession'),
-      phone: request.input('phone'),
-      mobile: request.input('mobile'),
-      email: request.input('email'),
-      password: request.input('password'),
-      tfa_active: tfaActive,
-      is_active: isActive,
-      is_admin: isAdmin
-    })
+    const user = new User()
+    user.first_name = request.input('first_name'),
+    user.last_name = request.input('last_name'),
+    user.profession = request.input('profession'),
+    user.phone = request.input('phone'),
+    user.mobile = request.input('mobile'),
+    user.email = request.input('email'),
+    user.password = request.input('password'),
+    user.tfa_active = tfaActive,
+    user.is_active = isActive,
+    user.is_admin = isAdmin
 
-    // Send confirmation E-Mail
-    await Mail.send('emails.user_credentials', user.toJSON(), message => {
-      message
-        .to(user.email)
-        .from('no-reply@codiacs.ch')
-        .subject('Willkommen bei CoTrack!')
-    })
+    try {
+      await Mail.send('emails.user_credentials', user.toJSON(), message => {
+        message
+          .to(user.email)
+          .from('no-reply@codiacs.ch')
+          .subject('Willkommen bei CoTrack!')
+      })
 
-    // Show success Message
-    session.flash({
-      notification: {
-        type: 'success',
-        message: 'Das Konto wurde erfolgreich erstellt.'
-      }
-    })
+      await user.save()
 
-    return response.route('usersShow', { id: user.id })
+      session.flash({
+        notification: {
+          type: 'success',
+          message: 'Das Konto wurde erfolgreich erstellt.'
+        }
+      })
+
+      return response.route('usersShow', { id: user.id })
+
+    } catch (error) {
+      session.flash({
+        notification: {
+          type: 'danger',
+          message: `Der Benutzer konnte nicht erstellt werden. (${error})`
+        }
+      })
+
+      return response.redirect('back')
+    }
   }
 
   async edit({ params, view }) {
