@@ -8,6 +8,7 @@ const Project = use('App/Models/Project')
 const User = use('App/Models/User')
 const markdown = require('showdown')
 const Mail = use('Mail')
+const Helpers = use('Helpers')
 
 class TicketController {
   async show({ params, view }) {
@@ -60,6 +61,18 @@ class TicketController {
       return response.redirect('back')
     }
 
+    const attachments = request.file('attachments')
+
+    await attachments.moveAll(Helpers.publicPath('uploads/tickets'), (file) => {
+      return {
+        name: `${new Date().getTime()}.${file.subtype}`
+      }
+    })
+
+    if (!attachments.movedAll()) {
+      return attachments.errors()
+    }
+
     // Create Project
     const ticket = await Ticket.create({
       subject: request.input('subject'),
@@ -67,7 +80,8 @@ class TicketController {
       priority: request.input('priority'),
       author_id: auth.user.id,
       project_id: request.input('project'),
-      recipient_id: request.input('recipient')
+      recipient_id: request.input('recipient'),
+      attachments: JSON.stringify(attachments)
     })
 
     // Send confirmation E-Mail if recipient is NOT the author

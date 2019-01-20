@@ -33,9 +33,9 @@
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <div class="form-check">
+                    <div class="custom-control custom-switch">
                       <input
-                        class="form-check-input"
+                        class="custom-control-input"
                         type="checkbox"
                         name="is_active"
                         id="is_active"
@@ -43,8 +43,8 @@
                           checked
                         @endif
                         >
-                      <label class="form-check-label" for="is_active">
-                          Aktiv?
+                      <label class="custom-control-label" for="is_active">
+                          Aktiv
                       </label>
                     </div>
                   </div>
@@ -79,6 +79,7 @@
                   </div>
                 </div>
               </div>
+            </div>
             <div class="card-footer d-flex justify-content-center">
               <a href="{{ route('projectsShow', { id: project.id }) }}" class="btn btn-outline-secondary mr-2"><i class="fas fa-times"></i> Abbrechen</a>
               <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> Speichern</button>
