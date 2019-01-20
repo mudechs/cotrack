@@ -7,14 +7,14 @@ class TicketSchema extends Schema {
   up () {
     this.create('tickets', (table) => {
       table.increments()
-      table.string('subject', 100).notNullable()
-      table.text('description').notNullable()
+      table.string('subject', 100)
+      table.text('description')
       table.integer('author_id').unsigned().references('id').inTable('users')
       table.integer('forwarder_id').unsigned().references('id').inTable('users')
       table.integer('recipient_id').unsigned().references('id').inTable('users')
       table.string('status').defaultsTo('Neu')
       table.string('priority').defaultsTo('Normal')
-      table.text('attachments').nullable()
+      table.text('attachments')
       table.integer('project_id').unsigned().references('id').inTable('projects')
       table.timestamps()
     })

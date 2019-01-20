@@ -7,9 +7,9 @@ class ProjectSchema extends Schema {
   up () {
     this.create('projects', (table) => {
       table.increments()
-      table.string('title').notNullable()
+      table.string('title')
       table.text('description')
-      table.string('code').notNullable().unique()
+      table.string('code').unique()
       table.boolean('is_active').defaultTo(1)
       table.integer('author_id').unsigned().references('id').inTable('users')
       table.timestamps()
