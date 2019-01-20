@@ -1,5 +1,7 @@
 @import "custom";
+@import "node_modules/bootswatch/dist/materia/variables";
 @import "node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/bootswatch/dist/materia/bootswatch";
 
 .navbar-brand {
   font-family: Impact, Charcoal, sans-serif;

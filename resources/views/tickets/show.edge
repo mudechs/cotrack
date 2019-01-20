@@ -62,7 +62,7 @@
               @endif
             </div>
             @if(ticket.author_id == auth.user.id || ticket.recipient_id == auth.user.id )
-              <a href="{{ route('ticketsEdit', { id: ticket.id }) }}" class="btn btn-sm btn-outline-secondary"><i class="fas fa-pencil-alt"></i></a>
+              <a href="{{ route('ticketsEdit', { id: ticket.id }) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pencil-alt"></i></a>
             @endif
           </div>
           <div class="card-body">

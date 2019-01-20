@@ -8,7 +8,7 @@
           <div class="card-header d-flex justify-content-between align-items-center">
             <span>{{ user.first_name }} {{ user.last_name }}</span>
             @if(auth.user.id == user.id || auth.user.is_admin == true)
-              <a href="{{ route('usersEdit', { id: user.id }) }}" class="btn btn-sm btn-outline-secondary"><i class="fas fa-pencil-alt"></i></a>
+              <a href="{{ route('usersEdit', { id: user.id }) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pencil-alt"></i></a>
             @endif
           </div>
           <div class="card-body">

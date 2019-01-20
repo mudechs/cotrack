@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-1">
   <a class="navbar-brand" href="{{ route('dashboard') }}">CoTrack</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -16,11 +16,10 @@
       @endloggedIn
     </ul>
 
+    <a class="btn btn-danger my-2 my-sm-0 mr-3" href="{{ route('ticketsCreate') }}"><i class="fas fa-plus"></i> Ticket</a>
+
     <ul class="navbar-nav">
       @loggedIn
-        <li class="nav-item {{ activeRoute('tickets*') }}">
-          <a class="btn btn-danger my-2 my-sm-0 mr-3" href="{{ route('ticketsCreate') }}"><i class="fas fa-plus"></i> Ticket</a>
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Hallo <span class="text-danger">{{ auth.user.first_name }} {{ auth.user.last_name }}</span>
