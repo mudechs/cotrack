@@ -6,11 +6,11 @@ const randomString = require('random-string')
 const Mail = use('Mail')
 
 class RegisterController {
-  showRegistrationForm ({ view }) {
+  showRegistrationForm({ view }) {
     return view.render('auth.register')
   }
 
-  async register ({ request, session, response }) {
+  async register({ request, session, response }) {
 
     // Validate
     const validation = await validateAll(request.all(), {
@@ -61,7 +61,7 @@ class RegisterController {
     return response.redirect('back')
   }
 
-  async confirmEmail ({ params, session, response }) {
+  async confirmEmail({ params, session, response }) {
     const user = await User.findBy('confirmation_token', params.token)
 
     user.confirmation_token = null

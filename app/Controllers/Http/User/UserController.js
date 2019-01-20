@@ -2,6 +2,7 @@
 
 const { validateAll } = use('Validator')
 const User = use('App/Models/User')
+const Mail = use('Mail')
 
 class UserController {
   async index({ view }) {
@@ -23,6 +24,67 @@ class UserController {
     return view.render('users.show', {
       user: user.toJSON()
     })
+  }
+
+  async create({ view }) {
+    return view.render('users.create')
+  }
+
+  async store({ request, session, response }) {
+    // Validate
+    const validation = await validateAll(request.all(), {
+      first_name: 'required',
+      last_name: 'required',
+      email: 'required|email|unique:users, email',
+      password: 'required'
+    })
+
+    if (validation.fails()) {
+      session.withErrors(validation.messages()).flashExcept(['password'])
+
+      return response.redirect('back')
+    }
+
+    let tfaActive = request.input('tfa_active')
+    tfaActive = (tfaActive == 'on')? true : false;
+
+    let isActive = request.input('is_active')
+    isActive = (isActive == 'on')? true : false;
+
+    let isAdmin = request.input('is_admin')
+    isAdmin = (isAdmin == 'on')? true : false;
+
+    // Create User
+    const user = await User.create({
+      first_name: request.input('first_name'),
+      last_name: request.input('last_name'),
+      profession: request.input('profession'),
+      phone: request.input('phone'),
+      mobile: request.input('mobile'),
+      email: request.input('email'),
+      password: request.input('password'),
+      tfa_active: tfaActive,
+      is_active: isActive,
+      is_admin: isAdmin
+    })
+
+    // Send confirmation E-Mail
+    await Mail.send('emails.user_credentials', user.toJSON(), message => {
+      message
+        .to(user.email)
+        .from('no-reply@codiacs.ch')
+        .subject('Willkommen bei CoTrack!')
+    })
+
+    // Show success Message
+    session.flash({
+      notification: {
+        type: 'success',
+        message: 'Das Konto wurde erfolgreich erstellt.'
+      }
+    })
+
+    return response.route('usersShow', { id: user.id })
   }
 
   async edit({ params, view }) {

@@ -3,7 +3,12 @@
 @section('content')
   <div class="container mt-3">
     <div class="card">
-      <div class="card-header">Benutzerliste</div>
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span>Benutzer</span>
+        @if(auth.user.is_admin == true)
+          <a href="{{ route('usersCreate') }}" class="btn btn-sm btn-outline-primary"><i class="fas fa-plus"></i></a>
+        @endif
+      </div>
       <div class="table-responsive-sm">
         <table class="table table-hover table-striped table-sm text-nowrap m-0">
           <thead>
