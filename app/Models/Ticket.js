@@ -63,6 +63,15 @@ class Ticket extends Model {
   project() {
     return this.belongsTo('App/Models/Project', 'project_id', 'id')
   }
+
+  /**
+   * @method comments
+   *
+   * @return {Object}
+   */
+  comments() {
+    return this.hasMany('App/Models/Comment', 'id', 'ticket_id')
+  }
 }
 
 module.exports = Ticket

@@ -101,6 +101,15 @@ class User extends Model {
   recipientOfTickets() {
     return this.hasMany('App/Models/Ticket', 'id', 'recipient_id')
   }
+
+  /**
+   * @method authorOfComments
+   *
+   * @return {Object}
+   */
+  authorOfComments() {
+    return this.hasMany('App/Models/Comment', 'id', 'author_id')
+  }
 }
 
 module.exports = User

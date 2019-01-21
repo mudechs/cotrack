@@ -5,6 +5,7 @@ const { statuses, priorities } = Config.get('ticket')
 const { validateAll } = use('Validator')
 const Ticket = use('App/Models/Ticket')
 const Project = use('App/Models/Project')
+const Comment = use('App/Models/Comment')
 const User = use('App/Models/User')
 const markdown = require('showdown')
 const Mail = use('Mail')
@@ -35,12 +36,19 @@ class TicketController {
       .with('ticketAuthor')
       .with('ticketRecipient')
       .with('ticketForwarder')
+      .with('comments')
       .first()
 
     const project = await Project.query()
       .where('id', ticket.project_id)
       .with('members')
       .first()
+
+    const comments = await Comment.query()
+      .where('ticket_id', ticket.id)
+      .with('commentAuthor')
+      .orderBy('created_at', 'desc')
+      .fetch()
 
     const descriptionMd = ticket.description
     const md = new markdown.Converter()
@@ -50,6 +58,7 @@ class TicketController {
     return view.render('tickets.show', {
       ticket: ticket.toJSON(),
       project: project.toJSON(),
+      comments: comments.toJSON(),
       statuses: statuses,
       priorities: priorities
     })

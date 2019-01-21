@@ -60,6 +60,8 @@ Route.post('tickets/change/dragged/status/:id', 'Ticket/TicketController.changeD
 Route.post('tickets/change/recipient/:id', 'Ticket/TicketController.changeRecipient').middleware(['auth']).as('ticketsChangeRecipient')
 Route.post('tickets/assign/:id', 'Ticket/TicketController.assignToMe').middleware(['auth']).as('ticketsAssignToMe')
 
+Route.post('tickets/comment/store/:id', 'Comment/CommentController.store').middleware(['auth']).as('commentsStore')
+
 // Internal API
 Route.get('api/tickets/projectMembers/:id', 'Ticket/TicketController.apiGetProjectMembers').middleware(['auth'])
 

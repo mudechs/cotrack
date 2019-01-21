@@ -76,9 +76,26 @@
           </div>
         </div>
         <div class="card">
-          <div class="card-header text-center"><i class="far fa-comments fa-fw"></i> Kommentare</div>
+          <div class="card-header d-flex justify-content-between align-items-center">
+              <span><i class="far fa-comments fa-fw"></i> Kommentare</span>
+              <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#createCommentModal">
+                <i class="fas fa-plus"></i>
+              </button>
+          </div>
           <div class="card-body">
-            <p>coming soon...</p>
+            @each(comment in comments)
+              <div class="media">
+                <img src="..." class="mr-3" alt="...">
+                <div class="media-body">
+                  <h5 class="mt-0 d-flex justify-content-between">
+                    <span>{{ comment.commentAuthor.first_name }} {{ comment.commentAuthor.last_name }}</span>
+                    <span><small>{{ comment.created_at }}</small></span>
+                  </h5>
+                  {{ comment.body }}
+                </div>
+              </div>
+              <hr>
+            @endeach
           </div>
         </div>
       </div>
@@ -142,6 +159,41 @@
             <p>coming soon...</p>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comment Modal -->
+  <div class="modal fade" id="createCommentModal" tabindex="-1" role="dialog" aria-labelledby="createCommentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createCommentModalLabel">Kommentar verfassen</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="status-change-form" action="{{ route('commentsStore', { id: ticket.id }) }}" method="post">
+          <div class="modal-body">
+            {{ csrfField() }}
+            <input type="hidden" name="author_id" id="author-id-input" value="{{ auth.user.id }}">
+            <div class="form-group">
+              <label for="body">Text</label>
+              <textarea
+                name="body"
+                class="form-control {{ hasErrorFor('body') ? 'is-invalid' : '' }}"
+                id="body"
+                rows="8"
+                required
+                >{{ old('body', '') }}</textarea>
+              {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('body'), hasErrorFor('body')) }}
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Schliessen</button>
+            <button type="submit" class="btn btn-primary">Speichern</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
