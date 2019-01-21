@@ -3,6 +3,7 @@
 @import "node_modules/bootstrap/scss/bootstrap";
 @import "node_modules/bootswatch/dist/solar/bootswatch";
 @import "node_modules/dragula/dist/dragula.min";
+@import "node_modules/datatables.net-bs4/css/dataTables.bootstrap4";
 
 .navbar-brand {
   font-family: Impact, Charcoal, sans-serif;
@@ -29,4 +30,8 @@ label, table.table th {
 
 .linkable:hover {
   cursor: pointer;
+}
+
+.dataTables_filter {
+  margin-right: 10px;
 }

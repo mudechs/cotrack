@@ -21,6 +21,16 @@ function sassRules() {
   }]
 }
 
+function cssRules() {
+  return [{
+    test: /\.css$/,
+    use: ExtractTextPlugin.extract({
+      fallback: "style-loader",
+      use: "css-loader"
+    })
+  }]
+}
+
 function scriptRules() {
   return [{
     test: /\.js$/,
@@ -42,10 +52,11 @@ module.exports = {
     filename: 'public/app.js'
   },
   module: {
-    rules: sassRules().concat(scriptRules())
+    rules: sassRules().concat(scriptRules().concat(cssRules()))
   },
   plugins: [
     extractSass,
-    jquery
+    jquery,
+    new ExtractTextPlugin('[name].css')
   ]
 }
