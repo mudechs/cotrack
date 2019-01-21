@@ -245,7 +245,7 @@ class TicketController {
     session.flash({
       notification: {
         type: 'success',
-        message: 'Die Status wurde erfolgreich geändert.'
+        message: 'Der Status wurde erfolgreich geändert.'
       }
     })
 

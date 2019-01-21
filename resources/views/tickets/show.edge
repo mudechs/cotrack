@@ -18,44 +18,47 @@
             <input type="hidden" name="recipient_id" id="recipient-assign-input" value="{{ ticket.recipient_id }}">
             <input type="hidden" name="status" value="Anerkannt">
           </form>
-          <div class="card-header d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-              @if(ticket.recipient_id == auth.user.id)
-                <div class="dropdown mr-2">
-                  <button class="btn btn-warning btn-sm dropdown-toggle" type="button" id="statusDropdownButtons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{ ticket.status }}
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="statusDropdownButtons">
-                    @each(status in statuses)
-                      <a class="
-                        dropdown-item
-                        status-dropdown-item
-                        @if(status.label == ticket.status)
-                          disabled
-                        @endif
-                      " href="#" data-status="{{ status.label }}">{{ status.label }}</a>
-                    @endeach
+          <div class="card-header d-flex justify-content-between">
+            <div>
+              <div class="btn-group">
+                @if(ticket.recipient_id == auth.user.id)
+                  <div class="dropdown mr-2">
+                    <button class="btn btn-warning btn-sm dropdown-toggle" type="button" id="statusDropdownButtons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {{ ticket.status }}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="statusDropdownButtons">
+                      @each(status in statuses)
+                        <a class="
+                          dropdown-item
+                          status-dropdown-item
+                          @if(status.label == ticket.status)
+                            disabled
+                          @endif
+                        " href="#" data-status="{{ status.label }}">{{ status.label }}</a>
+                      @endeach
+                    </div>
                   </div>
-                </div>
-              @endif
-              @if(ticket.status != 'Abgelehnt' && ticket.status != 'Erledigt' && ticket.status != 'Sistiert' && ticket.recipient_id === auth.user.id)
-                <div class="dropdown">
-                  <button class="btn btn-success btn-sm" type="button" id="statusDropdownButtons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Weiterleiten &rarr;
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="recipientDropdownButtons">
-                    @each(member in project.members)
-                      <a class="
-                        dropdown-item
-                        recipient-dropdown-item
-                        @if(member.id == ticket.recipient_id)
-                          disabled
-                        @endif
-                      " href="#" data-recipient="{{ member.id }}">{{ member.first_name }} {{ member.last_name }}</a>
-                    @endeach
+                @endif
+                @if(ticket.status != 'Abgelehnt' && ticket.status != 'Erledigt' && ticket.status != 'Sistiert' && ticket.recipient_id === auth.user.id)
+                  <div class="dropdown">
+                    <button class="btn btn-success btn-sm" type="button" id="statusDropdownButtons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Weiterleiten &rarr;
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="recipientDropdownButtons">
+                      @each(member in project.members)
+                        <a class="
+                          dropdown-item
+                          recipient-dropdown-item
+                          @if(member.id == ticket.recipient_id)
+                            disabled
+                          @endif
+                        " href="#" data-recipient="{{ member.id }}">{{ member.first_name }} {{ member.last_name }}</a>
+                      @endeach
+                    </div>
                   </div>
-                </div>
-              @else
+                @endif
+              </div>
+              @if(ticket.recipient_id !== auth.user.id)
                 <button class="btn btn-danger btn-sm" type="button" id="assignToMeButton" data-recipient="{{ auth.user.id }}">
                   Übernehmen
                 </button>
@@ -76,7 +79,7 @@
           </div>
         </div>
         <div class="card">
-          <div class="card-header d-flex justify-content-between align-items-center">
+          <div class="card-header d-flex justify-content-between">
               <span><i class="far fa-comments fa-fw"></i> Kommentare</span>
               <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#createCommentModal">
                 <i class="fas fa-plus"></i>

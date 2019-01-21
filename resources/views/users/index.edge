@@ -3,10 +3,10 @@
 @section('content')
   <div class="container mt-3">
     <div class="card">
-      <div class="card-header d-flex justify-content-between align-items-center">
+      <div class="card-header d-flex justify-content-between">
         <span>Benutzer</span>
         @if(auth.user.is_admin == true)
-          <a href="{{ route('usersCreate') }}" class="btn btn-sm btn-outline-primary"><i class="fas fa-plus"></i></a>
+          <a href="{{ route('usersCreate') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i></a>
         @endif
       </div>
       <div class="card-body p-0">
