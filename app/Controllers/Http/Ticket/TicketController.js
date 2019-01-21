@@ -123,7 +123,7 @@ class TicketController {
 
       await Mail.send('emails.new_ticket_notification', ticket.toJSON(), message => {
         message
-          .from('no-reply@codiacs.ch')
+          .from('noreply@codiac.ch')
           .to(recipient.email)
           .subject(`Dir wurde ein neues Ticket [#${ticket.id}] zugewiesen.`)
       })
@@ -206,7 +206,7 @@ class TicketController {
 
       await Mail.send('emails.assigned_ticket_notification', ticket.toJSON(), message => {
         message
-          .from('no-reply@codiacs.ch')
+          .from('noreply@codiac.ch')
           .to(author.email)
           .subject(`Das Ticket [#${ticket.id}] wurde von ${recipient.first_name} ${recipient.last_name} übernommen.`)
       })
@@ -236,7 +236,7 @@ class TicketController {
     if(author.id != auth.user.id) {
       await Mail.send('emails.ticket_change_status_notification', ticket.toJSON(), message => {
         message
-          .from('no-reply@codiacs.ch')
+          .from('noreply@codiac.ch')
           .to(author.email)
           .subject(`Das Ticket [#${ticket.id}] wurde auf "${ticket.status}" gesetzt.`)
       })
@@ -266,7 +266,7 @@ class TicketController {
     if(author.id != auth.user.id) {
       await Mail.send('emails.ticket_change_status_notification', ticket.toJSON(), message => {
         message
-          .from('no-reply@codiacs.ch')
+          .from('noreply@codiac.ch')
           .to(author.email)
           .subject(`Das Ticket [#${ticket.id}] wurde auf "${ticket.status}" gesetzt.`)
       })
@@ -288,7 +288,7 @@ class TicketController {
 
     await Mail.send('emails.new_ticket_notification', ticket.toJSON(), message => {
       message
-        .from('no-reply@codiacs.ch')
+        .from('noreply@codiac.ch')
         .to(recipient.email)
         .subject(`Dir wurde ein neues Ticket [#${ticket.id}] zugewiesen.`)
     })
