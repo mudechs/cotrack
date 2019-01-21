@@ -11,6 +11,26 @@ const Mail = use('Mail')
 const Helpers = use('Helpers')
 
 class TicketController {
+  async index({ auth, view, response }) {
+
+    const ticketsNeu = await Ticket.ticketGroupedByStatus('Neu', auth.user.id)
+    const ticketsAnerkannt = await Ticket.ticketGroupedByStatus('Anerkannt', auth.user.id)
+    const ticketsWarten = await Ticket.ticketGroupedByStatus('Warten', auth.user.id)
+    const ticketsFeedback = await Ticket.ticketGroupedByStatus('Feedback', auth.user.id)
+    const ticketsBearbeitung = await Ticket.ticketGroupedByStatus('Bearbeitung', auth.user.id)
+
+    // return response.send(ticketsNew)
+
+    return view.render('tickets.index', {
+      priorities: priorities,
+      ticketsNeu: ticketsNeu.toJSON(),
+      ticketsAnerkannt: ticketsAnerkannt.toJSON(),
+      ticketsWarten: ticketsWarten.toJSON(),
+      ticketsFeedback: ticketsFeedback.toJSON(),
+      ticketsBearbeitung: ticketsBearbeitung.toJSON()
+    })
+  }
+
   async show({ params, view }) {
     const ticket = await Ticket.query()
       .where('id', params.id)
@@ -73,17 +93,19 @@ class TicketController {
 
     const attachments = request.file('attachments')
 
-    await attachments.moveAll(Helpers.publicPath(`uploads/tickets/${ticket.id}`), (file) => {
-      return {
-        name: `${new Date().getTime()}.${file.subtype}`
+    if(attachments) {
+      await attachments.moveAll(Helpers.publicPath(`uploads/tickets/${ticket.id}`), (file) => {
+        return {
+          name: `${new Date().getTime()}.${file.subtype}`
+        }
+      })
+
+      if (!attachments.movedAll()) {
+        return attachments.errors()
       }
-    })
 
-    if (!attachments.movedAll()) {
-      return attachments.errors()
+      ticket.attachments = JSON.stringify(attachments)
     }
-
-    ticket.attachments = JSON.stringify(attachments)
 
     await ticket.save()
 

@@ -7,16 +7,21 @@
   <div class="collapse navbar-collapse" id="mainNavbar">
     <ul class="navbar-nav mr-auto">
       @loggedIn
+        <li class="nav-item {{ activeRoute('tickets*') }}">
+          <a class="nav-link" href="{{ route('ticketsIndex') }}">Tickets</a>
+        </li>
         <li class="nav-item {{ activeRoute('projects*') }}">
           <a class="nav-link" href="{{ route('projectsIndex') }}">Projekte</a>
         </li>
-        <li class="nav-item {{ activeRoute('users*') }}">
-          <a class="nav-link" href="{{ route('usersIndex') }}">Benutzer</a>
-        </li>
+        @if(auth.user.is_admin == true)
+          <li class="nav-item {{ activeRoute('users*') }}">
+            <a class="nav-link" href="{{ route('usersIndex') }}">Benutzer</a>
+          </li>
+        @endif
       @endloggedIn
     </ul>
 
-    <a class="btn btn-danger my-2 my-sm-0 mr-3" href="{{ route('ticketsCreate') }}"><i class="fas fa-plus"></i> Ticket</a>
+    <a class="btn btn-danger my-2 my-sm-0 mr-3 py-2" href="{{ route('ticketsCreate') }}"><i class="fas fa-plus"></i> Ticket</a>
 
     <ul class="navbar-nav">
       @loggedIn

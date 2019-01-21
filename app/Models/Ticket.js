@@ -18,6 +18,16 @@ class Ticket extends Model {
         statusesOpen[statusesOpen.length] = statuses[i].label
     return statusesOpen = statusesOpen
   }
+
+  static async ticketGroupedByStatus(status, recipient) {
+    return await Ticket.query()
+      .where('recipient_id', recipient)
+      .where('status', status)
+      .orderBy('created_at', 'desc')
+      .with('project')
+      .fetch()
+  }
+
   /**
    * @method ticketAuthor
    *
