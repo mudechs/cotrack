@@ -23,7 +23,7 @@ class Ticket extends Model {
     return await Ticket.query()
       .where('recipient_id', recipient)
       .where('status', status)
-      .orderBy('updated_at', 'desc')
+      .orderBy('created_at', 'desc')
       .with('project')
       .fetch()
   }

@@ -19,8 +19,6 @@ class TicketController {
     const ticketsFeedback = await Ticket.ticketGroupedByStatus('Feedback', auth.user.id)
     const ticketsBearbeitung = await Ticket.ticketGroupedByStatus('Bearbeitung', auth.user.id)
 
-    // return response.send(ticketsNew)
-
     return view.render('tickets.index', {
       priorities: priorities,
       ticketsNeu: ticketsNeu.toJSON(),
