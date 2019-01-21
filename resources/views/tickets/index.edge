@@ -38,7 +38,7 @@
       <div class="col">
         <div class="card">
           <div class="card-header text-center">Anerkannt</div>
-          <div id="Anerkannt" class="list-group list-group-flush">
+          <div id="Anerkannt" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsAnerkannt)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="item-{{ ticket.id }}" class="list-group-item list-group-item-action">
                 <form id="status-change-form-item-{{ ticket.id }}" action="{{ route('ticketsChangeDraggedStatus', { id: ticket.id }) }}" method="post">
@@ -70,7 +70,7 @@
       <div class="col">
         <div class="card">
           <div class="card-header text-center">Warten</div>
-          <div id="Warten" class="list-group list-group-flush">
+          <div id="Warten" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsWarten)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="item-{{ ticket.id }}" class="list-group-item list-group-item-action">
                 <form id="status-change-form-item-{{ ticket.id }}" action="{{ route('ticketsChangeDraggedStatus', { id: ticket.id }) }}" method="post">
@@ -102,7 +102,7 @@
       <div class="col">
         <div class="card">
           <div class="card-header text-center">Feedback</div>
-          <div id="Feedback" class="list-group list-group-flush">
+          <div id="Feedback" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsFeedback)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="item-{{ ticket.id }}" class="list-group-item list-group-item-action">
                 <form id="status-change-form-item-{{ ticket.id }}" action="{{ route('ticketsChangeDraggedStatus', { id: ticket.id }) }}" method="post">
@@ -134,7 +134,7 @@
       <div class="col">
         <div class="card">
           <div class="card-header text-center">Bearbeitung</div>
-          <div id="Bearbeitung" class="list-group list-group-flush">
+          <div id="Bearbeitung" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsBearbeitung)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="item-{{ ticket.id }}" class="list-group-item list-group-item-action">
                 <form id="status-change-form-item-{{ ticket.id }}" action="{{ route('ticketsChangeDraggedStatus', { id: ticket.id }) }}" method="post">
