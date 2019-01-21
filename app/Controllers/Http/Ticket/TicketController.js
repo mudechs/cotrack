@@ -50,7 +50,8 @@ class TicketController {
     return view.render('tickets.show', {
       ticket: ticket.toJSON(),
       project: project.toJSON(),
-      statuses: statuses
+      statuses: statuses,
+      priorities: priorities
     })
   }
 

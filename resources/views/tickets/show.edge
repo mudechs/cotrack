@@ -4,7 +4,7 @@
   <div class="container mt-3">
     <div class="row">
       <div class="col-md-8 mb-3">
-        <div class="card">
+        <div class="card mb-3">
           <form id="status-change-form" action="{{ route('ticketsChangeStatus', { id: ticket.id }) }}" method="post">
             {{ csrfField() }}
             <input type="hidden" name="status" id="status-change-input" value="{{ ticket.status }}">
@@ -75,6 +75,12 @@
             </div>
           </div>
         </div>
+        <div class="card">
+          <div class="card-header text-center"><i class="far fa-comments fa-fw"></i> Kommentare</div>
+          <div class="card-body">
+            <p>coming soon...</p>
+          </div>
+        </div>
       </div>
       <div class="col-md-4">
         <div class="card mb-3">
@@ -83,7 +89,16 @@
               <tbody>
                 <tr>
                   <th scope="row">Priorität:</th>
-                  <td>{{ ticket.priority }}</td>
+                  <td>
+                    <span class="
+                      badge badge-pill
+                      @each(priority in priorities)
+                      @if(priority.label == ticket.priority)
+                      badge-{{ priority.color }}
+                      @endif
+                      @endeach
+                    ">{{ ticket.priority }}</span>
+                  </td>
                 </tr>
                 <tr>
                   <th scope="row">ID:</th>
@@ -122,9 +137,9 @@
           </div>
         </div>
         <div class="card">
-          <div class="card-header text-center">Log</div>
+          <div class="card-header text-center"><i class="fas fa-align-left fa-fw"></i> Log</div>
           <div class="card-body">
-
+            <p>coming soon...</p>
           </div>
         </div>
       </div>
