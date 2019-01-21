@@ -146,8 +146,8 @@ class UserController {
     user.phone = request.input('phone')
     user.mobile = request.input('mobile')
     user.email = request.input('email')
-    user.is_admin = isAdmin,
-    user.is_active = isActive,
+    user.is_admin = isAdmin
+    user.is_active = isActive
     user.tfa_active = tfaActive
 
     await user.save()
