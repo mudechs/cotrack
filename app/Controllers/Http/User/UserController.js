@@ -155,7 +155,7 @@ class UserController {
     session.flash({
       notification: {
         type: 'success',
-        message: 'Die Änderungen wurden erfolgreich übernommen.'
+        message: 'Die Änderungen wurden erfolgreich übernommen..'
       }
     })
 
