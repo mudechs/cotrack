@@ -10,16 +10,31 @@ const markdown = require('showdown')
 
 class ProjectController {
   async index({ auth, view }) {
-    let projects = []
+    let projectsActive = []
+    let projectsInactive = []
 
     if(auth.user.is_admin) {
-      projects = await Project.query()
+      projectsActive = await Project.query()
         .where('is_active', true)
         .with('projectAuthor')
         .fetch()
+
+      projectsInactive = await Project.query()
+        .where('is_active', false)
+        .with('projectAuthor')
+        .fetch()
     } else {
-      projects = await Project.query()
+      projectsActive = await Project.query()
         .where('is_active', true)
+        .where('author_id', auth.user.id)
+        .orWhereHas('members', (builder) => {
+          builder.where('user_id', auth.user.id)
+        })
+        .with('projectAuthor')
+        .fetch()
+
+      projectsInactive = await Project.query()
+        .where('is_active', false)
         .where('author_id', auth.user.id)
         .orWhereHas('members', (builder) => {
           builder.where('user_id', auth.user.id)
@@ -29,7 +44,8 @@ class ProjectController {
     }
 
     return view.render('projects.index', {
-      projects: projects.toJSON()
+      projectsActive: projectsActive.toJSON(),
+      projectsInactive: projectsInactive.toJSON()
     })
   }
 

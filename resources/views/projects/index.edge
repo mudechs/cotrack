@@ -7,37 +7,85 @@
           <span>Projekte</span>
           <a href="{{ route('projectsCreate') }}" class="btn btn-sm btn-outline-primary"><i class="fas fa-plus"></i></a>
       </div>
-      <div class="table-responsive-sm">
-        <table class="table table-hover table-striped table-sm text-nowrap m-0">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Titel</th>
-              <th scope="col">Code</th>
-              <th scope="col">Erstellt</th>
-              <th scope="col">Autor</th>
-              <th scope="col" class="text-center">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            @each(project in projects)
-              <tr class="linkable" data-route="{{ route('projectsShow', { id: project.id }) }}">
-                <td scope="row">{{ project.id }}</td>
-                <td>{{ project.title }}</td>
-                <td>{{ project.code }}</td>
-                <td>{{ project.created_at }}</td>
-                <td>{{ project.projectAuthor.first_name }} {{ project.projectAuthor.last_name }}</td>
-                <td class="text-center">
-                    @if(user.is_active == 0)
-                      <span class="text-danger">Inaktiv</span>
-                    @else
-                      <span class="text-success">Aktiv</span>
-                    @endif
-                </td>
-              </tr>
-            @endeach
-          </tbody>
-        </table>
+      <div class="card-body p-0">
+        <ul class="nav nav-pills p-3" id="projects" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active" aria-selected="true">Aktiv</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="inactive-tab" data-toggle="tab" href="#inactive" role="tab" aria-controls="inactive" aria-selected="false">Inaktiv</a>
+          </li>
+        </ul>
+        <div class="tab-content mt-3" id="projectsContent">
+          <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="active-tab">
+            <div class="table-responsive">
+              <table class="table table-hover table-striped table-sm text-nowrap m-0">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Titel</th>
+                    <th scope="col">Code</th>
+                    <th scope="col">Erstellt</th>
+                    <th scope="col">Autor</th>
+                    <th scope="col" class="text-center">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @each(project in projectsActive)
+                    <tr class="linkable" data-route="{{ route('projectsShow', { id: project.id }) }}">
+                      <td scope="row">{{ project.id }}</td>
+                      <td>{{ project.title }}</td>
+                      <td>{{ project.code }}</td>
+                      <td>{{ project.created_at }}</td>
+                      <td>{{ project.projectAuthor.first_name }} {{ project.projectAuthor.last_name }}</td>
+                      <td class="text-center">
+                          @if(user.is_active == 0)
+                            <span class="text-danger">Inaktiv</span>
+                          @else
+                            <span class="text-success">Aktiv</span>
+                          @endif
+                      </td>
+                    </tr>
+                  @endeach
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="inactive" role="tabpanel" aria-labelledby="inactive-tab">
+            <div class="table-responsive">
+              <table class="table table-hover table-striped table-sm text-nowrap m-0">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Titel</th>
+                    <th scope="col">Code</th>
+                    <th scope="col">Erstellt</th>
+                    <th scope="col">Autor</th>
+                    <th scope="col" class="text-center">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @each(project in projectsInactive)
+                    <tr class="linkable" data-route="{{ route('projectsShow', { id: project.id }) }}">
+                      <td scope="row">{{ project.id }}</td>
+                      <td>{{ project.title }}</td>
+                      <td>{{ project.code }}</td>
+                      <td>{{ project.created_at }}</td>
+                      <td>{{ project.projectAuthor.first_name }} {{ project.projectAuthor.last_name }}</td>
+                      <td class="text-center">
+                          @if(user.is_active == 0)
+                            <span class="text-danger">Inaktiv</span>
+                          @else
+                            <span class="text-success">Aktiv</span>
+                          @endif
+                      </td>
+                    </tr>
+                  @endeach
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
