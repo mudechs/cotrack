@@ -81,7 +81,7 @@
         const apiUrl = '/api/tickets/projectMembers/' + projectId;
         const recipient = $('#recipient');
 
-        $.getJSON( apiUrl, function(data) {
+        $.getJSON(apiUrl, function(data) {
           if(data.length > 0) {
             let items = [];
             items.push('<option value="">Bitte wählen...</option>');

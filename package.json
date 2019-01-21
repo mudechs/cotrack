@@ -34,6 +34,7 @@
     "@adonisjs/validator": "^5.0.6",
     "bootstrap": "^4.2.1",
     "bootswatch": "^4.2.1",
+    "dragula": "^3.7.2",
     "jquery": "^3.3.1",
     "mysql": "^2.16.0",
     "random-string": "^0.2.0",

@@ -11,7 +11,7 @@ const Mail = use('Mail')
 const Helpers = use('Helpers')
 
 class TicketController {
-  async index({ auth, view, response }) {
+  async index({ auth, view }) {
 
     const ticketsNeu = await Ticket.ticketGroupedByStatus('Neu', auth.user.id)
     const ticketsAnerkannt = await Ticket.ticketGroupedByStatus('Anerkannt', auth.user.id)
@@ -242,6 +242,29 @@ class TicketController {
     })
 
     return response.route('ticketsShow', { id: ticket.id })
+  }
+
+  async changeDraggedStatus({ params, request, auth, response }) {
+    const ticket = await Ticket.find(params.id)
+
+    ticket.status = request.input('status')
+
+    await ticket.save()
+
+    const author = await ticket.ticketAuthor().fetch()
+
+    /* Informiere den Recipient, dass sich der Ticket-Status verändert hat.
+    Informiere NICHT, wenn der Author die selbe Person wie der Recipient ist! */
+    if(author.id != auth.user.id) {
+      await Mail.send('emails.ticket_change_status_notification', ticket.toJSON(), message => {
+        message
+          .from('no-reply@codiacs.ch')
+          .to(author.email)
+          .subject(`Das Ticket [#${ticket.id}] wurde auf "${ticket.status}" gesetzt.`)
+      })
+    }
+
+    return response.route('ticketsIndex')
   }
 
   async changeRecipient({ params, auth, request, session, response }) {

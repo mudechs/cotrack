@@ -1,8 +1,11 @@
 import $ from 'jquery/dist/jquery';
+import dragula from 'dragula/dragula';
 import 'bootstrap/dist/js/bootstrap.bundle';
+
 
 window.jQuery = $;
 window.$ = $;
+window.dragula = dragula;
 
 $(document).ready(function () {
   // Add loading icon on clicked submit buttons

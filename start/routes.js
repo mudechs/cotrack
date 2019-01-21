@@ -56,6 +56,7 @@ Route.get('tickets/edit/:id', 'Ticket/TicketController.edit').middleware(['auth'
 Route.post('tickets/store', 'Ticket/TicketController.store').middleware(['auth']).as('ticketsStore')
 Route.post('tickets/update/:id', 'Ticket/TicketController.update').middleware(['auth']).as('ticketsUpdate')
 Route.post('tickets/change/status/:id', 'Ticket/TicketController.changeStatus').middleware(['auth']).as('ticketsChangeStatus')
+Route.post('tickets/change/dragged/status/:id', 'Ticket/TicketController.changeDraggedStatus').middleware(['auth']).as('ticketsChangeDraggedStatus')
 Route.post('tickets/change/recipient/:id', 'Ticket/TicketController.changeRecipient').middleware(['auth']).as('ticketsChangeRecipient')
 Route.post('tickets/assign/:id', 'Ticket/TicketController.assignToMe').middleware(['auth']).as('ticketsAssignToMe')
 
