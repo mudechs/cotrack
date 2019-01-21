@@ -134,6 +134,9 @@ class UserController {
     let isAdmin = request.input('is_admin')
     isAdmin = (isAdmin == 'on')? true : false;
 
+    let isActive = request.input('is_active')
+    isActive = (isActive == 'on')? true : false;
+
     let tfaActive = request.input('tfa_active')
     tfaActive = (tfaActive == 'on')? true : false;
 
@@ -143,7 +146,8 @@ class UserController {
     user.phone = request.input('phone')
     user.mobile = request.input('mobile')
     user.email = request.input('email')
-    user.is_admin = isAdmin
+    user.is_admin = isAdmin,
+    user.is_active = isActive,
     user.tfa_active = tfaActive
 
     await user.save()
