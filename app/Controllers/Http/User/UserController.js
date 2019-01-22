@@ -3,6 +3,7 @@
 const { validateAll } = use('Validator')
 const User = use('App/Models/User')
 const Mail = use('Mail')
+const Helpers = use('Helpers')
 
 class UserController {
   async index({ view }) {
@@ -54,6 +55,20 @@ class UserController {
       return response.redirect('back')
     }
 
+    const file = request.file('avatar')
+    const avatar = new Date().getTime() + '.' + file.subtype
+
+    if(avatar) {
+      await file.move(Helpers.publicPath('uploads/avatars'), {
+        name: avatar,
+        overwrite: true
+      })
+
+      if (!file.moved()) {
+        return file.error()
+      }
+    }
+
     let tfaActive = request.input('tfa_active')
     tfaActive = (tfaActive == 'on')? true : false;
 
@@ -75,6 +90,9 @@ class UserController {
     user.tfa_active = tfaActive,
     user.is_active = isActive,
     user.is_admin = isAdmin
+    user.avatar = avatar
+
+    await user.save()
 
     try {
       await Mail.send('emails.user_credentials', user.toJSON(), message => {
@@ -83,8 +101,6 @@ class UserController {
           .from('noreply@codiac.ch')
           .subject('Willkommen bei CoTrack!')
       })
-
-      await user.save()
 
       session.flash({
         notification: {
@@ -130,6 +146,24 @@ class UserController {
     }
 
     const user = await User.find(params.id)
+
+    const file = request.file('avatar')
+
+    if (file) {
+      const avatar = new Date().getTime() + '.' + file.subtype
+
+      if(avatar) {
+        await file.move(Helpers.publicPath('uploads/avatars'), {
+          name: avatar,
+          overwrite: true
+        })
+
+        if (!file.moved()) {
+          return file.error()
+        }
+      }
+      user.avatar = avatar
+    }
 
     let isAdmin = request.input('is_admin')
     isAdmin = (isAdmin == 'on')? true : false;

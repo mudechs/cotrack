@@ -12,29 +12,36 @@
             @endif
           </div>
           <div class="card-body">
-            <h6 class="card-subtitle text-muted">
-              {{ user.profession }}
-            </h6>
-            <div class="card-text mt-4 d-flex align-items-center">
-              <span class="fa-stack mr-2">
-                <i class="far fa-circle fa-stack-2x"></i>
-                <i class="fas fa-phone fa-stack-1x"></i>
-              </span>
-              <a href="tel:{{ user.phone }}">{{ user.phone }}</a>
-            </div>
-            <div class="card-text mt-2 d-flex align-items-center">
-              <span class="fa-stack mr-2">
-                <i class="far fa-circle fa-stack-2x"></i>
-                <i class="fas fa-mobile-alt fa-stack-1x"></i>
-              </span>
-              <a href="tel:{{ user.mobile }}">{{ user.mobile }}</a>
-            </div>
-            <div class="card-text mt-2 d-flex align-items-center">
-              <span class="fa-stack mr-2">
-                <i class="far fa-circle fa-stack-2x"></i>
-                <i class="far fa-envelope fa-stack-1x"></i>
-              </span>
-              <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+            <div class="row">
+              <div class="col-md-6">
+                <img src="{{ assetsUrl('uploads/avatars/' + user.avatar) }}" alt="" class="rounded-circle" width="100">
+              </div>
+              <div class="col-md-6">
+                <h6 class="card-subtitle text-muted">
+                  {{ user.profession }}
+                </h6>
+                <div class="card-text mt-4 d-flex align-items-center">
+                  <span class="fa-stack mr-2">
+                    <i class="far fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-phone fa-stack-1x"></i>
+                  </span>
+                  <a href="tel:{{ user.phone }}">{{ user.phone }}</a>
+                </div>
+                <div class="card-text mt-2 d-flex align-items-center">
+                  <span class="fa-stack mr-2">
+                    <i class="far fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-mobile-alt fa-stack-1x"></i>
+                  </span>
+                  <a href="tel:{{ user.mobile }}">{{ user.mobile }}</a>
+                </div>
+                <div class="card-text mt-2 d-flex align-items-center">
+                  <span class="fa-stack mr-2">
+                    <i class="far fa-circle fa-stack-2x"></i>
+                    <i class="far fa-envelope fa-stack-1x"></i>
+                  </span>
+                  <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>

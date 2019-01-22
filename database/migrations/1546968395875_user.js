@@ -14,6 +14,7 @@ class UserSchema extends Schema {
       table.string('mobile', 100).defaultTo('')
       table.string('email', 254).notNullable().unique()
       table.string('password', 254).notNullable()
+      table.string('avatar')
       table.string('confirmation_token')
       table.boolean('is_active').defaultTo(0)
       table.boolean('is_admin').defaultTo(0)
