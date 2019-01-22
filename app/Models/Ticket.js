@@ -28,6 +28,16 @@ class Ticket extends Model {
       .fetch()
   }
 
+  static async ticketGroupedByStatusAndProject(status, recipient, project) {
+    return await Ticket.query()
+      .where('recipient_id', recipient)
+      .where('status', status)
+      .where('project_id', project)
+      .orderBy('created_at', 'desc')
+      .with('project')
+      .fetch()
+  }
+
   /**
    * @method ticketAuthor
    *

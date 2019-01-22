@@ -50,6 +50,7 @@ Route.post('projects/store', 'Project/ProjectController.store').middleware(['aut
 Route.post('projects/update/:id', 'Project/ProjectController.update').middleware(['auth']).as('projectsUpdate')
 
 Route.get('tickets', 'Ticket/TicketController.index').middleware(['auth']).as('ticketsIndex')
+Route.get('tickets/p/:id', 'Ticket/TicketController.projectIndex').middleware(['auth']).as('ticketsProjectIndex')
 Route.get('tickets/create', 'Ticket/TicketController.create').middleware(['auth']).as('ticketsCreate')
 Route.get('tickets/show/:id', 'Ticket/TicketController.show').middleware(['auth']).as('ticketsShow')
 Route.get('tickets/edit/:id', 'Ticket/TicketController.edit').middleware(['auth']).as('ticketsEdit')

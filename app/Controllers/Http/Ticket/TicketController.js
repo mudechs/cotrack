@@ -10,15 +10,17 @@ const User = use('App/Models/User')
 const markdown = require('showdown')
 const Mail = use('Mail')
 const Helpers = use('Helpers')
+const ProjectServices = use('App/Services/projectServices')
 
 class TicketController {
   async index({ auth, view }) {
-
     const ticketsNeu = await Ticket.ticketGroupedByStatus('Neu', auth.user.id)
     const ticketsAnerkannt = await Ticket.ticketGroupedByStatus('Anerkannt', auth.user.id)
     const ticketsWarten = await Ticket.ticketGroupedByStatus('Warten', auth.user.id)
     const ticketsFeedback = await Ticket.ticketGroupedByStatus('Feedback', auth.user.id)
     const ticketsBearbeitung = await Ticket.ticketGroupedByStatus('Bearbeitung', auth.user.id)
+
+    const userProjects = await ProjectServices.getUserProjects(auth.user.id)
 
     return view.render('tickets.index', {
       priorities: priorities,
@@ -26,7 +28,28 @@ class TicketController {
       ticketsAnerkannt: ticketsAnerkannt.toJSON(),
       ticketsWarten: ticketsWarten.toJSON(),
       ticketsFeedback: ticketsFeedback.toJSON(),
-      ticketsBearbeitung: ticketsBearbeitung.toJSON()
+      ticketsBearbeitung: ticketsBearbeitung.toJSON(),
+      userProjects: userProjects.toJSON()
+    })
+  }
+
+  async projectIndex({ params, auth, view }) {
+    const ticketsNeu = await Ticket.ticketGroupedByStatusAndProject('Neu', auth.user.id, params.id)
+    const ticketsAnerkannt = await Ticket.ticketGroupedByStatusAndProject('Anerkannt', auth.user.id, params.id)
+    const ticketsWarten = await Ticket.ticketGroupedByStatusAndProject('Warten', auth.user.id, params.id)
+    const ticketsFeedback = await Ticket.ticketGroupedByStatusAndProject('Feedback', auth.user.id, params.id)
+    const ticketsBearbeitung = await Ticket.ticketGroupedByStatusAndProject('Bearbeitung', auth.user.id, params.id)
+
+    const userProjects = await ProjectServices.getUserProjects(auth.user.id)
+
+    return view.render('tickets.index', {
+      priorities: priorities,
+      ticketsNeu: ticketsNeu.toJSON(),
+      ticketsAnerkannt: ticketsAnerkannt.toJSON(),
+      ticketsWarten: ticketsWarten.toJSON(),
+      ticketsFeedback: ticketsFeedback.toJSON(),
+      ticketsBearbeitung: ticketsBearbeitung.toJSON(),
+      userProjects: userProjects.toJSON()
     })
   }
 
@@ -282,7 +305,7 @@ class TicketController {
       })
     }
 
-    return response.route('ticketsIndex')
+    return response.redirect('back')
   }
 
   async changeRecipient({ params, auth, request, session, response }) {

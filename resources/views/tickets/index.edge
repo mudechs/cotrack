@@ -2,8 +2,23 @@
 
 @section('content')
   <div class="container-fluid mt-3">
-    <div class="row">
+    <div class="row mb-3">
       <div class="col">
+        <div class="btn-group dropright">
+          <button type="button" class="btn-show-all-projects btn btn-sm btn-primary">Alle zeigen</button>
+          <button type="button" class="btn btn-primary btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            @each(userProject in userProjects)
+              <a class="dropdown-item" href="{{ route('ticketsProjectIndex', { id: userProject.id }) }}">{{ userProject.title }}</a>
+            @endeach
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-lg mb-3">
         <div class="card">
           <div class="card-header text-center">Neu</div>
           <div id="Neu" class="list-group list-group-flush" style="min-height: 100px">
@@ -35,7 +50,7 @@
         </div>
       </div>
 
-      <div class="col">
+      <div class="col-12 col-lg mb-3">
         <div class="card">
           <div class="card-header text-center">Anerkannt</div>
           <div id="Anerkannt" class="list-group list-group-flush" style="min-height: 100px">
@@ -67,7 +82,7 @@
         </div>
       </div>
 
-      <div class="col">
+      <div class="col-12 col-lg mb-3">
         <div class="card">
           <div class="card-header text-center">Warten</div>
           <div id="Warten" class="list-group list-group-flush" style="min-height: 100px">
@@ -99,7 +114,7 @@
         </div>
       </div>
 
-      <div class="col">
+      <div class="col-12 col-lg mb-3">
         <div class="card">
           <div class="card-header text-center">Feedback</div>
           <div id="Feedback" class="list-group list-group-flush" style="min-height: 100px">
@@ -131,7 +146,7 @@
         </div>
       </div>
 
-      <div class="col">
+      <div class="col-12 col-lg mb-3">
         <div class="card">
           <div class="card-header text-center">Bearbeitung</div>
           <div id="Bearbeitung" class="list-group list-group-flush" style="min-height: 100px">
@@ -168,21 +183,27 @@
 
 @section('js')
   <script>
-    const drake = dragula([
-        document.querySelector('#Neu'),
-        document.querySelector('#Anerkannt'),
-        document.querySelector('#Warten'),
-        document.querySelector('#Feedback'),
-        document.querySelector('#Bearbeitung')
-      ]);
+    $(document).ready(function () {
+      $('.btn-show-all-projects').on('click', function(){
+        window.location.href = '/tickets'
+      });
 
-    drake.on('drop', function (el, target) {
-      const status = target.id;
-      const id = el.id;
+      const drake = dragula([
+          document.querySelector('#Neu'),
+          document.querySelector('#Anerkannt'),
+          document.querySelector('#Warten'),
+          document.querySelector('#Feedback'),
+          document.querySelector('#Bearbeitung')
+        ]);
 
-      $('#status-change-input-' + id).val(status);
+      drake.on('drop', function (el, target) {
+        const status = target.id;
+        const id = el.id;
 
-      $('#status-change-form-' + id).submit();
+        $('#status-change-input-' + id).val(status);
+
+        $('#status-change-form-' + id).submit();
+      });
     });
   </script>
 @endsection
