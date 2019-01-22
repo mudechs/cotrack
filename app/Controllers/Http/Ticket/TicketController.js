@@ -121,28 +121,34 @@ class TicketController {
       ticket.attachments = JSON.stringify(attachments)
     }
 
-    await ticket.save()
+    try {
+      // Sende eine Notifikation falls der Recipient NICHT der Author isgt
+      if(ticket.recipient_id !== null && ticket.recipient_id != auth.user.id) {
+        const recipient = await ticket.ticketRecipient().fetch()
 
-    // Sende eine Notifikation falls der Recipient NICHT der Author isgt
-    if(ticket.recipient_id != auth.user.id) {
-      const recipient = await ticket.ticketRecipient().fetch()
+        await Mail.send('emails.new_ticket_notification', ticket.toJSON(), message => {
+          message
+            .from('noreply@codiac.ch')
+            .to(recipient.email)
+            .subject(`Dir wurde ein neues Ticket [#${ticket.id}] zugewiesen.`)
+        })
+      }
 
-      await Mail.send('emails.new_ticket_notification', ticket.toJSON(), message => {
-        message
-          .from('noreply@codiac.ch')
-          .to(recipient.email)
-          .subject(`Dir wurde ein neues Ticket [#${ticket.id}] zugewiesen.`)
+      await ticket.save()
+
+      session.flash({
+        notification: {
+          type: 'success',
+          message: 'Das Ticket wurde erfolgreich angelegt.'
+        }
       })
+
+      return response.route('ticketsShow', { id: ticket.id })
+    } catch (error) {
+      console.log(error)
     }
 
-    session.flash({
-      notification: {
-        type: 'success',
-        message: 'Das Ticket wurde erfolgreich angelegt.'
-      }
-    })
 
-    return response.route('ticketsShow', { id: ticket.id })
   }
 
   async edit({ params, view }) {
