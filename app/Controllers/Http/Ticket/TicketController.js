@@ -122,7 +122,7 @@ class TicketController {
     }
 
     try {
-      // Sende eine Notifikation falls der Recipient NICHT der Author isgt
+      // Sende eine Notifikation falls der Recipient NICHT der Author ist
       if(ticket.recipient_id !== null && ticket.recipient_id != auth.user.id) {
         const recipient = await ticket.ticketRecipient().fetch()
 
