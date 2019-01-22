@@ -147,8 +147,6 @@ class TicketController {
     } catch (error) {
       console.log(error)
     }
-
-
   }
 
   async edit({ params, view }) {
