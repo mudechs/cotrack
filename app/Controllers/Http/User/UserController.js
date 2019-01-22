@@ -99,7 +99,7 @@ class UserController {
     await user.save()
 
     try {
-      await Mail.send('emails.user_credentials', user.toJSON(), message => {
+      await Mail.send('emails.user_credentials', request.all(), message => {
         message
           .to(user.email)
           .from('noreply@codiac.ch')
