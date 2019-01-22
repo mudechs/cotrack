@@ -66,15 +66,15 @@ class UserController {
 
     // Create User
     const user = new User()
-    user.first_name = request.input('first_name'),
-    user.last_name = request.input('last_name'),
-    user.profession = request.input('profession'),
-    user.phone = request.input('phone'),
-    user.mobile = request.input('mobile'),
-    user.email = request.input('email'),
-    user.password = request.input('password'),
-    user.tfa_active = tfaActive,
-    user.is_active = isActive,
+    user.first_name = request.input('first_name')
+    user.last_name = request.input('last_name')
+    user.profession = request.input('profession')
+    user.phone = request.input('phone')
+    user.mobile = request.input('mobile')
+    user.email = request.input('email')
+    user.password = request.input('password')
+    user.tfa_active = tfaActive
+    user.is_active = isActive
     user.is_admin = isAdmin
 
     const file = request.file('avatar')
