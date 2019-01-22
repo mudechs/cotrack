@@ -30,6 +30,7 @@
                     <th>Funktion</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Admin</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -51,6 +52,11 @@
                           <i class="fas fa-check"></i>
                         @endif
                       </td>
+                      <td class="text-right">
+                        @if(auth.user.id == user.id || auth.user.is_admin == true)
+                          <a href="{{ route('usersEdit', { id: user.id }) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pencil-alt"></i></a>
+                        @endif
+                      </td>
                     </tr>
                   @endeach
                 </tbody>
@@ -68,6 +74,7 @@
                     <th>Funktion</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Admin</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -89,6 +96,11 @@
                           <i class="fas fa-check"></i>
                         @endif
                       </td>
+                      <td class="text-right">
+                        @if(auth.user.id == user.id || auth.user.is_admin == true)
+                          <a href="{{ route('usersEdit', { id: user.id }) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pencil-alt"></i></a>
+                        @endif
+                      </td>
                     </tr>
                   @endeach
                 </tbody>
@@ -107,9 +119,12 @@
       paging: false,
       info: false,
       order: [ 2, 'asc' ],
+      'columnDefs': [
+        { 'orderable': false, 'targets': 6 }
+      ],
       language: {
         search: "Filter:"
-    }
+      }
     });
   </script>
 @endsection
