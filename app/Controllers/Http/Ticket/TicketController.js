@@ -46,19 +46,25 @@ class TicketController {
 
     const comments = await Comment.query()
       .where('ticket_id', ticket.id)
+      .select('body', 'created_at', 'author_id')
       .with('commentAuthor')
       .orderBy('created_at', 'desc')
       .fetch()
 
-    const descriptionMd = ticket.description
-    const md = new markdown.Converter()
+    const ticketDescriptionMd = ticket.description
+    const ticketMd = new markdown.Converter()
+    ticket.description = ticketMd.makeHtml(ticketDescriptionMd)
 
-    ticket.description = md.makeHtml(descriptionMd)
+    const commentsRaw = comments.toJSON()
+    for (let i = 0; i < commentsRaw.length; i++) {
+      const commentMd = new markdown.Converter()
+      commentsRaw[i].body = commentMd.makeHtml(commentsRaw[i].body)
+    }
 
     return view.render('tickets.show', {
       ticket: ticket.toJSON(),
       project: project.toJSON(),
-      comments: comments.toJSON(),
+      comments: commentsRaw,
       statuses: statuses,
       priorities: priorities
     })
