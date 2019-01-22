@@ -8135,5 +8135,8 @@ label, table.table th {
 .linkable:hover {
   cursor: pointer; }
 
+table.dataTable.table-sm > thead > tr > th {
+  padding-right: .3rem; }
+
 .dataTables_filter {
   margin-right: 10px; }
