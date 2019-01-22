@@ -55,20 +55,6 @@ class UserController {
       return response.redirect('back')
     }
 
-    const file = request.file('avatar')
-    const avatar = new Date().getTime() + '.' + file.subtype
-
-    if(avatar) {
-      await file.move(Helpers.publicPath('uploads/avatars'), {
-        name: avatar,
-        overwrite: true
-      })
-
-      if (!file.moved()) {
-        return file.error()
-      }
-    }
-
     let tfaActive = request.input('tfa_active')
     tfaActive = (tfaActive == 'on')? true : false;
 
@@ -90,7 +76,25 @@ class UserController {
     user.tfa_active = tfaActive,
     user.is_active = isActive,
     user.is_admin = isAdmin
-    user.avatar = avatar
+
+    const file = request.file('avatar')
+
+    if (file) {
+      const avatar = new Date().getTime() + '.' + file.subtype
+
+      if(avatar) {
+        await file.move(Helpers.publicPath('uploads/avatars'), {
+          name: avatar,
+          overwrite: true
+        })
+
+        if (!file.moved()) {
+          return file.error()
+        }
+      }
+
+      user.avatar = avatar
+    }
 
     await user.save()
 
