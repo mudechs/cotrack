@@ -1,11 +1,16 @@
 # CoTrack v1
 
-### Webpack
-```./node_modules/.bin/webpack --watch```
+### Initial Migration and Seeding Admin User
+```
+adonis migration:run
+adonis seed
+```
 
-### Heroku
-```git push heroku master```
-```heroku run ENV_SILENT=true node ace migration:refresh --force```
-```heroku run ENV_SILENT=true node ace seed --force```
+### Packing Assets
+```./node_modules/.bin/webpack```
+
+### Login-Credentials
+Username: admin
+Password: Nkz8289TMU
 
 
