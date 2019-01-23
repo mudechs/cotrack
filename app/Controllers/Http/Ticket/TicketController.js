@@ -74,7 +74,9 @@ class TicketController {
     const comments = await Comment.query()
       .where('ticket_id', ticket.id)
       .select('body', 'created_at', 'author_id')
-      .with('commentAuthor')
+      .with('commentAuthor', (builder) => {
+        builder.select('id', 'first_name', 'last_name')
+      })
       .orderBy('created_at', 'desc')
       .fetch()
 
