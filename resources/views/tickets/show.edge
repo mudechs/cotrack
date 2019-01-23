@@ -75,6 +75,10 @@
               <small><b>Projekt: </b><a href="{{ route('projectsShow', { id: project.id }) }}">{{ project.title }}</a></small>
               <hr>
               {{{ ticket.description }}}
+              <hr>
+              @each(attachment in attachments)
+                <a href="/uploads/tickets/{{ ticket.id }}/{{ attachment.fileName }}" target="_blank" download><i class="fas fa-paperclip fa-fw"></i> {{ attachment.clientName }}</a><br>
+              @endeach
             </div>
           </div>
         </div>

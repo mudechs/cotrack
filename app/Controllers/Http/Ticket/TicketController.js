@@ -53,7 +53,7 @@ class TicketController {
     })
   }
 
-  async show({ params, view }) {
+  async show({ params, view, response }) {
     const ticket = await Ticket.query()
       .where('id', params.id)
       .with('ticketAuthor')
@@ -64,6 +64,7 @@ class TicketController {
 
     const project = await Project.query()
       .where('id', ticket.project_id)
+      .select('id', 'title')
       .with('members')
       .first()
 
@@ -74,6 +75,9 @@ class TicketController {
       .orderBy('created_at', 'desc')
       .fetch()
 
+    const attachments = await (JSON.parse(ticket.attachments)._files)
+    // return response.send(attachments)
+
     ticket.description = await MarkdownServices.convertToHtml(ticket.description, 'description')
     const commentsHtml = await MarkdownServices.convertToHtml(comments.toJSON(), 'body')
 
@@ -82,7 +86,8 @@ class TicketController {
       project: project.toJSON(),
       comments: commentsHtml,
       statuses: statuses,
-      priorities: priorities
+      priorities: priorities,
+      attachments: attachments
     })
   }
 

@@ -1,7 +1,6 @@
 'use strict'
 
 const markdown = require('showdown')
-const Comment = use('App/Models/Comment')
 
 class markdownServices {
   async convertToHtml(data, field) {
