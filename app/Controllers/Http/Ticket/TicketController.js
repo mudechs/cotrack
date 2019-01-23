@@ -7,10 +7,10 @@ const Ticket = use('App/Models/Ticket')
 const Project = use('App/Models/Project')
 const Comment = use('App/Models/Comment')
 const User = use('App/Models/User')
-const markdown = require('showdown')
 const Mail = use('Mail')
 const Helpers = use('Helpers')
 const ProjectServices = use('App/Services/projectServices')
+const MarkdownServices = use('App/Services/markdownServices')
 
 class TicketController {
   async index({ auth, view }) {
@@ -74,20 +74,13 @@ class TicketController {
       .orderBy('created_at', 'desc')
       .fetch()
 
-    const ticketDescriptionMd = ticket.description
-    const ticketMd = new markdown.Converter()
-    ticket.description = ticketMd.makeHtml(ticketDescriptionMd)
-
-    const commentsRaw = comments.toJSON()
-    for (let i = 0; i < commentsRaw.length; i++) {
-      const commentMd = new markdown.Converter()
-      commentsRaw[i].body = commentMd.makeHtml(commentsRaw[i].body)
-    }
+    ticket.description = await MarkdownServices.convertToHtml(ticket.description, 'description')
+    const commentsHtml = await MarkdownServices.convertToHtml(comments.toJSON(), 'body')
 
     return view.render('tickets.show', {
       ticket: ticket.toJSON(),
       project: project.toJSON(),
-      comments: commentsRaw,
+      comments: commentsHtml,
       statuses: statuses,
       priorities: priorities
     })
