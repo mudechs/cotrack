@@ -7309,6 +7309,9 @@ div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:fir
 div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:last-child {
   padding-right: 0; }
 
+body {
+  padding-bottom: 120px; }
+
 .navbar-brand {
   font-family: Impact, Charcoal, sans-serif; }
 
