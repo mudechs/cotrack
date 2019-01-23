@@ -154,20 +154,20 @@ class TicketController {
             .subject(`Dir wurde ein neues Ticket [#${ticket.id}] zugewiesen.`)
         })
       }
-
-      await ticket.save()
-
-      session.flash({
-        notification: {
-          type: 'success',
-          message: 'Das Ticket wurde erfolgreich angelegt.'
-        }
-      })
-
-      return response.route('ticketsShow', { id: ticket.id })
     } catch (error) {
       console.log(error)
     }
+
+    await ticket.save()
+
+    session.flash({
+      notification: {
+        type: 'success',
+        message: 'Das Ticket wurde erfolgreich angelegt.'
+      }
+    })
+
+    return response.route('ticketsShow', { id: ticket.id })
   }
 
   async edit({ params, view }) {
@@ -262,15 +262,19 @@ class TicketController {
 
     const author = await ticket.ticketAuthor().fetch()
 
-    /* Informiere den Recipient, dass sich der Ticket-Status verändert hat.
-    Informiere NICHT, wenn der Author die selbe Person wie der Recipient ist! */
-    if(author.id != auth.user.id) {
-      await Mail.send('emails.ticket_change_status_notification', ticket.toJSON(), message => {
-        message
-          .from('noreply@codiac.ch')
-          .to(author.email)
-          .subject(`Das Ticket [#${ticket.id}] wurde auf "${ticket.status}" gesetzt.`)
-      })
+    try {
+      /* Informiere den Recipient, dass sich der Ticket-Status verändert hat.
+      Informiere NICHT, wenn der Author die selbe Person wie der Recipient ist! */
+      if(author.id != auth.user.id) {
+        await Mail.send('emails.ticket_change_status_notification', ticket.toJSON(), message => {
+          message
+            .from('noreply@codiac.ch')
+            .to(author.email)
+            .subject(`Das Ticket [#${ticket.id}] wurde auf "${ticket.status}" gesetzt.`)
+        })
+      }
+    } catch (error) {
+      console.log(error)
     }
 
     session.flash({
@@ -281,6 +285,7 @@ class TicketController {
     })
 
     return response.route('ticketsShow', { id: ticket.id })
+
   }
 
   async changeDraggedStatus({ params, request, auth, response }) {
@@ -317,12 +322,16 @@ class TicketController {
     // Informiere den neuen Recipient, dass ihm ein Ticket zugewiesen wurde
     const recipient = await ticket.ticketRecipient().fetch()
 
-    await Mail.send('emails.new_ticket_notification', ticket.toJSON(), message => {
-      message
-        .from('noreply@codiac.ch')
-        .to(recipient.email)
-        .subject(`Dir wurde ein neues Ticket [#${ticket.id}] zugewiesen.`)
-    })
+    try {
+      await Mail.send('emails.new_ticket_notification', ticket.toJSON(), message => {
+        message
+          .from('noreply@codiac.ch')
+          .to(recipient.email)
+          .subject(`Dir wurde ein neues Ticket [#${ticket.id}] zugewiesen.`)
+      })
+    } catch (error) {
+      console.log(error)
+    }
 
     session.flash({
       notification: {
