@@ -113,7 +113,8 @@ class TicketController {
   async store({ request, auth, session, response }) {
     const validation = await validateAll(request.all(), {
       subject: 'required',
-      description: 'required'
+      description: 'required',
+      project: 'required'
     })
 
     if (validation.fails()) {
@@ -197,7 +198,8 @@ class TicketController {
   async update({ params, auth, request, session, response }) {
     const validation = await validateAll(request.all(), {
       subject: 'required',
-      description: 'required'
+      description: 'required',
+      project: 'required'
     })
 
     if (validation.fails()) {
@@ -207,6 +209,22 @@ class TicketController {
     }
 
     const ticket = await Ticket.find(params.id)
+
+    const attachments = request.file('attachments')
+
+    if(attachments) {
+      await attachments.moveAll(Helpers.publicPath(`uploads/tickets/${ticket.id}`), (file) => {
+        return {
+          name: `${new Date().getTime()}.${file.subtype}`
+        }
+      })
+
+      if (!attachments.movedAll()) {
+        return attachments.errors()
+      }
+
+      ticket.attachments = JSON.stringify(attachments)
+    }
 
     ticket.subject = request.input('subject'),
     ticket.description = request.input('description'),
