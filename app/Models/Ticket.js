@@ -24,7 +24,9 @@ class Ticket extends Model {
       .where('recipient_id', recipient)
       .where('status', status)
       .orderBy('created_at', 'desc')
-      .with('project')
+      .with('project', (builder) => {
+        builder.select('id', 'title')
+      })
       .fetch()
   }
 
@@ -34,7 +36,9 @@ class Ticket extends Model {
       .where('status', status)
       .where('project_id', project)
       .orderBy('created_at', 'desc')
-      .with('project')
+      .with('project', (builder) => {
+        builder.select('id', 'title')
+      })
       .fetch()
   }
 

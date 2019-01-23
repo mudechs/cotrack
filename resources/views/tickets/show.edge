@@ -194,7 +194,7 @@
                 id="body"
                 rows="8"
                 required
-                >{{ old('body', '') }}</textarea>
+              >{{ old('body', '') }}</textarea>
               {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('body'), hasErrorFor('body')) }}
             </div>
           </div>
@@ -212,8 +212,9 @@
   <script>
     $(document).ready(function () {
       // Ticket übernehmen
-      $('#assignToMeButton').on('click', function(){
+      $('#assignToMeButton').on('click', function() {
         const recipient = $(this).data('recipient');
+
         $('#recipient-assign-input').val(recipient);
 
         $('#assign-change-form').submit();
@@ -224,6 +225,7 @@
         e.preventDefault();
 
         const status = $(this).data('status');
+
         $('#status-change-input').val(status);
         $('#statusDropdownButtons').text(status);
 
@@ -235,6 +237,7 @@
         e.preventDefault();
 
         const recipient = $(this).data('recipient');
+
         $('#recipient-change-input').val(recipient);
         $('#recipientDropdownButtons').text(recipient);
 
