@@ -16,13 +16,13 @@ const Factory = use('Factory')
 
 Factory.blueprint('App/Models/User', async () => {
   return {
-    first_name: 'Omar',
-    last_name: 'De-Giuli',
-    profession: 'Webentwickler',
-    phone: '+41 44 745 77 77',
-    mobile: '+41 79 297 57 00',
-    email: 'omar@meantime.ch',
-    password: '1234',
+    first_name: 'Admin',
+    last_name: 'Admin',
+    profession: 'Administrator',
+    phone: '',
+    mobile: '',
+    email: 'info@codiac.ch',
+    password: 'Nkz8289TMU',
     is_active: true,
     is_admin: true
   }
