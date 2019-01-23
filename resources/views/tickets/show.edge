@@ -1,9 +1,9 @@
 @layout('layouts.app')
 
 @section('content')
-  <div class="container mt-3">
+  <div class="container-fluid mt-3">
     <div class="row">
-      <div class="col-md-8 mb-3">
+      <div class="col-md-8">
         <div class="card mb-3">
           <form id="status-change-form" action="{{ route('ticketsChangeStatus', { id: ticket.id }) }}" method="post">
             {{ csrfField() }}
@@ -72,7 +72,7 @@
             <div class="card-text">
               <h2>#{{ ticket.id }} - {{ ticket.subject }}</h2>
               <hr>
-              <small><b>Projekt: </b><a href="{{ route('projectsShow', { id: project.id }) }}">{{ project.title }}</a></small>
+              <small><b>Projekt: </b><a href="{{ route('projectsShow', { id: ticket.project.id }) }}">{{ ticket.project.title }}</a></small>
               <hr>
               {{{ ticket.description }}}
               <hr>

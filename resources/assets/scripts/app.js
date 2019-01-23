@@ -3,7 +3,6 @@ import dragula from 'dragula/dragula';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'datatables.net-bs4/js/dataTables.bootstrap4';
 
-
 window.jQuery = $;
 window.$ = $;
 window.dragula = dragula;

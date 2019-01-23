@@ -56,16 +56,19 @@ class TicketController {
   async show({ params, view, response }) {
     const ticket = await Ticket.query()
       .where('id', params.id)
-      .with('ticketAuthor')
-      .with('ticketRecipient')
-      .with('ticketForwarder')
+      .with('ticketAuthor', (builder) => {
+        builder.select('id', 'first_name', 'last_name')
+      })
+      .with('ticketRecipient', (builder) => {
+        builder.select('id', 'first_name', 'last_name')
+      })
+      .with('ticketForwarder', (builder) => {
+        builder.select('id', 'first_name', 'last_name')
+      })
       .with('comments')
-      .first()
-
-    const project = await Project.query()
-      .where('id', ticket.project_id)
-      .select('id', 'title')
-      .with('members')
+      .with('project.members', (builder) => {
+        builder.select('id', 'first_name', 'last_name')
+      })
       .first()
 
     const comments = await Comment.query()
@@ -75,15 +78,16 @@ class TicketController {
       .orderBy('created_at', 'desc')
       .fetch()
 
-    const attachments = await (JSON.parse(ticket.attachments)._files)
-    // return response.send(attachments)
+    let attachments = null
+    if(ticket.attachments) {
+      attachments = JSON.parse(ticket.attachments)._files
+    }
 
     ticket.description = await MarkdownServices.convertToHtml(ticket.description, 'description')
     const commentsHtml = await MarkdownServices.convertToHtml(comments.toJSON(), 'body')
 
     return view.render('tickets.show', {
       ticket: ticket.toJSON(),
-      project: project.toJSON(),
       comments: commentsHtml,
       statuses: statuses,
       priorities: priorities,

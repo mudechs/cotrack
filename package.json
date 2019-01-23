@@ -36,6 +36,7 @@
     "bootswatch": "^4.2.1",
     "datatables.net-bs4": "^1.10.19",
     "dragula": "^3.7.2",
+    "dropzone": "^5.5.1",
     "jquery": "^3.3.1",
     "mysql": "^2.16.0",
     "random-string": "^0.2.0",
