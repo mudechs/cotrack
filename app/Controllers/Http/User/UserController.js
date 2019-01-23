@@ -8,11 +8,13 @@ const Helpers = use('Helpers')
 class UserController {
   async index({ view }) {
     const usersActive = await User.query()
+      .select('id', 'first_name', 'last_name', 'profession', 'is_active', 'is_admin')
       .where('is_active', true)
       .orderBy('last_name', 'asc')
       .fetch()
 
     const usersInactive = await User.query()
+      .select('id', 'first_name', 'last_name', 'profession', 'is_active', 'is_admin')
       .where('is_active', false)
       .orderBy('last_name', 'asc')
       .fetch()
@@ -23,12 +25,16 @@ class UserController {
     })
   }
 
-  async show({ params, view }) {
+  async show({ params, view, response }) {
     const user = await User.query()
       .where('id', params.id)
       .with('lastLogin')
-      .with('authorOfProjects')
-      .with('memberInProjects')
+      .with('authorOfProjects', (builder) => {
+        builder.select('id', 'author_id', 'title')
+      })
+      .with('memberInProjects', (builder) => {
+        builder.select('id', 'title')
+      })
       .first()
 
     return view.render('users.show', {
