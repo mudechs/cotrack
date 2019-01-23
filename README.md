@@ -10,7 +10,7 @@ adonis seed
 ```./node_modules/.bin/webpack```
 
 ### Login-Credentials
-Username: admin
-Password: Nkz8289TMU
+- Username: admin
+- Password: Nkz8289TMU
 
 
