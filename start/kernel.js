@@ -46,6 +46,7 @@ const namedMiddleware = {
   userOA: 'App/Middleware/UserOA',
   projectOAM: 'App/Middleware/ProjectOAM',
   ticketOFRAM: 'App/Middleware/TicketOFRAM',
+  ticketOA: 'App/Middleware/TicketOA',
   isAdmin: 'App/Middleware/IsAdmin',
 }
 
