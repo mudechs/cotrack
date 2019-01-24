@@ -3,14 +3,19 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-class IsAdmin {
+const User = use('App/Models/User')
+
+class IsOwnerOrAdmin {
   /**
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Function} next
    */
-  async handle ({ auth, response }, next) {
-    if(auth.user.is_admin == true) {
+  async handle ({ params, auth, response }, next) {
+    const { id } = await User.find(auth.user.id)
+    const reqId = params.id
+
+    if(id == reqId || auth.user.is_admin == true) {
       await next()
     } else {
       return response
@@ -20,4 +25,4 @@ class IsAdmin {
   }
 }
 
-module.exports = IsAdmin
+module.exports = IsOwnerOrAdmin

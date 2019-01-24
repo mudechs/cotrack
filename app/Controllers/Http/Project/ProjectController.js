@@ -9,7 +9,7 @@ const User = use('App/Models/User')
 const MarkdownServices = use('App/Services/markdownServices')
 
 class ProjectController {
-  async index({ auth, view }) {
+  async index({ auth, view, response }) {
     let projectsActive = []
     let projectsInactive = []
 
@@ -30,7 +30,7 @@ class ProjectController {
     } else {
       projectsActive = await Project.query()
         .where('is_active', true)
-        .where('author_id', auth.user.id)
+        .andWhere('author_id', auth.user.id)
         .orWhereHas('members', (builder) => {
           builder.where('user_id', auth.user.id)
         })
@@ -41,8 +41,8 @@ class ProjectController {
 
       projectsInactive = await Project.query()
         .where('is_active', false)
-        .where('author_id', auth.user.id)
-        .orWhereHas('members', (builder) => {
+        .andWhere('author_id', auth.user.id)
+        .whereHas('members', (builder) => {
           builder.where('user_id', auth.user.id)
         })
         .with('projectAuthor', (builder) => {

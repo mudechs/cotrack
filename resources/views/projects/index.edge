@@ -5,8 +5,10 @@
     <div class="card">
       <div class="card-header d-flex justify-content-between">
           <span>Projekte</span>
-          <a href="{{ route('projectsCreate') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i></a>
-      </div>
+          @if(auth.user.is_admin == true)
+            <a href="{{ route('projectsCreate') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i></a>
+          @endif
+        </div>
       <div class="card-body p-0">
         <ul class="nav nav-pills pl-3 pt-3" id="projects" role="tablist">
           <li class="nav-item">
