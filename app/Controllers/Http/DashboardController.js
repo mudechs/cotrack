@@ -12,7 +12,9 @@ class DashboardController {
       .where('recipient_id', auth.user.id)
       .whereIn('status', statusesOpen)
       .orderBy('created_at', 'desc')
-      .with('project')
+      .with('project', (builder) => {
+        builder.select('id', 'title')
+      })
       .fetch()
 
     const ticketsAssignedToOthers = await Ticket.query()
@@ -20,14 +22,18 @@ class DashboardController {
       .whereNot('recipient_id', auth.user.id)
       .whereIn('status', statusesOpen)
       .orderBy('created_at', 'desc')
-      .with('project')
+      .with('project', (builder) => {
+        builder.select('id', 'title')
+      })
       .fetch()
 
     const ticketsNotAssigned = await Ticket.query()
       .whereNull('recipient_id')
       .whereIn('status', statusesOpen)
       .orderBy('created_at', 'desc')
-      .with('project')
+      .with('project', (builder) => {
+        builder.select('id', 'title')
+      })
       .fetch()
 
     return view.render('dashboard', {

@@ -6,7 +6,7 @@ const { validateAll } = use('Validator')
 const Project = use('App/Models/Project')
 const Ticket = use('App/Models/Ticket')
 const User = use('App/Models/User')
-const markdown = require('showdown')
+const MarkdownServices = use('App/Services/markdownServices')
 
 class ProjectController {
   async index({ auth, view }) {
@@ -16,12 +16,16 @@ class ProjectController {
     if(auth.user.is_admin) {
       projectsActive = await Project.query()
         .where('is_active', true)
-        .with('projectAuthor')
+        .with('projectAuthor', (builder) => {
+          builder.select('id', 'first_name', 'last_name')
+        })
         .fetch()
 
       projectsInactive = await Project.query()
         .where('is_active', false)
-        .with('projectAuthor')
+        .with('projectAuthor', (builder) => {
+          builder.select('id', 'first_name', 'last_name')
+        })
         .fetch()
     } else {
       projectsActive = await Project.query()
@@ -30,7 +34,9 @@ class ProjectController {
         .orWhereHas('members', (builder) => {
           builder.where('user_id', auth.user.id)
         })
-        .with('projectAuthor')
+        .with('projectAuthor', (builder) => {
+          builder.select('id', 'first_name', 'last_name')
+        })
         .fetch()
 
       projectsInactive = await Project.query()
@@ -39,7 +45,9 @@ class ProjectController {
         .orWhereHas('members', (builder) => {
           builder.where('user_id', auth.user.id)
         })
-        .with('projectAuthor')
+        .with('projectAuthor', (builder) => {
+          builder.select('id', 'first_name', 'last_name')
+        })
         .fetch()
     }
 
@@ -56,33 +64,44 @@ class ProjectController {
       .orWhereHas('members', (builder) => {
         builder.where('project_id', params.id)
       })
-      .with('projectAuthor')
-      .with('members')
+      .with('projectAuthor', (builder) => {
+        builder.select('id', 'first_name', 'last_name')
+      })
+      .with('members', (builder) => {
+        builder.select('id', 'first_name', 'last_name')
+      })
       .first()
 
     if(project) {
       const statusesOpen = await Ticket.ticketStatuses(statuses, 'open')
+
       const ticketsOpen = await Ticket.query()
         .where('project_id', project.id)
         .whereIn('status', statusesOpen)
-        .with('ticketAuthor')
-        .with('ticketRecipient')
+        .with('ticketAuthor', (builder) => {
+          builder.select('id', 'first_name', 'last_name')
+        })
+        .with('ticketRecipient', (builder) => {
+          builder.select('id', 'first_name', 'last_name')
+        })
         .orderBy('created_at', 'desc')
         .fetch()
 
       const statusesClosed = await Ticket.ticketStatuses(statuses, 'closed')
+
       const ticketsClosed = await Ticket.query()
         .where('project_id', project.id)
         .whereIn('status', statusesClosed)
-        .with('ticketAuthor')
-        .with('ticketRecipient')
+        .with('ticketAuthor', (builder) => {
+          builder.select('id', 'first_name', 'last_name')
+        })
+        .with('ticketRecipient', (builder) => {
+          builder.select('id', 'first_name', 'last_name')
+        })
         .orderBy('created_at', 'desc')
         .fetch()
 
-      const descriptionMd = project.description
-      const md = new markdown.Converter()
-
-      project.description = md.makeHtml(descriptionMd)
+      project.description = await MarkdownServices.convertToHtml(project.description, 'description')
 
       return view.render('projects.show', {
         project: project.toJSON(),
@@ -153,7 +172,9 @@ class ProjectController {
   async edit({ params, view }) {
     const project = await Project.query()
       .where('id', params.id)
-      .with('members')
+      .with('members', (builder) => {
+        builder.select('id', 'first_name', 'last_name')
+      })
       .first()
 
     const users = await User.query()

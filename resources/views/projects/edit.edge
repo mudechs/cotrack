@@ -1,9 +1,9 @@
 @layout('layouts.app')
 
 @section('content')
-  <div class="container mt-3">
+  <div class="container-fluid mt-3">
     <div class="row">
-      <div class="col-md-10 offset-md-1">
+      <div class="col-lg-8 offset-lg-2">
         <div class="card">
           <div class="card-header text-center">Projekt bearbeiten</div>
           <form action="{{ route('projectsUpdate', { id: project.id }) }}" method="post">
