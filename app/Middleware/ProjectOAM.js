@@ -12,8 +12,6 @@ class ProjectOam {
    * @param {Function} next
    */
   async handle ({ params, auth, response }, next) {
-    const { author_id } = await Project.find(params.id)
-
     const project = await Project.query()
       .where('id', params.id)
       .andWhere(function() {

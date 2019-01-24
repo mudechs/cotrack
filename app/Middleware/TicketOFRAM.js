@@ -4,6 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const Ticket = use('App/Models/Ticket')
+const Project = use('App/Models/Project')
 
 class TicketOfram {
   /**
@@ -11,9 +12,32 @@ class TicketOfram {
    * @param {Request} ctx.request
    * @param {Function} next
    */
-  async handle ({ request }, next) {
-    // call next to advance the request
-    await next()
+  async handle ({ params, auth, response }, next) {
+    const {
+      author_id,
+      forwarder_id,
+      recipient_id,
+      project_id
+    } = await Ticket.find(params.id)
+
+    const isMember = await Project.query()
+      .where('id', project_id)
+      .andWhere(function() {
+        this
+          .whereHas('members', (builder) => {
+            builder.where('user_id', auth.user.id)
+          })
+      })
+      .first()
+
+
+    if(isMember || author_id == auth.user.id || forwarder_id == auth.user.id || recipient_id == auth.user.id) {
+      await next()
+    } else {
+      return response
+        .status(403)
+        .send('Kein Zugriff :-)')
+    }
   }
 }
 
