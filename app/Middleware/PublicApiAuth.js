@@ -17,7 +17,7 @@ class PublicApiAuth {
     if(token != Env.get('APP_KEY')) {
       return response
         .status(403)
-        .send('Permission denied!')
+        .send('Kein Zugriff :-)')
     } else {
       await next()
     }

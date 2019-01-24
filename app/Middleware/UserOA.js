@@ -5,7 +5,7 @@
 
 const User = use('App/Models/User')
 
-class IsOwnerOrAdmin {
+class UserOA {
   /**
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -20,9 +20,9 @@ class IsOwnerOrAdmin {
     } else {
       return response
         .status(403)
-        .send('Permission denied!')
+        .send('Kein Zugriff :-)')
     }
   }
 }
 
-module.exports = IsOwnerOrAdmin
+module.exports = UserOA

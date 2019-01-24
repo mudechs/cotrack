@@ -43,7 +43,8 @@ const namedMiddleware = {
   authenticated: 'App/Middleware/Authenticated',
   guest: 'Adonis/Middleware/AllowGuestOnly',
   publicApi: 'App/Middleware/PublicApiAuth',
-  isOwnerOrAdmin: 'App/Middleware/IsOwnerOrAdmin',
+  userOA: 'App/Middleware/UserOA',
+  projectOAM: 'App/Middleware/ProjectOAM',
   isAdmin: 'App/Middleware/IsAdmin',
 }
 

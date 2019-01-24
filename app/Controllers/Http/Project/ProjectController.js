@@ -30,9 +30,12 @@ class ProjectController {
     } else {
       projectsActive = await Project.query()
         .where('is_active', true)
-        .andWhere('author_id', auth.user.id)
-        .orWhereHas('members', (builder) => {
-          builder.where('user_id', auth.user.id)
+        .andWhere(function() {
+          this
+            .where('author_id', auth.user.id)
+            .orWhereHas('members', (builder) => {
+              builder.where('user_id', auth.user.id)
+            })
         })
         .with('projectAuthor', (builder) => {
           builder.select('id', 'first_name', 'last_name')
@@ -41,9 +44,12 @@ class ProjectController {
 
       projectsInactive = await Project.query()
         .where('is_active', false)
-        .andWhere('author_id', auth.user.id)
-        .whereHas('members', (builder) => {
-          builder.where('user_id', auth.user.id)
+        .andWhere(function() {
+          this
+            .where('author_id', auth.user.id)
+            .orWhereHas('members', (builder) => {
+              builder.where('user_id', auth.user.id)
+            })
         })
         .with('projectAuthor', (builder) => {
           builder.select('id', 'first_name', 'last_name')
@@ -60,10 +66,6 @@ class ProjectController {
   async show({ params, auth, session, view, response }) {
     const project = await Project.query()
       .where('id', params.id)
-      .where('author_id', auth.user.id)
-      .orWhereHas('members', (builder) => {
-        builder.where('project_id', params.id)
-      })
       .with('projectAuthor', (builder) => {
         builder.select('id', 'first_name', 'last_name')
       })

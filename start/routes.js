@@ -37,14 +37,14 @@ Route.post('password/:id', 'Auth/PasswordChangeController.update').middleware(['
 
 Route.get('users', 'User/UserController.index').middleware(['auth', 'isAdmin']).as('usersIndex')
 Route.get('users/create', 'User/UserController.create').middleware(['auth', 'isAdmin']).as('usersCreate')
-Route.get('users/show/:id', 'User/UserController.show').middleware(['auth', 'isOwnerOrAdmin']).as('usersShow')
-Route.get('users/edit/:id', 'User/UserController.edit').middleware(['auth', 'isOwnerOrAdmin']).as('usersEdit')
+Route.get('users/show/:id', 'User/UserController.show').middleware(['auth', 'userOA']).as('usersShow')
+Route.get('users/edit/:id', 'User/UserController.edit').middleware(['auth', 'userOA']).as('usersEdit')
 Route.post('users/store', 'User/UserController.store').middleware(['auth', 'isAdmin']).as('usersStore')
-Route.post('users/update/:id', 'User/UserController.update').middleware(['auth', 'isOwnerOrAdmin']).as('usersUpdate')
+Route.post('users/update/:id', 'User/UserController.update').middleware(['auth', 'userOA']).as('usersUpdate')
 
 Route.get('projects', 'Project/ProjectController.index').middleware(['auth']).as('projectsIndex')
 Route.get('projects/create', 'Project/ProjectController.create').middleware(['auth', 'isAdmin']).as('projectsCreate')
-Route.get('projects/show/:id', 'Project/ProjectController.show').middleware(['auth']).as('projectsShow')
+Route.get('projects/show/:id', 'Project/ProjectController.show').middleware(['auth', 'projectOAM']).as('projectsShow')
 Route.get('projects/edit/:id', 'Project/ProjectController.edit').middleware(['auth', 'isAdmin']).as('projectsEdit')
 Route.post('projects/store', 'Project/ProjectController.store').middleware(['auth', 'isAdmin']).as('projectsStore')
 Route.post('projects/update/:id', 'Project/ProjectController.update').middleware(['auth', 'isAdmin']).as('projectsUpdate')

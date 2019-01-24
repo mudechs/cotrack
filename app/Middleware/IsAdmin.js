@@ -15,7 +15,7 @@ class IsAdmin {
     } else {
       return response
         .status(403)
-        .send('Permission denied!')
+        .send('Kein Zugriff :-)')
     }
   }
 }
