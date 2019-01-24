@@ -8,14 +8,14 @@
     <ul class="navbar-nav mr-auto">
       @loggedIn
         <li class="nav-item {{ activeRoute('tickets*') }}">
-          <a class="nav-link" href="{{ route('ticketsIndex') }}">Tickets</a>
+          <a class="nav-link" href="{{ route('ticketsIndex') }}"><i class="fas fa-ticket-alt fa-fw"></i> Tickets</a>
         </li>
         <li class="nav-item {{ activeRoute('projects*') }}">
-          <a class="nav-link" href="{{ route('projectsIndex') }}">Projekte</a>
+          <a class="nav-link" href="{{ route('projectsIndex') }}"><i class="fas fa-project-diagram fa-fw"></i> Projekte</a>
         </li>
         @if(auth.user.is_admin == true)
           <li class="nav-item {{ activeRoute('users*') }}">
-            <a class="nav-link" href="{{ route('usersIndex') }}">Benutzer</a>
+            <a class="nav-link" href="{{ route('usersIndex') }}"><i class="fas fa-users fa-fw"></i> Benutzer</a>
           </li>
         @endif
       @endloggedIn
