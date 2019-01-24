@@ -3,7 +3,7 @@
 @section('content')
   <div class="container-fluid mt-3">
     <div class="row">
-      <div class="col-lg-6 offset-lg-3">
+      <div class="col-lg-8 offset-lg-2">
         <div class="card">
           <div class="card-header text-center">Benutzer bearbeiten</div>
           <form action="{{ route('usersUpdate', { id: user.id }) }}" method="post" enctype="multipart/form-data">
@@ -88,7 +88,6 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  @if(auth.user.is_admin == true)
                     <div class="form-group">
                       <div class="custom-control custom-switch">
                         <input
@@ -96,14 +95,13 @@
                           class="custom-control-input"
                           id="is_active"
                           name="is_active"
-                          @if(user.is_active === 1)
+                          @if(user.is_active == true)
                             checked
                           @endif
                         >
                         <label class="custom-control-label" for="is_active">Aktiv</label>
                       </div>
                     </div>
-                  @endif
                   <div class="form-group">
                     <div class="custom-control custom-switch">
                       <input
