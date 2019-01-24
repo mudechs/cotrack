@@ -45,6 +45,7 @@ const namedMiddleware = {
   publicApi: 'App/Middleware/PublicApiAuth',
   userOA: 'App/Middleware/UserOA',
   projectOAM: 'App/Middleware/ProjectOAM',
+  ticketOFRAM: 'App/Middleware/TicketOFRAM',
   isAdmin: 'App/Middleware/IsAdmin',
 }
 
