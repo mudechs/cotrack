@@ -1,7 +1,7 @@
 @layout('layouts.app')
 
 @section('content')
-  <div class="container mt-3">
+  <div class="container-fluid mt-3">
     <div class="card mb-3">
       <div class="card-header d-flex justify-content-between">
         <span>{{ project.title }}</span>
@@ -98,7 +98,7 @@
                   <td><b>{{ ticket.subject }}</b></td>
                   <td>
                     {{ ticket.ticketAuthor.first_name }} {{ ticket.ticketAuthor.last_name }} &rarr;
-                    @if(ticket.ticketRecipient != "null")
+                    @if(ticket.ticketRecipient)
                     {{ ticket.ticketRecipient.first_name }} {{ ticket.ticketRecipient.last_name }}
                     @else
                     nicht zugewiesen
@@ -130,7 +130,7 @@
                   <td><b>{{ ticket.subject }}</b></td>
                   <td>
                     {{ ticket.ticketAuthor.first_name }} {{ ticket.ticketAuthor.last_name }} &rarr;
-                    @if(ticket.ticketRecipient != "null")
+                    @if(ticket.ticketRecipient)
                     {{ ticket.ticketRecipient.first_name }} {{ ticket.ticketRecipient.last_name }}
                     @else
                     nicht zugewiesen

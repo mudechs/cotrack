@@ -9,7 +9,7 @@ class Authenticated {
    * @param {Request} ctx.request
    * @param {Function} next
    */
-  async handle ({ request, auth, response }, next) {
+  async handle ({ auth, response }, next) {
     try {
       await auth.check()
 
