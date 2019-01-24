@@ -23,7 +23,7 @@
                     {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('title'), hasErrorFor('title')) }}
                   </div>
                   <div class="form-group">
-                    <label for="description">Beschreibung</label>
+                    <label for="description">Beschreibung <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">[Markdown erlaubt]</a></label>
                     <textarea
                       name="description"
                       class="form-control {{ hasErrorFor('description') ? 'is-invalid' : '' }}"
