@@ -20,7 +20,7 @@
     <div class="row">
       <div class="col-12 col-lg mb-3">
         <div class="card">
-          <div class="card-header text-center">Neu</div>
+          <div class="card-header text-center"><i class="fas fa-bolt fa-fw"></i> Neu</div>
           <div id="Neu" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsNeu)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">
@@ -52,7 +52,7 @@
 
       <div class="col-12 col-lg mb-3">
         <div class="card">
-          <div class="card-header text-center">Anerkannt</div>
+          <div class="card-header text-center"><i class="far fa-thumbs-up fa-fw"></i> Anerkannt</div>
           <div id="Anerkannt" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsAnerkannt)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">
@@ -84,7 +84,7 @@
 
       <div class="col-12 col-lg mb-3">
         <div class="card">
-          <div class="card-header text-center">Warten</div>
+          <div class="card-header text-center"><i class="fas fa-hourglass-half fa-fw"></i> Warten</div>
           <div id="Warten" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsWarten)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">
@@ -116,7 +116,7 @@
 
       <div class="col-12 col-lg mb-3">
         <div class="card">
-          <div class="card-header text-center">Feedback</div>
+          <div class="card-header text-center"><i class="fas fa-bullhorn fa-fw"></i> Feedback</div>
           <div id="Feedback" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsFeedback)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">
@@ -148,7 +148,7 @@
 
       <div class="col-12 col-lg mb-3">
         <div class="card">
-          <div class="card-header text-center">Bearbeitung</div>
+          <div class="card-header text-center"><i class="fas fa-pencil-alt fa-fw"></i> Bearbeitung</div>
           <div id="Bearbeitung" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsBearbeitung)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">

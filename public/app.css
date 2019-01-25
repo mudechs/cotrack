@@ -7459,7 +7459,8 @@ div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:las
   padding-right: 0; }
 
 body {
-  padding-bottom: 120px; }
+  padding-bottom: 120px;
+  font-weight: 200; }
 
 .navbar-brand {
   font-family: Impact, Charcoal, sans-serif; }
