@@ -29,8 +29,6 @@ class DashboardController {
       .withCount('comments')
       .fetch()
 
-    // return response.send(ticketsAssignedToOthers)
-
     const ticketsNotAssigned = await Ticket.query()
       .whereNull('recipient_id')
       .whereIn('status', statusesOpen)
