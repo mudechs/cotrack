@@ -38,9 +38,11 @@
           </div>
         </li>
       @else
+        {{--
         <li class="nav-item">
           <a class="nav-link" href="{{ route('register') }}">Registrieren</a>
         </li>
+        --}}
         <a class="btn btn-primary my-2 my-sm-0" href="{{ route('login') }}">Anmelden</a>
       @endloggedIn
     </ul>

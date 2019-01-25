@@ -18,13 +18,11 @@
       </section>
     </main>
 
-    @loggedIn
-      <footer>
-        <nav class="navbar fixed-bottom navbar-dark bg-dark p-2">
-          <a href="{{ route('dashboard') }}"><small>&copy; 2019 - codiac.ch</small></a>
-        </nav>
-      </footer>
-    @endloggedIn
+    <footer>
+      <nav class="navbar fixed-bottom navbar-dark bg-dark p-2">
+        <a href="{{ route('dashboard') }}"><small>&copy; 2019 - codiac.ch</small></a>
+      </nav>
+    </footer>
 
     {{ script('app') }}
 
