@@ -52,7 +52,7 @@ class UserController {
       first_name: 'required',
       last_name: 'required',
       email: 'required|email|unique:users, email',
-      password: 'required'
+      password: 'required|min:6'
     })
 
     if (validation.fails()) {
@@ -146,7 +146,7 @@ class UserController {
     const validation = await validateAll(request.all(), {
       first_name: 'required',
       last_name: 'required',
-      email: `required|email|unique:users, email, id, ${userId}`
+      email: `required|email|min:6|unique:users, email, id, ${userId}`
     })
 
     if (validation.fails()) {

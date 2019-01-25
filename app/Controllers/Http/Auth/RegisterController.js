@@ -17,7 +17,7 @@ class RegisterController {
       first_name: 'required',
       last_name: 'required',
       email: 'required|email|unique:users, email',
-      password: 'required'
+      password: 'required|min:6'
     })
 
     if (validation.fails()) {
