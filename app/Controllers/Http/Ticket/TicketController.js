@@ -53,7 +53,7 @@ class TicketController {
     })
   }
 
-  async show({ params, view, response }) {
+  async show({ params, view }) {
     const ticket = await Ticket.query()
       .where('id', params.id)
       .with('ticketAuthor', (builder) => {
@@ -75,7 +75,7 @@ class TicketController {
       .where('ticket_id', ticket.id)
       .select('body', 'created_at', 'author_id')
       .with('commentAuthor', (builder) => {
-        builder.select('id', 'first_name', 'last_name')
+        builder.select('id', 'first_name', 'last_name', 'avatar')
       })
       .orderBy('created_at', 'desc')
       .fetch()

@@ -7487,3 +7487,10 @@ table.dataTable.table-sm > thead > tr > th {
 
 .dataTables_filter {
   margin-right: 10px; }
+
+.dummy-avatar {
+  display: block;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #272B30; }

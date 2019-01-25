@@ -45,7 +45,7 @@
                       Weiterleiten &rarr;
                     </button>
                     <div class="dropdown-menu" aria-labelledby="recipientDropdownButtons">
-                      @each(member in project.members)
+                      @each(member in ticket.project.members)
                         <a class="
                           dropdown-item
                           recipient-dropdown-item
@@ -94,6 +94,8 @@
               <div class="media">
                 @if(comment.commentAuthor.avatar)
                   <img src="{{ assetsUrl('uploads/avatars/' + comment.commentAuthor.avatar) }}" alt="{{ comment.commentAuthor.first_name }} {{ comment.commentAuthor.last_name }}" class="mr-3 rounded-circle" width="60">
+                @else
+                  <div class="dummy-avatar mr-3"></div>
                 @endif
                 <div class="media-body">
                   <h5 class="mt-0 d-flex justify-content-between">
@@ -135,10 +137,10 @@
                   <td>{{ ticket.ticketAuthor.first_name }} {{ ticket.ticketAuthor.last_name }}</td>
                 </tr>
                 @if(ticket.forwarder_id)
-                <tr>
-                  <th>Forwarder:</th>
-                  <td>{{ ticket.ticketForwarder.first_name }} {{ ticket.ticketForwarder.last_name }}</td>
-                </tr>
+                  <tr>
+                    <th>Forwarder:</th>
+                    <td>{{ ticket.ticketForwarder.first_name }} {{ ticket.ticketForwarder.last_name }}</td>
+                  </tr>
                 @endif
                 <tr>
                     <th>Empfänger:</th>
@@ -187,7 +189,7 @@
             {{ csrfField() }}
             <input type="hidden" name="author_id" id="author-id-input" value="{{ auth.user.id }}">
             <div class="form-group">
-              <label for="body">Text</label>
+              <label for="body">Text <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">[Markdown erlaubt]</a></label>
               <textarea
                 name="body"
                 class="form-control {{ hasErrorFor('body') ? 'is-invalid' : '' }}"
@@ -200,7 +202,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Schliessen</button>
-            <button type="submit" class="btn btn-primary">Speichern</button>
+            <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> Speichern</button>
           </div>
         </form>
       </div>
