@@ -24,7 +24,16 @@
                   <span><small>{{ ticket.created_at }}</small></span>
                 </div>
                 <h6 class=""><i class="fas fa-ticket-alt"></i> {{ ticket.subject }}</h6>
-                <small><b>Projekt: </b>{{ ticket.project.title }}</small>
+                <div class="d-flex justify-content-between">
+                  <small><b>Projekt: </b>{{ ticket.project.title }}</small>
+                  <small>
+                    @each(comment in ticket.comments)
+                      @if($loop.index == 1)
+                        <i class="far fa-comments fa-fw"></i> {{ $loop.total }}
+                      @endif
+                    @endeach
+                  </small>
+                </div>
               </a>
             @endeach
           </div>
@@ -51,7 +60,16 @@
                   <span><small>{{ ticket.created_at }}</small></span>
                 </div>
                 <h6 class=""><i class="fas fa-ticket-alt"></i> {{ ticket.subject }}</h6>
-                <small><b>Projekt: </b>{{ ticket.project.title }}</small>
+                <div class="d-flex justify-content-between">
+                  <small><b>Projekt: </b>{{ ticket.project.title }}</small>
+                  <small>
+                    @each(comment in ticket.comments)
+                      @if($loop.index == 1)
+                        <i class="far fa-comments fa-fw"></i> {{ $loop.total }}
+                      @endif
+                    @endeach
+                  </small>
+                </div>
               </a>
             @endeach
           </div>
@@ -79,7 +97,16 @@
                     <span><small>{{ ticket.created_at }}</small></span>
                   </div>
                   <h6 class=""><i class="fas fa-ticket-alt"></i> {{ ticket.subject }}</h6>
-                  <small><b>Projekt: </b>{{ ticket.project.title }}</small>
+                  <div class="d-flex justify-content-between">
+                    <small><b>Projekt: </b>{{ ticket.project.title }}</small>
+                    <small>
+                      @each(comment in ticket.comments)
+                        @if($loop.index == 1)
+                          <i class="far fa-comments fa-fw"></i> {{ $loop.total }}
+                        @endif
+                      @endeach
+                    </small>
+                  </div>
                 </a>
               @endeach
             </div>

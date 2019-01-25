@@ -5,7 +5,7 @@ const { statuses, priorities } = Config.get('ticket')
 const Ticket = use('App/Models/Ticket')
 
 class DashboardController {
-  async index({ auth, view }) {
+  async index({ auth, view, response }) {
     const statusesOpen = await Ticket.ticketStatuses(statuses, 'open')
 
     const ticketsAssignedToMe = await Ticket.query()
@@ -14,6 +14,9 @@ class DashboardController {
       .orderBy('created_at', 'desc')
       .with('project', (builder) => {
         builder.select('id', 'title')
+      })
+      .with('comments', (builder) => {
+        builder.select('ticket_id')
       })
       .fetch()
 
@@ -25,6 +28,9 @@ class DashboardController {
       .with('project', (builder) => {
         builder.select('id', 'title')
       })
+      .with('comments', (builder) => {
+        builder.select('ticket_id')
+      })
       .fetch()
 
     const ticketsNotAssigned = await Ticket.query()
@@ -33,6 +39,9 @@ class DashboardController {
       .orderBy('created_at', 'desc')
       .with('project', (builder) => {
         builder.select('id', 'title')
+      })
+      .with('comments', (builder) => {
+        builder.select('ticket_id')
       })
       .fetch()
 
