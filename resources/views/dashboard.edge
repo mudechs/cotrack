@@ -27,11 +27,9 @@
                 <div class="d-flex justify-content-between">
                   <small><b>Projekt: </b>{{ ticket.project.title }}</small>
                   <small>
-                    @each(comment in ticket.comments)
-                      @if($loop.index == 1)
-                        <i class="far fa-comments fa-fw"></i> {{ $loop.total }}
-                      @endif
-                    @endeach
+                    <small>
+                      <i class="far fa-comments fa-fw"></i> {{ ticket["__meta__"].comments_count }}
+                    </small>
                   </small>
                 </div>
               </a>
@@ -63,11 +61,7 @@
                 <div class="d-flex justify-content-between">
                   <small><b>Projekt: </b>{{ ticket.project.title }}</small>
                   <small>
-                    @each(comment in ticket.comments)
-                      @if($loop.index == 1)
-                        <i class="far fa-comments fa-fw"></i> {{ $loop.total }}
-                      @endif
-                    @endeach
+                    <i class="far fa-comments fa-fw"></i> {{ ticket["__meta__"].comments_count }}
                   </small>
                 </div>
               </a>
@@ -100,11 +94,9 @@
                   <div class="d-flex justify-content-between">
                     <small><b>Projekt: </b>{{ ticket.project.title }}</small>
                     <small>
-                      @each(comment in ticket.comments)
-                        @if($loop.index == 1)
-                          <i class="far fa-comments fa-fw"></i> {{ $loop.total }}
-                        @endif
-                      @endeach
+                      <small>
+                        <i class="far fa-comments fa-fw"></i> {{ ticket["__meta__"].comments_count }}
+                      </small>
                     </small>
                   </div>
                 </a>

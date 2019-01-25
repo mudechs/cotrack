@@ -15,9 +15,7 @@ class DashboardController {
       .with('project', (builder) => {
         builder.select('id', 'title')
       })
-      .with('comments', (builder) => {
-        builder.select('ticket_id')
-      })
+      .withCount('comments')
       .fetch()
 
     const ticketsAssignedToOthers = await Ticket.query()
@@ -28,10 +26,10 @@ class DashboardController {
       .with('project', (builder) => {
         builder.select('id', 'title')
       })
-      .with('comments', (builder) => {
-        builder.select('ticket_id')
-      })
+      .withCount('comments')
       .fetch()
+
+    // return response.send(ticketsAssignedToOthers)
 
     const ticketsNotAssigned = await Ticket.query()
       .whereNull('recipient_id')
@@ -40,9 +38,7 @@ class DashboardController {
       .with('project', (builder) => {
         builder.select('id', 'title')
       })
-      .with('comments', (builder) => {
-        builder.select('ticket_id')
-      })
+      .withCount('comments')
       .fetch()
 
     return view.render('dashboard', {
