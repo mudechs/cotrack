@@ -21,7 +21,7 @@
         <div class="tab-content" id="projectsContent">
           <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="active-tab">
             <div class="table-responsive">
-              <table class="table table-hover table-striped table-sm text-nowrap m-0">
+              <table class="table table-hover table-striped table-sm text-nowrap m-0 data-table">
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
@@ -61,7 +61,7 @@
           </div>
           <div class="tab-pane fade" id="inactive" role="tabpanel" aria-labelledby="inactive-tab">
             <div class="table-responsive">
-              <table class="table table-hover table-striped table-sm text-nowrap m-0">
+              <table class="table table-hover table-striped table-sm text-nowrap m-0 data-table">
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
@@ -107,7 +107,8 @@
 
 @section('js')
   <script>
-    $('.table').DataTable({
+    $('.data-table').DataTable({
+      dom: "<'row'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6'l>>",
       paging: false,
       info: false,
       order: [ 1, 'asc' ],
@@ -115,7 +116,8 @@
         { 'orderable': false, 'targets': 6 }
       ],
       language: {
-        search: "Filter:"
+        search: "<i class='fas fa-filter'></i> ",
+        emptyTable: "Keine Daten vorhanden"
       }
     });
   </script>

@@ -7487,8 +7487,9 @@ table.dataTable.table-sm > thead > tr > th {
   padding-right: .3rem; }
 
 .dataTables_filter {
-  margin-right: 10px;
-  margin-top: 10px; }
+  text-align: left !important;
+  margin-top: 14px;
+  margin-left: 10px; }
 
 .dummy-avatar {
   display: block;
