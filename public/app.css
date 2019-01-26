@@ -7500,6 +7500,9 @@ table.dataTable.table-sm > thead > tr > th {
   margin-top: 14px;
   margin-right: 10px; }
 
+div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+  margin: 14px; }
+
 .dummy-avatar {
   display: block;
   width: 60px;
