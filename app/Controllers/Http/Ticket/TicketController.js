@@ -177,16 +177,23 @@ class TicketController {
     return response.route('ticketsShow', { id: ticket.id })
   }
 
-  async edit({ params, view }) {
+  async edit({ params, view, response }) {
     const ticket = await Ticket.query()
       .where('id', params.id)
-      .with('ticketAuthor')
+      .with('ticketAuthor', (builder) => {
+        builder.select('id', 'first_name', 'last_name')
+      })
+      .with('project', (builder) => {
+        builder.select('id', 'title')
+      })
       .first()
 
     const projects = await Project.query()
       .select('id', 'title')
       .where('is_active', true)
       .fetch()
+
+    // return response.send(ticket)
 
     return view.render('tickets.edit', {
       priorities: priorities,

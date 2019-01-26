@@ -50,24 +50,8 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label for="project">Projekt</label>
-                    <select name="project" id="project" class="form-control {{ hasErrorFor('project') ? 'is-invalid' : '' }}">
-                      <option value="">Bitte wählen...</option>
-                      @each(project in projects)
-                        <option value="{{ project.id }}"
-                          @if(project.id == ticket.project_id)
-                            selected
-                          @endif
-                        >{{ project.title }}</option>
-                      @endeach
-                    </select>
-                    {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('project'), hasErrorFor('project')) }}
-                  </div>
-                  <div class="form-group" style="display: none;">
-                    <label for="recipient">Empfänger</label>
-                    <select name="recipient" id="recipient" class="form-control">
-                      <option value="{{ ticket.ticketAuthor.id }}">{{ ticket.ticketAuthor.first_name }} {{ ticket.ticketAuthor.last_name }}</option>
-                    </select>
+                    <label for="project">Projekt</label><br>
+                    {{ ticket.project.title }}
                   </div>
                 </div>
               </div>
@@ -86,32 +70,7 @@
 @section('js')
   <script>
     $(document).ready(function () {
-      $('#project').on('change', function(){
-        const projectId = $(this).val();
-        const apiUrl = '/api/tickets/projectMembers/' + projectId;
-        const recipient = $('#recipient');
 
-        $.getJSON( apiUrl, function(data) {
-          if(data.length > 0) {
-            let items = [];
-            items.push('<option value="">Bitte wählen...</option>');
-
-            $.each(data, function(key, val) {
-              const fullName = val.first_name + " " + val.last_name;
-              items.push('<option value="' + val.id + '">' + fullName + '</option>');
-            });
-
-            recipient.html(items);
-            recipient.closest('.form-group').fadeIn('fast');
-          } else {
-            console.log('No data');
-            recipient.closest('.form-group').hide();
-          }
-        })
-        .fail(function() {
-          console.log('Error');
-        })
-      });
     });
   </script>
 @endsection
