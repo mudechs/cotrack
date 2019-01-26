@@ -40,6 +40,9 @@ label, table.table th {
 .draggable .list-group-item {
   cursor: move;
   padding: .75rem;
+  small {
+    color: #515960;
+  }
 }
 
 table.dataTable.table-sm > thead > tr > th {
