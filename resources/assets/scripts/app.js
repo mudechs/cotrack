@@ -11,14 +11,15 @@ $.extend(true, $.fn.dataTable.defaults, {
   dom: "<'row'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6'l>>" +
     "<'row'<'col-sm-12'tr>>" +
     "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-  info: false,
+  info: true,
   paging: true,
   lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Alle"]],
   language: {
-    search: "<i class='fas fa-filter'></i> ",
-    emptyTable: "Keine Daten vorhanden",
-    lengthMenu: "_MENU_",
-    paginate: {
+    "search": "<i class='fas fa-filter'></i> ",
+    "info": "_START_ &rarr; _END_ (_TOTAL_)",
+    "emptyTable": "Keine Daten vorhanden",
+    "lengthMenu": "_MENU_",
+    "paginate": {
       "first":      "First",
       "last":       "Last",
       "next":       "<i class='fas fa-chevron-right'></i>",

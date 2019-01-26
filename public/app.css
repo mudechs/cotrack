@@ -7503,6 +7503,9 @@ table.dataTable.table-sm > thead > tr > th {
 div.dataTables_wrapper div.dataTables_paginate ul.pagination {
   margin: 14px; }
 
+.dataTables_info {
+  margin-left: 14px; }
+
 .dummy-avatar {
   display: block;
   width: 60px;
