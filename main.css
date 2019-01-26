@@ -7491,6 +7491,10 @@ table.dataTable.table-sm > thead > tr > th {
   margin-top: 14px;
   margin-left: 10px; }
 
+.dataTables_filter input {
+  background: #515960;
+  border-color: #272B30; }
+
 .dummy-avatar {
   display: block;
   width: 60px;
