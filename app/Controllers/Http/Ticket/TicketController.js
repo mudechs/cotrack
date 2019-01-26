@@ -188,16 +188,8 @@ class TicketController {
       })
       .first()
 
-    const projects = await Project.query()
-      .select('id', 'title')
-      .where('is_active', true)
-      .fetch()
-
-    // return response.send(ticket)
-
     return view.render('tickets.edit', {
       priorities: priorities,
-      projects: projects.toJSON(),
       ticket: ticket.toJSON()
     })
   }
