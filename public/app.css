@@ -7483,6 +7483,9 @@ label, table.table th {
 .linkable:hover {
   cursor: pointer; }
 
+.draggable .list-group-item {
+  cursor: move; }
+
 table.dataTable.table-sm > thead > tr > th {
   padding-right: .3rem; }
 
