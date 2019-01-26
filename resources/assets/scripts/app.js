@@ -17,13 +17,14 @@ $.extend(true, $.fn.dataTable.defaults, {
   language: {
     "search": "<i class='fas fa-filter'></i> ",
     "info": "_START_ &rarr; _END_ (_TOTAL_)",
+    "infoEmpty": "0 &rarr; 0 (0)",
     "emptyTable": "Keine Daten vorhanden",
     "lengthMenu": "_MENU_",
     "paginate": {
-      "first":      "First",
-      "last":       "Last",
-      "next":       "<i class='fas fa-chevron-right'></i>",
-      "previous":   "<i class='fas fa-chevron-left'></i>"
+      "first":      "<i class='fas fa-step-backward'></i>",
+      "last":       "<i class='fas fa-step-forward'></i>",
+      "next":       "<i class='fas fa-forward'></i>",
+      "previous":   "<i class='fas fa-backward'></i>"
     },
   }
 });
