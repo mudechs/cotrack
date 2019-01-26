@@ -39,4 +39,9 @@ $(document).ready(function () {
 
     location.href = url;
   });
+
+  // Remove wrong input class on data table select
+  if($('.dataTables_length').length) {
+    $(this).find('select').removeClass('custom-select custom-select-sm');
+  }
 });
