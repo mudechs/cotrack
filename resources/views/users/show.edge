@@ -47,18 +47,8 @@
             </div>
           </div>
         </div>
-        <div class="card">
-          <div class="card-header text-center">Meine Projekte</div>
-          <div class="list-group list-group-flush">
-            @each(project in user.authorOfProjects)
-              <a href="{{ route('projectsShow', { id: project.id }) }}" class="list-group-item list-group-item-action">
-                {{ project.title }}
-              </a>
-            @endeach
-          </div>
-        </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4 mb-3">
         <div class="card">
           <div class="card-body p-2">
             <table class="table table-sm table-borderless text-nowrap m-0">
@@ -111,14 +101,31 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div class="card">
-          <div class="card-header text-center">Member in Projekten</div>
-            <div class="list-group list-group-flush">
-              @each(project in user.memberInProjects)
-                <a href="{{ route('projectsShow', { id: project.id }) }}" class="list-group-item list-group-item-action">
-                  {{ project.title }}
-                </a>
-              @endeach
+        <div class="accordion" id="projectAccordion">
+          <div class="card mb-3">
+            <a class="card-header text-center" data-toggle="collapse" href="#myProjects" role="button" aria-expanded="true" aria-controls="myProjects">
+              Meine Projekte
+            </a>
+            <div id="myProjects" class="collapse show" aria-labelledby="myProjects" data-parent="#projectAccordion">
+              <div class="list-group list-group-flush">
+                @each(project in user.authorOfProjects)
+                  <a href="{{ route('projectsShow', { id: project.id }) }}" class="list-group-item list-group-item-action">
+                    {{ project.title }}
+                  </a>
+                @endeach
+              </div>
+            </div>
+            <a class="card-header text-center" data-toggle="collapse" href="#projectMember" role="button" aria-expanded="true" aria-controls="projectMember">
+              Projekt-Member
+            </a>
+            <div id="projectMember" class="collapse" aria-labelledby="projectMember" data-parent="#projectAccordion">
+              <div class="list-group list-group-flush">
+                @each(project in user.memberInProjects)
+                  <a href="{{ route('projectsShow', { id: project.id }) }}" class="list-group-item list-group-item-action">
+                    {{ project.title }}
+                  </a>
+                @endeach
+              </div>
             </div>
           </div>
         </div>
