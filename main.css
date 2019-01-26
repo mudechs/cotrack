@@ -7495,6 +7495,11 @@ table.dataTable.table-sm > thead > tr > th {
   background: #515960;
   border-color: #272B30; }
 
+.dataTables_length {
+  text-align: right !important;
+  margin-top: 14px;
+  margin-right: 10px; }
+
 .dummy-avatar {
   display: block;
   width: 60px;

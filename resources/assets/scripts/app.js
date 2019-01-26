@@ -7,6 +7,17 @@ window.jQuery = $;
 window.$ = $;
 window.dragula = dragula;
 
+$.extend(true, $.fn.dataTable.defaults, {
+  dom: "<'row'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6'l>>",
+  info: false,
+  paging: true,
+  language: {
+    search: "<i class='fas fa-filter'></i> ",
+    emptyTable: "Keine Daten vorhanden",
+    lengthMenu: "_MENU_",
+  }
+});
+
 $(document).ready(function () {
   // Add loading icon on clicked submit buttons
   $('button[type=submit]').on('click', function () {

@@ -173,14 +173,7 @@
 @section('js')
   <script>
     $('.data-table').DataTable({
-      dom: "<'row'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6'l>>",
-      paging: false,
-      info: false,
-      order: [ 1, 'asc' ],
-      language: {
-        search: "<i class='fas fa-filter'></i> ",
-        emptyTable: "Keine Daten vorhanden"
-      }
+      order: [ 1, 'asc' ]
     });
   </script>
 @endsection
