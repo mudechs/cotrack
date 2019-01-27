@@ -31,10 +31,22 @@
                       rows="10">{{ ticket.description }}</textarea>
                     {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('description'), hasErrorFor('description')) }}
                   </div>
+
+                  <label for="attachments mt-5">Attachments</label><br>
+                  <ul class="list-group mb-3">
+                    @each(attachment in attachments)
+                      <li class="list-group-item d-flex justify-content-between">
+                        <span>{{ attachment.clientName }}</span>
+                        <button type="button" class="btn btn-sm btn-danger btn-files-remover" data-index="{{ $loop.index }}"><i class="far fa-trash-alt"></i></button>
+                      </li>
+                    @endeach
+                  </ul>
                   <div class="form-group">
-                    <label for="attachments">Attachments</label><br>
-                    <input type="file" name="attachments[]" multiple />
+                    <input type="file" id="file" name="attachments[]" multiple />
                   </div>
+
+                  <input id="current-files" type="hidden" value="{{ attachmentsCurrent }}">
+                  <input id="modified-files" type="hidden" name="modified-files">
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
@@ -70,7 +82,13 @@
 @section('js')
   <script>
     $(document).ready(function () {
-
+      let data = [];
+      $('.btn-files-remover').on('click', function(e) {
+          e.preventDefault();
+          data.push($(this).data('index'));
+          $('#modified-files').val(JSON.stringify(data));
+          $(this).fadeOut('fast');
+      });
     });
   </script>
 @endsection

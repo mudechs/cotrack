@@ -82,7 +82,7 @@ class TicketController {
 
     let attachments = null
     if(ticket.attachments) {
-      attachments = JSON.parse(ticket.attachments)._files
+      attachments = JSON.parse(ticket.attachments)
     }
 
     ticket.description = await MarkdownServices.convertToHtml(ticket.description, 'description')
@@ -133,7 +133,9 @@ class TicketController {
       recipient_id: request.input('recipient')
     })
 
-    const attachments = request.file('attachments')
+    const attachments = request.file('attachments', {
+      size: '5mb'
+    })
 
     if(attachments) {
       await attachments.moveAll(Helpers.publicPath(`uploads/tickets/${ticket.id}`), (file) => {
@@ -146,7 +148,7 @@ class TicketController {
         return attachments.errors()
       }
 
-      ticket.attachments = JSON.stringify(attachments)
+      ticket.attachments = JSON.stringify(attachments._files)
     }
 
     try {
@@ -188,17 +190,26 @@ class TicketController {
       })
       .first()
 
+    let attachments = null
+    let attachmentsCurrent = null
+
+    if(ticket.attachments) {
+      attachments = JSON.parse(ticket.attachments)
+      attachmentsCurrent = ticket.attachments
+    }
+
     return view.render('tickets.edit', {
       priorities: priorities,
-      ticket: ticket.toJSON()
+      ticket: ticket.toJSON(),
+      attachments: attachments,
+      attachmentsCurrent: attachmentsCurrent
     })
   }
 
   async update({ params, auth, request, session, response }) {
     const validation = await validateAll(request.all(), {
       subject: 'required',
-      description: 'required',
-      project: 'required'
+      description: 'required'
     })
 
     if (validation.fails()) {
@@ -210,6 +221,15 @@ class TicketController {
     const ticket = await Ticket.find(params.id)
 
     const attachments = request.file('attachments')
+    const removedFiles = request.input('modified-files')
+    let storedAttachments = JSON.parse(ticket.attachments)
+
+    for (let index = 0; index < removedFiles.length; index++) {
+      const element = removedFiles[1];
+      delete storedAttachments[element]
+    }
+
+    return response.send(storedAttachments)
 
     if(attachments) {
       await attachments.moveAll(Helpers.publicPath(`uploads/tickets/${ticket.id}`), (file) => {
@@ -222,7 +242,9 @@ class TicketController {
         return attachments.errors()
       }
 
-      ticket.attachments = JSON.stringify(attachments)
+      const newAttachments = attachments.concat(modifiedAttachments);
+
+      ticket.attachments = JSON.stringify(newAttachments)
     }
 
     ticket.subject = request.input('subject'),
@@ -244,7 +266,7 @@ class TicketController {
     return response.route('ticketsShow', { id: ticket.id })
   }
 
-  async assignToMe({ params, auth, request, session, response }) {
+  async assignToMe({ params, request, session, response }) {
     const ticket = await Ticket.find(params.id)
 
     ticket.recipient_id = request.input('recipient_id')
