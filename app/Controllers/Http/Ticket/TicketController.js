@@ -221,12 +221,21 @@ class TicketController {
     const ticket = await Ticket.find(params.id)
 
     const attachments = request.file('attachments')
-    const removedFiles = request.input('modified-files')
+    let modifiedAttachments = JSON.parse(request.input('modified-files'))
     let storedAttachments = JSON.parse(ticket.attachments)
 
-    for (let index = 0; index < removedFiles.length; index++) {
-      const element = removedFiles[1];
-      delete storedAttachments[element]
+    /* if (modifiedAttachments) {
+      for (let i = 0; i < modifiedAttachments.length; i++) {
+        if(storedAttachments.indexOf(i))
+          storedAttachments.splice(modifiedAttachments[i], 1)
+          console.log(typeof modifiedAttachments[i])
+      }
+    } */
+
+    if (modifiedAttachments) {
+      while(modifiedAttachments.length) {
+        storedAttachments.splice(modifiedAttachments.pop(), 1);
+      }
     }
 
     return response.send(storedAttachments)
@@ -241,10 +250,16 @@ class TicketController {
       if (!attachments.movedAll()) {
         return attachments.errors()
       }
+    }
 
-      const newAttachments = attachments.concat(modifiedAttachments);
-
-      ticket.attachments = JSON.stringify(newAttachments)
+    if(modifiedAttachments && attachments) {
+      ticket.attachments = JSON.stringify(attachments._files.concat(storedAttachments))
+    }
+    else if(modifiedAttachments && attachments == null) {
+      ticket.attachments = JSON.stringify(storedAttachments)
+    }
+    else if(modifiedAttachments == null && attachments) {
+      ticket.attachments = JSON.stringify(attachments._files.concat(storedAttachments))
     }
 
     ticket.subject = request.input('subject'),

@@ -35,18 +35,19 @@
                   <label for="attachments mt-5">Attachments</label><br>
                   <ul class="list-group mb-3">
                     @each(attachment in attachments)
-                      <li class="list-group-item d-flex justify-content-between">
-                        <span>{{ attachment.clientName }}</span>
-                        <button type="button" class="btn btn-sm btn-danger btn-files-remover" data-index="{{ $loop.index }}"><i class="far fa-trash-alt"></i></button>
+                      <li class="list-group-item">
+                        <div class="d-flex justify-content-between">
+                          <span>{{ attachment.clientName }}</span>
+                          <span><small>{{ attachment.size / 1000 }} kb</small></span>
+                          <button type="button" class="btn btn-sm btn-danger btn-files-remover" data-index="{{ $loop.index }}"><i class="far fa-trash-alt"></i></button>
+                        </div>
                       </li>
                     @endeach
                   </ul>
                   <div class="form-group">
                     <input type="file" id="file" name="attachments[]" multiple />
                   </div>
-
-                  <input id="current-files" type="hidden" value="{{ attachmentsCurrent }}">
-                  <input id="modified-files" type="hidden" name="modified-files">
+                  <input id="modified-files" type="text" name="modified-files[]">
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
@@ -87,7 +88,7 @@
           e.preventDefault();
           data.push($(this).data('index'));
           $('#modified-files').val(JSON.stringify(data));
-          $(this).fadeOut('fast');
+          $(this).parent().parent().fadeOut('fast');
       });
     });
   </script>
