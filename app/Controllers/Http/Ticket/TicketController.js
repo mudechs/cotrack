@@ -11,6 +11,7 @@ const Mail = use('Mail')
 const Helpers = use('Helpers')
 const ProjectServices = use('App/Services/projectServices')
 const MarkdownServices = use('App/Services/markdownServices')
+const AttachmentServices = use('App/Services/attachmentServices')
 
 class TicketController {
   async index({ auth, view }) {
@@ -223,22 +224,15 @@ class TicketController {
     const attachments = request.file('attachments')
     let modifiedAttachments = JSON.parse(request.input('modified-files'))
     let storedAttachments = JSON.parse(ticket.attachments)
+    const path = 'tickets'
+
+    ticket.attachments = await AttachmentServices.updateHandler(modifiedAttachments, storedAttachments, attachments, path, ticket)
 
     /* if (modifiedAttachments) {
-      for (let i = 0; i < modifiedAttachments.length; i++) {
-        if(storedAttachments.indexOf(i))
-          storedAttachments.splice(modifiedAttachments[i], 1)
-          console.log(typeof modifiedAttachments[i])
-      }
-    } */
-
-    if (modifiedAttachments) {
       while(modifiedAttachments.length) {
         storedAttachments.splice(modifiedAttachments.pop(), 1);
       }
     }
-
-    return response.send(storedAttachments)
 
     if(attachments) {
       await attachments.moveAll(Helpers.publicPath(`uploads/tickets/${ticket.id}`), (file) => {
@@ -260,7 +254,7 @@ class TicketController {
     }
     else if(modifiedAttachments == null && attachments) {
       ticket.attachments = JSON.stringify(attachments._files.concat(storedAttachments))
-    }
+    } */
 
     ticket.subject = request.input('subject'),
     ticket.description = request.input('description'),
