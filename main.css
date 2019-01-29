@@ -7476,7 +7476,7 @@ label, table.table th {
   font-weight: normal;
   vertical-align: middle; }
 
-.btn.btn-sm, .btn-group-sm > .btn {
+table .btn.btn-sm, table .btn-group-sm > .btn {
   padding-top: 0;
   padding-bottom: 0; }
 
