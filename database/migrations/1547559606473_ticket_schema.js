@@ -14,6 +14,8 @@ class TicketSchema extends Schema {
       table.integer('recipient_id').unsigned().references('id').inTable('users')
       table.string('status').defaultsTo('Neu')
       table.string('priority').defaultsTo('Normal')
+      table.decimal('time_expenses').defaultsTo('0.00')
+      table.datetime('done_until')
       table.json('attachments')
       table.integer('project_id').unsigned().references('id').inTable('projects')
       table.timestamps()

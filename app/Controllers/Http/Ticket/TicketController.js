@@ -202,7 +202,8 @@ class TicketController {
   async update({ params, auth, request, session, response }) {
     const validation = await validateAll(request.all(), {
       subject: 'required',
-      description: 'required'
+      description: 'required',
+      time_expenses: 'number'
     })
 
     if (validation.fails()) {
@@ -231,6 +232,8 @@ class TicketController {
     ticket.author_id = auth.user.id,
     ticket.project_id = request.input('project'),
     ticket.recipient_id = request.input('recipient')
+    ticket.time_expenses = request.input('time_expenses')
+    ticket.done_until = request.input('done_until')
 
     await ticket.save()
 
