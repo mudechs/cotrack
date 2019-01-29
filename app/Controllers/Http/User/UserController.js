@@ -4,6 +4,7 @@ const { validateAll } = use('Validator')
 const User = use('App/Models/User')
 const Mail = use('Mail')
 const Helpers = use('Helpers')
+const FileuploadServices = use('App/Services/fileuploadServices')
 
 class UserController {
   async index({ view }) {
@@ -71,36 +72,28 @@ class UserController {
     isAdmin = (isAdmin == 'on')? true : false;
 
     // Create User
-    const user = new User()
-    user.first_name = request.input('first_name')
-    user.last_name = request.input('last_name')
-    user.profession = request.input('profession')
-    user.phone = request.input('phone')
-    user.mobile = request.input('mobile')
-    user.email = request.input('email')
-    user.password = request.input('password')
-    user.tfa_active = tfaActive
-    user.is_active = isActive
-    user.is_admin = isAdmin
+    const user = await User.create({
+      first_name: request.input('first_name'),
+      last_name: request.input('last_name'),
+      profession: request.input('profession'),
+      phone: request.input('phone'),
+      mobile: request.input('mobile'),
+      email: request.input('email'),
+      password: request.input('password'),
+      tfa_active: tfaActive,
+      is_active: isActive,
+      is_admin: isAdmin
+    })
 
-    const file = request.file('avatar')
+    const file = request.file('avatar', {
+      size: '1mb'
+    })
 
-    if (file) {
-      const avatar = new Date().getTime() + '.' + file.subtype
-
-      if(avatar) {
-        await file.move(Helpers.publicPath('uploads/avatars'), {
-          name: avatar,
-          overwrite: true
-        })
-
-        if (!file.moved()) {
-          return file.error()
-        }
-      }
-
-      user.avatar = avatar
-    }
+    user.avatar = await FileuploadServices.storeSingle(
+      file,
+      'avatars',
+      user
+    )
 
     await user.save()
 
@@ -157,23 +150,15 @@ class UserController {
 
     const user = await User.find(params.id)
 
-    const file = request.file('avatar')
+    const file = request.file('avatar', {
+      size: '1mb'
+    })
 
-    if (file) {
-      const avatar = new Date().getTime() + '.' + file.subtype
-
-      if(avatar) {
-        await file.move(Helpers.publicPath('uploads/avatars'), {
-          name: avatar,
-          overwrite: true
-        })
-
-        if (!file.moved()) {
-          return file.error()
-        }
-      }
-      user.avatar = avatar
-    }
+    user.avatar = await FileuploadServices.storeSingle(
+      file,
+      'avatars',
+      user
+    )
 
     let isAdmin = request.input('is_admin')
     isAdmin = (isAdmin == 'on')? true : false;

@@ -11,7 +11,7 @@ const Mail = use('Mail')
 const Helpers = use('Helpers')
 const ProjectServices = use('App/Services/projectServices')
 const MarkdownServices = use('App/Services/markdownServices')
-const AttachmentServices = use('App/Services/attachmentServices')
+const FileuploadServices = use('App/Services/fileuploadServices')
 
 class TicketController {
   async index({ auth, view }) {
@@ -134,23 +134,15 @@ class TicketController {
       recipient_id: request.input('recipient')
     })
 
-    const attachments = request.file('attachments', {
-      size: '5mb'
+    const files = request.file('attachments', {
+      size: '10mb'
     })
 
-    if(attachments) {
-      await attachments.moveAll(Helpers.publicPath(`uploads/tickets/${ticket.id}`), (file) => {
-        return {
-          name: `${new Date().getTime()}.${file.subtype}`
-        }
-      })
-
-      if (!attachments.movedAll()) {
-        return attachments.errors()
-      }
-
-      ticket.attachments = JSON.stringify(attachments._files)
-    }
+    ticket.attachments = await FileuploadServices.storeMultiple(
+      files,
+      'tickets',
+      ticket
+    )
 
     try {
       // Sende eine Notifikation falls der Recipient NICHT der Author ist
@@ -221,12 +213,17 @@ class TicketController {
 
     const ticket = await Ticket.find(params.id)
 
-    const attachments = request.file('attachments')
-    const modifiedAttachments = JSON.parse(request.input('modified-files'))
-    const storedAttachments = JSON.parse(ticket.attachments)
-    const path = 'tickets'
+    const newFiles = request.file('attachments')
+    const modifiedFiles = JSON.parse(request.input('modified-files'))
+    const storedFiles = JSON.parse(ticket.attachments)
 
-    ticket.attachments = await AttachmentServices.updateHandler(modifiedAttachments, storedAttachments, attachments, path, ticket)
+    ticket.attachments = await FileuploadServices.updateMultiple(
+      modifiedFiles,
+      storedFiles,
+      newFiles,
+      'tickets',
+      ticket
+    )
 
     ticket.subject = request.input('subject'),
     ticket.description = request.input('description'),
