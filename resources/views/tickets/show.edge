@@ -77,7 +77,7 @@
               {{{ ticket.description }}}
               <hr>
               @each(attachment in attachments)
-                <a href="/uploads/tickets/{{ ticket.id }}/{{ attachment.fileName }}" target="_blank" download><i class="fas fa-paperclip fa-fw"></i> {{ attachment.clientName }}</a><br>
+                <a href="/uploads/tickets/{{ ticket.id }}/{{ attachment.fileName }}" target="_blank"><i class="fas fa-paperclip fa-fw"></i> {{ attachment.clientName }}</a><br>
               @endeach
             </div>
           </div>

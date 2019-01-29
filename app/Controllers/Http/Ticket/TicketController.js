@@ -222,39 +222,11 @@ class TicketController {
     const ticket = await Ticket.find(params.id)
 
     const attachments = request.file('attachments')
-    let modifiedAttachments = JSON.parse(request.input('modified-files'))
-    let storedAttachments = JSON.parse(ticket.attachments)
+    const modifiedAttachments = JSON.parse(request.input('modified-files'))
+    const storedAttachments = JSON.parse(ticket.attachments)
     const path = 'tickets'
 
     ticket.attachments = await AttachmentServices.updateHandler(modifiedAttachments, storedAttachments, attachments, path, ticket)
-
-    /* if (modifiedAttachments) {
-      while(modifiedAttachments.length) {
-        storedAttachments.splice(modifiedAttachments.pop(), 1);
-      }
-    }
-
-    if(attachments) {
-      await attachments.moveAll(Helpers.publicPath(`uploads/tickets/${ticket.id}`), (file) => {
-        return {
-          name: `${new Date().getTime()}.${file.subtype}`
-        }
-      })
-
-      if (!attachments.movedAll()) {
-        return attachments.errors()
-      }
-    }
-
-    if(modifiedAttachments && attachments) {
-      ticket.attachments = JSON.stringify(attachments._files.concat(storedAttachments))
-    }
-    else if(modifiedAttachments && attachments == null) {
-      ticket.attachments = JSON.stringify(storedAttachments)
-    }
-    else if(modifiedAttachments == null && attachments) {
-      ticket.attachments = JSON.stringify(attachments._files.concat(storedAttachments))
-    } */
 
     ticket.subject = request.input('subject'),
     ticket.description = request.input('description'),
