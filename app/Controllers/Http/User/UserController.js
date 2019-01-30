@@ -71,6 +71,11 @@ class UserController {
     let isAdmin = request.input('is_admin')
     isAdmin = (isAdmin == 'on')? true : false;
 
+    let sendEmail = request.input('send_email')
+    sendEmail = (sendEmail == 'on')? true : false;
+
+    return response.send(sendEmail)
+
     // Create User
     const user = await User.create({
       first_name: request.input('first_name'),
@@ -98,12 +103,14 @@ class UserController {
     await user.save()
 
     try {
-      await Mail.send('emails.user_credentials', request.all(), message => {
-        message
-          .to(user.email)
-          .from('noreply@codiac.ch', 'codiac.ch')
-          .subject('Willkommen bei CoTrack!')
-      })
+      if(sendEmail) {
+        await Mail.send('emails.user_credentials', request.all(), message => {
+          message
+            .to(user.email)
+            .from('noreply@codiac.ch', 'codiac.ch')
+            .subject('Willkommen bei CoTrack!')
+        })
+      }
 
       session.flash({
         notification: {
