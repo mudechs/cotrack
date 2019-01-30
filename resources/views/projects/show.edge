@@ -91,10 +91,10 @@
         </ul>
         <div class="tab-content" id="ticketsContent">
           <div class="tab-pane fade show active" id="open" role="tabpanel" aria-labelledby="open-tab">
-            @!component('projects.components.ticketListing', { tickets: ticketsOpen })
+            @!component('projects.components.ticketListing', { tickets: ticketsOpen, priorities })
           </div>
           <div class="tab-pane fade" id="closed" role="tabpanel" aria-labelledby="closed-tab">
-            @!component('projects.components.ticketListing', { tickets: ticketsClosed })
+            @!component('projects.components.ticketListing', { tickets: ticketsClosed, priorities })
           </div>
         </div>
       </div>
