@@ -7519,3 +7519,6 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
   height: 60px;
   border-radius: 50%;
   background: #272B30; }
+
+.badge {
+  font-weight: 300; }
