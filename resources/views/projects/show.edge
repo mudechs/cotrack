@@ -91,86 +91,10 @@
         </ul>
         <div class="tab-content" id="ticketsContent">
           <div class="tab-pane fade show active" id="open" role="tabpanel" aria-labelledby="open-tab">
-            <div class="table-responsive">
-              <table class="table table-hover table-sm table-borderless text-nowrap m-0 data-table">
-                <thead>
-                  <tr>
-                    <th>Priorität</th>
-                    <th>Status</th>
-                    <th>Datum</th>
-                    <th>Betreff</th>
-                    <th>Von &rarr; An</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @each(ticket in ticketsOpen)
-                    <tr class="linkable" data-route="{{ route('ticketsShow', { id: ticket.id }) }}">
-                      <td scope="row">
-                        <span class="badge badge-pill
-                          @each(priority in priorities)
-                          @if(priority.label == $parent.ticket.priority)
-                          badge-{{ priority.color }}
-                          @endif
-                          @endeach
-                        ">{{ ticket.priority }}</span>
-                      </td>
-                      <td><span class="badge badge-pill badge-secondary">{{ ticket.status }}</span></td>
-                      <td>{{ ticket.created_at }}</td>
-                      <td>{{ ticket.subject }}</td>
-                      <td>
-                        {{ ticket.ticketAuthor.first_name }} {{ ticket.ticketAuthor.last_name }} &rarr;
-                        @if(ticket.ticketRecipient)
-                        {{ ticket.ticketRecipient.first_name }} {{ ticket.ticketRecipient.last_name }}
-                        @else
-                        nicht zugewiesen
-                        @endif
-                      </td>
-                    </tr>
-                  @endeach
-                </tbody>
-              </table>
-            </div>
+            @!component('projects.components.ticketListing', { tickets: ticketsOpen })
           </div>
           <div class="tab-pane fade" id="closed" role="tabpanel" aria-labelledby="closed-tab">
-            <div class="table-responsive">
-              <table class="table table-hover table-sm table-borderless text-nowrap m-0 data-table">
-                <thead>
-                  <tr>
-                    <th>Priorität</th>
-                    <th>Status</th>
-                    <th>Datum</th>
-                    <th>Betreff</th>
-                    <th>Von &rarr; An</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @each(ticket in ticketsClosed)
-                    <tr class="linkable" data-route="{{ route('ticketsShow', { id: ticket.id }) }}">
-                      <td scope="row">
-                        <span class="badge badge-pill
-                          @each(priority in priorities)
-                          @if(priority.label == $parent.ticket.priority)
-                          badge-{{ priority.color }}
-                          @endif
-                          @endeach
-                        ">{{ ticket.priority }}</span>
-                      </td>
-                      <td><span class="badge badge-pill badge-secondary">{{ ticket.status }}</span></td>
-                      <td>{{ ticket.created_at }}</td>
-                      <td>{{ ticket.subject }}</td>
-                      <td>
-                        {{ ticket.ticketAuthor.first_name }} {{ ticket.ticketAuthor.last_name }} &rarr;
-                        @if(ticket.ticketRecipient)
-                        {{ ticket.ticketRecipient.first_name }} {{ ticket.ticketRecipient.last_name }}
-                        @else
-                        nicht zugewiesen
-                        @endif
-                      </td>
-                    </tr>
-                  @endeach
-                </tbody>
-              </table>
-            </div>
+            @!component('projects.components.ticketListing', { tickets: ticketsClosed })
           </div>
         </div>
       </div>

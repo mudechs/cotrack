@@ -5,7 +5,7 @@ const { statuses, priorities } = Config.get('ticket')
 const Ticket = use('App/Models/Ticket')
 
 class DashboardController {
-  async index({ auth, view, response }) {
+  async index({ auth, view }) {
     const statusesOpen = await Ticket.ticketStatuses(statuses, 'open')
 
     const ticketsAssignedToMe = await Ticket.query()

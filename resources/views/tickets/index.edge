@@ -43,15 +43,7 @@
                   <span><small>{{ ticket.created_at }}</small></span>
                 </div>
                 <p class="mb-0">{{ ticket.subject }}</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <small><b>Projekt: </b>{{ ticket.project.title }}</small>
-                  <div>
-                    @if(ticket.attachments)
-                      <small class="mr-2"><i class="fas fa-paperclip fa-fw"></i></small>
-                    @endif
-                    <small><i class="far fa-comments fa-fw"></i> {{ ticket["__meta__"].comments_count }}</small>
-                  </div>
-                </div>
+                @!component('tickets.components.widgetFooter', { ticket })
               </a>
             @endeach
           </div>
@@ -83,15 +75,7 @@
                   <span><small>{{ ticket.created_at }}</small></span>
                 </div>
                 <p class="mb-0">{{ ticket.subject }}</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <small><b>Projekt: </b>{{ ticket.project.title }}</small>
-                  <div>
-                    @if(ticket.attachments)
-                      <small class="mr-2"><i class="fas fa-paperclip fa-fw"></i></small>
-                    @endif
-                    <small><i class="far fa-comments fa-fw"></i> {{ ticket["__meta__"].comments_count }}</small>
-                  </div>
-                </div>
+                @!component('tickets.components.widgetFooter', { ticket })
               </a>
             @endeach
           </div>
@@ -123,15 +107,7 @@
                   <span><small>{{ ticket.created_at }}</small></span>
                 </div>
                 <p class="mb-0">{{ ticket.subject }}</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <small><b>Projekt: </b>{{ ticket.project.title }}</small>
-                  <div>
-                    @if(ticket.attachments)
-                      <small class="mr-2"><i class="fas fa-paperclip fa-fw"></i></small>
-                    @endif
-                    <small><i class="far fa-comments fa-fw"></i> {{ ticket["__meta__"].comments_count }}</small>
-                  </div>
-                </div>
+                @!component('tickets.components.widgetFooter', { ticket })
               </a>
             @endeach
           </div>
@@ -163,15 +139,7 @@
                   <span><small>{{ ticket.created_at }}</small></span>
                 </div>
                 <p class="mb-0">{{ ticket.subject }}</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <small><b>Projekt: </b>{{ ticket.project.title }}</small>
-                  <div>
-                    @if(ticket.attachments)
-                      <small class="mr-2"><i class="fas fa-paperclip fa-fw"></i></small>
-                    @endif
-                    <small><i class="far fa-comments fa-fw"></i> {{ ticket["__meta__"].comments_count }}</small>
-                  </div>
-                </div>
+                @!component('tickets.components.widgetFooter', { ticket })
               </a>
             @endeach
           </div>
@@ -203,15 +171,7 @@
                   <span><small>{{ ticket.created_at }}</small></span>
                 </div>
                 <p class="mb-0">{{ ticket.subject }}</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <small><b>Projekt: </b>{{ ticket.project.title }}</small>
-                  <div>
-                    @if(ticket.attachments)
-                      <small class="mr-2"><i class="fas fa-paperclip fa-fw"></i></small>
-                    @endif
-                    <small><i class="far fa-comments fa-fw"></i> {{ ticket["__meta__"].comments_count }}</small>
-                  </div>
-                </div>
+                @!component('tickets.components.widgetFooter', { ticket })
               </a>
             @endeach
           </div>

@@ -7486,8 +7486,9 @@ table .btn.btn-sm, table .btn-group-sm > .btn {
 .draggable .list-group-item {
   cursor: move;
   padding: .75rem; }
-  .draggable .list-group-item small {
-    color: #515960; }
+
+.list-group-item small {
+  color: #515960; }
 
 table.dataTable.table-sm > thead > tr > th {
   padding-right: .3rem; }

@@ -24,14 +24,7 @@
                   <span><small>{{ ticket.created_at }}</small></span>
                 </div>
                 <h6 class=""><i class="fas fa-ticket-alt"></i> {{ ticket.subject }}</h6>
-                <div class="d-flex justify-content-between">
-                  <small><b>Projekt: </b>{{ ticket.project.title }}</small>
-                  <small>
-                    <small>
-                      <i class="far fa-comments fa-fw"></i> {{ ticket["__meta__"].comments_count }}
-                    </small>
-                  </small>
-                </div>
+                @!component('tickets.components.widgetFooter', { ticket })
               </a>
             @endeach
           </div>
@@ -58,12 +51,7 @@
                   <span><small>{{ ticket.created_at }}</small></span>
                 </div>
                 <h6 class=""><i class="fas fa-ticket-alt"></i> {{ ticket.subject }}</h6>
-                <div class="d-flex justify-content-between">
-                  <small><b>Projekt: </b>{{ ticket.project.title }}</small>
-                  <small>
-                    <i class="far fa-comments fa-fw"></i> {{ ticket["__meta__"].comments_count }}
-                  </small>
-                </div>
+                @!component('tickets.components.widgetFooter', { ticket })
               </a>
             @endeach
           </div>
@@ -91,12 +79,7 @@
                     <span><small>{{ ticket.created_at }}</small></span>
                   </div>
                   <h6 class=""><i class="fas fa-ticket-alt"></i> {{ ticket.subject }}</h6>
-                  <div class="d-flex justify-content-between">
-                    <small><b>Projekt: </b>{{ ticket.project.title }}</small>
-                    <small>
-                      <i class="far fa-comments fa-fw"></i> {{ ticket["__meta__"].comments_count }}
-                    </small>
-                  </div>
+                  @!component('tickets.components.widgetFooter', { ticket })
                 </a>
               @endeach
             </div>

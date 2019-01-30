@@ -40,9 +40,10 @@ table .btn.btn-sm {
 .draggable .list-group-item {
   cursor: move;
   padding: .75rem;
-  small {
-    color: #515960;
-  }
+}
+
+.list-group-item small {
+  color: #515960;
 }
 
 table.dataTable.table-sm > thead > tr > th {
