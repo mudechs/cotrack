@@ -27,6 +27,7 @@ class Ticket extends Model {
       .with('project', (builder) => {
         builder.select('id', 'title')
       })
+      .withCount('comments')
       .fetch()
   }
 
@@ -39,6 +40,7 @@ class Ticket extends Model {
       .with('project', (builder) => {
         builder.select('id', 'title')
       })
+      .withCount('comments')
       .fetch()
   }
 
