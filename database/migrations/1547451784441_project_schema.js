@@ -10,6 +10,7 @@ class ProjectSchema extends Schema {
       table.string('title')
       table.text('description')
       table.string('code').unique()
+      table.string('phase')
       table.boolean('is_active').defaultTo(1)
       table.integer('author_id').unsigned().references('id').inTable('users')
       table.timestamps()

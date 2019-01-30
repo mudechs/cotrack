@@ -8,7 +8,6 @@ const Project = use('App/Models/Project')
 const Comment = use('App/Models/Comment')
 const User = use('App/Models/User')
 const Mail = use('Mail')
-const Helpers = use('Helpers')
 const ProjectServices = use('App/Services/projectServices')
 const MarkdownServices = use('App/Services/markdownServices')
 const FileuploadServices = use('App/Services/fileuploadServices')
@@ -172,7 +171,7 @@ class TicketController {
     return response.route('ticketsShow', { id: ticket.id })
   }
 
-  async edit({ params, view, response }) {
+  async edit({ params, view }) {
     const ticket = await Ticket.query()
       .where('id', params.id)
       .with('ticketAuthor', (builder) => {

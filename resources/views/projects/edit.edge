@@ -62,6 +62,19 @@
                     {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('code'), hasErrorFor('code')) }}
                   </div>
                   <div class="form-group">
+                    <label for="phase">Phase</label>
+                    <select name="phase" class="form-control">
+                      <option value="">Bitte wählen...</option>
+                      @each(phase in phases)
+                        <option value="{{ phase.label }}"
+                          @if(phase.label == project.phase)
+                            selected
+                          @endif
+                        >{{ phase.label }}</option>
+                      @endeach
+                    </select>
+                  </div>
+                  <div class="form-group">
                     <label for="code">Team</label>
                     <select name="members" class="custom-select" multiple>
                       <option value="">Bitte wählen...</option>

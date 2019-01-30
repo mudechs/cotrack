@@ -2,6 +2,7 @@
 
 const Config = use('Config')
 const { statuses, priorities } = Config.get('ticket')
+const { phases } = Config.get('project')
 const { validateAll } = use('Validator')
 const Project = use('App/Models/Project')
 const Ticket = use('App/Models/Ticket')
@@ -130,7 +131,8 @@ class ProjectController {
       .fetch()
 
     return view.render('projects.create', {
-      members: members.toJSON()
+      members: members.toJSON(),
+      phases: phases
     })
   }
 
@@ -155,6 +157,7 @@ class ProjectController {
       title: request.input('title'),
       description: request.input('description'),
       code: request.input('code'),
+      phase: request.input('phase'),
       is_active: isActive,
       author_id: auth.user.id
     })
@@ -186,7 +189,8 @@ class ProjectController {
 
     return view.render('projects.edit', {
       project: project.toJSON(),
-      users: users.toJSON()
+      users: users.toJSON(),
+      phases: phases
     })
   }
 
@@ -211,6 +215,7 @@ class ProjectController {
     project.title = request.input('title')
     project.description = request.input('description')
     project.code = request.input('code')
+    project.phase = request.input('phase')
     project.is_active = isActive
 
     await project.save()
