@@ -136,7 +136,11 @@
                 </tr>
                 <tr>
                   <th scope="row">Zu erledigen bis:</th>
-                  <td><span class="text-danger">{{ ticket.done_until }}</span></td>
+                  <td>
+                    @if(ticket.done_until)
+                      <span class="text-danger">{{ ticket.done_until }}</span>
+                    @endif
+                  </td>
                 </tr>
                 <tr>
                   <th scope="row">Zeitaufwand:</th>
