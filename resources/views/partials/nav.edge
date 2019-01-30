@@ -22,8 +22,9 @@
               <i class="fas fa-plus fa-fw"></i> Neu
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item px-3" href="{{ route('usersCreate') }}">Benutzer</a>
-              <a class="dropdown-item px-3" href="{{ route('projectsCreate') }}">Projekt</a>
+              <a class="dropdown-item px-3" href="{{ route('usersCreate') }}"><i class="fas fa-user-plus fa-fw"></i> Benutzer</a>
+              <a class="dropdown-item px-3" href="{{ route('projectsCreate') }}"><i class="fas fa-project-diagram fa-fw"></i> Projekt</a>
+              <a class="dropdown-item px-3" href="{{ route('ticketsCreate') }}"><i class="fas fa-ticket-alt fa-fw"></i> Ticket</a>
             </div>
           </li>
         @endif
@@ -40,10 +41,10 @@
             Hallo <span class="text-danger">{{ auth.user.first_name }} {{ auth.user.last_name }}</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item px-3" href="{{ route('usersShow', { id: auth.user.id }) }}"><i class="fas fa-user-circle fa-fw text-black-50"></i> Mein Profil</a>
-            <a class="dropdown-item px-3" href="{{ route('passwordEdit', { id: auth.user.id }) }}"><i class="fas fa-key fa-fw text-black-50"></i> Passwort ändern</a>
+            <a class="dropdown-item px-3" href="{{ route('usersShow', { id: auth.user.id }) }}"><i class="fas fa-user-circle fa-fw"></i> Mein Profil</a>
+            <a class="dropdown-item px-3" href="{{ route('passwordEdit', { id: auth.user.id }) }}"><i class="fas fa-key fa-fw"></i> Passwort ändern</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item px-3" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt fa-fw text-black-50"></i> Abmelden</a>
+            <a class="dropdown-item px-3" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt fa-fw"></i> Abmelden</a>
           </div>
         </li>
       @else
