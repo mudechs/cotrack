@@ -74,8 +74,6 @@ class UserController {
     let sendEmail = request.input('send_email')
     sendEmail = (sendEmail == 'on')? true : false;
 
-    return response.send(sendEmail)
-
     // Create User
     const user = await User.create({
       first_name: request.input('first_name'),
@@ -103,7 +101,7 @@ class UserController {
     await user.save()
 
     try {
-      if(sendEmail) {
+      if(sendEmail && is_active) {
         await Mail.send('emails.user_credentials', request.all(), message => {
           message
             .to(user.email)
@@ -115,7 +113,7 @@ class UserController {
       session.flash({
         notification: {
           type: 'success',
-          message: 'Das Konto wurde erfolgreich erstellt.'
+          message: 'Das Benutzerkonto wurde erfolgreich erstellt.'
         }
       })
 
