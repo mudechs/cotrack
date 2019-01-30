@@ -11,7 +11,7 @@ const Mail = use('Mail')
 const ProjectServices = use('App/Services/projectServices')
 const MarkdownServices = use('App/Services/markdownServices')
 const FileuploadServices = use('App/Services/fileuploadServices')
-const moment = use('Moment')
+const moment = use('moment')
 
 class TicketController {
   async index({ auth, view }) {
