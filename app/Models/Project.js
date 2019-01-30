@@ -6,7 +6,7 @@ const Model = use('Model')
 class Project extends Model {
   static castDates(field, value) {
     if (field === 'created_at' || field === 'updated_at') {
-      return value.format('DD.MM.YYYY')
+      return value.format('DD.MM.YY')
     }
     return super.formatDates(field, value)
   }

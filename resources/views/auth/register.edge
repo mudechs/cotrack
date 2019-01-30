@@ -12,6 +12,19 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
+                    <label for="salutation">Anrede</label>
+                    <div class="row">
+                      <div class="col-4 col-md4">
+                        <select name="salutation" class="form-control">
+                          <option value=""></option>
+                          @each(salutation in salutations)
+                            <option value="{{ salutation.label }}">{{ salutation.label }}</option>
+                          @endeach
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
                     <label for="first_name">Vorname</label>
                     <input
                       type="text"

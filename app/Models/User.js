@@ -13,7 +13,7 @@ class User extends Model {
 
   static castDates(field, value) {
     if (field === 'created_at' || field === 'updated_at' || field === 'last_login_at') {
-      return value.format('DD.MM.YYYY HH:mm')
+      return value.format('DD.MM.YY')
     }
     return super.formatDates(field, value)
   }

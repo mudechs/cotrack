@@ -1,5 +1,7 @@
 'use strict'
 
+const Config = use('Config')
+const { salutations } = Config.get('user')
 const { validateAll } = use('Validator')
 const User = use('App/Models/User')
 const randomString = require('random-string')
@@ -7,13 +9,15 @@ const Mail = use('Mail')
 
 class RegisterController {
   showRegistrationForm({ view }) {
-    return view.render('auth.register')
+    return view.render('auth.register', {
+      salutations: salutations
+    })
   }
 
   async register({ request, session, response }) {
-
     // Validate
     const validation = await validateAll(request.all(), {
+      salutation: 'required',
       first_name: 'required',
       last_name: 'required',
       email: 'required|email|unique:users, email',
@@ -31,6 +35,7 @@ class RegisterController {
 
     // Create User
     const user = await User.create({
+      salutation: request.input('salutation'),
       first_name: request.input('first_name'),
       last_name: request.input('last_name'),
       profession: request.input('profession'),

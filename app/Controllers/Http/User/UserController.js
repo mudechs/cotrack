@@ -1,9 +1,10 @@
 'use strict'
 
+const Config = use('Config')
+const { salutations } = Config.get('user')
 const { validateAll } = use('Validator')
 const User = use('App/Models/User')
 const Mail = use('Mail')
-const Helpers = use('Helpers')
 const FileuploadServices = use('App/Services/fileuploadServices')
 
 class UserController {
@@ -44,12 +45,15 @@ class UserController {
   }
 
   async create({ view }) {
-    return view.render('users.create')
+    return view.render('users.create', {
+      salutations: salutations
+    })
   }
 
   async store({ request, session, response }) {
     // Validate
     const validation = await validateAll(request.all(), {
+      salutation: 'required',
       first_name: 'required',
       last_name: 'required',
       email: 'required|email|unique:users, email',
@@ -76,6 +80,7 @@ class UserController {
 
     // Create User
     const user = await User.create({
+      salutation: request.input('salutation'),
       first_name: request.input('first_name'),
       last_name: request.input('last_name'),
       profession: request.input('profession'),
@@ -134,7 +139,8 @@ class UserController {
   async edit({ params, view }) {
     const user = await User.find(params.id)
     return view.render('users.edit', {
-      user: user
+      user: user,
+      salutations: salutations
     })
   }
 
@@ -142,6 +148,7 @@ class UserController {
     const userId = params.id
 
     const validation = await validateAll(request.all(), {
+      salutation: 'required',
       first_name: 'required',
       last_name: 'required',
       email: `required|email|min:6|unique:users, email, id, ${userId}`
@@ -174,6 +181,7 @@ class UserController {
     let tfaActive = request.input('tfa_active')
     tfaActive = (tfaActive == 'on')? true : false;
 
+    user.salutation = request.input('salutation')
     user.first_name = request.input('first_name')
     user.last_name = request.input('last_name')
     user.profession = request.input('profession')
