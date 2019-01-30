@@ -11,6 +11,7 @@ const Mail = use('Mail')
 const ProjectServices = use('App/Services/projectServices')
 const MarkdownServices = use('App/Services/markdownServices')
 const FileuploadServices = use('App/Services/fileuploadServices')
+const moment = use('Moment')
 
 class TicketController {
   async index({ auth, view }) {
@@ -130,7 +131,8 @@ class TicketController {
       priority: request.input('priority'),
       author_id: auth.user.id,
       project_id: request.input('project'),
-      recipient_id: request.input('recipient')
+      recipient_id: request.input('recipient'),
+      done_until: request.input('done_until')
     })
 
     const files = request.file('attachments', {
@@ -194,7 +196,8 @@ class TicketController {
       priorities: priorities,
       ticket: ticket.toJSON(),
       attachments: attachments,
-      attachmentsCurrent: attachmentsCurrent
+      attachmentsCurrent: attachmentsCurrent,
+      doneUntil: moment(ticket.done_until).format('YYYY-MM-DD')
     })
   }
 

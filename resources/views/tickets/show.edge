@@ -135,6 +135,10 @@
                   <td>{{ ticket.status }}</td>
                 </tr>
                 <tr>
+                  <th scope="row">Zu erledigen bis:</th>
+                  <td><span class="text-danger">{{ ticket.done_until }}</span></td>
+                </tr>
+                <tr>
                   <th scope="row">Zeitaufwand:</th>
                   <td>
                     @if(ticket.time_expenses)

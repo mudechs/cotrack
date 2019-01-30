@@ -46,6 +46,14 @@
                     </select>
                   </div>
                   <div class="form-group">
+                    <label for="done_until">Zu erledigen bis</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      name="done_until"
+                      id="done_until">
+                  </div>
+                  <div class="form-group">
                     <label for="project">Projekt</label>
                     <select name="project" id="project" class="form-control {{ hasErrorFor('project') ? 'is-invalid' : '' }}">
                       <option value="">Bitte wählen...</option>
