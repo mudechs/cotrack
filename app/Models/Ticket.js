@@ -5,8 +5,8 @@ const Model = use('Model')
 
 class Ticket extends Model {
   static castDates(field, value) {
-    if (field === 'created_at' || field === 'updated_at') {
-      return value.format('DD.MM.YYYY HH:mm')
+    if (field === 'created_at' || field === 'updated_at' || field === 'done_until') {
+      return value.format('DD.MM.YY (HH:mm)')
     }
     return super.formatDates(field, value)
   }
