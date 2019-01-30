@@ -3,7 +3,7 @@
 @section('content')
   <div class="container-fluid mt-3">
     <div class="card">
-      <div class="card-header d-flex justify-content-between">
+      <div class="card-header d-flex justify-content-between align-items-center">
           <span>Projekte</span>
           @if(auth.user.is_admin == true)
             <a href="{{ route('projectsCreate') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i></a>
