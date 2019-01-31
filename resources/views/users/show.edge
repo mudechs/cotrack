@@ -113,6 +113,7 @@
       </div>
       <div class="col-md-4">
         <div class="accordion" id="projectAccordion">
+          @if(auth.user.isAdmin)
           <div class="card">
             <a class="card-header text-center" data-toggle="collapse" href="#myProjects" role="button" aria-expanded="true" aria-controls="myProjects">
               Meine Projekte
@@ -127,11 +128,12 @@
               </div>
             </div>
           </div>
+          @endif
           <div class="card">
             <a class="card-header text-center" data-toggle="collapse" href="#projectMember" role="button" aria-expanded="true" aria-controls="projectMember">
               Projekt-Member
             </a>
-            <div id="projectMember" class="collapse" aria-labelledby="projectMember" data-parent="#projectAccordion">
+            <div id="projectMember" class="collapse show" aria-labelledby="projectMember" data-parent="#projectAccordion">
               <div class="list-group list-group-flush">
                 @each(project in user.memberInProjects)
                   <a href="{{ route('projectsShow', { id: project.id }) }}" class="list-group-item list-group-item-action">
