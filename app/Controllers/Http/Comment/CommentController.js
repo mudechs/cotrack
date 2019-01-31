@@ -44,7 +44,7 @@ class CommentController {
       const recipientEmail = await ticket.ticketRecipient().select('email').first()
       let email
 
-      if(comment.author_id != ticket.author_id && comment.author_id != ticket.recipient_id) {
+      if(ticket.author_id != ticket.recipient_id) {
         switch (comment.author_id) {
           case ticket.author_id:
             email = recipientEmail.email
