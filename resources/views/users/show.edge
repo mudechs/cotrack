@@ -113,7 +113,7 @@
       </div>
       <div class="col-md-4">
         <div class="accordion" id="projectAccordion">
-          @if(auth.user.isAdmin == true)
+          @if(auth.user.is_admin == true)
           <div class="card">
             <a class="card-header text-center" data-toggle="collapse" href="#myProjects" role="button" aria-expanded="true" aria-controls="myProjects">
               Meine Projekte
@@ -121,7 +121,7 @@
             <div id="myProjects" class="collapse show" aria-labelledby="myProjects" data-parent="#projectAccordion">
               <div class="list-group list-group-flush">
                 @each(project in user.authorOfProjects)
-                  <a href="{{ route('projectsShow', { id: project.id }) }}" class="list-group-item list-group-item-action">
+                  <a href="{{ route('projectsShow', { id: project.id }) }}" class="list-group-item list-group-item-action py-1">
                     {{ project.title }}
                   </a>
                 @endeach
@@ -136,7 +136,7 @@
             <div id="projectMember" class="collapse show" aria-labelledby="projectMember" data-parent="#projectAccordion">
               <div class="list-group list-group-flush">
                 @each(project in user.memberInProjects)
-                  <a href="{{ route('projectsShow', { id: project.id }) }}" class="list-group-item list-group-item-action">
+                  <a href="{{ route('projectsShow', { id: project.id }) }}" class="list-group-item list-group-item-action py-1">
                     {{ project.title }}
                   </a>
                 @endeach
