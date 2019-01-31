@@ -241,13 +241,13 @@ class TicketController {
       ticket
     )
 
-    ticket.subject = request.input('subject'),
-    ticket.description = request.input('description'),
-    ticket.priority = request.input('priority'),
-    ticket.impact = request.input('impact'),
-    ticket.reproducible = request.input('reproducible'),
-    ticket.author_id = auth.user.id,
-    ticket.project_id = request.input('project'),
+    ticket.subject = request.input('subject')
+    ticket.description = request.input('description')
+    ticket.priority = request.input('priority')
+    ticket.impact = request.input('impact')
+    ticket.reproducible = request.input('reproducible')
+    ticket.author_id = auth.user.id
+    ticket.project_id = request.input('project')
     ticket.recipient_id = request.input('recipient')
     ticket.time_expenses = request.input('time_expenses')
     ticket.done_until = request.input('done_until')
