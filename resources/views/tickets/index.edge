@@ -116,7 +116,7 @@
 
       <div class="col-12 col-lg mb-3 px-1">
         <div class="card">
-          <div class="card-header text-center"><i class="fas fa-bullhorn fa-fw"></i> Feedback</div>
+          <div class="card-header text-center"><i class="fas fa-bullhorn fa-fw"></i> Feedback erwartet</div>
           <div id="Feedback" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsFeedback)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">
@@ -148,7 +148,7 @@
 
       <div class="col-12 col-lg mb-3 px-1">
         <div class="card">
-          <div class="card-header text-center"><i class="fas fa-pencil-alt fa-fw"></i> Bearbeitung</div>
+          <div class="card-header text-center"><i class="fas fa-pencil-alt fa-fw"></i> In Bearbeitung</div>
           <div id="Bearbeitung" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsBearbeitung)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">
