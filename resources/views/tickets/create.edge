@@ -12,6 +12,20 @@
               <div class="row">
                 <div class="col-md-8">
                   <div class="form-group">
+                      <label for="project">Projekt</label>
+                      <div class="row">
+                        <div class="col-md-6 col-8">
+                          <select name="project" id="project" class="form-control {{ hasErrorFor('project') ? 'is-invalid' : '' }}">
+                            <option value="">Bitte wählen...</option>
+                            @each(project in projects)
+                              <option value="{{ project.id }}">{{ project.title }}</option>
+                            @endeach
+                          </select>
+                        </div>
+                      </div>
+                      {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('project'), hasErrorFor('project')) }}
+                    </div>
+                  <div class="form-group">
                     <label for="subject">Betreff</label>
                     <input
                       type="text"
@@ -46,22 +60,30 @@
                     </select>
                   </div>
                   <div class="form-group">
+                    <label for="impact">Auswirkung</label>
+                    <select name="impact" class="form-control">
+                      <option value="">Bitte wählen...</option>
+                      @each(impact in impacts)
+                        <option value="{{ impact.label }}">{{ impact.label }}</option>
+                      @endeach
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="reproducible">Reproduzierbar</label>
+                    <select name="reproducible" class="form-control">
+                      <option value="">Bitte wählen...</option>
+                      @each(reproducible in reproducibles)
+                        <option value="{{ reproducible.label }}">{{ reproducible.label }}</option>
+                      @endeach
+                    </select>
+                  </div>
+                  <div class="form-group">
                     <label for="done_until">Zu erledigen bis [TT.MM.JJJJ]</label>
                     <input
                       type="date"
                       class="form-control"
                       name="done_until"
                       id="done_until">
-                  </div>
-                  <div class="form-group">
-                    <label for="project">Projekt</label>
-                    <select name="project" id="project" class="form-control {{ hasErrorFor('project') ? 'is-invalid' : '' }}">
-                      <option value="">Bitte wählen...</option>
-                      @each(project in projects)
-                        <option value="{{ project.id }}">{{ project.title }}</option>
-                      @endeach
-                    </select>
-                    {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('project'), hasErrorFor('project')) }}
                   </div>
                   <div class="form-group" style="display: none;">
                     <label for="recipient">Empfänger</label>

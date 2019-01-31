@@ -134,6 +134,22 @@
                   </td>
                 </tr>
                 <tr>
+                  <th scope="row">Auswirkung:</th>
+                  <td>
+                    @if(ticket.impact)
+                      {{ ticket.impact }}
+                    @endif
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Reproduzierbar:</th>
+                  <td>
+                    @if(ticket.reproducible)
+                      {{ ticket.reproducible }}
+                    @endif
+                  </td>
+                </tr>
+                <tr>
                   <th scope="row">Status:</th>
                   <td>{{ ticket.status }}</td>
                 </tr>

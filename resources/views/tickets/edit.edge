@@ -11,7 +11,8 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-md-8">
-                  <div class="form-group">
+                  <b>Projekt: </b>{{ ticket.project.title }}
+                  <div class="form-group mt-4">
                     <label for="subject">Betreff</label>
                     <input
                       type="text"
@@ -63,6 +64,32 @@
                     </select>
                   </div>
                   <div class="form-group">
+                    <label for="impact">Auswirkung</label>
+                    <select name="impact" class="form-control">
+                      <option value="">Bitte wählen...</option>
+                      @each(impact in impacts)
+                        <option value="{{ priority.label }}"
+                          @if(impact.label == ticket.impact)
+                            selected
+                          @endif
+                        >{{ impact.label }}</option>
+                      @endeach
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="reproducible">Reproduzierbar</label>
+                    <select name="reproducible" class="form-control">
+                      <option value="">Bitte wählen...</option>
+                      @each(reproducible in reproducibles)
+                        <option value="{{ priority.label }}"
+                          @if(reproducible.label == ticket.reproducible)
+                            selected
+                          @endif
+                        >{{ reproducible.label }}</option>
+                      @endeach
+                    </select>
+                  </div>
+                  <div class="form-group">
                     <label for="done_until">Zu erledigen bis</label>
                     <input
                       type="date"
@@ -83,12 +110,6 @@
                       >
                     </div>
                     {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('time_expenses'), hasErrorFor('time_expenses')) }}
-                  </div>
-                  <div class="card mt-4 p-3">
-                    <div class="form-group">
-                      <label for="project">Projekt</label><br>
-                      {{ ticket.project.title }}
-                    </div>
                   </div>
                 </div>
               </div>

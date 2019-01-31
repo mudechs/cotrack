@@ -15,5 +15,21 @@ module.exports = {
     { 'label': 'Normal', 'color': 'secondary' },
     { 'label': 'Hoch', 'color': 'warning' },
     { 'label': 'Dringend', 'color': 'danger' }
+  ],
+  impacts: [
+    { 'label': 'Feature-Wunsch' },
+    { 'label': 'Trivial' },
+    { 'label': 'Unschönheit' },
+    { 'label': 'kleiner Fehler' },
+    { 'label': 'schwerer Fehler' },
+    { 'label': 'Absturz' },
+    { 'label': 'Showstopper' },
+  ],
+  reproducibles: [
+    { 'label': 'immer' },
+    { 'label': 'manchmal' },
+    { 'label': 'zufällig' },
+    { 'label': 'nicht getestet' },
+    { 'label': 'nicht reproduzierbar' }
   ]
 }

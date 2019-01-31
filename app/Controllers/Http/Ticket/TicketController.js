@@ -1,7 +1,7 @@
 'use strict'
 
 const Config = use('Config')
-const { statuses, priorities } = Config.get('ticket')
+const { statuses, priorities, impacts, reproducibles } = Config.get('ticket')
 const { validateAll } = use('Validator')
 const Ticket = use('App/Models/Ticket')
 const Project = use('App/Models/Project')
@@ -114,6 +114,8 @@ class TicketController {
     return view.render('tickets.create', {
       statuses: statuses,
       priorities: priorities,
+      impacts: impacts,
+      reproducibles: reproducibles,
       projects: projects.toJSON()
     })
   }
@@ -136,6 +138,8 @@ class TicketController {
       subject: request.input('subject'),
       description: request.input('description'),
       priority: request.input('priority'),
+      impact: request.input('impact'),
+      reproducible: request.input('reproducible'),
       author_id: auth.user.id,
       project_id: request.input('project'),
       recipient_id: request.input('recipient'),
@@ -201,6 +205,8 @@ class TicketController {
 
     return view.render('tickets.edit', {
       priorities: priorities,
+      impacts: impacts,
+      reproducibles: reproducibles,
       ticket: ticket.toJSON(),
       attachments: attachments,
       attachmentsCurrent: attachmentsCurrent,
@@ -238,6 +244,8 @@ class TicketController {
     ticket.subject = request.input('subject'),
     ticket.description = request.input('description'),
     ticket.priority = request.input('priority'),
+    ticket.impact = request.input('impact'),
+    ticket.reproducible = request.input('reproducible'),
     ticket.author_id = auth.user.id,
     ticket.project_id = request.input('project'),
     ticket.recipient_id = request.input('recipient')
