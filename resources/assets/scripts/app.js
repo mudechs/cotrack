@@ -35,10 +35,12 @@ $(document).ready(function () {
     $(this).html('<i class="fas fa-spinner fa-spin fa-fw"></i>');
   });
 
-  $('.linkable').on('click', function(){
+  $('.linkable').on('click', function(e) {
+    e.preventDefault();
+
     const url = $(this).data('route');
 
-    location.href = url;
+    window.location.href = url;
   });
 
   // Remove wrong input class on data table select
