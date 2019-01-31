@@ -4,7 +4,7 @@
       <tr>
         <th>Priorität</th>
         <th>Status</th>
-        <th>Datum</th>
+        <th>{{ dateLabel }}</th>
         <th>Betreff</th>
         <th>Von &rarr; An</th>
       </tr>
@@ -22,7 +22,7 @@
             ">{{ ticket.priority }}</span>
           </td>
           <td>{{ ticket.status }}</td>
-          <td>{{ ticket.created_at }}</td>
+          <td>{{ ticket.updated_at }}</td>
           <td>{{ ticket.subject }}</td>
           <td>
             {{ ticket.ticketAuthor.first_name }} {{ ticket.ticketAuthor.last_name }} &rarr;
