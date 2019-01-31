@@ -68,7 +68,7 @@
                     <select name="impact" class="form-control">
                       <option value="">Bitte wählen...</option>
                       @each(impact in impacts)
-                        <option value="{{ priority.label }}"
+                        <option value="{{ impact.label }}"
                           @if(impact.label == ticket.impact)
                             selected
                           @endif
@@ -81,7 +81,7 @@
                     <select name="reproducible" class="form-control">
                       <option value="">Bitte wählen...</option>
                       @each(reproducible in reproducibles)
-                        <option value="{{ priority.label }}"
+                        <option value="{{ reproducible.label }}"
                           @if(reproducible.label == ticket.reproducible)
                             selected
                           @endif
