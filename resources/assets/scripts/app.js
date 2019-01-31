@@ -35,16 +35,16 @@ $(document).ready(function () {
     $(this).html('<i class="fas fa-spinner fa-spin fa-fw"></i>');
   });
 
-  $('.linkable').on('click', function(e) {
-    e.preventDefault();
-
-    const url = $(this).data('route');
-
-    window.location.href = url;
-  });
-
   // Remove wrong input class on data table select
   if($('.dataTables_length').length) {
     $(this).find('select').removeClass('custom-select custom-select-sm');
   }
+});
+
+$('.linkable').on('click', function(e) {
+  e.preventDefault();
+
+  const url = $(this).data('route');
+
+  window.location.href = url;
 });
