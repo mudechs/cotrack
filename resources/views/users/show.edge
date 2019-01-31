@@ -13,12 +13,12 @@
           </div>
           <div class="card-body">
             <div class="row">
-              <div class="col-md-5">
+              <div class="col-md-4">
                 @if(user.avatar)
                   <img src="{{ assetsUrl('uploads/avatars/' + user.id + '/' + user.avatar) }}" alt="" class="rounded-circle" width="100">
                 @endif
               </div>
-              <div class="col-md-7">
+              <div class="col-md-8">
                 <h6 class="card-subtitle text-muted">
                   {{ user.profession }}
                 </h6>
