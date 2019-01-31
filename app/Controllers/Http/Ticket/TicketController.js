@@ -102,6 +102,13 @@ class TicketController {
     const projects = await Project.query()
       .select('id', 'title')
       .where('is_active', true)
+      .andWhere(function() {
+        this
+          .where('author_id', auth.user.id)
+          .orWhereHas('members', (builder) => {
+            builder.where('user_id', auth.user.id)
+          })
+      })
       .fetch()
 
     return view.render('tickets.create', {
