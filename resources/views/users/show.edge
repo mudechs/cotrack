@@ -18,6 +18,8 @@
                   <div class="col-md-4">
                     @if(user.avatar)
                       <img src="{{ assetsUrl('uploads/avatars/' + user.id + '/' + user.avatar) }}" alt="" class="rounded-circle" width="100">
+                    @else
+                      <div class="dummy-avatar dummy-avatar-big"></div>
                     @endif
                   </div>
                   <div class="col-md-8">
