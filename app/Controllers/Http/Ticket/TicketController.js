@@ -98,7 +98,7 @@ class TicketController {
     })
   }
 
-  async create({ view }) {
+  async create({ auth, view }) {
     const projects = await Project.query()
       .select('id', 'title')
       .where('is_active', true)
