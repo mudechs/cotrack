@@ -32,7 +32,7 @@
       </div>
       <div class="col">
         <div class="card mb-3">
-          <div class="card-header text-center">Von mir berichtet</div>
+          <div class="card-header text-center">Von mir berichtet [Offen]</div>
           <div class="list-group list-group-flush">
             @each(ticket in ticketsAssignedToOthers)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" class="list-group-item list-group-item-action">
@@ -60,7 +60,7 @@
       @if(auth.user.is_admin == true)
         <div class="col">
           <div class="card mb-3">
-            <div class="card-header text-center">Nicht zugewiesen</div>
+            <div class="card-header text-center">Nicht zugewiesen [Neu]</div>
             <div class="list-group list-group-flush">
               @each(ticket in ticketsNotAssigned)
                 <a href="{{ route('ticketsShow', { id: ticket.id }) }}" class="list-group-item list-group-item-action">
