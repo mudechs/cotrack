@@ -115,11 +115,13 @@
 
 @section('js')
   <script>
-    $('.data-table').DataTable({
-      order: [ 2, 'asc' ],
-      'columnDefs': [
-        { 'orderable': false, 'targets': 6 }
-      ]
+    $(document).ready(function () {
+      $('.data-table').DataTable({
+        order: [ 2, 'asc' ],
+        'columnDefs': [
+          { 'orderable': false, 'targets': 6 }
+        ]
+      });
     });
   </script>
 @endsection

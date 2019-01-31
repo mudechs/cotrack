@@ -7,8 +7,10 @@ const extractSass = new ExtractTextPlugin({
 })
 
 const jquery = new webpack.ProvidePlugin({
+  jQuery: 'jquery',
   $: 'jquery',
-  jQuery: 'jquery'
+  jquery: 'jquery',
+  'window.jQuery': 'jquery'
 })
 
 function sassRules() {

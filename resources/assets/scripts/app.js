@@ -2,6 +2,7 @@ import $ from 'jquery/dist/jquery';
 import dragula from 'dragula/dragula';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'datatables.net-bs4/js/dataTables.bootstrap4';
+import 'bootstrap-multiselect/dist/js/bootstrap-multiselect';
 
 window.jQuery = $;
 window.$ = $;
@@ -30,6 +31,8 @@ $.extend(true, $.fn.dataTable.defaults, {
 });
 
 $(document).ready(function () {
+  $('.multiselect').multiselect();
+
   // Add loading icon on clicked submit buttons
   $('button[type=submit]').on('click', function () {
     $(this).html('<i class="fas fa-spinner fa-spin fa-fw"></i>');

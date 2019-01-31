@@ -68,9 +68,8 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label for="members">Team</label>
-                    <select name="members" class="custom-select" multiple>
-                      <option value="" selected>Bitte wählen...</option>
+                    <label for="members">Team</label><br>
+                    <select name="members" class="custom-select multiselect" multiple>
                       @each(member in members)
                         <option value="{{ member.id }}">{{ member.first_name }} {{ member.last_name }}</option>
                       @endeach
