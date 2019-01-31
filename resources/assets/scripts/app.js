@@ -21,10 +21,10 @@ $.extend(true, $.fn.dataTable.defaults, {
     "emptyTable": "Keine Daten vorhanden",
     "lengthMenu": "_MENU_",
     "paginate": {
-      "first":      "<i class='fas fa-step-backward'></i>",
-      "last":       "<i class='fas fa-step-forward'></i>",
-      "next":       "<i class='fas fa-forward'></i>",
-      "previous":   "<i class='fas fa-backward'></i>"
+      "first": "<i class='fas fa-step-backward'></i>",
+      "last": "<i class='fas fa-step-forward'></i>",
+      "next": "<i class='fas fa-forward'></i>",
+      "previous": "<i class='fas fa-backward'></i>"
     },
   }
 });
