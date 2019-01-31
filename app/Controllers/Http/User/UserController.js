@@ -110,7 +110,7 @@ class UserController {
         await Mail.send('emails.user_credentials', request.all(), message => {
           message
             .to(user.email)
-            .from('noreply@codiac.ch', 'codiac.ch')
+            .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
             .subject('Willkommen bei CoTrack!')
         })
       }

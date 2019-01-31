@@ -62,7 +62,7 @@ class CommentController {
 
         await Mail.send('emails.new_comment_notification', data, message => {
           message
-            .from('noreply@codiac.ch', 'codiac.ch')
+            .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
             .to(email)
             .subject(`Es wurde ein neuer Kommentar [#${comment.id}] im Ticket [#${ticket.id}] erfasst.`)
         })
