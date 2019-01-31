@@ -31,7 +31,9 @@ $.extend(true, $.fn.dataTable.defaults, {
 });
 
 $(document).ready(function () {
-  $('.multiselect').multiselect();
+  $('.multiselect').multiselect({
+    buttonWidth: '100%'
+  });
 
   // Add loading icon on clicked submit buttons
   $('button[type=submit]').on('click', function () {
