@@ -1,13 +1,15 @@
 'use strict'
 
 const Helpers = use('Helpers')
+const RandomString = require('random-string')
 
 class fileuploadServices {
   async storeMultiple(files, path, data) {
     if(files) {
       await files.moveAll(Helpers.publicPath(`uploads/${path}/${data.id}`), (file) => {
+        const string = RandomString({ length: 8 })
         return {
-          name: `${new Date().getTime()}.${file.subtype}`
+          name: `${string}_${new Date().getTime()}.${file.subtype}`
         }
       })
 

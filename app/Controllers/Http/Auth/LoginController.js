@@ -5,7 +5,7 @@ const User = use('App/Models/User')
 const Token = use('App/Models/Token')
 const LastLogin = use('App/Models/LastLogin')
 const Hash = use('Hash')
-const randomString = require('random-string')
+const RandomString = require('random-string')
 const Mail = use('Mail')
 
 class LoginController {
@@ -61,7 +61,7 @@ class LoginController {
 
             const { token } = await Token.create({
               user_id: user.id,
-              token: randomString({ length: 6 }),
+              token: RandomString({ length: 6 }),
               type: '2FA'
             })
 

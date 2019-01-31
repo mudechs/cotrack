@@ -78,7 +78,7 @@
               <hr>
               {{{ ticket.description }}}
               <hr>
-              @each(attachment in attachments)
+              @each(attachment in ticketAttachments)
                 <a href="/uploads/tickets/{{ ticket.id }}/{{ attachment.fileName }}" target="_blank"><i class="fas fa-paperclip fa-fw"></i> {{ attachment.clientName }}</a><br>
               @endeach
             </div>
@@ -93,18 +93,21 @@
           </div>
           <div class="card-body">
             @each(comment in comments)
-              <div class="media">
+              <div id="kommentar_{{ comment.id }}" class="media">
                 @if(comment.commentAuthor.avatar)
                   <img src="{{ assetsUrl('uploads/avatars/' + comment.commentAuthor.id + '/' + comment.commentAuthor.avatar) }}" alt="{{ comment.commentAuthor.first_name }} {{ comment.commentAuthor.last_name }}" class="mr-3 rounded-circle" width="60">
                 @else
                   <div class="dummy-avatar mr-3"></div>
                 @endif
                 <div class="media-body">
-                  <h5 class="mt-0 d-flex justify-content-between">
-                    <span>{{ comment.commentAuthor.first_name }} {{ comment.commentAuthor.last_name }}</span>
+                  <p class="mt-0 d-flex justify-content-between">
+                    <span><small>{{ comment.commentAuthor.first_name }} {{ comment.commentAuthor.last_name }}</small></span>
                     <span><small>{{ comment.created_at }}</small></span>
-                  </h5>
-                  {{{ comment.body }}}
+                  </p>
+                  <h6 class="mb-3">{{{ comment.body }}}</h6>
+                  @each(attachment in comment.attachments)
+                    <small><a href="/uploads/comments/{{ $parent.comment.id }}/{{ attachment.fileName }}" target="_blank"><i class="fas fa-paperclip fa-fw"></i> {{ attachment.clientName }}</a></small><br>
+                  @endeach
                 </div>
               </div>
               <hr>
@@ -211,40 +214,8 @@
     <input type="hidden" name="status" value="Anerkannt">
   </form>
 
-  {{-- Comment Modal --}}
-  <div class="modal fade" id="createCommentModal" tabindex="-1" role="dialog" aria-labelledby="createCommentModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="createCommentModalLabel">Kommentar verfassen</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form id="status-change-form" action="{{ route('commentsStore', { id: ticket.id }) }}" method="post">
-          <div class="modal-body">
-            {{ csrfField() }}
-            <input type="hidden" name="author_id" id="author-id-input" value="{{ auth.user.id }}">
-            <div class="form-group">
-              <label for="body">Text <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">[Markdown erlaubt]</a></label>
-              <textarea
-                name="body"
-                class="form-control {{ hasErrorFor('body') ? 'is-invalid' : '' }}"
-                id="body"
-                rows="8"
-                required
-              >{{ old('body', '') }}</textarea>
-              {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('body'), hasErrorFor('body')) }}
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Schliessen</button>
-            <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> Speichern</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+  @!component('tickets.components.commentModal', { ticket, csrfField })
+
 @endsection
 
 @section('js')

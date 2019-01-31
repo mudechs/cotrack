@@ -6,7 +6,7 @@ const Model = use('Model')
 class Comment extends Model {
   static castDates(field, value) {
     if (field === 'created_at' || field === 'updated_at') {
-      return value.format('LLLL')
+      return value.format('DD.MM.YYYY (HH:mm)')
     }
     return super.formatDates(field, value)
   }

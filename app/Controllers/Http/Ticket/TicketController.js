@@ -54,7 +54,7 @@ class TicketController {
     })
   }
 
-  async show({ params, view }) {
+  async show({ params, view, response }) {
     const ticket = await Ticket.query()
       .where('id', params.id)
       .with('ticketAuthor', (builder) => {
@@ -72,29 +72,29 @@ class TicketController {
       })
       .first()
 
-    const comments = await Comment.query()
+    let comments = await Comment.query()
       .where('ticket_id', ticket.id)
-      .select('body', 'created_at', 'author_id')
+      .select('id', 'body', 'created_at', 'author_id', 'attachments')
       .with('commentAuthor', (builder) => {
         builder.select('id', 'first_name', 'last_name', 'avatar')
       })
       .orderBy('created_at', 'desc')
       .fetch()
 
-    let attachments = null
+    let ticketAttachments = null
     if(ticket.attachments) {
-      attachments = JSON.parse(ticket.attachments)
+      ticketAttachments = JSON.parse(ticket.attachments)
     }
 
     ticket.description = await MarkdownServices.convertToHtml(ticket.description, 'description')
-    const commentsHtml = await MarkdownServices.convertToHtml(comments.toJSON(), 'body')
+    comments = await MarkdownServices.convertToHtml(comments.toJSON(), 'body')
 
     return view.render('tickets.show', {
       ticket: ticket.toJSON(),
-      comments: commentsHtml,
+      comments: comments,
       statuses: statuses,
       priorities: priorities,
-      attachments: attachments
+      ticketAttachments: ticketAttachments
     })
   }
 

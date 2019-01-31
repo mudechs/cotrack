@@ -8,6 +8,9 @@ class markdownServices {
       for (let i = 0; i < data.length; i++) {
         const mdc = new markdown.Converter()
         data[i][field] = mdc.makeHtml(data[i][field])
+        // TODO: Nicht ideal, muss anders gelöst werden
+        if(data[i]['attachments'])
+          data[i]['attachments'] = JSON.parse(data[i]['attachments'])
       }
     } else {
       const mdc = new markdown.Converter()
