@@ -10,7 +10,8 @@ class DashboardController {
 
     const ticketsAssignedToMe = await Ticket.query()
       .where('recipient_id', auth.user.id)
-      .whereIn('status', statusesOpen)
+      // .whereIn('status', statusesOpen)
+      .where('status', 'Neu')
       .orderBy('created_at', 'desc')
       .with('project', (builder) => {
         builder.select('id', 'title')
