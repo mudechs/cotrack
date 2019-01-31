@@ -44,7 +44,7 @@ class CommentController {
       const recipientEmail = await ticket.ticketRecipient().select('email').first()
       let email
 
-      // if(comment.author_id != ticket.author_id && comment.author_id != ticket.recipient_id) {
+      if(comment.author_id != ticket.author_id && comment.author_id != ticket.recipient_id) {
         switch (comment.author_id) {
           case ticket.author_id:
             email = recipientEmail.email
@@ -66,7 +66,7 @@ class CommentController {
             .to(email)
             .subject(`Es wurde ein neuer Kommentar [#${comment.id}] im Ticket [#${ticket.id}] erfasst.`)
         })
-      //}
+      }
     } catch (error) {
       console.log(error)
     }
