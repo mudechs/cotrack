@@ -1,13 +1,14 @@
 'use strict'
 
 const Config = use('Config')
-const { statuses, priorities } = Config.get('ticket')
+const { priorities } = Config.get('ticket')
 const { phases } = Config.get('project')
 const { validateAll } = use('Validator')
 const Project = use('App/Models/Project')
 const Ticket = use('App/Models/Ticket')
 const User = use('App/Models/User')
 const MarkdownServices = use('App/Services/markdownServices')
+const TicketServices = use('App/Services/ticketServices')
 
 class ProjectController {
   async index({ auth, view, response }) {
@@ -64,7 +65,7 @@ class ProjectController {
     })
   }
 
-  async show({ params, auth, session, view, response }) {
+  async show({ params, session, view, response }) {
     const project = await Project.query()
       .where('id', params.id)
       .with('projectAuthor', (builder) => {
@@ -76,7 +77,8 @@ class ProjectController {
       .first()
 
     if(project) {
-      const statusesOpen = await Ticket.ticketStatuses(statuses, 'open')
+      const statusesOpen = await TicketServices.ticketStatuses('open')
+      const statusesClosed = await TicketServices.ticketStatuses('closed')
 
       const ticketsOpen = await Ticket.query()
         .where('project_id', project.id)
@@ -89,8 +91,6 @@ class ProjectController {
         })
         .orderBy('created_at', 'desc')
         .fetch()
-
-      const statusesClosed = await Ticket.ticketStatuses(statuses, 'closed')
 
       const ticketsClosed = await Ticket.query()
         .where('project_id', project.id)

@@ -11,17 +11,18 @@ const Mail = use('Mail')
 const ProjectServices = use('App/Services/projectServices')
 const MarkdownServices = use('App/Services/markdownServices')
 const FileuploadServices = use('App/Services/fileuploadServices')
+const TicketServices = use('App/Services/ticketServices')
 const Moment = use('moment')
 
 class TicketController {
   async index({ auth, view, response }) {
-    const ticketsNeu = await Ticket.ticketGroupedByStatus('Neu', auth.user.id)
-    const ticketsAnerkannt = await Ticket.ticketGroupedByStatus('Anerkannt', auth.user.id)
-    const ticketsWarten = await Ticket.ticketGroupedByStatus('Warten', auth.user.id)
-    const ticketsFeedback = await Ticket.ticketGroupedByStatus('Feedback', auth.user.id)
-    const ticketsBearbeitung = await Ticket.ticketGroupedByStatus('Bearbeitung', auth.user.id)
+    const ticketsNeu = await TicketServices.ticketGroupedByStatus('Neu', auth.user.id)
+    const ticketsAnerkannt = await TicketServices.ticketGroupedByStatus('Anerkannt', auth.user.id)
+    const ticketsWarten = await TicketServices.ticketGroupedByStatus('Warten', auth.user.id)
+    const ticketsFeedback = await TicketServices.ticketGroupedByStatus('Feedback', auth.user.id)
+    const ticketsBearbeitung = await TicketServices.ticketGroupedByStatus('Bearbeitung', auth.user.id)
 
-    const userProjects = await ProjectServices.getUserProjects(auth.user.id)
+    const userProjects = await ProjectServices.getUserProjects(auth.user.id, 'open')
 
     return view.render('tickets.index', {
       priorities: priorities,
@@ -35,13 +36,13 @@ class TicketController {
   }
 
   async projectIndex({ params, auth, view }) {
-    const ticketsNeu = await Ticket.ticketGroupedByStatusAndProject('Neu', auth.user.id, params.id)
-    const ticketsAnerkannt = await Ticket.ticketGroupedByStatusAndProject('Anerkannt', auth.user.id, params.id)
-    const ticketsWarten = await Ticket.ticketGroupedByStatusAndProject('Warten', auth.user.id, params.id)
-    const ticketsFeedback = await Ticket.ticketGroupedByStatusAndProject('Feedback', auth.user.id, params.id)
-    const ticketsBearbeitung = await Ticket.ticketGroupedByStatusAndProject('Bearbeitung', auth.user.id, params.id)
+    const ticketsNeu = await TicketServices.ticketGroupedByStatusAndProject('Neu', auth.user.id, params.id)
+    const ticketsAnerkannt = await TicketServices.ticketGroupedByStatusAndProject('Anerkannt', auth.user.id, params.id)
+    const ticketsWarten = await TicketServices.ticketGroupedByStatusAndProject('Warten', auth.user.id, params.id)
+    const ticketsFeedback = await TicketServices.ticketGroupedByStatusAndProject('Feedback', auth.user.id, params.id)
+    const ticketsBearbeitung = await TicketServices.ticketGroupedByStatusAndProject('Bearbeitung', auth.user.id, params.id)
 
-    const userProjects = await ProjectServices.getUserProjects(auth.user.id)
+    const userProjects = await ProjectServices.getUserProjects(auth.user.id, 'open')
 
     return view.render('tickets.index', {
       priorities: priorities,

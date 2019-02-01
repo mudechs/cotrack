@@ -1,13 +1,11 @@
 'use strict'
 
-const Config = use('Config')
-const { statuses } = Config.get('ticket')
 const Project = use('App/Models/Project')
-const Ticket = use('App/Models/Ticket')
+const TicketServices = use('App/Services/ticketServices')
 
 class projectServices {
-  async getUserProjects(user) {
-    const statusesOpen = await Ticket.ticketStatuses(statuses, 'open')
+  async getUserProjects(user, statusGroup) {
+    const statuses = await TicketServices.ticketStatuses(statusGroup)
 
     return await Project.query()
       .where('is_active', true)
@@ -16,7 +14,7 @@ class projectServices {
         builder.where('user_id', user)
       })
       .withCount('tickets', (builder) => {
-        builder.whereIn('status', statusesOpen)
+        builder.whereIn('status', statuses)
       })
       .orderBy('title', 'asc')
       .fetch()

@@ -18,39 +18,6 @@ class Ticket extends Model {
     return super.formatDates(field, value)
   }
 
-  static ticketStatuses(statuses, option) {
-    let statusesOpen = []
-    for(let i in statuses)
-      if(statuses[i].type == option)
-        statusesOpen[statusesOpen.length] = statuses[i].label
-    return statusesOpen = statusesOpen
-  }
-
-  static async ticketGroupedByStatus(status, recipient) {
-    return await Ticket.query()
-      .where('recipient_id', recipient)
-      .where('status', status)
-      .orderBy('created_at', 'desc')
-      .with('project', (builder) => {
-        builder.select('id', 'title')
-      })
-      .withCount('comments')
-      .fetch()
-  }
-
-  static async ticketGroupedByStatusAndProject(status, recipient, project) {
-    return await Ticket.query()
-      .where('recipient_id', recipient)
-      .where('status', status)
-      .where('project_id', project)
-      .orderBy('created_at', 'desc')
-      .with('project', (builder) => {
-        builder.select('id', 'title')
-      })
-      .withCount('comments')
-      .fetch()
-  }
-
   /**
    * @method ticketAuthor
    *
