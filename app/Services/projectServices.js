@@ -1,5 +1,7 @@
 'use strict'
 
+const Config = use('Config')
+const { statuses } = Config.get('ticket')
 const Project = use('App/Models/Project')
 const Ticket = use('App/Models/Ticket')
 
