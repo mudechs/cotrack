@@ -9,8 +9,7 @@ class StoreProject {
     return {
       title: 'required',
       description: 'required',
-      code: 'required|unique:projects, code',
-      members: 'required'
+      code: 'required|unique:projects, code'
     }
   }
 
@@ -19,8 +18,7 @@ class StoreProject {
       'title.required': 'Pflichteld',
       'description.required': 'Pflichteld',
       'code.required': 'Pflichteld',
-      'code.unique': 'Muss einzigartig sein',
-      'members.unique': 'Member(s) auswählen'
+      'code.unique': 'Muss einzigartig sein''
     }
   }
 }
