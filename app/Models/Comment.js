@@ -2,6 +2,7 @@
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
+const markdown = require('showdown')
 
 class Comment extends Model {
   static castDates(field, value) {
@@ -9,6 +10,21 @@ class Comment extends Model {
       return value.format('DD.MM.YYYY (HH:mm)')
     }
     return super.formatDates(field, value)
+  }
+
+  // Konvertieren von MD -> HTML
+  static get computed () {
+    return ['bodyHtml']
+  }
+
+  getBodyHtml ({ body }) {
+    const mdc = new markdown.Converter()
+    return mdc.makeHtml(body)
+  }
+
+  // Parsen um im Frontend iterieren zu können
+  getAttachments (attachments) {
+    return JSON.parse(attachments)
   }
 
   /**

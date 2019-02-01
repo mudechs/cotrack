@@ -5,11 +5,9 @@ const { statuses, priorities, impacts, reproducibles } = Config.get('ticket')
 const { validateAll } = use('Validator')
 const Ticket = use('App/Models/Ticket')
 const Project = use('App/Models/Project')
-const Comment = use('App/Models/Comment')
 const User = use('App/Models/User')
 const Mail = use('Mail')
 const ProjectServices = use('App/Services/projectServices')
-const MarkdownServices = use('App/Services/markdownServices')
 const FileuploadServices = use('App/Services/fileuploadServices')
 const TicketServices = use('App/Services/ticketServices')
 const Moment = use('moment')
@@ -55,7 +53,7 @@ class TicketController {
     })
   }
 
-  async show({ params, view, response }) {
+  async show({ params, view }) {
     const ticket = await Ticket.query()
       .where('id', params.id)
       .with('ticketAuthor', (builder) => {
@@ -67,35 +65,18 @@ class TicketController {
       .with('ticketForwarder', (builder) => {
         builder.select('id', 'first_name', 'last_name')
       })
-      .with('comments')
+      .with('comments', (builder) => {
+        builder.with('commentAuthor')
+      })
       .with('project.members', (builder) => {
         builder.select('id', 'first_name', 'last_name')
       })
       .first()
 
-    let comments = await Comment.query()
-      .where('ticket_id', ticket.id)
-      .select('id', 'body', 'created_at', 'author_id', 'attachments')
-      .with('commentAuthor', (builder) => {
-        builder.select('id', 'first_name', 'last_name', 'avatar')
-      })
-      .orderBy('created_at', 'desc')
-      .fetch()
-
-    let ticketAttachments = null
-    if(ticket.attachments) {
-      ticketAttachments = JSON.parse(ticket.attachments)
-    }
-
-    ticket.description = await MarkdownServices.convertToHtml(ticket.description, 'description')
-    comments = await MarkdownServices.convertToHtml(comments.toJSON(), 'body')
-
     return view.render('tickets.show', {
       ticket: ticket.toJSON(),
-      comments: comments,
       statuses: statuses,
-      priorities: priorities,
-      ticketAttachments: ticketAttachments
+      priorities: priorities
     })
   }
 

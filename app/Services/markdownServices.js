@@ -5,8 +5,8 @@ const markdown = require('showdown')
 class markdownServices {
   async convertToHtml(data, field) {
     if(Array.isArray(data)) {
+      const mdc = new markdown.Converter()
       for (let i = 0; i < data.length; i++) {
-        const mdc = new markdown.Converter()
         data[i][field] = mdc.makeHtml(data[i][field])
         // TODO: Nicht ideal, muss anders gelöst werden
         if(data[i]['attachments'])

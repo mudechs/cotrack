@@ -7,7 +7,6 @@ const { validateAll } = use('Validator')
 const Project = use('App/Models/Project')
 const Ticket = use('App/Models/Ticket')
 const User = use('App/Models/User')
-const MarkdownServices = use('App/Services/markdownServices')
 const TicketServices = use('App/Services/ticketServices')
 
 class ProjectController {
@@ -103,8 +102,6 @@ class ProjectController {
         })
         .orderBy('created_at', 'desc')
         .fetch()
-
-      project.description = await MarkdownServices.convertToHtml(project.description, 'description')
 
       return view.render('projects.show', {
         project: project.toJSON(),

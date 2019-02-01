@@ -76,9 +76,9 @@
               <hr>
               <small><b>Projekt: </b><a href="{{ route('projectsShow', { id: ticket.project.id }) }}">{{ ticket.project.title }}</a></small>
               <hr>
-              {{{ ticket.description }}}
+              {{{ ticket.descriptionHtml }}}
               <hr>
-              @each(attachment in ticketAttachments)
+              @each(attachment in ticket.attachments)
                 <a href="/uploads/tickets/{{ ticket.id }}/{{ attachment.fileName }}" target="_blank"><i class="fas fa-paperclip fa-fw"></i> {{ attachment.clientName }}</a><br>
               @endeach
             </div>
@@ -92,7 +92,7 @@
               </button>
           </div>
           <div class="card-body">
-            @each(comment in comments)
+            @each(comment in ticket.comments)
               <div id="kommentar_{{ comment.id }}" class="media">
                 @if(comment.commentAuthor.avatar)
                   <img src="{{ assetsUrl('uploads/avatars/' + comment.commentAuthor.id + '/' + comment.commentAuthor.avatar) }}" alt="{{ comment.commentAuthor.first_name }} {{ comment.commentAuthor.last_name }}" class="mr-3 rounded-circle" width="60">
@@ -104,7 +104,7 @@
                     <span><small>{{ comment.commentAuthor.first_name }} {{ comment.commentAuthor.last_name }}</small></span>
                     <span><small>{{ comment.created_at }}</small></span>
                   </p>
-                  <h6 class="mb-3">{{{ comment.body }}}</h6>
+                  <h6 class="mb-3">{{{ comment.bodyHtml }}}</h6>
                   @each(attachment in comment.attachments)
                     <small><a href="/uploads/comments/{{ $parent.comment.id }}/{{ attachment.fileName }}" target="_blank"><i class="fas fa-paperclip fa-fw"></i> {{ attachment.clientName }}</a></small><br>
                   @endeach

@@ -2,6 +2,7 @@
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
+const markdown = require('showdown')
 
 class Ticket extends Model {
   static get dates() {
@@ -16,6 +17,21 @@ class Ticket extends Model {
       return value.format('DD.MM.YYYY')
     }
     return super.formatDates(field, value)
+  }
+
+  // Konvertieren von MD -> HTML
+  static get computed () {
+    return ['descriptionHtml']
+  }
+
+  getDescriptionHtml ({ description }) {
+    const mdc = new markdown.Converter()
+    return mdc.makeHtml(description)
+  }
+
+  // Parsen um im Frontend iterieren zu können
+  getAttachments (attachments) {
+    return JSON.parse(attachments)
   }
 
   /**

@@ -2,6 +2,7 @@
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
+const markdown = require('showdown')
 
 class Project extends Model {
   static castDates(field, value) {
@@ -9,6 +10,16 @@ class Project extends Model {
       return value.format('DD.MM.YY')
     }
     return super.formatDates(field, value)
+  }
+
+  // Konvertieren von MD -> HTML
+  static get computed () {
+    return ['descriptionHtml']
+  }
+
+  getDescriptionHtml ({ description }) {
+    const mdc = new markdown.Converter()
+    return mdc.makeHtml(description)
   }
 
   /**
