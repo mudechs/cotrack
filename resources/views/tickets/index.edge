@@ -12,7 +12,7 @@
           <div class="dropdown-menu">
             @each(userProject in userProjects)
               <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('ticketsProjectIndex', { id: userProject.id }) }}">
-                <span class="d-inline-block text-truncate" style="max-width:200px"><small>{{ userProject.title }}</small></span>
+                <span class="d-inline-block text-truncate mr-1" style="max-width:200px"><small>{{ userProject.title }}</small></span>
                 <span><small><i class="fas fa-ticket-alt fa-fw"></i> {{ userProject["__meta__"].tickets_count }}</small></span>
               </a>
             @endeach
