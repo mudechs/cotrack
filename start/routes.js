@@ -65,7 +65,7 @@ Route
     Route.post('tickets/change/recipient/:id', 'Ticket/TicketController.changeRecipient').as('ticketsChangeRecipient')
     Route.post('tickets/assign/:id', 'Ticket/TicketController.assignToMe').as('ticketsAssignToMe')
 
-    Route.post('tickets/comment/store/:id', 'Comment/CommentController.store').as('commentsStore')
+    Route.post('tickets/comment/store/:id', 'Comment/CommentController.store').as('commentsStore').validator('StoreComment')
   })
   .middleware(['auth'])
 

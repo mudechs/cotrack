@@ -7,15 +7,7 @@ const Mail = use('Mail')
 const FileuploadServices = use('App/Services/fileuploadServices')
 
 class CommentController {
-  async store({ params, request, auth, session, response }) {
-    const validation = await validateAll(request.all(), {
-      body: 'required'
-    })
-
-    if (validation.fails()) {
-      session.withErrors(validation.messages()).flashAll()
-    }
-
+  async store({ params, request, auth, response }) {
     const comment = await Comment.create({
       body: request.input('body'),
       author_id: auth.user.id,
