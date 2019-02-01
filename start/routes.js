@@ -50,8 +50,8 @@ Route
     Route.get('projects/create', 'Project/ProjectController.create').middleware(['isAdmin']).as('projectsCreate')
     Route.get('projects/show/:id', 'Project/ProjectController.show').middleware(['projectOAM']).as('projectsShow')
     Route.get('projects/edit/:id', 'Project/ProjectController.edit').middleware(['isAdmin']).as('projectsEdit')
-    Route.post('projects/store', 'Project/ProjectController.store').middleware(['isAdmin']).as('projectsStore')
-    Route.post('projects/update/:id', 'Project/ProjectController.update').middleware(['isAdmin']).as('projectsUpdate')
+    Route.post('projects/store', 'Project/ProjectController.store').middleware(['isAdmin']).as('projectsStore').validator('StoreProject')
+    Route.post('projects/update/:id', 'Project/ProjectController.update').middleware(['isAdmin']).as('projectsUpdate').validator('StoreTicket')
 
     Route.get('tickets', 'Ticket/TicketController.index').as('ticketsIndex')
     Route.get('tickets/p/:id', 'Ticket/TicketController.projectIndex').as('ticketsProjectIndex')

@@ -1,0 +1,94 @@
+<div class="card-body">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="form-group">
+        <label for="title">Titel</label>
+        <input
+          type="text"
+          class="form-control {{ hasErrorFor('title') ? 'is-invalid' : '' }}"
+          name="title"
+          id="title"
+          value="{{ project == undefined ? old('title', '') : project.title }}">
+        {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('title'), hasErrorFor('title')) }}
+      </div>
+      <div class="form-group">
+        <label for="description">Beschreibung <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">[Markdown erlaubt]</a></label>
+        <textarea
+          name="description"
+          class="form-control {{ hasErrorFor('description') ? 'is-invalid' : '' }}"
+          id="description"
+          rows="10">{{ project == undefined ? old('description', '') : project.description }}</textarea>
+        {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('description'), hasErrorFor('description')) }}
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <div class="custom-control custom-switch">
+          <input
+            class="custom-control-input"
+            type="checkbox"
+            name="is_active"
+            id="is_active"
+            @if(project.is_active == 1)
+              checked
+            @endif
+            {{ old('is_active') == 'on' ? 'checked' : ''  }}
+            >
+          <label class="custom-control-label" for="is_active">
+              Aktiv
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="code">Code</label>
+        <input
+          type="text"
+          class="form-control {{ hasErrorFor('code') ? 'is-invalid' : '' }}"
+          name="code"
+          id="code"
+          @if(auth.user.is_admin != true)
+            disabled
+          @endif
+          value="{{ project == undefined ? old('code', '') : roject.code }}">
+        {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('code'), hasErrorFor('code')) }}
+      </div>
+      <div class="form-group">
+        <label for="phase">Phase</label><br>
+        <select name="phase" class="form-control">
+          <option value="">Bitte wählen...</option>
+          @each(phase in phases)
+            <option value="{{ phase.label }}"
+              @if(phase.label == project.phase)
+                selected
+              @endif
+              {{ old('phase') == phase.label ? 'selected' : ''  }}
+            >{{ phase.label }}</option>
+          @endeach
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="code">Team</label><br>
+        <select id="members" name="members[]" class="custom-select multiselect" multiple="multiple">
+          @if(project == undefined)
+            @each(member in members)
+              <option value="{{ member.id }}"
+              {{ old('members') == member.id ? 'selected' : ''  }}
+              >{{ member.first_name }} {{ member.last_name }}</option>
+            @endeach
+          @else
+            @each(user in users)
+              <option
+                value="{{ user.id }}"
+                @each(member in project.members)
+                @if(member.id == $parent.user.id)
+                selected
+                @endif
+                @endeach
+              >{{ user.first_name }} {{ user.last_name }}</option>
+            @endeach
+          @endif
+        </select>
+      </div>
+    </div>
+  </div>
+</div>

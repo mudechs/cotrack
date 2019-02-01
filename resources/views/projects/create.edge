@@ -8,76 +8,9 @@
           <div class="card-header text-center">Neues Projekt erstellen</div>
           <form action="{{ route('projectsStore') }}" method="post">
             {{ csrfField() }}
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-8">
-                  <div class="form-group">
-                    <label for="title">Titel</label>
-                    <input
-                      type="text"
-                      class="form-control {{ hasErrorFor('title') ? 'is-invalid' : '' }}"
-                      name="title"
-                      id="title"
-                      value="{{ old('title', '') }}"
-                      autofocus>
-                    {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('title'), hasErrorFor('title')) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="description">Beschreibung <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">[Markdown erlaubt]</a></label>
-                    <textarea
-                      name="description"
-                      class="form-control {{ hasErrorFor('description') ? 'is-invalid' : '' }}"
-                      id="description"
-                      rows="10">{{ old('description', '') }}</textarea>
-                    {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('description'), hasErrorFor('description')) }}
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <div class="custom-control custom-switch">
-                      <input
-                        class="custom-control-input"
-                        type="checkbox"
-                        name="is_active"
-                        id="is_active"
-                        checked
-                        >
-                      <label class="custom-control-label" for="is_active">
-                          Aktiv
-                      </label>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="code">Code</label>
-                    <input
-                      type="text"
-                      class="form-control {{ hasErrorFor('code') ? 'is-invalid' : '' }}"
-                      name="code"
-                      id="code"
-                      value="{{ old('code', '') }}"
-                      autofocus>
-                    {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('code'), hasErrorFor('code')) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="phase">Phase</label>
-                    <select name="phase" class="form-control">
-                      <option value="">Bitte wählen...</option>
-                      @each(phase in phases)
-                        <option value="{{ phase.label }}">{{ phase.label }}</option>
-                      @endeach
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="members">Team</label><br>
-                    <select name="members" class="custom-select multiselect" multiple>
-                      @each(member in members)
-                        <option value="{{ member.id }}">{{ member.first_name }} {{ member.last_name }}</option>
-                      @endeach
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+            @include('projects.includes.formFields')
+
             <div class="card-footer d-flex justify-content-center">
               <a href="{{ route('projectsIndex') }}" class="btn btn-secondary mr-2"><i class="fas fa-times"></i> Abbrechen</a>
               <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> Speichern</button>

@@ -3,7 +3,6 @@
 const Config = use('Config')
 const { priorities } = Config.get('ticket')
 const { phases } = Config.get('project')
-const { validateAll } = use('Validator')
 const Project = use('App/Models/Project')
 const Ticket = use('App/Models/Ticket')
 const User = use('App/Models/User')
@@ -122,30 +121,18 @@ class ProjectController {
   }
 
   async create({ view }) {
-    const members = await User.query()
+    const users = await User.query()
       .select('id', 'first_name', 'last_name')
       .whereNot('is_active', false)
       .fetch()
 
     return view.render('projects.create', {
-      members: members.toJSON(),
+      members: users.toJSON(),
       phases: phases
     })
   }
 
   async store({ request, auth, session, response }) {
-    const validation = await validateAll(request.all(), {
-      title: 'required',
-      description: 'required',
-      code: 'required|unique:projects, code'
-    })
-
-    if (validation.fails()) {
-      session.withErrors(validation.messages()).flashAll()
-
-      return response.redirect('back')
-    }
-
     let isActive = request.input('is_active')
     isActive = (isActive == 'on')? true : false;
 
@@ -192,18 +179,6 @@ class ProjectController {
   }
 
   async update({ params, request, session, response }) {
-
-    const validation = await validateAll(request.all(), {
-      title: 'required',
-      description: 'required'
-    })
-
-    if (validation.fails()) {
-      session.withErrors(validation.messages()).flashAll()
-
-      return response.redirect('back')
-    }
-
     const project = await Project.find(params.id)
 
     let isActive = request.input('is_active')
