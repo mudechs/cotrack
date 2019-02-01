@@ -1,0 +1,126 @@
+<div class="card-body">
+  <div class="row">
+    <div class="col-md-8">
+      @if(ticket != undefined)
+        <b>Projekt: </b>{{ ticket.project.title }}
+      @else
+        <div class="form-group">
+          <label for="project">Projekt</label>
+          <div class="row">
+            <div class="col-md-6 col-8">
+              <select name="project" id="project" class="form-control {{ hasErrorFor('project') ? 'is-invalid' : '' }}">
+                <option value="">Bitte wählen...</option>
+                @each(project in projects)
+                  <option value="{{ project.id }}">{{ project.title }}</option>
+                @endeach
+              </select>
+              {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('project'), hasErrorFor('project')) }}
+            </div>
+          </div>
+        </div>
+      @endif
+
+      <div class="form-group mt-4">
+        <label for="subject">Betreff</label>
+        <input
+          type="text"
+          class="form-control {{ hasErrorFor('subject') ? 'is-invalid' : '' }}"
+          name="subject"
+          id="subject"
+          value="{{ ticket == undefined ? old('title', '') : ticket.subject }}"
+          autofocus>
+        {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('subject'), hasErrorFor('subject')) }}
+      </div>
+      <div class="form-group">
+        <label for="description">Beschreibung <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">[Markdown erlaubt]</a></label>
+        <textarea
+          name="description"
+          class="form-control {{ hasErrorFor('description') ? 'is-invalid' : '' }}"
+          id="description"
+          rows="10">{{ ticket == undefined ? '' : ticket.description }}</textarea>
+        {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('description'), hasErrorFor('description')) }}
+      </div>
+
+      <label for="attachments mt-5">Attachments</label><br>
+      @if(ticket != undefined)
+        <ul class="list-group mb-3">
+          @each(attachment in attachments)
+            <li class="list-group-item">
+              <div class="d-flex justify-content-between">
+                <span>{{ attachment.clientName }}</span>
+                <span><small>{{ attachment.size / 1000 }} kb</small></span>
+                <button type="button" class="btn btn-sm btn-danger btn-files-remover" data-index="{{ $loop.index }}"><i class="far fa-trash-alt"></i></button>
+              </div>
+            </li>
+          @endeach
+        </ul>
+
+        <input id="modified-files" type="hidden" name="modified-files[]" value="null">
+      @endif
+
+      <div class="form-group">
+        <input type="file" id="file" name="attachments[]" multiple />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="priority">Priorität</label>
+        <select name="priority" class="form-control">
+          @each(priority in priorities)
+            <option value="{{ priority.label }}"
+              @if(priority.label == ticket.priority)
+                selected
+              @endif
+            >{{ priority.label }}</option>
+          @endeach
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="impact">Auswirkung</label>
+        <select name="impact" class="form-control">
+          <option value="">Bitte wählen...</option>
+          @each(impact in impacts)
+            <option value="{{ impact.label }}"
+              @if(impact.label == ticket.impact)
+                selected
+              @endif
+            >{{ impact.label }}</option>
+          @endeach
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="reproducible">Reproduzierbar</label>
+        <select name="reproducible" class="form-control">
+          <option value="">Bitte wählen...</option>
+          @each(reproducible in reproducibles)
+            <option value="{{ reproducible.label }}"
+              @if(reproducible.label == ticket.reproducible)
+                selected
+              @endif
+            >{{ reproducible.label }}</option>
+          @endeach
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="done_until">Zu erledigen bis</label>
+        <input
+          type="date"
+          class="form-control"
+          name="done_until"
+          id="done_until"
+          value="{{ ticket == undefined ? '' : doneUntil }}">
+      </div>
+      <div class="form-group">
+        <label for="time_expenses">Aufwand (Std)</label>
+        <div class="w-25">
+          <input
+            type="text"
+            class="form-control"
+            name="time_expenses"
+            id="time_expenses"
+            value="{{ ticket == undefined ? '' : ticket.time_expenses }}">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
