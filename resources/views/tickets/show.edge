@@ -72,9 +72,35 @@
           </div>
           <div class="card-body">
             <div class="card-text">
-              <h2>#{{ ticket.id }} - {{ ticket.subject }}</h2>
+              <h3>{{ ticket.subject }}</h3>
               <hr>
-              <small><b>Projekt: </b><a href="{{ route('projectsShow', { id: ticket.project.id }) }}">{{ ticket.project.title }}</a></small>
+              <span class="
+                badge badge-pill
+                @each(priority in priorities)
+                @if(priority.label == ticket.priority)
+                badge-{{ priority.color }}
+                @endif
+                @endeach
+              ">{{ ticket.priority }}</span><br>
+              <small><b>Projekt: </b><a href="{{ route('projectsShow', { id: ticket.project.id }) }}">{{ ticket.project.title }}</a></small><br>
+              @if(ticket.impact)
+                <small><b>Auswirkung: </b>{{ ticket.impact }}</small><br>
+              @endif
+              @if(ticket.reproducible)
+                <small><b>Reproduzierbar: </b>{{ ticket.reproducible }}</small><br>
+              @endif
+              @if(ticket.done_until)
+                <small><b>Zu erledigen bis: </b><span class="text-danger">{{ ticket.done_until }}</span></small><br>
+              @endif
+              <hr>
+              <small>
+                {{ ticket.ticketAuthor.first_name }} {{ ticket.ticketAuthor.last_name }} &rarr;
+                @if(ticket.ticketRecipient)
+                  {{ ticket.ticketRecipient.first_name }} {{ ticket.ticketRecipient.last_name }}
+                @else
+                  nicht zugewiesen
+                @endif
+              </small>
               <hr>
               {{{ ticket.descriptionHtml }}}
               <hr>
@@ -121,47 +147,6 @@
             <table class="table table-sm table-borderless text-nowrap m-0">
               <tbody>
                 <tr>
-                  <th scope="row">Priorität:</th>
-                  <td>
-                    <span class="
-                      badge badge-pill
-                      @each(priority in priorities)
-                      @if(priority.label == ticket.priority)
-                      badge-{{ priority.color }}
-                      @endif
-                      @endeach
-                    ">{{ ticket.priority }}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Auswirkung:</th>
-                  <td>
-                    @if(ticket.impact)
-                      {{ ticket.impact }}
-                    @endif
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Reproduzierbar:</th>
-                  <td>
-                    @if(ticket.reproducible)
-                      {{ ticket.reproducible }}
-                    @endif
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Status:</th>
-                  <td>{{ ticket.status }}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Zu erledigen bis:</th>
-                  <td>
-                    @if(ticket.done_until)
-                      <span class="text-danger">{{ ticket.done_until }}</span>
-                    @endif
-                  </td>
-                </tr>
-                <tr>
                   <th scope="row">Zeitaufwand:</th>
                   <td>
                     @if(ticket.time_expenses)
@@ -173,26 +158,12 @@
                   <th scope="row">ID:</th>
                   <td>{{ ticket.id }}</td>
                 </tr>
-                <tr>
-                  <th>Autor:</th>
-                  <td>{{ ticket.ticketAuthor.first_name }} {{ ticket.ticketAuthor.last_name }}</td>
-                </tr>
                 @if(ticket.forwarder_id)
                   <tr>
                     <th>Forwarder:</th>
                     <td>{{ ticket.ticketForwarder.first_name }} {{ ticket.ticketForwarder.last_name }}</td>
                   </tr>
                 @endif
-                <tr>
-                    <th>Empfänger:</th>
-                    <td>
-                      @if(ticket.ticketRecipient)
-                        {{ ticket.ticketRecipient.first_name }} {{ ticket.ticketRecipient.last_name }}
-                      @else
-                        nicht zugewiesen
-                      @endif
-                    </td>
-                  </tr>
                 <tr>
                   <th scope="row">Erstellt:</th>
                   <td>{{ ticket.created_at }}</td>

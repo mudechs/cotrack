@@ -7331,7 +7331,8 @@ body {
   font-weight: 200; }
 
 .navbar-brand {
-  font-family: Impact, Charcoal, sans-serif; }
+  font-family: Impact, Charcoal, sans-serif;
+  padding-left: 0; }
 
 .fa-stack {
   font-size: 0.6rem; }
