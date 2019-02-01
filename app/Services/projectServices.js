@@ -1,9 +1,12 @@
 'use strict'
 
 const Project = use('App/Models/Project')
+const Ticket = use('App/Models/Ticket')
 
 class projectServices {
   async getUserProjects(user) {
+    const statusesOpen = await Ticket.ticketStatuses(statuses, 'open')
+
     return await Project.query()
       .where('is_active', true)
       .where('author_id', user)
@@ -11,7 +14,7 @@ class projectServices {
         builder.where('user_id', user)
       })
       .withCount('tickets', (builder) => {
-        builder.where('is_active', true)
+        builder.whereIn('status', statusesOpen)
       })
       .orderBy('title', 'asc')
       .fetch()
