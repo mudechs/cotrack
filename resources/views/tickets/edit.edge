@@ -9,7 +9,7 @@
           <form action="{{ route('ticketsUpdate', { id: ticket.id }) }}" method="post" enctype="multipart/form-data">
             {{ csrfField() }}
 
-            @include('tickets.includes.form')
+            @include('tickets.includes.formFields')
 
             <div class="card-footer d-flex justify-content-center">
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" class="btn btn-secondary mr-2"><i class="fas fa-times"></i> Abbrechen</a>
