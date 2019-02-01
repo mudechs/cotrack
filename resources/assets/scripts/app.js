@@ -9,7 +9,7 @@ window.$ = $;
 window.dragula = dragula;
 
 $.extend(true, $.fn.dataTable.defaults, {
-  dom: "<'row'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6'l>>" +
+  dom: "<'row'<'col-6 col-sm-6 col-md-6'f><'col-6 col-sm-6 col-md-6'l>>" +
     "<'row'<'col-sm-12'tr>>" +
     "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
   info: true,
