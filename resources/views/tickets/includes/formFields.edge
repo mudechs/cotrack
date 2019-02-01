@@ -11,7 +11,9 @@
               <select name="project" id="project" class="form-control {{ hasErrorFor('project') ? 'is-invalid' : '' }}">
                 <option value="">Bitte wählen...</option>
                 @each(project in projects)
-                  <option value="{{ project.id }}">{{ project.title }}</option>
+                  <option value="{{ project.id }}"
+                  {{ old('project') == project.id ? 'selected' : ''  }}
+                  >{{ project.title }}</option>
                 @endeach
               </select>
               {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('project'), hasErrorFor('project')) }}
@@ -71,6 +73,7 @@
               @if(priority.label == ticket.priority)
                 selected
               @endif
+              {{ old('priority') == priority.label ? 'selected' : ''  }}
             >{{ priority.label }}</option>
           @endeach
         </select>
@@ -84,6 +87,7 @@
               @if(impact.label == ticket.impact)
                 selected
               @endif
+              {{ old('impact') == impact.label ? 'selected' : ''  }}
             >{{ impact.label }}</option>
           @endeach
         </select>
@@ -97,7 +101,7 @@
               @if(reproducible.label == ticket.reproducible)
                 selected
               @endif
-              old('reproducible', '')
+              {{ old('reproducible') == reproducible.label ? 'selected' : ''  }}
             >{{ reproducible.label }}</option>
           @endeach
         </select>
