@@ -14,7 +14,7 @@ const FileuploadServices = use('App/Services/fileuploadServices')
 const Moment = use('moment')
 
 class TicketController {
-  async index({ auth, view }) {
+  async index({ auth, view, response }) {
     const ticketsNeu = await Ticket.ticketGroupedByStatus('Neu', auth.user.id)
     const ticketsAnerkannt = await Ticket.ticketGroupedByStatus('Anerkannt', auth.user.id)
     const ticketsWarten = await Ticket.ticketGroupedByStatus('Warten', auth.user.id)
@@ -308,7 +308,7 @@ class TicketController {
     try {
       /* Informiere den Recipient, dass sich der Ticket-Status verändert hat.
       Informiere NICHT, wenn der Author die selbe Person wie der Recipient ist! */
-      if(author.id != auth.user.id) {
+      if(author.id != auth.user.id && ticket.status != 'Feedback' && ticket.status != 'Sistiert') {
         await Mail.send('emails.ticket_change_status_notification', ticket.toJSON(), message => {
           message
             .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
