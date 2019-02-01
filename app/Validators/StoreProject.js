@@ -18,7 +18,7 @@ class StoreProject {
       'title.required': 'Pflichteld',
       'description.required': 'Pflichteld',
       'code.required': 'Pflichteld',
-      'code.unique': 'Muss einzigartig sein''
+      'code.unique': 'Muss einzigartig sein'
     }
   }
 }
