@@ -14,7 +14,7 @@ class projectServices {
         builder.where('user_id', user)
       })
       .withCount('tickets', (builder) => {
-        builder.whereIn('status', statuses)
+        builder.whereIn('status', statuses).where('recipient_id', user)
       })
       .orderBy('title', 'asc')
       .fetch()

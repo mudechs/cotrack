@@ -15,7 +15,7 @@ const TicketServices = use('App/Services/ticketServices')
 const Moment = use('moment')
 
 class TicketController {
-  async index({ auth, view, response }) {
+  async index({ auth, view }) {
     const ticketsNeu = await TicketServices.ticketGroupedByStatus('Neu', auth.user.id)
     const ticketsAnerkannt = await TicketServices.ticketGroupedByStatus('Anerkannt', auth.user.id)
     const ticketsWarten = await TicketServices.ticketGroupedByStatus('Warten', auth.user.id)
