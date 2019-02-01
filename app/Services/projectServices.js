@@ -10,7 +10,9 @@ class projectServices {
       .orWhereHas('members', (builder) => {
         builder.where('user_id', user)
       })
-      .withCount('tickets')
+      .withCount('tickets', (builder) => {
+        builder.where('is_active', true)
+      })
       .orderBy('title', 'asc')
       .fetch()
   }
