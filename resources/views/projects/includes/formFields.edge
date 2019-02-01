@@ -8,7 +8,8 @@
           class="form-control {{ hasErrorFor('title') ? 'is-invalid' : '' }}"
           name="title"
           id="title"
-          value="{{ project == undefined ? old('title', '') : project.title }}">
+          value="{{ project == undefined ? old('title', '') : project.title }}"
+          autofocus>
         {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('title'), hasErrorFor('title')) }}
       </div>
       <div class="form-group">
