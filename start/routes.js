@@ -58,8 +58,8 @@ Route
     Route.get('tickets/create', 'Ticket/TicketController.create').as('ticketsCreate')
     Route.get('tickets/show/:id', 'Ticket/TicketController.show').middleware(['ticketOFRAM']).as('ticketsShow') // owner, forwarder, recipient, admin, project member
     Route.get('tickets/edit/:id', 'Ticket/TicketController.edit').middleware(['ticketOA']).as('ticketsEdit')
-    Route.post('tickets/store', 'Ticket/TicketController.store').as('ticketsStore')
-    Route.post('tickets/update/:id', 'Ticket/TicketController.update').middleware(['ticketOA']).as('ticketsUpdate')
+    Route.post('tickets/store', 'Ticket/TicketController.store').as('ticketsStore').validator('StoreTicket')
+    Route.post('tickets/update/:id', 'Ticket/TicketController.update').middleware(['ticketOA']).as('ticketsUpdate').validator('UpdateTicket')
     Route.post('tickets/change/status/:id', 'Ticket/TicketController.changeStatus').as('ticketsChangeStatus')
     Route.post('tickets/change/dragged/status/:id', 'Ticket/TicketController.changeDraggedStatus').as('ticketsChangeDraggedStatus')
     Route.post('tickets/change/recipient/:id', 'Ticket/TicketController.changeRecipient').as('ticketsChangeRecipient')

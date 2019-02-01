@@ -27,7 +27,7 @@
           class="form-control {{ hasErrorFor('subject') ? 'is-invalid' : '' }}"
           name="subject"
           id="subject"
-          value="{{ ticket == undefined ? old('title', '') : ticket.subject }}"
+          value="{{ ticket == undefined ? old('subject', '') : ticket.subject }}"
           autofocus>
         {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('subject'), hasErrorFor('subject')) }}
       </div>
@@ -37,7 +37,7 @@
           name="description"
           class="form-control {{ hasErrorFor('description') ? 'is-invalid' : '' }}"
           id="description"
-          rows="10">{{ ticket == undefined ? '' : ticket.description }}</textarea>
+          rows="10">{{ ticket == undefined ? old('description', '') : ticket.description }}</textarea>
         {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('description'), hasErrorFor('description')) }}
       </div>
 
@@ -97,6 +97,7 @@
               @if(reproducible.label == ticket.reproducible)
                 selected
               @endif
+              old('reproducible', '')
             >{{ reproducible.label }}</option>
           @endeach
         </select>
@@ -108,7 +109,7 @@
           class="form-control"
           name="done_until"
           id="done_until"
-          value="{{ ticket == undefined ? '' : doneUntil }}">
+          value="{{ ticket == undefined ? old('done_until', '') : doneUntil }}">
       </div>
       <div class="form-group">
         <label for="time_expenses">Aufwand (Std)</label>
@@ -118,7 +119,7 @@
             class="form-control"
             name="time_expenses"
             id="time_expenses"
-            value="{{ ticket == undefined ? '' : ticket.time_expenses }}">
+            value="{{ ticket == undefined ? old('time_expenses', '') : ticket.time_expenses }}">
         </div>
       </div>
     </div>

@@ -103,18 +103,6 @@ class TicketController {
   }
 
   async store({ request, auth, session, response }) {
-    const validation = await validateAll(request.all(), {
-      subject: 'required',
-      description: 'required',
-      project: 'required'
-    })
-
-    if (validation.fails()) {
-      session.withErrors(validation.messages()).flashAll()
-
-      return response.redirect('back')
-    }
-
     // Create Project
     const ticket = await Ticket.create({
       subject: request.input('subject'),
@@ -197,18 +185,6 @@ class TicketController {
   }
 
   async update({ params, auth, request, session, response }) {
-    const validation = await validateAll(request.all(), {
-      subject: 'required',
-      description: 'required',
-      time_expenses: 'number'
-    })
-
-    if (validation.fails()) {
-      session.withErrors(validation.messages()).flashAll()
-
-      return response.redirect('back')
-    }
-
     const ticket = await Ticket.find(params.id)
 
     const newFiles = request.file('attachments')
