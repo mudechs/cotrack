@@ -16,6 +16,12 @@ hr {
   margin-bottom: .75rem;
 }
 
+.navbar {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
 .navbar-brand {
   font-family: Impact, Charcoal, sans-serif;
   padding-left: 0;
@@ -105,4 +111,10 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 
 .dropdown-item {
   padding: 0.20rem .75rem;
+}
+
+.card,
+.card-header,
+.card-footer {
+  border: none;
 }

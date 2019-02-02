@@ -48,10 +48,10 @@
         <ul class="list-group mb-3">
           @each(attachment in attachments)
             <li class="list-group-item">
-              <div class="d-flex justify-content-between">
+              <div class="d-flex justify-content-between align-items-center">
                 <span>{{ attachment.clientName }}</span>
                 <span><small>{{ attachment.size / 1000 }} kb</small></span>
-                <button type="button" class="btn btn-sm btn-danger btn-files-remover" data-index="{{ $loop.index }}"><i class="far fa-trash-alt"></i></button>
+                <button type="button" class="btn btn-sm btn-link btn-files-remover" data-index="{{ $loop.index }}"><i class="far fa-trash-alt"></i></button>
               </div>
             </li>
           @endeach
