@@ -36,3 +36,12 @@ Event.on('new::user', async ({ user, password }) => {
       .subject('Willkommen bei CoTrack!')
   })
 })
+
+Event.on('new::comment', async ({ ticket, comment, email }) => {
+  await Mail.send('emails.new_comment_notification', { ticket, comment }, message => {
+    message
+      .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
+      .to(email)
+      .subject(`Es wurde ein neuer Kommentar [#${comment.id}] im Ticket [#${ticket.id}] erfasst.`)
+  })
+})
