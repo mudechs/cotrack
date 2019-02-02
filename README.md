@@ -1,6 +1,9 @@
-# CoTrack 0.1 Ticket-System
+# CoTrack Ticket-System
 
 Project and Team based Ticket-System using AdonisJS 4.1
+
+## Version
+0.9 BETA
 
 ## Usage
 
