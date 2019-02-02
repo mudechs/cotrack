@@ -36,7 +36,10 @@ npm install
 ```
 
 ### Database setup
-Edit your .env file to include the correct DB credentials
+Edit your `.env` file to include the correct DB credentials.
+
+### E-Mail setup
+Edit your `.env` file to include the correct SMTP credentials.
 
 ### Migrations
 Run the following command to run startup migrations.
