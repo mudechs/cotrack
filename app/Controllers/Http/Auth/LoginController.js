@@ -1,6 +1,6 @@
 'use strict'
 
-const { validate, validateAll } = use('Validator')
+const { validate } = use('Validator')
 const User = use('App/Models/User')
 const Token = use('App/Models/Token')
 const LastLogin = use('App/Models/LastLogin')

@@ -10,6 +10,15 @@ Event.on('new::login', async ({ fullName, token, email }) => {
   })
 })
 
+Event.on('new::passwordReset', async ({ fullName, email, token }) => {
+  await Mail.send('emails.password_reset', { fullName, token }, message => {
+    message
+      .to(email)
+      .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
+      .subject('Link zum zurücksetzen deines Passworts')
+  })
+})
+
 Event.on('new::ticket', async ({ ticket, recipient }) => {
   await Mail.send('emails.new_ticket_notification', ticket.toJSON(), message => {
     message

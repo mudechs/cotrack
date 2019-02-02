@@ -37,7 +37,7 @@ Route.post('password/reset', 'Auth/PasswordResetController.reset')
 Route
   .group(() => {
     Route.get('password/edit/:id', 'Auth/PasswordChangeController.edit').middleware(['userOA']).as('passwordEdit')
-    Route.post('password/:id', 'Auth/PasswordChangeController.update').middleware(['userOA']).as('passwordUpdate')
+    Route.post('password/:id', 'Auth/PasswordChangeController.update').middleware(['userOA']).as('passwordUpdate').validator('PasswordUpdate')
 
     Route.get('users', 'User/UserController.index').middleware(['isAdmin']).as('usersIndex')
     Route.get('users/create', 'User/UserController.create').middleware(['isAdmin']).as('usersCreate')

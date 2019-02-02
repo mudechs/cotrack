@@ -4,8 +4,8 @@ const { validate, validateAll } = use('Validator')
 const User = use('App/Models/User')
 const PasswordReset = use('App/Models/PasswordReset')
 const randomString = require('random-string')
-const Mail = use('Mail')
 const Hash = use('Hash')
+const Event = use('Event')
 
 class PasswordResetController {
   showLinkRequestForm ({ view }) {
@@ -35,18 +35,11 @@ class PasswordResetController {
         token: randomString({ length: 40 })
       })
 
-      const mailData = {
-        user: user.toJSON(),
-        token
-      }
+      const fullName = user.first_name + ' ' + user.last_name
+      const email = user.email
 
       // Send confirmation E-Mail
-      await Mail.send('emails.password_reset', mailData, message => {
-        message
-          .to(user.email)
-          .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
-          .subject('Link zum zurücksetzen deines Passworts')
-      })
+      Event.fire('new::passwordReset', { fullName, email, token })
 
       // Show success Message
       session.flash({

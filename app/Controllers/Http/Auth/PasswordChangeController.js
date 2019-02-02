@@ -1,6 +1,5 @@
 'use strict'
 
-const { validateAll } = use('Validator')
 const User = use('App/Models/User')
 const Hash = use('Hash')
 
@@ -13,18 +12,6 @@ class PasswordChangeController {
   }
 
   async update ({ params, request, session, response }) {
-    // validierung der felder
-    const validation = await validateAll(request.all(), {
-      password_current: 'required',
-      password: 'required|confirmed'
-    })
-
-    if (validation.fails()) {
-      session.withErrors(validation.messages()).flashAll()
-
-      return response.redirect('back')
-    }
-
     // formdaten auslesen
     const password_current = request.input('password_current')
 
