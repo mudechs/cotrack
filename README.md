@@ -89,7 +89,7 @@ with the database field `code` in the `projects`-table.
 The JSON key `token` will be checked against the deposited token in `.env` config file.
 
 ### Request format
-```json
+```js
 {
 	"token": "xxxxxxxx",
 	"subject": "The subject of the ticket",
