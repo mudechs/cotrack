@@ -1,12 +1,31 @@
 # CoTrack Ticket-System
 
-Project and Team based Ticket-System using AdonisJS 4.1
+Project and Team based Ticket-System using AdonisJs 4.1
 
 ## Version
 0.9 BETA
 
-## Working Demo
+## Current language
+German (translation not implemented yet)
+
+## Working demo
 coming soon...
+
+## Used technologies
+- [AdonisJs 4.1](https://adonisjs.com/)
+- [Bootstrap 4.2.1](https://getbootstrap.com/)
+- [Bootswatch Bootstrap Theme (Slate)](https://bootswatch.com/)
+- [FontAwesome Free Icons 5.x](https://fontawesome.com/)
+- [MySQL 5.7.x](https://dev.mysql.com/)
+- [Webpack 4.x](https://webpack.js.org/)
+- [jQuery 3.x](https://jquery.com/)
+- [DataTables 1.10.x](https://datatables.net/)
+- [Dragula Drag&Drop 3.x](https://github.com/bevacqua/dragula/)
+- [Bootstrap Multiselect 0.9.x](https://github.com/davidstutz/bootstrap-multiselect/)
+- HTML5
+- CSS3
+- ES6 JavaScript
+- [Visual Studio Code](https://code.visualstudio.com/)
 
 ## Usage
 
@@ -20,7 +39,6 @@ npm install
 Edit your .env file to include the correct DB credentials
 
 ### Migrations
-
 Run the following command to run startup migrations.
 
 ```js
@@ -57,7 +75,9 @@ nodemon server.js
 - Username: admin
 - Password: Nkz8289TMU
 
-## License
+---
+
+### License
 Copyright 2019 Omar De-Giuli Custom Websolutions
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
