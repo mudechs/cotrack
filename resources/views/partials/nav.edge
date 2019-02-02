@@ -1,12 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="{{ route('dashboard') }}">CoTrack</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="mainNavbar">
-    <ul class="navbar-nav mr-auto">
-      @loggedIn
+  @loggedIn
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav mr-auto">
         <li class="nav-item {{ activeRoute('tickets*') }}">
           <a class="nav-link" href="{{ route('ticketsIndex') }}"><i class="fas fa-ticket-alt fa-fw"></i> Tickets</a>
         </li>
@@ -28,14 +27,11 @@
             </div>
           </li>
         @endif
-      @endloggedIn
-    </ul>
-    @loggedIn
-      <a class="btn btn-danger my-2 my-sm-0 mr-3 py-1" href="{{ route('ticketsCreate') }}"><i class="fas fa-plus"></i> Ticket</a>
-    @endloggedIn
+      </ul>
 
-    <ul class="navbar-nav">
-      @loggedIn
+      <a class="btn btn-danger my-2 my-sm-0 mr-3 py-1" href="{{ route('ticketsCreate') }}"><i class="fas fa-plus"></i> Ticket</a>
+
+      <ul class="navbar-nav">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Hallo <span class="text-danger">{{ auth.user.first_name }} {{ auth.user.last_name }}</span>
@@ -47,14 +43,7 @@
             <a class="dropdown-item px-3" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt fa-fw"></i> Abmelden</a>
           </div>
         </li>
-      @else
-        {{--
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('register') }}">Registrieren</a>
-        </li>
-        --}}
-        <a class="btn btn-primary my-2 my-sm-0" href="{{ route('login') }}">Anmelden</a>
-      @endloggedIn
-    </ul>
-  </div>
+      </ul>
+    </div>
+  @endloggedIn
 </nav>
