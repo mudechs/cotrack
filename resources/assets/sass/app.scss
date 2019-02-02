@@ -80,6 +80,10 @@ table.dataTable.table-sm > thead > tr > th {
   margin-right: 10px;
 }
 
+div.dataTables_wrapper div.dataTables_info {
+  padding-top: 0;
+}
+
 div.dataTables_wrapper div.dataTables_paginate ul.pagination {
   margin: 14px;
 }

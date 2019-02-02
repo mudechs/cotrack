@@ -11,7 +11,7 @@ window.dragula = dragula;
 $.extend(true, $.fn.dataTable.defaults, {
   dom: "<'row'<'col-6 col-sm-6 col-md-6'f><'col-6 col-sm-6 col-md-6'l>>" +
     "<'row'<'col-sm-12'tr>>" +
-    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+    "<'row d-flex align-items-center'<'col-6'i><'col-6'p>>",
   info: true,
   paging: true,
   lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Alle"]],
