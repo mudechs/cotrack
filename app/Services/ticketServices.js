@@ -10,7 +10,7 @@ class ticketServices {
     for(let i in statuses)
       if(statuses[i].type == statusGroup)
         data[data.length] = statuses[i].label
-    return data = data
+    return data
   }
 
   async ticketGroupedByStatus(status, recipient) {
