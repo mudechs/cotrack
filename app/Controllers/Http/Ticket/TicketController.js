@@ -6,11 +6,11 @@ const { validateAll } = use('Validator')
 const Ticket = use('App/Models/Ticket')
 const Project = use('App/Models/Project')
 const User = use('App/Models/User')
-const Mail = use('Mail')
 const ProjectServices = use('App/Services/projectServices')
 const FileuploadServices = use('App/Services/fileuploadServices')
 const TicketServices = use('App/Services/ticketServices')
 const Moment = use('moment')
+const Event = use('Event')
 
 class TicketController {
   async index({ auth, view }) {
@@ -126,20 +126,11 @@ class TicketController {
       ticket
     )
 
-    try {
-      // Sende eine Notifikation falls der Recipient NICHT der Author ist
-      if(ticket.recipient_id != null && ticket.recipient_id != auth.user.id) {
-        const recipient = await ticket.ticketRecipient().fetch()
+    // Sende eine Notifikation falls der Recipient NICHT der Author ist
+    if(ticket.recipient_id != null && ticket.recipient_id != auth.user.id) {
+      const recipient = await ticket.ticketRecipient().fetch()
 
-        await Mail.send('emails.new_ticket_notification', ticket.toJSON(), message => {
-          message
-            .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
-            .to(recipient.email)
-            .subject(`Dir wurde ein neues Ticket [#${ticket.id}] zugewiesen.`)
-        })
-      }
-    } catch (error) {
-      console.log(error)
+      Event.fire('new::ticket', { ticket, recipient })
     }
 
     await ticket.save()
@@ -239,12 +230,7 @@ class TicketController {
       const author = await ticket.ticketAuthor().fetch()
       const recipient = await ticket.ticketRecipient().fetch()
 
-      await Mail.send('emails.assigned_ticket_notification', ticket.toJSON(), message => {
-        message
-          .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
-          .to(author.email)
-          .subject(`Das Ticket [#${ticket.id}] wurde von ${recipient.first_name} ${recipient.last_name} übernommen.`)
-      })
+      Event.fire('new::ticketAssigned', { ticket, author, recipient })
     }
 
     session.flash({
@@ -262,24 +248,15 @@ class TicketController {
 
     ticket.status = request.input('status')
 
-    await ticket.save()
+    /* Informiere den Recipient, dass sich der Ticket-Status verändert hat.
+    Informiere NICHT, wenn der Author die selbe Person wie der Recipient ist! */
+    if(author.id != auth.user.id && ticket.status != 'Feedback' && ticket.status != 'Sistiert') {
+      const author = await ticket.ticketAuthor().fetch()
 
-    const author = await ticket.ticketAuthor().fetch()
-
-    try {
-      /* Informiere den Recipient, dass sich der Ticket-Status verändert hat.
-      Informiere NICHT, wenn der Author die selbe Person wie der Recipient ist! */
-      if(author.id != auth.user.id && ticket.status != 'Feedback' && ticket.status != 'Sistiert') {
-        await Mail.send('emails.ticket_change_status_notification', ticket.toJSON(), message => {
-          message
-            .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
-            .to(author.email)
-            .subject(`Das Ticket [#${ticket.id}] wurde auf "${ticket.status}" gesetzt.`)
-        })
-      }
-    } catch (error) {
-      console.log(error)
+      Event.fire('new::ticketStatusChange', { ticket, author })
     }
+
+    await ticket.save()
 
     session.flash({
       notification: {
@@ -297,24 +274,15 @@ class TicketController {
 
     ticket.status = request.input('status')
 
-    await ticket.save()
-
+    /* Informiere den Author, dass sich der Ticket-Status verändert hat.
+    Informiere NICHT, wenn der Author die selbe Person wie der Recipient ist! */
     const author = await ticket.ticketAuthor().fetch()
 
-    try {
-      /* Informiere den Recipient, dass sich der Ticket-Status verändert hat.
-      Informiere NICHT, wenn der Author die selbe Person wie der Recipient ist! */
-      if(author.id != auth.user.id) {
-        await Mail.send('emails.ticket_change_status_notification', ticket.toJSON(), message => {
-          message
-            .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
-            .to(author.email)
-            .subject(`Das Ticket [#${ticket.id}] wurde auf "${ticket.status}" gesetzt.`)
-        })
-      }
-    } catch (error) {
-      console.log(error)
+    if(author.id != auth.user.id) {
+      Event.fire('new::ticketStatusChange', { ticket, author })
     }
+
+    await ticket.save()
 
     return response.redirect('back')
   }
@@ -330,16 +298,7 @@ class TicketController {
     // Informiere den neuen Recipient, dass ihm ein Ticket zugewiesen wurde
     const recipient = await ticket.ticketRecipient().fetch()
 
-    try {
-      await Mail.send('emails.new_ticket_notification', ticket.toJSON(), message => {
-        message
-          .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
-          .to(recipient.email)
-          .subject(`Dir wurde ein neues Ticket [#${ticket.id}] zugewiesen.`)
-      })
-    } catch (error) {
-      console.log(error)
-    }
+    Event.fire('new::ticket', { ticket, recipient })
 
     session.flash({
       notification: {
@@ -398,6 +357,10 @@ class TicketController {
         author_id: user.id,
         project_id: project.id
       })
+
+      const recipient = await ticket.ticketRecipient().fetch()
+
+      Event.fire('new::ticket', { ticket, recipient })
 
       return response.status(200).send('Das Ticket wurde erfolgreich übermittelt.')
     }

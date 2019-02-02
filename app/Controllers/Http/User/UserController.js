@@ -4,7 +4,7 @@ const Config = use('Config')
 const { salutations } = Config.get('user')
 const { validateAll } = use('Validator')
 const User = use('App/Models/User')
-const Mail = use('Mail')
+const Event = use('Event')
 const FileuploadServices = use('App/Services/fileuploadServices')
 
 class UserController {
@@ -103,37 +103,22 @@ class UserController {
       user
     )
 
+    const password = request.input('password')
+
+    if(isActive && sendEmail) {
+      Event.fire('new::user', { user, password })
+    }
+
     await user.save()
 
-    try {
-      if(sendEmail && is_active) {
-        await Mail.send('emails.user_credentials', request.all(), message => {
-          message
-            .to(user.email)
-            .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
-            .subject('Willkommen bei CoTrack!')
-        })
+    session.flash({
+      notification: {
+        type: 'success',
+        message: 'Das Benutzerkonto wurde erfolgreich erstellt.'
       }
+    })
 
-      session.flash({
-        notification: {
-          type: 'success',
-          message: 'Das Benutzerkonto wurde erfolgreich erstellt.'
-        }
-      })
-
-      return response.route('usersShow', { id: user.id })
-
-    } catch (error) {
-      session.flash({
-        notification: {
-          type: 'danger',
-          message: `Der Benutzer konnte nicht erstellt werden. (${error})`
-        }
-      })
-
-      return response.redirect('back')
-    }
+    return response.route('usersShow', { id: user.id })
   }
 
   async edit({ params, view }) {
