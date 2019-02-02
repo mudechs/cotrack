@@ -24,7 +24,7 @@ Route.post('register', 'Auth/RegisterController.register').as('register')
 Route.get('register/confirm/:token', 'Auth/RegisterController.confirmEmail')
 
 Route.get('login', 'Auth/LoginController.showLoginForm').middleware(['authenticated']).as('showLoginForm')
-Route.post('login', 'Auth/LoginController.login').as('login')
+Route.post('login', 'Auth/LoginController.login').as('login').validator('LoginUser')
 Route.get('login/:hash', 'Auth/LoginController.loginTokenForm').as('loginTokenForm')
 Route.post('login/token', 'Auth/LoginController.loginToken').as('loginToken')
 Route.get('logout', 'Auth/LogoutController.logout').middleware(['auth']).as('logout')

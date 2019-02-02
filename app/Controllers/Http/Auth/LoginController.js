@@ -6,7 +6,7 @@ const Token = use('App/Models/Token')
 const LastLogin = use('App/Models/LastLogin')
 const Hash = use('Hash')
 const RandomString = require('random-string')
-const Mail = use('Mail')
+const Event = use('Event')
 
 class LoginController {
   showLoginForm({ view }) {
@@ -14,18 +14,6 @@ class LoginController {
   }
 
   async login ({ request, auth, session, response }) {
-    // Validate
-    const validation = await validateAll(request.all(), {
-      email: 'required|email',
-      password: 'required'
-    })
-
-    if (validation.fails()) {
-      session.withErrors(validation.messages()).flashAll()
-
-      return response.redirect('back')
-    }
-
     try {
       // Get form data
       const { email, password, remember } = request.all()
@@ -69,19 +57,10 @@ class LoginController {
             const hash = await Hash.make(token)
 
             const fullName = user.first_name + ' ' + user.last_name
-
-            const mailData = {
-              fullName,
-              token
-            }
+            const email = user.email
 
             // mail mit token senden
-            await Mail.send('emails.confirm_2fa_login', mailData, message => {
-              message
-                .to(user.email)
-                .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
-                .subject('Dein 2FA-Code zum Anmelden')
-            })
+            Event.fire('new::login', { fullName, token, email })
 
             // auf token formular weiterleiten
             return response.route('loginTokenForm', { 'hash': hash })

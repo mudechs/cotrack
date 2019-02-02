@@ -1,6 +1,15 @@
 const Mail = use('Mail')
 const Event = use('Event')
 
+Event.on('new::login', async ({ fullName, token, email }) => {
+  await Mail.send('emails.confirm_2fa_login', { fullName, token }, message => {
+    message
+      .to(email)
+      .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
+      .subject('Dein 2FA-Code zum Anmelden')
+  })
+})
+
 Event.on('new::ticket', async ({ ticket, recipient }) => {
   await Mail.send('emails.new_ticket_notification', ticket.toJSON(), message => {
     message
