@@ -48,7 +48,33 @@ class CommentController {
       Event.fire('new::comment', { ticket, comment, email })
     }
 
-    return response.route('ticketsShow', { id: params.id})
+    return response.route('ticketsShow', { id: params.id })
+  }
+
+  async update({ params, request, session, response }) {
+    const comment = await Comment.find(params.id)
+    const ticketId = request.input('ticket_id')
+
+    comment.body = request.input('body')
+
+    await comment.save()
+
+    session.flash({
+      notification: {
+        type: 'success',
+        message: 'Die Änderungen wurden erfolgreich übernommen.'
+      }
+    })
+
+    return response.route('ticketsShow', { id: ticketId })
+  }
+
+  async apiGetComment({ params, response }) {
+    const comment = await Comment.query()
+      .where('id', params.id)
+      .first()
+
+    return response.send(comment)
   }
 }
 

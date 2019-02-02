@@ -66,11 +66,13 @@ Route
     Route.post('tickets/assign/:id', 'Ticket/TicketController.assignToMe').as('ticketsAssignToMe')
 
     Route.post('tickets/comment/store/:id', 'Comment/CommentController.store').as('commentsStore').validator('StoreComment')
+    Route.post('tickets/comment/update/:id', 'Comment/CommentController.update').as('commentsUpdate').validator('StoreComment')
   })
   .middleware(['auth'])
 
 // Internal API
 Route.get('api/tickets/projectMembers/:id', 'Ticket/TicketController.apiGetProjectMembers').middleware(['auth'])
+Route.get('api/comments/:id', 'Comment/CommentController.apiGetComment').middleware(['auth'])
 
 // Public API
 Route.post('api/public/tickets/create', 'Ticket/TicketController.apiPublicTicketCreate').middleware(['publicApi'])

@@ -113,7 +113,7 @@
         <div class="card mt-md-3 mt-0">
           <div class="card-header d-flex justify-content-between align-items-center">
               <span><i class="far fa-comments fa-fw"></i> Kommentare</span>
-              <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#createCommentModal">
+              <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#commentCreateModal">
                 <i class="fas fa-plus"></i>
               </button>
           </div>
@@ -128,7 +128,12 @@
                 <div class="media-body">
                   <p class="mt-0 d-flex justify-content-between">
                     <span><small>{{ comment.commentAuthor.first_name }} {{ comment.commentAuthor.last_name }}</small></span>
-                    <span><small>{{ comment.created_at }}</small></span>
+                    <span>
+                      <small>{{ comment.created_at }}</small>
+                      @if(comment.commentAuthor.id == auth.user.id)
+                        <small class="ml-2"><a href="#" data-toggle="modal" data-target="#commentEditModal" data-commentid="{{ comment.id }}" data-ticketid="{{ ticket.id }}"><i class="fas fa-pencil-alt fa-fw"></i> Bearbeiten</a></small>
+                      @endif
+                    </span>
                   </p>
                   <h6 class="mb-3">{{{ comment.bodyHtml }}}</h6>
                   @each(attachment in comment.attachments)
@@ -201,7 +206,8 @@
     <input type="hidden" name="status" value="Anerkannt">
   </form>
 
-  @!component('tickets.components.commentModal', { ticket, csrfField })
+  @!component('tickets.components.commentCreateModal', { ticket, csrfField })
+  @!component('tickets.components.commentEditModal', { csrfField })
 
 @endsection
 
@@ -239,6 +245,23 @@
         $('#recipientDropdownButtons').text(recipient);
 
         $('#recipient-change-form').submit();
+      });
+
+      // Kommentar bearbeiten
+      $('#commentEditModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var commentId = button.data('commentid');
+        var ticketId = button.data('ticketid');
+        var modal = $(this);
+        var apiUrl = '/api/comments/' + commentId;
+
+        $.getJSON(apiUrl, function(data) {
+          if(data) {
+            modal.find('#body').val(data.body);
+            modal.find('#ticket_id').val(ticketId);
+            modal.find('form').attr('action', '/tickets/comment/update/' + commentId);
+          }
+        });
       });
     });
   </script>
