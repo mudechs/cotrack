@@ -160,6 +160,9 @@ class TicketController {
       .with('ticketAuthor', (builder) => {
         builder.select('id', 'first_name', 'last_name')
       })
+      .with('ticketRecipient', (builder) => {
+        builder.select('id', 'first_name', 'last_name')
+      })
       .with('project', (builder) => {
         builder.select('id', 'title')
       })

@@ -2,7 +2,8 @@
   <div class="row">
     <div class="col-md-8">
       @if(ticket != undefined)
-        <b>Projekt: </b>{{ ticket.project.title }}
+        <b>Projekt: </b>{{ ticket.project.title }}<br>
+        <b>Empfänger: </b>{{ ticket.ticketRecipient.first_name }} {{ ticket.ticketRecipient.last_name }}<br>
       @else
         <div class="form-group">
           <label for="project">Projekt</label>
@@ -19,6 +20,14 @@
               {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('project'), hasErrorFor('project')) }}
             </div>
           </div>
+        </div>
+      @endif
+
+      @if(ticket == undefined)
+        <div class="form-group" style="display: none;">
+          <label for="recipient">Empfänger</label>
+          <select name="recipient" id="recipient" class="form-control">
+          </select>
         </div>
       @endif
 
