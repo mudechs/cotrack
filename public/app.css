@@ -7415,3 +7415,6 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 .card-header,
 .card-footer {
   border: none; }
+
+.custom-switch .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #28A745; }
