@@ -94,7 +94,7 @@ The JSON key `token` will be checked against the deposited token in `.env` confi
 	"token": "xxxxxxxx",
 	"subject": "The subject of the ticket",
 	"description": "This is the description of the Ticket",
-	"priority": "<span style="color:green">Normal</span> or <span style="color:green">Hoch</span> or <span style="color:green">Dringend</span>",
+	"priority": "<span style='color:green'>Normal</span> or <span style='color:green'>Hoch</span> or <span style='color:green'>Dringend</span>",
 	"email": "user@domain.com",
 	"first_name": "Hans",
 	"last_name": "Muster",
