@@ -3,6 +3,7 @@ import dragula from 'dragula/dragula';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'datatables.net-bs4/js/dataTables.bootstrap4';
 import 'bootstrap-multiselect/dist/js/bootstrap-multiselect';
+import { finished } from 'stream';
 
 window.jQuery = $;
 window.$ = $;
@@ -39,11 +40,6 @@ $(document).ready(function () {
   $('button[type=submit]').on('click', function () {
     $(this).html('<i class="fas fa-spinner fa-spin fa-fw"></i>');
   });
-
-  // Remove wrong input class on data table select
-  if($('.dataTables_length').length) {
-    $(this).find('select').removeClass('custom-select custom-select-sm');
-  }
 });
 
 $('.linkable').on('click', function(e) {
