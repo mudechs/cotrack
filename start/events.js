@@ -1,7 +1,5 @@
 const Mail = use('Mail')
 const Event = use('Event')
-const Ticket = use('App/Models/Ticket')
-const User = use('App/Models/User')
 
 Event.on('new::ticket', async ({ ticket, recipient }) => {
   await Mail.send('emails.new_ticket_notification', ticket.toJSON(), message => {
