@@ -75,9 +75,36 @@ nodemon server.js
 - Username: admin
 - Password: Nkz8289TMU
 
+## API
+There can be created Tickets from other Applications. As identifiers are used two fields:
+
+### E-Mail
+The JSON key `email` will be checked and assigned against a active user in the cotrack database.
+
+### Project
+The JSON key `project` will be checked and assigned against a existing and active project in the database. The request value will be matched
+with the database field `code` in the `projects`-table.
+
+### Token
+The JSON key `token` will be checked against the deposited token in `.env` config file.
+
+### Request format
+```
+{
+	"token": "xxxxxxxx",
+	"subject": "The subject of the ticket",
+	"description": "This is the description of the Ticket",
+	"priority": "<span style="color:green">Normal</span> or <span style="color:green">Hoch</span> or <span style="color:green">Dringend</span>",
+	"email": "user@domain.com",
+	"first_name": "Hans",
+	"last_name": "Muster",
+	"project": "xxx"
+}
+```
+
 ---
 
-### License
+# License
 Copyright 2019 Omar De-Giuli Custom Websolutions
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
