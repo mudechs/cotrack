@@ -76,7 +76,7 @@ nodemon server.js
 - Password: Nkz8289TMU
 
 ## API
-There can be created Tickets from other Applications. As identifiers are used two fields:
+There can be created Tickets from other Applications. As identifiers are used 3 fields:
 
 ### E-Mail
 The JSON key `email` will be checked and assigned against a active user in the cotrack database.
