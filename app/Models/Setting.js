@@ -4,6 +4,10 @@
 const Model = use('Model')
 
 class Setting extends Model {
+  static boot () {
+    super.boot()
+    this.addTrait('Setting')
+  }
 }
 
 module.exports = Setting

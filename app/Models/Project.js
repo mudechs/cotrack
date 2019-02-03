@@ -5,6 +5,11 @@ const Model = use('Model')
 const markdown = require('showdown')
 
 class Project extends Model {
+  static boot () {
+    super.boot()
+    this.addTrait('Setting')
+  }
+
   static castDates(field, value) {
     if (field === 'created_at' || field === 'updated_at') {
       return value.format('DD.MM.YY')

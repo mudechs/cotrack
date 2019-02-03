@@ -7,6 +7,11 @@ const Hash = use('Hash')
 const Model = use('Model')
 
 class User extends Model {
+  static boot () {
+    super.boot()
+    this.addTrait('Setting')
+  }
+
   static get dates() {
     return super.dates.concat(['last_login_at'])
   }

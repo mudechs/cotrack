@@ -5,6 +5,11 @@ const Model = use('Model')
 const markdown = require('showdown')
 
 class Ticket extends Model {
+  static boot () {
+    super.boot()
+    this.addTrait('Setting')
+  }
+
   static get dates() {
     return super.dates.concat(['done_until'])
   }
