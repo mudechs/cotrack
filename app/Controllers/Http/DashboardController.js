@@ -47,10 +47,6 @@ class DashboardController {
       priorities: priorities
     })
   }
-
-  async privacyPolicy({ view }) {
-    return view.render('auth.privacy_policy')
-  }
 }
 
 module.exports = DashboardController
