@@ -175,7 +175,8 @@ class UserController {
     user.email = request.input('email')
     user.is_admin = isAdmin
     user.is_active = isActive
-    user.tfa_active = tfaActive
+    user.tfa_active = tfaActive,
+    user.locale = request.input('locale')
 
     await user.save()
 

@@ -79,6 +79,10 @@
                       </td>
                     </tr>
                     <tr>
+                      <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.sprache') }}:</th>
+                      <td>{{ upperCase(user.locale) }}</td>
+                    </tr>
+                    <tr>
                       <th>Admin:</th>
                       <td>
                         @if(user.is_admin == 1)

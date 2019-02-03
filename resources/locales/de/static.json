@@ -68,5 +68,6 @@
   "benutzer_erstellen": "Benutzer erstellen",
   "passwort": "Passwort",
   "zeichen": "Zeichen",
-  "kontodaten_per_mail_senden": "Kontodaten per E-Mail senden"
+  "kontodaten_per_mail_senden": "Kontodaten per E-Mail senden",
+  "sprache": "Sprache"
 }

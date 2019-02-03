@@ -68,5 +68,6 @@
   "benutzer_erstellen": "Create user",
   "passwort": "Password",
   "zeichen": "Characters",
-  "kontodaten_per_mail_senden": "Send account information by email"
+  "kontodaten_per_mail_senden": "Send account information by email",
+  "sprache": "Language"
 }

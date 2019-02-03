@@ -55,10 +55,30 @@
               @endif
               <hr>
               <div class="form-group">
-                <label for="priority">{{ antl.forLocale(auth.user.locale).formatMessage('static.anrede') }}</label>
+                <label for="locale">{{ antl.forLocale(auth.user.locale).formatMessage('static.sprache') }}</label>
                 <div class="row">
                   <div class="col-4 col-md4">
-                    <select name="salutation" class="form-control {{ hasErrorFor('salutation') ? 'is-invalid' : '' }}">
+                    <select id="locale" name="locale" class="form-control">
+                      <option value="de"
+                        @if(user.locale == 'de')
+                          selected
+                        @endif
+                      >Deutsch</option>
+                      <option value="en"
+                        @if(user.locale == 'en')
+                          selected
+                        @endif
+                      >English</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="form-group">
+                <label for="salutation">{{ antl.forLocale(auth.user.locale).formatMessage('static.anrede') }}</label>
+                <div class="row">
+                  <div class="col-4 col-md4">
+                    <select id="salutation" name="salutation" class="form-control {{ hasErrorFor('salutation') ? 'is-invalid' : '' }}">
                       <option value=""></option>
                       @each(salutation in salutations)
                         <option value="{{ salutation.label }}"
