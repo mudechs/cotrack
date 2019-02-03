@@ -24,7 +24,7 @@
                   <span><small>{{ ticket.created_at }}</small></span>
                 </div>
                 <h6 class=""><i class="fas fa-ticket-alt"></i> {{ ticket.subject }}</h6>
-                @!component('tickets.components.widgetFooter', { ticket })
+                @include('tickets.includes.widgetFooter')
               </a>
             @endeach
           </div>
@@ -51,7 +51,7 @@
                   <span><small>{{ ticket.created_at }}</small></span>
                 </div>
                 <h6 class=""><i class="fas fa-ticket-alt"></i> {{ ticket.subject }}</h6>
-                @!component('tickets.components.widgetFooter', { ticket })
+                @include('tickets.includes.widgetFooter')
               </a>
             @endeach
           </div>
@@ -79,7 +79,7 @@
                     <span><small>{{ ticket.created_at }}</small></span>
                   </div>
                   <h6 class=""><i class="fas fa-ticket-alt"></i> {{ ticket.subject }}</h6>
-                  @!component('tickets.components.widgetFooter', { ticket })
+                  @include('tickets.includes.widgetFooter')
                 </a>
               @endeach
             </div>
