@@ -5,10 +5,12 @@
   "wartungsmodus": "Wartungsmodus",
   "einstellungen_bearbeiten": "Einstellungen bearbeiten",
   "company": "Firma",
+  "contact_person": "Kontaktperson",
   "address": "Adresse",
   "zip_code": "PLZ",
   "area": "Bundesland",
   "city": "Ort",
   "country": "Land",
-  "phone": "Telefon"
+  "phone": "Telefon",
+  "app_name": "App Name"
 }

@@ -14,6 +14,15 @@
           value="{{ settings == undefined ? old('company', '') : settings.company }}">
       </div>
       <div class="form-group">
+        <label for="contact_person">{{ antl.forLocale(auth.user.locale).formatMessage('settings.contact_person') }}</label>
+        <input
+          type="text"
+          class="form-control"
+          name="contact_person"
+          id="contact_person"
+          value="{{ settings == undefined ? old('contact_person', '') : settings.contact_person }}">
+      </div>
+      <div class="form-group">
         <label for="address">{{ antl.forLocale(auth.user.locale).formatMessage('settings.address') }}</label>
         <input
           type="text"
@@ -127,9 +136,22 @@
       <table class="table table-sm table-borderless text-nowrap m-0">
         <tbody>
           <tr>
-            <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('settings.standard_sprache') }}:</th>
-            <td>
+            <td scope="row" colspan="2">
               <div class="form-group mb-0">
+                <label for="app_name">{{ antl.forLocale(auth.user.locale).formatMessage('settings.app_name') }}</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="app_name"
+                  id="app_name"
+                  value="{{ settings == undefined ? old('app_name', '') : settings.app_name }}">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td scope="row" colspan="2">
+              <div class="form-group mb-0">
+                <label for="default_locale">{{ antl.forLocale(auth.user.locale).formatMessage('settings.standard_sprache') }}:</label>
                 <select id="default_locale" name="default_locale" class="form-control">
                   <option value="de"
                     @if(settings.default_locale == 'de')

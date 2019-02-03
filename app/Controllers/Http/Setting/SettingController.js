@@ -30,6 +30,7 @@ class SettingController {
     maintenanceMode = (maintenanceMode == 'on')? true : false
 
     setting.company = request.input('company')
+    setting.contact_person = request.input('contact_person')
     setting.address = request.input('address')
     setting.zip_code = request.input('zip_code')
     setting.area = request.input('area')
@@ -42,6 +43,7 @@ class SettingController {
     setting.default_locale = request.input('default_locale')
     setting.allow_registration = allowRegistration
     setting.maintenance_mode = maintenanceMode
+    setting.app_name = request.input('app_name')
 
     await setting.save()
 
@@ -73,6 +75,7 @@ class SettingController {
     maintenanceMode = (maintenanceMode == 'on')? true : false
 
     setting.company = request.input('company')
+    setting.contact_person = request.input('contact_person')
     setting.address = request.input('address')
     setting.zip_code = request.input('zip_code')
     setting.area = request.input('area')
@@ -85,6 +88,7 @@ class SettingController {
     setting.default_locale = request.input('default_locale')
     setting.allow_registration = allowRegistration
     setting.maintenance_mode = maintenanceMode
+    setting.app_name = request.input('app_name')
 
     await setting.save()
 

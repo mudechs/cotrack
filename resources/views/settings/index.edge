@@ -14,6 +14,7 @@
               <div class="card-body">
                 <address>
                   {{ settings.company }}<br>
+                  {{ settings.contact_person }}<br>
                   {{ settings.address }}<br>
                   {{ settings.zip_code }} {{ settings.city }} ({{ settings.area }})<br>
                   {{ settings.country }}
@@ -32,12 +33,16 @@
                 <table class="table table-sm table-borderless text-nowrap m-0">
                   <tbody>
                     <tr>
+                      <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('settings.app_name') }}:</th>
+                      <td>{{ settings.app_name }}</td>
+                    </tr>
+                    <tr>
                       <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('settings.standard_sprache') }}:</th>
-                      <td class="text-center">{{ upperCase(settings.default_locale) }}</td>
+                      <td>{{ upperCase(settings.default_locale) }}</td>
                     </tr>
                     <tr>
                       <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('settings.erlaube_registrierung') }}:</th>
-                      <td class="text-center">
+                      <td>
                         @if(settings.allow_registration == true)
                           <i class="fas fa-circle text-success"></i>
                         @else
@@ -47,7 +52,7 @@
                     </tr>
                     <tr>
                       <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('settings.wartungsmodus') }}:</th>
-                      <td class="text-center">
+                      <td>
                         @if(settings.maintenance_mode == true)
                           <i class="fas fa-circle text-success"></i>
                         @else
