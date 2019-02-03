@@ -60,7 +60,7 @@
       @if(auth.user.is_admin == true)
         <div class="col-lg-4">
           <div class="card mb-3">
-            <div class="card-header text-center">{{ antl.forLocale(auth.user.locale).formatMessage('static.nicht_zugewiesen') }}</div>
+            <div class="card-header text-center">{{ antl.forLocale(auth.user.locale).formatMessage('static.nicht_zugewiesen_offen') }}</div>
             <div class="list-group list-group-flush">
               @each(ticket in ticketsNotAssigned)
                 <a href="{{ route('ticketsShow', { id: ticket.id }) }}" class="list-group-item list-group-item-action">

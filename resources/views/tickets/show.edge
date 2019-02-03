@@ -32,18 +32,18 @@
                 </div>
                 {{--  Ticket auf "Erledigt" setzen  --}}
                 @if(ticket.status != "Erledigt" && ticket.status != "Sistiert" && ticket.status != "Abgelehnt")
-                  <button class="status-change-item btn btn-sm btn-success mr-md-2 mr-1" data-status="Erledigt"><i class="fas fa-check fa-fw"></i> Erledigt</button>
+                  <button class="status-change-item btn btn-sm btn-success mr-md-2 mr-1" data-status="Erledigt"><i class="fas fa-check fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.erledigt') }}</button>
                 @endif
               @endif
               {{--  Ticket wiedereröffnen  --}}
               @if(ticket.status == "Erledigt" || ticket.status == "Sistiert" || ticket.status == "Abgelehnt")
-                <button class="status-change-item btn btn-sm btn-success mr-md-2 mr-1" data-status="Neu"><i class="fas fa-lock-open fa-fw"></i> Wiedereröffnen</button>
+                <button class="status-change-item btn btn-sm btn-success mr-md-2 mr-1" data-status="Neu"><i class="fas fa-lock-open fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.wiedereroeffnen') }}</button>
               @endif
               {{--  Ticket weiterleiten  --}}
               @if(ticket.status != "Abgelehnt" && ticket.status != "Erledigt" && ticket.status != "Sistiert" && ticket.recipient_id == auth.user.id)
                 <div class="dropdown">
                   <button class="btn btn-sm btn-secondary" type="button" id="statusDropdownButtons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Weiterleiten <i class="fas fa-arrow-right fa-fw"></i>
+                      {{ antl.forLocale(auth.user.locale).formatMessage('static.weiterleiten') }} <i class="fas fa-arrow-right fa-fw"></i>
                   </button>
                   <div class="dropdown-menu" aria-labelledby="recipientDropdownButtons">
                     @each(member in ticket.project.members)
@@ -82,15 +82,15 @@
                 @endif
                 @endeach
               ">{{ ticket.priority }}</span><br>
-              <small><b>Projekt: </b><a href="{{ route('projectsShow', { id: ticket.project.id }) }}">{{ ticket.project.title }}</a></small><br>
+              <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}: </b><a href="{{ route('projectsShow', { id: ticket.project.id }) }}">{{ ticket.project.title }}</a></small><br>
               @if(ticket.impact)
-                <small><b>Auswirkung: </b>{{ ticket.impact }}</small><br>
+                <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.auswirkung') }}: </b>{{ ticket.impact }}</small><br>
               @endif
               @if(ticket.reproducible)
-                <small><b>Reproduzierbar: </b>{{ ticket.reproducible }}</small><br>
+                <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.reproduzierbar') }}: </b>{{ ticket.reproducible }}</small><br>
               @endif
               @if(ticket.done_until)
-                <small><b>Zu erledigen bis: </b><span class="text-danger">{{ ticket.done_until }}</span></small><br>
+                <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.zu_erledigen_bis') }}: </b><span class="text-danger">{{ ticket.done_until }}</span></small><br>
               @endif
               <hr>
               <small>
@@ -98,7 +98,7 @@
                 @if(ticket.ticketRecipient)
                   {{ ticket.ticketRecipient.first_name }} {{ ticket.ticketRecipient.last_name }}
                 @else
-                  nicht zugewiesen
+                  {{ antl.forLocale(auth.user.locale).formatMessage('static.zu_erledigen_bis') }}
                 @endif
               </small>
               <hr>

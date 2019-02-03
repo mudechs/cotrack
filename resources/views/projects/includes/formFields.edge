@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-8">
       <div class="form-group">
-        <label for="title">Titel</label>
+        <label for="title">{{ antl.forLocale(auth.user.locale).formatMessage('static.titel') }}</label>
         <input
           type="text"
           class="form-control {{ hasErrorFor('title') ? 'is-invalid' : '' }}"
@@ -13,7 +13,7 @@
         {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('title'), hasErrorFor('title')) }}
       </div>
       <div class="form-group">
-        <label for="description">Beschreibung <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">[Markdown erlaubt]</a></label>
+        <label for="description">{{ antl.forLocale(auth.user.locale).formatMessage('static.beschreibung') }} <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">[{{ antl.forLocale(auth.user.locale).formatMessage('static.markdown_erlaubt') }}]</a></label>
         <textarea
           name="description"
           class="form-control {{ hasErrorFor('description') ? 'is-invalid' : '' }}"
@@ -39,14 +39,14 @@
             {{ old('is_active') == 'on' ? 'checked' : ''  }}
             >
           <label class="custom-control-label" for="is_active">
-              Aktiv
+              {{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}
           </label>
         </div>
       </div>
       <div class="form-group">
-        <label for="phase">Phase</label><br>
+        <label for="phase">{{ antl.forLocale(auth.user.locale).formatMessage('static.phase') }}</label><br>
         <select name="phase" class="form-control">
-          <option value="">Bitte wählen...</option>
+          <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
           @each(phase in phases)
             <option value="{{ phase.label }}"
               @if(phase.label == project.phase)

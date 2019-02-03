@@ -37,7 +37,7 @@
                             <td>{{ project.id }}</td>
                           </tr>
                           <tr>
-                              <th scope="row">Phase:</th>
+                              <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.phase') }}:</th>
                               <td>
                                 @if(project.phase)
                                   {{ project.phase }}
@@ -45,15 +45,15 @@
                               </td>
                             </tr>
                           <tr>
-                            <th>Autor:</th>
+                            <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.autor') }}:</th>
                             <td>{{ project.projectAuthor.first_name }} {{ project.projectAuthor.last_name }}</td>
                           </tr>
                           <tr>
-                            <th scope="row">Erstellt:</th>
+                            <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.erstellt') }}:</th>
                             <td>{{ project.created_at }}</td>
                           </tr>
                           <tr>
-                            <th scope="row">Geändert:</th>
+                            <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.geaendert') }}:</th>
                             <td>{{ project.updated_at }}</td>
                           </tr>
                           <tr>
@@ -79,18 +79,34 @@
       <div class="col-lg-8 p-md-3 p-0 mb-3">
         <ul class="nav nav-tabs" id="tickets" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#open" role="tab" aria-controls="open" aria-selected="true">Offene Tickets</a>
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#open" role="tab" aria-controls="open" aria-selected="true">{{ antl.forLocale(auth.user.locale).formatMessage('static.offene_tickets') }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#closed" role="tab" aria-controls="closed" aria-selected="false">Geschlossene Tickets</a>
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#closed" role="tab" aria-controls="closed" aria-selected="false">{{ antl.forLocale(auth.user.locale).formatMessage('static.geschlossene_tickets') }}</a>
           </li>
         </ul>
         <div class="tab-content" id="ticketsContent">
           <div class="tab-pane fade show active" id="open" role="tabpanel" aria-labelledby="open-tab">
-            @!component('projects.components.ticketListing', { tickets: ticketsOpen, priorities, dateLabel: 'Erstellt' })
+            @!component('projects.components.ticketListing', {
+              priority: antl.forLocale(auth.user.locale).formatMessage('static.prioritaet'),
+              subject: antl.forLocale(auth.user.locale).formatMessage('static.betreff'),
+              from: antl.forLocale(auth.user.locale).formatMessage('static.von'),
+              to: antl.forLocale(auth.user.locale).formatMessage('static.an'),
+              dateLabel: antl.forLocale(auth.user.locale).formatMessage('static.erstellt'),
+              tickets: ticketsOpen,
+              priorities
+            })
           </div>
           <div class="tab-pane fade" id="closed" role="tabpanel" aria-labelledby="closed-tab">
-            @!component('projects.components.ticketListing', { tickets: ticketsClosed, priorities, dateLabel: 'Abgeschlossen' })
+            @!component('projects.components.ticketListing', {
+              priority: antl.forLocale(auth.user.locale).formatMessage('static.prioritaet'),
+              subject: antl.forLocale(auth.user.locale).formatMessage('static.betreff'),
+              from: antl.forLocale(auth.user.locale).formatMessage('static.von'),
+              to: antl.forLocale(auth.user.locale).formatMessage('static.an'),
+              dateLabel: antl.forLocale(auth.user.locale).formatMessage('static.abgeschlossen'),
+              tickets: ticketsClosed,
+              priorities
+            })
           </div>
         </div>
       </div>

@@ -5,82 +5,15 @@
     <div class="row">
       <div class="col-lg-8 offset-lg-2 p-md-3 p-0 mb-3">
         <div class="card">
-          <div class="card-header text-center">Projekt bearbeiten</div>
+          <div class="card-header text-center">{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt_bearbeiten') }}</div>
           <form action="{{ route('projectsUpdate', { id: project.id }) }}" method="post">
             {{ csrfField() }}
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-8">
-                  <div class="form-group">
-                    <label for="title">Titel</label>
-                    <input
-                      type="text"
-                      class="form-control {{ hasErrorFor('title') ? 'is-invalid' : '' }}"
-                      name="title"
-                      id="title"
-                      value="{{ project.title }}">
-                    {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('title'), hasErrorFor('title')) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="description">Beschreibung <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">[Markdown erlaubt]</a></label>
-                    <textarea
-                      name="description"
-                      class="form-control {{ hasErrorFor('description') ? 'is-invalid' : '' }}"
-                      id="description"
-                      rows="10">{{ project.description }}</textarea>
-                    {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('description'), hasErrorFor('description')) }}
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <div class="custom-control custom-switch">
-                      <input
-                        class="custom-control-input"
-                        type="checkbox"
-                        name="is_active"
-                        id="is_active"
-                        @if(project.is_active == 1)
-                          checked
-                        @endif
-                        >
-                      <label class="custom-control-label" for="is_active">
-                          Aktiv
-                      </label>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="phase">Phase</label><br>
-                    <select name="phase" class="form-control">
-                      @each(phase in phases)
-                        <option value="{{ phase.label }}"
-                          @if(phase.label == project.phase)
-                            selected
-                          @endif
-                        >{{ phase.label }}</option>
-                      @endeach
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="members">Members</label><br>
-                    <select id="members" name="members" class="custom-select multiselect" multiple="multiple">
-                      @each(user in users)
-                        <option
-                          value="{{ user.id }}"
-                          @each(member in project.members)
-                          @if(member.id == $parent.user.id)
-                          selected
-                          @endif
-                          @endeach
-                        >{{ user.first_name }} {{ user.last_name }}</option>
-                      @endeach
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+            @include('projects.includes.formFields')
+
             <div class="card-footer d-flex justify-content-center">
-              <a href="{{ route('projectsShow', { id: project.id }) }}" class="btn btn-secondary mr-2"><i class="fas fa-times"></i> Abbrechen</a>
-              <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> Speichern</button>
+              <a href="{{ route('projectsShow', { id: project.id }) }}" class="btn btn-secondary mr-2"><i class="fas fa-times"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.abbrechen') }}</a>
+              <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.speichern') }}</button>
             </div>
           </form>
         </div>
