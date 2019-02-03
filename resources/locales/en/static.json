@@ -69,5 +69,6 @@
   "passwort": "Password",
   "zeichen": "Characters",
   "kontodaten_per_mail_senden": "Send account information by email",
-  "sprache": "Language"
+  "sprache": "Language",
+  "einstellungen": "Settings"
 }

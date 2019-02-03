@@ -27,7 +27,7 @@ class UserController {
     })
   }
 
-  async show({ params, view, response }) {
+  async show({ params, view }) {
     const user = await User.query()
       .where('id', params.id)
       .with('lastLogin')

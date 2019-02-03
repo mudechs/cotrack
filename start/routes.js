@@ -70,6 +70,14 @@ Route
   })
   .middleware(['auth'])
 
+Route
+  .group(() => {
+    Route.get('settings', 'Setting/SettingController.index').as('settingsIndex')
+    Route.get('settings/edit/:id', 'Setting/SettingController.edit').as('settingsEdit')
+    Route.post('settings/update/:id', 'Setting/SettingController.update').as('settingsUpdate')
+  })
+  .middleware(['auth', 'isAdmin'])
+
 // Internal API
 Route.get('api/tickets/projectMembers/:id', 'Ticket/TicketController.apiGetProjectMembers').middleware(['auth'])
 Route.get('api/comments/:id', 'Comment/CommentController.apiGetComment').middleware(['auth'])

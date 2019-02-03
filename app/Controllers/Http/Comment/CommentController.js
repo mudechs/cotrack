@@ -6,7 +6,12 @@ const Event = use('Event')
 const FileuploadServices = use('App/Services/fileuploadServices')
 
 class CommentController {
-  async store({ params, request, auth, response }) {
+  async store({
+    params,
+    request,
+    auth,
+    response
+  }) {
     const comment = await Comment.create({
       body: request.input('body'),
       author_id: auth.user.id,
@@ -34,24 +39,35 @@ class CommentController {
     const recipientEmail = await ticket.ticketRecipient().select('email').first()
     let email
 
-    if(ticket.author_id != ticket.recipient_id) {
+    if (ticket.author_id != ticket.recipient_id) {
       switch (comment.author_id) {
         case ticket.author_id:
           email = recipientEmail.email
-          break;
+          break
         case ticket.recipient_id:
           email = authorEmail.email
         default:
-          break;
+          break
       }
 
-      Event.fire('new::comment', { ticket, comment, email })
+      Event.fire('new::comment', {
+        ticket,
+        comment,
+        email
+      })
     }
 
-    return response.route('ticketsShow', { id: params.id })
+    return response.route('ticketsShow', {
+      id: params.id
+    })
   }
 
-  async update({ params, request, session, response }) {
+  async update({
+    params,
+    request,
+    session,
+    response
+  }) {
     const comment = await Comment.find(params.id)
     const ticketId = request.input('ticket_id')
 
@@ -66,10 +82,15 @@ class CommentController {
       }
     })
 
-    return response.route('ticketsShow', { id: ticketId })
+    return response.route('ticketsShow', {
+      id: ticketId
+    })
   }
 
-  async apiGetComment({ params, response }) {
+  async apiGetComment({
+    params,
+    response
+  }) {
     const comment = await Comment.query()
       .where('id', params.id)
       .first()

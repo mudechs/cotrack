@@ -1,0 +1,14 @@
+{
+  "titel": "Settings",
+  "standard_sprache": "Default language",
+  "erlaube_registrierung": "Allow registration",
+  "wartungsmodus": "Maintenance mode",
+  "einstellungen_bearbeiten": "Edit settings",
+  "company": "Company",
+  "address": "Address",
+  "zip_code": "ZIP Code",
+  "area": "Area",
+  "city": "City",
+  "country": "Country",
+  "phone": "Phone"
+}

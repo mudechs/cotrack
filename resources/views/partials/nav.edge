@@ -28,6 +28,9 @@
               <a class="dropdown-item px-3" href="{{ route('ticketsCreate') }}"><i class="fas fa-ticket-alt fa-fw mr-2"></i> Ticket</a>
             </div>
           </li>
+          <li class="nav-item {{ activeRoute('settings*') }}">
+            <a class="nav-link" href="{{ route('settingsIndex') }}"><i class="fas fa-cogs fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.einstellungen') }}</a>
+          </li>
         @endif
       </ul>
 

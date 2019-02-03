@@ -1,0 +1,14 @@
+{
+  "titel": "Einstellungen",
+  "standard_sprache": "Standardsprache",
+  "erlaube_registrierung": "Erlaube Registration",
+  "wartungsmodus": "Wartungsmodus",
+  "einstellungen_bearbeiten": "Einstellungen bearbeiten",
+  "company": "Firma",
+  "address": "Adresse",
+  "zip_code": "PLZ",
+  "area": "Bundesland",
+  "city": "Ort",
+  "country": "Land",
+  "phone": "Telefon"
+}

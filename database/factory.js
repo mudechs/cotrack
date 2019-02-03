@@ -28,3 +28,21 @@ Factory.blueprint('App/Models/User', async () => {
     is_admin: true
   }
 })
+
+Factory.blueprint('App/Models/Setting', async () => {
+  return {
+    company: 'De-Giuli Custom Websolutions',
+    address: 'Raiweg 2',
+    zip_code: '8108',
+    area: 'ZH',
+    city: 'Dällikon',
+    country: 'Schweiz',
+    phone: '+41 79 297 57 00',
+    mobile: '+41 79 297 57 00',
+    email: 'info@codiac.ch',
+    www: 'https://www.codiac.ch',
+    default_locale: 'de',
+    allow_registration: '0',
+    maintenance_mode: '0'
+  }
+})
