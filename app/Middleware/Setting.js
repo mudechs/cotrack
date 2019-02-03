@@ -3,23 +3,25 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-class TemplateHelper {
+class Setting {
   /**
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Function} next
    */
-  async handle ({ request }, next) {
+  async handle ({ auth }, next) {
     const View = use('View')
+    const Setting = use('App/Models/Setting')
+    const settings = await Setting.query().first()
 
-    View.global('activeRoute', function(url) {
-      url = '/' + url.replace('*', '(.*)')
-
-      return request.match(url) ? 'active' : ''
+    View.global('globals', () => {
+      if(settings) {
+        return settings.toJSON()
+      }
     })
 
     await next()
   }
 }
 
-module.exports = TemplateHelper
+module.exports = Setting
