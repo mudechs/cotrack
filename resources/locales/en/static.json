@@ -53,5 +53,6 @@
   "offene_tickets": "Open tickets",
   "geschlossene_tickets": "Closed tickets",
   "neues_projekt_erstellen": "Create new project",
-  "projekt_bearbeiten": "Edit project"
+  "projekt_bearbeiten": "Edit project",
+  "hinweis": "Note"
 }
