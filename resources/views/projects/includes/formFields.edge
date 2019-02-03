@@ -33,6 +33,9 @@
             @if(project.is_active == 1)
               checked
             @endif
+            @if(project == undefined)
+              checked
+            @endif
             {{ old('is_active') == 'on' ? 'checked' : ''  }}
             >
           <label class="custom-control-label" for="is_active">

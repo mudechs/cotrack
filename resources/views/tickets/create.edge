@@ -5,15 +5,15 @@
     <div class="row">
       <div class="col-lg-8 offset-lg-2 p-md-3 p-0 mb-3">
         <div class="card">
-          <div class="card-header text-center">Neues Ticket erstellen</div>
+          <div class="card-header text-center">{{ antl.forLocale(auth.user.locale).formatMessage('static.neues_ticket_erstellen') }}</div>
           <form action="{{ route('ticketsStore') }}" method="post" enctype="multipart/form-data">
             {{ csrfField() }}
 
             @include('tickets.includes.formFields')
 
             <div class="card-footer d-flex justify-content-center">
-              <a href="{{ route('dashboard') }}" class="btn btn-secondary mr-2"><i class="fas fa-times"></i> Abbrechen</a>
-              <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> Speichern</button>
+              <a href="{{ route('dashboard') }}" class="btn btn-secondary mr-2"><i class="fas fa-times"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.abbrechen') }}</a>
+              <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.speichern') }}</button>
             </div>
           </form>
         </div>

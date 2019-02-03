@@ -5,7 +5,7 @@
     <div class="row mb-3">
       <div class="col pl-1">
         <div class="btn-group dropright">
-          <button type="button" class="btn-show-all-projects btn btn-sm btn-primary">Alle zeigen</button>
+          <button type="button" class="btn-show-all-projects btn btn-sm btn-primary">{{ antl.forLocale(auth.user.locale).formatMessage('static.alle_zeigen') }}</button>
           <button type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="sr-only">Toggle Dropdown</span>
           </button>
@@ -23,7 +23,7 @@
     <div class="row draggable">
       <div class="col-12 col-md-6 col-lg mb-3 px-1">
         <div class="card">
-          <div class="card-header text-center"><i class="fas fa-bolt fa-fw"></i> Neu</div>
+          <div class="card-header text-center"><i class="fas fa-bolt fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.neu') }}</div>
           <div id="Neu" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsNeu)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">
@@ -55,7 +55,7 @@
 
       <div class="col-12 col-md-6 col-lg mb-3 px-1">
         <div class="card">
-          <div class="card-header text-center"><i class="far fa-thumbs-up fa-fw"></i> Anerkannt</div>
+          <div class="card-header text-center"><i class="far fa-thumbs-up fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.anerkannt') }}</div>
           <div id="Anerkannt" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsAnerkannt)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">
@@ -87,7 +87,7 @@
 
       <div class="col-12 col-md-6 col-lg mb-3 px-1">
         <div class="card">
-          <div class="card-header text-center"><i class="fas fa-hourglass-half fa-fw"></i> Warten</div>
+          <div class="card-header text-center"><i class="fas fa-hourglass-half fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.warten') }}</div>
           <div id="Warten" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsWarten)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">
@@ -119,7 +119,7 @@
 
       <div class="col-12 col-md-6 col-lg mb-3 px-1">
         <div class="card">
-          <div class="card-header text-center"><i class="fas fa-bullhorn fa-fw"></i> Feedback erwartet</div>
+          <div class="card-header text-center"><i class="fas fa-bullhorn fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.feedback_erwartet') }}</div>
           <div id="Feedback" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsFeedback)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">
@@ -151,7 +151,7 @@
 
       <div class="col-12 col-md-6 col-lg mb-3 px-1">
         <div class="card">
-          <div class="card-header text-center"><i class="fas fa-pencil-alt fa-fw"></i> In Bearbeitung</div>
+          <div class="card-header text-center"><i class="fas fa-pencil-alt fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.in_bearbeitung') }}</div>
           <div id="Bearbeitung" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsBearbeitung)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">

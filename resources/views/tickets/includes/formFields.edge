@@ -2,15 +2,15 @@
   <div class="row">
     <div class="col-md-8">
       @if(ticket != undefined)
-        <b>Projekt: </b>{{ ticket.project.title }}<br>
-        <b>Empfänger: </b>{{ ticket.ticketRecipient.first_name }} {{ ticket.ticketRecipient.last_name }}<br>
+        <b>{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}: </b>{{ ticket.project.title }}<br>
+        <b>{{ antl.forLocale(auth.user.locale).formatMessage('static.empfaenger') }}: </b>{{ ticket.ticketRecipient.first_name }} {{ ticket.ticketRecipient.last_name }}<br>
       @else
         <div class="form-group">
-          <label for="project">Projekt</label>
+          <label for="project">{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}</label>
           <div class="row">
             <div class="col-md-6 col-12">
               <select name="project" id="project" class="form-control {{ hasErrorFor('project') ? 'is-invalid' : '' }}">
-                <option value="">Bitte wählen...</option>
+                <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
                 @each(project in projects)
                   <option value="{{ project.id }}"
                   {{ old('project') == project.id ? 'selected' : ''  }}
@@ -25,7 +25,7 @@
 
       @if(ticket == undefined)
         <div class="form-group" style="display: none;">
-          <label for="recipient">Empfänger</label>
+          <label for="recipient">{{ antl.forLocale(auth.user.locale).formatMessage('static.empfaenger') }}</label>
           <div class="row">
             <div class="col-md-6 col-12">
               <select name="recipient" id="recipient" class="form-control">
@@ -36,7 +36,7 @@
       @endif
 
       <div class="form-group mt-4">
-        <label for="subject">Betreff</label>
+        <label for="subject">{{ antl.forLocale(auth.user.locale).formatMessage('static.betreff') }}</label>
         <input
           type="text"
           class="form-control {{ hasErrorFor('subject') ? 'is-invalid' : '' }}"
@@ -47,7 +47,7 @@
         {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('subject'), hasErrorFor('subject')) }}
       </div>
       <div class="form-group">
-        <label for="description">Beschreibung <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">[Markdown erlaubt]</a></label>
+        <label for="description">{{ antl.forLocale(auth.user.locale).formatMessage('static.beschreibung') }} <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">[{{ antl.forLocale(auth.user.locale).formatMessage('static.markdown_erlaubt') }}]</a></label>
         <textarea
           name="description"
           class="form-control {{ hasErrorFor('description') ? 'is-invalid' : '' }}"
@@ -79,7 +79,7 @@
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <label for="priority">Priorität</label>
+        <label for="priority">{{ antl.forLocale(auth.user.locale).formatMessage('static.prioritaet') }}</label>
         <select name="priority" class="form-control">
           @each(priority in priorities)
             <option value="{{ priority.label }}"
@@ -92,9 +92,9 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="impact">Auswirkung</label>
+        <label for="impact">{{ antl.forLocale(auth.user.locale).formatMessage('static.auswirkung') }}</label>
         <select name="impact" class="form-control">
-          <option value="">Bitte wählen...</option>
+          <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
           @each(impact in impacts)
             <option value="{{ impact.label }}"
               @if(impact.label == ticket.impact)
@@ -106,9 +106,9 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="reproducible">Reproduzierbar</label>
+        <label for="reproducible">{{ antl.forLocale(auth.user.locale).formatMessage('static.reproduzierbar') }}</label>
         <select name="reproducible" class="form-control">
-          <option value="">Bitte wählen...</option>
+          <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
           @each(reproducible in reproducibles)
             <option value="{{ reproducible.label }}"
               @if(reproducible.label == ticket.reproducible)
@@ -120,7 +120,7 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="done_until">Zu erledigen bis</label>
+        <label for="done_until">{{ antl.forLocale(auth.user.locale).formatMessage('static.zu_erledigen_bis') }}</label>
         <input
           type="date"
           class="form-control"
@@ -129,7 +129,7 @@
           value="{{ ticket == undefined ? old('done_until', '') : doneUntil }}">
       </div>
       <div class="form-group">
-        <label for="time_expenses">Aufwand (Std)</label>
+        <label for="time_expenses">{{ antl.forLocale(auth.user.locale).formatMessage('static.aufwand_std') }}</label>
         <div class="w-25">
           <input
             type="text"

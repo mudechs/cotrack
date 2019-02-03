@@ -6,7 +6,7 @@ const Ticket = use('App/Models/Ticket')
 const TicketServices = use('App/Services/ticketServices')
 
 class DashboardController {
-  async index({ auth, view, response }) {
+  async index({ auth, view }) {
     const statuses = await TicketServices.ticketStatuses('open')
 
     const ticketsAssignedToMe = await Ticket.query()
