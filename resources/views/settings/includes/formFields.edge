@@ -130,7 +130,7 @@
             <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('settings.standard_sprache') }}:</th>
             <td>
               <div class="form-group mb-0">
-                <select id="locale" name="locale" class="form-control">
+                <select id="default_locale" name="default_locale" class="form-control">
                   <option value="de"
                     @if(settings.default_locale == 'de')
                       selected
@@ -138,13 +138,13 @@
                     @if(settings == undefined)
                       selected
                     @endif
-                    {{ old('locale') == 'on' ? 'checked' : ''  }}
+                    {{ old('default_locale') == 'on' ? 'checked' : ''  }}
                   >Deutsch</option>
                   <option value="en"
                     @if(settings.default_locale == 'en')
                       selected
                     @endif
-                    {{ old('locale') == 'on' ? 'checked' : ''  }}
+                    {{ old('default_locale') == 'on' ? 'checked' : ''  }}
                   >English</option>
                 </select>
               </div>
