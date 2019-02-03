@@ -26,7 +26,6 @@
                   <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Titel</th>
-                    <th scope="col">Code</th>
                     <th scope="col">Phase</th>
                     <th scope="col">Erstellt</th>
                     <th scope="col">Autor</th>
@@ -39,7 +38,6 @@
                     <tr class="linkable" data-route="{{ route('projectsShow', { id: project.id }) }}">
                       <td scope="row">{{ project.id }}</td>
                       <td>{{ project.title }}</td>
-                      <td>{{ project.code }}</td>
                       <td>
                         @if(project.phase)
                           {{ project.phase }}
@@ -72,7 +70,6 @@
                   <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Titel</th>
-                    <th scope="col">Code</th>
                     <th scope="col">Erstellt</th>
                     <th scope="col">Autor</th>
                     <th scope="col" class="text-center">Status</th>
@@ -84,7 +81,6 @@
                     <tr class="linkable" data-route="{{ route('projectsShow', { id: project.id }) }}">
                       <td scope="row">{{ project.id }}</td>
                       <td>{{ project.title }}</td>
-                      <td>{{ project.code }}</td>
                       <td>{{ project.created_at }}</td>
                       <td>{{ project.projectAuthor.first_name }} {{ project.projectAuthor.last_name }}</td>
                       <td class="text-center">

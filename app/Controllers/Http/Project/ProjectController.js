@@ -140,7 +140,6 @@ class ProjectController {
     const project = await Project.create({
       title: request.input('title'),
       description: request.input('description'),
-      code: request.input('code'),
       phase: request.input('phase'),
       is_active: isActive,
       author_id: auth.user.id
@@ -186,7 +185,6 @@ class ProjectController {
 
     project.title = request.input('title')
     project.description = request.input('description')
-    project.code = request.input('code')
     project.phase = request.input('phase')
     project.is_active = isActive
 

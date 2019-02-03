@@ -8,17 +8,14 @@ class StoreProject {
   get rules () {
     return {
       title: 'required',
-      description: 'required',
-      code: 'required|unique:projects, code'
+      description: 'required'
     }
   }
 
   get messages () {
     return {
       'title.required': 'Pflichteld',
-      'description.required': 'Pflichteld',
-      'code.required': 'Pflichteld',
-      'code.unique': 'Muss einzigartig sein'
+      'description.required': 'Pflichteld'
     }
   }
 }

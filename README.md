@@ -86,7 +86,7 @@ The JSON key `email` will be checked and assigned against a active user in the c
 
 ### Project
 The JSON key `project` will be checked and assigned against a existing and active project in the database. The request value will be matched
-with the database field `code` in the `projects`-table.
+with the database field `id` in the `projects`-table.
 
 ### Token
 The JSON key `token` will be checked against the deposited token in `.env` config file.
@@ -99,8 +99,6 @@ The JSON key `token` will be checked against the deposited token in `.env` confi
 	"description": "This is the description of the Ticket",
 	"priority": "Normal or Hoch or Dringend",
 	"email": "user@domain.com",
-	"first_name": "Hans",
-	"last_name": "Muster",
 	"project": "xxx"
 }
 ```

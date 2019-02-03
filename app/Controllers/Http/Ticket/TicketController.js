@@ -346,7 +346,7 @@ class TicketController {
       .first()
 
     const project = await Project.query()
-      .where('code', ticket.project)
+      .where('id', ticket.id)
       .first()
 
     if (user && project) {
