@@ -18,6 +18,15 @@ class TemplateHelper {
       return request.match(url) ? 'active' : ''
     })
 
+    const Setting = use('App/Models/Setting')
+    const settings = await Setting.query().first()
+
+    View.global('globals', () => {
+      if(settings) {
+        return settings.toJSON()
+      }
+    })
+
     await next()
   }
 }
