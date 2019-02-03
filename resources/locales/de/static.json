@@ -30,5 +30,10 @@
   "reproduzierbar": "Reproduzierbar",
   "zu_erledigen_bis": "Zu erledigen bis",
   "aufwand_std": "Aufwand (Std.)",
-  "markdown_erlaubt": "Markdown erlaubt"
+  "markdown_erlaubt": "Markdown erlaubt",
+  "uebernehmen": "Übernehmen",
+  "kommentare": "Kommentare",
+  "bearbeiten": "Bearbeiten",
+  "erstellt": "Erstellt",
+  "geaendert": "Geändert"
 }

@@ -30,5 +30,10 @@
   "reproduzierbar": "Reproducible",
   "zu_erledigen_bis": "Deadline",
   "aufwand_std": "Expenditure (h)",
-  "markdown_erlaubt": "Markdown allowed"
+  "markdown_erlaubt": "Markdown allowed",
+  "uebernehmen": "Assign to me",
+  "kommentare": "Comments",
+  "bearbeiten": "Edit",
+  "erstellt": "Created at",
+  "geaendert": "Updated at"
 }

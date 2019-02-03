@@ -10,7 +10,7 @@
               {{--  Ticket übernehmen  --}}
               @if(ticket.recipient_id != auth.user.id)
                 <button class="btn btn-sm btn-danger" type="button" id="assignToMeButton" data-recipient="{{ auth.user.id }}">
-                  Übernehmen
+                  {{ antl.forLocale(auth.user.locale).formatMessage('static.uebernehmen') }}
                 </button>
               @endif
               {{--  Status wechseln  --}}
@@ -112,7 +112,7 @@
         </div>
         <div class="card mt-md-3 mt-0">
           <div class="card-header d-flex justify-content-between align-items-center">
-              <span><i class="far fa-comments fa-fw"></i> Kommentare</span>
+              <span><i class="far fa-comments fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.kommentare') }}</span>
               <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#commentCreateModal">
                 <i class="fas fa-plus"></i>
               </button>
@@ -131,7 +131,7 @@
                     <span>
                       <small>{{ comment.created_at }}</small>
                       @if(comment.commentAuthor.id == auth.user.id)
-                        <small class="ml-2"><a href="#" data-toggle="modal" data-target="#commentEditModal" data-commentid="{{ comment.id }}" data-ticketid="{{ ticket.id }}"><i class="fas fa-pencil-alt fa-fw"></i> Bearbeiten</a></small>
+                        <small class="ml-2"><a href="#" data-toggle="modal" data-target="#commentEditModal" data-commentid="{{ comment.id }}" data-ticketid="{{ ticket.id }}"><i class="fas fa-pencil-alt fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.bearbeiten') }}</a></small>
                       @endif
                     </span>
                   </p>
@@ -152,7 +152,7 @@
             <table class="table table-sm table-borderless text-nowrap m-0">
               <tbody>
                 <tr>
-                  <th scope="row">Zeitaufwand:</th>
+                  <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.aufwand_std') }}:</th>
                   <td>
                     @if(ticket.time_expenses)
                       <i class="far fa-clock fa-fw"></i> {{ ticket.time_expenses }} h
@@ -170,11 +170,11 @@
                   </tr>
                 @endif
                 <tr>
-                  <th scope="row">Erstellt:</th>
+                  <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.erstellt') }}:</th>
                   <td>{{ ticket.created_at }}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Geändert:</th>
+                  <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.geaendert') }}:</th>
                   <td>{{ ticket.updated_at }}</td>
                 </tr>
               </tbody>
