@@ -54,5 +54,18 @@
   "geschlossene_tickets": "Closed tickets",
   "neues_projekt_erstellen": "Create new project",
   "projekt_bearbeiten": "Edit project",
-  "hinweis": "Note"
+  "hinweis": "Note",
+  "vorname": "First name",
+  "nachname": "Surname",
+  "funktion": "Position",
+  "letzte_anmeldung": "Last login",
+  "meine_projekte": "My projects",
+  "projekt_member": "Member in projects",
+  "benutzer_bearbeiten": "Edit user",
+  "anrede": "Salutation",
+  "telefon": "Phone",
+  "foto": "Avatar",
+  "benutzer_erstellen": "Create user",
+  "passwort": "Password",
+  "zeichen": "Characters"
 }

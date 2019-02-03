@@ -1,7 +1,9 @@
 <footer>
   <nav class="navbar fixed-bottom navbar-dark bg-dark p-2 d-flex justify-content-between">
     <a href="{{ route('dashboard') }}"><small>&copy; codiac.ch / codiacs.de</small></a>
-    <a href="{{ route('privacyPolicy') }}"><small>{{ antl.forLocale(auth.user.locale).formatMessage('static.datenschutz') }}</small></a>
+    @loggedIn
+      <a href="{{ route('privacyPolicy') }}"><small>{{ antl.forLocale(auth.user.locale).formatMessage('static.datenschutz') }}</small></a>
+    @endloggedIn
     <small>Version 0.9 BETA</small>
   </nav>
 </footer>

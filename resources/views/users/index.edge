@@ -4,7 +4,7 @@
   <div class="container-fluid mt-md-3 mt-0 px-md-3 px-0">
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <span>Benutzer</span>
+        <span>{{ antl.forLocale(auth.user.locale).formatMessage('static.benutzerPl') }}</span>
         @if(auth.user.is_admin == true)
           <a href="{{ route('usersCreate') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i></a>
         @endif
@@ -12,10 +12,10 @@
       <div class="card-body p-0">
         <ul class="nav nav-tabs pl-3 pt-3" id="users" role="tablist">
           <li class="nav-item">
-            <a class="nav-link py-1 active" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active" aria-selected="true">Aktiv</a>
+            <a class="nav-link py-1 active" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active" aria-selected="true">{{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link py-1" id="inactive-tab" data-toggle="tab" href="#inactive" role="tab" aria-controls="inactive" aria-selected="false">Inaktiv</a>
+            <a class="nav-link py-1" id="inactive-tab" data-toggle="tab" href="#inactive" role="tab" aria-controls="inactive" aria-selected="false">{{ antl.forLocale(auth.user.locale).formatMessage('static.inaktiv') }}</a>
           </li>
         </ul>
         <div class="tab-content" id="usersContent">
@@ -25,9 +25,9 @@
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
-                    <th>Vorname</th>
-                    <th>Nachname</th>
-                    <th>Funktion</th>
+                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.vorname') }}</th>
+                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.nachname') }}</th>
+                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.funktion') }}</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Admin</th>
                     <th></th>
@@ -42,9 +42,9 @@
                       <td>{{ user.profession }}</td>
                       <td class="text-center">
                         @if(user.is_active == 0)
-                          <span class="text-danger">Inaktiv</span>
+                          <span class="text-danger">{{ antl.forLocale(auth.user.locale).formatMessage('static.inaktiv') }}</span>
                         @else
-                          <span class="text-success">Aktiv</span>
+                          <span class="text-success">{{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}</span>
                         @endif
                       </td>
                       <td class="text-center">
@@ -69,9 +69,9 @@
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
-                    <th>Vorname</th>
-                    <th>Nachname</th>
-                    <th>Funktion</th>
+                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.vorname') }}</th>
+                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.nachname') }}</th>
+                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.funktion') }}</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Admin</th>
                     <th></th>
@@ -86,9 +86,9 @@
                       <td>{{ user.profession }}</td>
                       <td class="text-center">
                         @if(user.is_active == 0)
-                          <span class="text-danger">Inaktiv</span>
+                          <span class="text-danger">{{ antl.forLocale(auth.user.locale).formatMessage('static.inaktiv') }}</span>
                         @else
-                          <span class="text-success">Aktiv</span>
+                          <span class="text-success">{{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}</span>
                         @endif
                       </td>
                       <td class="text-center">

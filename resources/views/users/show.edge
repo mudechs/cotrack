@@ -87,7 +87,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <th>2FA Aktiv:</th>
+                      <th>2FA {{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}:</th>
                       <td>
                         @if(user.tfa_active == 1)
                           <i class="fas fa-check"></i>
@@ -99,15 +99,15 @@
                       <td>{{ user.id }}</td>
                     </tr>
                     <tr>
-                      <th scope="row">Erstellt:</th>
+                      <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.erstellt') }}:</th>
                       <td>{{ user.created_at }}</td>
                     </tr>
                     <tr>
-                      <th scope="row">Geändert:</th>
+                      <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.geaendert') }}:</th>
                       <td>{{ user.updated_at }}</td>
                     </tr>
                     <tr>
-                      <th scope="row">Letzte Anmeldung:</th>
+                      <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.letzte_anmeldung') }}:</th>
                       <td>{{ user.lastLogin.created_at }}</td>
                     </tr>
                   </tbody>
@@ -120,7 +120,7 @@
               @if(auth.user.is_admin == true)
               <div class="card">
                 <a class="card-header text-center" data-toggle="collapse" href="#myProjects" role="button" aria-expanded="true" aria-controls="myProjects">
-                  Meine Projekte
+                  {{ antl.forLocale(auth.user.locale).formatMessage('static.meine_projekte') }}
                 </a>
                 <div id="myProjects" class="collapse" aria-labelledby="myProjects" data-parent="#projectAccordion">
                   <div class="list-group list-group-flush">
@@ -135,7 +135,7 @@
               @endif
               <div class="card">
                 <a class="card-header text-center" data-toggle="collapse" href="#projectMember" role="button" aria-expanded="true" aria-controls="projectMember">
-                  Projekt-Member
+                    {{ antl.forLocale(auth.user.locale).formatMessage('static.projekt_member') }}
                 </a>
                 <div id="projectMember" class="collapse" aria-labelledby="projectMember" data-parent="#projectAccordion">
                   <div class="list-group list-group-flush">

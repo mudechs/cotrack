@@ -22,7 +22,10 @@
   <body>
 
     @include('partials/nav')
-    @include('includes.toast')
+
+    @loggedIn
+      @include('includes.toast')
+    @endloggedIn
 
     <main role="main">
       <section class="section">

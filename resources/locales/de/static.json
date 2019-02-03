@@ -54,5 +54,19 @@
   "geschlossene_tickets": "Geschlossene Tickets",
   "neues_projekt_erstellen": "Neues Projekt erstellen",
   "projekt_bearbeiten": "Projekt bearbeiten",
-  "hinweis": "Hinweis"
+  "hinweis": "Hinweis",
+  "vorname": "Vorname",
+  "nachname": "Nachname",
+  "funktion": "Funktion",
+  "letzte_anmeldung": "Letzte Anmeldung",
+  "meine_projekte": "Meine Projekte",
+  "projekt_member": "Member in Projekten",
+  "benutzer_bearbeiten": "Benutzer bearbeiten",
+  "anrede": "Anrede",
+  "telefon": "Telefon",
+  "foto": "Foto",
+  "benutzer_erstellen": "Benutzer erstellen",
+  "passwort": "Passwort",
+  "zeichen": "Zeichen",
+  "kontodaten_per_mail_senden": "Kontodaten per E-Mail senden"
 }
