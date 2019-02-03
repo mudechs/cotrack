@@ -13,3 +13,5 @@ database/development.sqlite
 
 # Uploads
 public/uploads
+
+.DS_Store
