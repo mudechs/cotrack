@@ -46,9 +46,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "babel-preset-env": "^1.7.0",
     "css-loader": "^2.1.0",
+    "eslint": "^5.13.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "image-webpack-loader": "^4.6.0",
     "node-sass": "^4.11.0",

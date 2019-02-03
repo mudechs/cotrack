@@ -246,6 +246,8 @@ class TicketController {
   async changeStatus({ params, request, auth, session, response }) {
     const ticket = await Ticket.find(params.id)
 
+    const author = await ticket.ticketAuthor().select('id').fetch()
+
     ticket.status = request.input('status')
 
     /* Informiere den Recipient, dass sich der Ticket-Status verändert hat.
