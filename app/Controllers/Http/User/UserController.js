@@ -158,13 +158,13 @@ class UserController {
     )
 
     let isAdmin = request.input('is_admin')
-    isAdmin = (isAdmin == 'on')? true : false;
+    isAdmin = (isAdmin == 'on')? true : false
 
     let isActive = request.input('is_active')
-    isActive = (isActive == 'on')? true : false;
+    isActive = (isActive == 'on')? true : false
 
     let tfaActive = request.input('tfa_active')
-    tfaActive = (tfaActive == 'on')? true : false;
+    tfaActive = (tfaActive == 'on')? true : false
 
     user.salutation = request.input('salutation')
     user.first_name = request.input('first_name')
