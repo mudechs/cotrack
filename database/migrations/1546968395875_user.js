@@ -20,7 +20,6 @@ class UserSchema extends Schema {
       table.boolean('is_active').defaultTo(0)
       table.boolean('is_admin').defaultTo(0)
       table.boolean('tfa_active').defaultTo(0)
-      table.string('locale', 5).defaultTo('de')
       table.timestamps()
     })
   }
