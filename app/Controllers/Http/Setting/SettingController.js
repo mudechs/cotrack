@@ -6,10 +6,53 @@ class SettingController {
   async index({ view }) {
     const settings = await Setting.first()
 
-    return view.render('settings.index', {
-      settings: settings.toJSON()
+    if(settings) {
+      return view.render('settings.index', {
+        settings: settings.toJSON()
+      })
+    }
+
+    return view.render('settings.create')
+
+  }
+
+  async create({ view }) {
+    return view.render('settings.create')
+  }
+
+  async store({ request, session, response }) {
+    const setting = new Setting()
+
+    let allowRegistration = request.input('allow_registration')
+    allowRegistration = (allowRegistration == 'on')? true : false
+
+    let maintenanceMode = request.input('maintenance_mode')
+    maintenanceMode = (maintenanceMode == 'on')? true : false
+
+    setting.company = request.input('company')
+    setting.address = request.input('address')
+    setting.zip_code = request.input('zip_code')
+    setting.area = request.input('area')
+    setting.city = request.input('city')
+    setting.country = request.input('country')
+    setting.phone = request.input('phone')
+    setting.mobile = request.input('mobile')
+    setting.email = request.input('email')
+    setting.www = request.input('www')
+    setting.default_locale = request.input('default_locale')
+    setting.allow_registration = allowRegistration
+    setting.maintenance_mode = maintenanceMode
+
+    await setting.save()
+
+    session.flash({
+      notification: {
+        type: 'success',
+        message: 'Die Einstellungen wurden gespeichert.'
+      }
     })
 
+    return response.route('settingsIndex')
   }
 
   async edit({ params, view }) {
@@ -21,7 +64,7 @@ class SettingController {
   }
 
   async update({ params, request, session, response }) {
-    const settings = await Setting.find(params.id)
+    const setting = await Setting.find(params.id)
 
     let allowRegistration = request.input('allow_registration')
     allowRegistration = (allowRegistration == 'on')? true : false
@@ -29,30 +72,30 @@ class SettingController {
     let maintenanceMode = request.input('maintenance_mode')
     maintenanceMode = (maintenanceMode == 'on')? true : false
 
-    settings.company = request.input('company')
-    settings.address = request.input('address')
-    settings.zip_code = request.input('zip_code')
-    settings.area = request.input('area')
-    settings.city = request.input('city')
-    settings.country = request.input('country')
-    settings.phone = request.input('phone')
-    settings.mobile = request.input('mobile')
-    settings.email = request.input('email')
-    settings.www = request.input('www')
-    settings.default_locale = request.input('default_locale')
-    settings.allow_registration = allowRegistration
-    settings.maintenance_mode = maintenanceMode
+    setting.company = request.input('company')
+    setting.address = request.input('address')
+    setting.zip_code = request.input('zip_code')
+    setting.area = request.input('area')
+    setting.city = request.input('city')
+    setting.country = request.input('country')
+    setting.phone = request.input('phone')
+    setting.mobile = request.input('mobile')
+    setting.email = request.input('email')
+    setting.www = request.input('www')
+    setting.default_locale = request.input('default_locale')
+    setting.allow_registration = allowRegistration
+    setting.maintenance_mode = maintenanceMode
 
-    await settings.save()
+    await setting.save()
 
     session.flash({
       notification: {
         type: 'success',
-        message: 'Die Änderungen wurden erfolgreich übernommen.'
+        message: 'Die Einstellungen wurden aktualisiert.'
       }
     })
 
-    return response.route('settingsShow')
+    return response.route('settingsIndex')
   }
 }
 

@@ -8,21 +8,19 @@
         <label for="company">{{ antl.forLocale(auth.user.locale).formatMessage('settings.company') }}</label>
         <input
           type="text"
-          class="form-control {{ hasErrorFor('company') ? 'is-invalid' : '' }}"
+          class="form-control"
           name="company"
           id="company"
-          value="{{ settings.company }}">
-        {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('company'), hasErrorFor('company')) }}
+          value="{{ settings == undefined ? old('company', '') : settings.company }}">
       </div>
       <div class="form-group">
         <label for="address">{{ antl.forLocale(auth.user.locale).formatMessage('settings.address') }}</label>
         <input
           type="text"
-          class="form-control {{ hasErrorFor('address') ? 'is-invalid' : '' }}"
+          class="form-control"
           name="address"
           id="address"
-          value="{{ settings.address }}">
-        {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('address'), hasErrorFor('address')) }}
+          value="{{ settings == undefined ? old('address', '') : settings.address }}">
       </div>
       <div class="form-group">
         <div class="row">
@@ -30,21 +28,19 @@
             <label for="zip_code">{{ antl.forLocale(auth.user.locale).formatMessage('settings.zip_code') }}</label>
             <input
               type="text"
-              class="form-control {{ hasErrorFor('zip_code') ? 'is-invalid' : '' }}"
+              class="form-control"
               name="zip_code"
               id="zip_code"
-              value="{{ settings.zip_code }}">
-            {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('zip_code'), hasErrorFor('zip_code')) }}
+              value="{{ settings == undefined ? old('zip_code', '') : settings.zip_code }}">
           </div>
           <div class="col-8">
             <label for="city">{{ antl.forLocale(auth.user.locale).formatMessage('settings.city') }}</label>
             <input
               type="text"
-              class="form-control {{ hasErrorFor('city') ? 'is-invalid' : '' }}"
+              class="form-control"
               name="city"
               id="city"
-              value="{{ settings.city }}">
-            {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('city'), hasErrorFor('city')) }}
+              value="{{ settings == undefined ? old('city', '') : settings.city }}">
           </div>
         </div>
       </div>
@@ -54,21 +50,19 @@
             <label for="area">{{ antl.forLocale(auth.user.locale).formatMessage('settings.area') }}</label>
             <input
               type="text"
-              class="form-control {{ hasErrorFor('area') ? 'is-invalid' : '' }}"
+              class="form-control"
               name="area"
               id="area"
-              value="{{ settings.area }}">
-            {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('area'), hasErrorFor('area')) }}
+              value="{{ settings == undefined ? old('area', '') : settings.area }}">
           </div>
           <div class="col-8">
             <label for="country">{{ antl.forLocale(auth.user.locale).formatMessage('settings.country') }}</label>
             <input
               type="text"
-              class="form-control {{ hasErrorFor('country') ? 'is-invalid' : '' }}"
+              class="form-control"
               name="country"
               id="country"
-              value="{{ settings.country }}">
-            {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('country'), hasErrorFor('country')) }}
+              value="{{ settings == undefined ? old('country', '') : settings.country }}">
           </div>
         </div>
       </div>
@@ -80,12 +74,11 @@
             </div>
             <input
               type="text"
-              class="form-control {{ hasErrorFor('phone') ? 'is-invalid' : '' }}"
+              class="form-control"
               name="phone"
               id="phone"
-              value="{{ settings.phone }}">
+              value="{{ settings == undefined ? old('phone', '') : settings.phone }}">
           </div>
-          {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('phone'), hasErrorFor('phone')) }}
         </div>
       <div class="form-group">
         <label for="mobile">Mobile</label>
@@ -95,12 +88,11 @@
           </div>
           <input
             type="text"
-            class="form-control {{ hasErrorFor('mobile') ? 'is-invalid' : '' }}"
+            class="form-control"
             name="mobile"
             id="mobile"
-            value="{{ settings.mobile }}">
+            value="{{ settings == undefined ? old('mobile', '') : settings.mobile }}">
         </div>
-        {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('mobile'), hasErrorFor('mobile')) }}
       </div>
       <div class="form-group">
         <label for="email">E-Mail</label>
@@ -110,12 +102,11 @@
           </div>
           <input
             type="email"
-            class="form-control {{ hasErrorFor('email') ? 'is-invalid' : '' }}"
+            class="form-control"
             name="email"
             id="email"
-            value="{{ settings.email }}">
+            value="{{ settings == undefined ? old('email', '') : settings.email }}">
         </div>
-        {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('email'), hasErrorFor('email')) }}
       </div>
       <div class="form-group">
         <label for="www">WWW</label>
@@ -125,12 +116,11 @@
           </div>
           <input
             type="www"
-            class="form-control {{ hasErrorFor('www') ? 'is-invalid' : '' }}"
+            class="form-control"
             name="www"
             id="www"
-            value="{{ settings.www }}">
+            value="{{ settings == undefined ? old('www', '') : settings.www }}">
         </div>
-        {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('www'), hasErrorFor('www')) }}
       </div>
     </div>
     <div class="col-12 col-md-4">
@@ -145,11 +135,16 @@
                     @if(settings.default_locale == 'de')
                       selected
                     @endif
+                    @if(settings == undefined)
+                      selected
+                    @endif
+                    {{ old('locale') == 'on' ? 'checked' : ''  }}
                   >Deutsch</option>
                   <option value="en"
                     @if(settings.default_locale == 'en')
                       selected
                     @endif
+                    {{ old('locale') == 'on' ? 'checked' : ''  }}
                   >English</option>
                 </select>
               </div>
@@ -170,6 +165,7 @@
                     @if(settings.allow_registration == true)
                       checked
                     @endif
+                    {{ old('allow_registration') == 'on' ? 'checked' : ''  }}
                   >
                   <label class="custom-control-label" for="allow_registration">{{ antl.forLocale(auth.user.locale).formatMessage('settings.erlaube_registrierung') }}</label>
                 </div>
@@ -188,6 +184,7 @@
                     @if(settings.maintenance_mode == true)
                       checked
                     @endif
+                    {{ old('maintenance_mode') == 'on' ? 'checked' : ''  }}
                   >
                   <label class="custom-control-label" for="maintenance_mode">{{ antl.forLocale(auth.user.locale).formatMessage('settings.wartungsmodus') }}</label>
                 </div>
