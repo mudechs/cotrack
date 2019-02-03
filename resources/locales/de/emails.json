@@ -1,3 +1,5 @@
 {
-	"message1": "Das Ticket wurde anerkannt und wird bearbeitet."
+	"message1": "Das Ticket wurde anerkannt und wird bearbeitet.",
+	"message2": "Bitte auf diese Mail nicht antworten.",
+	"message3": "Ticket beobachten"
 }

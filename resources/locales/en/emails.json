@@ -1,3 +1,5 @@
 {
-	"message1": "The ticket has been recognized and is being processed."
+	"message1": "The ticket has been recognized and is being processed.",
+	"message2": "Please do not respond to this mail.",
+	"message3": "Watch ticket"
 }
