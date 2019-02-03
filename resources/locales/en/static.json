@@ -67,5 +67,6 @@
   "foto": "Avatar",
   "benutzer_erstellen": "Create user",
   "passwort": "Password",
-  "zeichen": "Characters"
+  "zeichen": "Characters",
+  "kontodaten_per_mail_senden": "Send account information by email"
 }
