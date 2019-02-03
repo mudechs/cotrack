@@ -1,0 +1,201 @@
+<div class="card-header">
+  <h5 class="m-0">{{ antl.forLocale(auth.user.locale).formatMessage('settings.einstellungen_bearbeiten') }}</h5>
+</div>
+<div class="card-body">
+  <div class="row">
+    <div class="col-12 col-md-8 mb-5">
+      <div class="form-group">
+        <label for="company">{{ antl.forLocale(auth.user.locale).formatMessage('settings.company') }}</label>
+        <input
+          type="text"
+          class="form-control {{ hasErrorFor('company') ? 'is-invalid' : '' }}"
+          name="company"
+          id="company"
+          value="{{ settings.company }}">
+        {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('company'), hasErrorFor('company')) }}
+      </div>
+      <div class="form-group">
+        <label for="address">{{ antl.forLocale(auth.user.locale).formatMessage('settings.address') }}</label>
+        <input
+          type="text"
+          class="form-control {{ hasErrorFor('address') ? 'is-invalid' : '' }}"
+          name="address"
+          id="address"
+          value="{{ settings.address }}">
+        {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('address'), hasErrorFor('address')) }}
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-4">
+            <label for="zip_code">{{ antl.forLocale(auth.user.locale).formatMessage('settings.zip_code') }}</label>
+            <input
+              type="text"
+              class="form-control {{ hasErrorFor('zip_code') ? 'is-invalid' : '' }}"
+              name="zip_code"
+              id="zip_code"
+              value="{{ settings.zip_code }}">
+            {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('zip_code'), hasErrorFor('zip_code')) }}
+          </div>
+          <div class="col-8">
+            <label for="city">{{ antl.forLocale(auth.user.locale).formatMessage('settings.city') }}</label>
+            <input
+              type="text"
+              class="form-control {{ hasErrorFor('city') ? 'is-invalid' : '' }}"
+              name="city"
+              id="city"
+              value="{{ settings.city }}">
+            {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('city'), hasErrorFor('city')) }}
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-5">
+        <div class="row">
+          <div class="col-4">
+            <label for="area">{{ antl.forLocale(auth.user.locale).formatMessage('settings.area') }}</label>
+            <input
+              type="text"
+              class="form-control {{ hasErrorFor('area') ? 'is-invalid' : '' }}"
+              name="area"
+              id="area"
+              value="{{ settings.area }}">
+            {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('area'), hasErrorFor('area')) }}
+          </div>
+          <div class="col-8">
+            <label for="country">{{ antl.forLocale(auth.user.locale).formatMessage('settings.country') }}</label>
+            <input
+              type="text"
+              class="form-control {{ hasErrorFor('country') ? 'is-invalid' : '' }}"
+              name="country"
+              id="country"
+              value="{{ settings.country }}">
+            {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('country'), hasErrorFor('country')) }}
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+          <label for="phone">{{ antl.forLocale(auth.user.locale).formatMessage('settings.phone') }}</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-phone fa-fw"></i></span>
+            </div>
+            <input
+              type="text"
+              class="form-control {{ hasErrorFor('phone') ? 'is-invalid' : '' }}"
+              name="phone"
+              id="phone"
+              value="{{ settings.phone }}">
+          </div>
+          {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('phone'), hasErrorFor('phone')) }}
+        </div>
+      <div class="form-group">
+        <label for="mobile">Mobile</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-mobile-alt fa-fw"></i></span>
+          </div>
+          <input
+            type="text"
+            class="form-control {{ hasErrorFor('mobile') ? 'is-invalid' : '' }}"
+            name="mobile"
+            id="mobile"
+            value="{{ settings.mobile }}">
+        </div>
+        {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('mobile'), hasErrorFor('mobile')) }}
+      </div>
+      <div class="form-group">
+        <label for="email">E-Mail</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-at"></i></span>
+          </div>
+          <input
+            type="email"
+            class="form-control {{ hasErrorFor('email') ? 'is-invalid' : '' }}"
+            name="email"
+            id="email"
+            value="{{ settings.email }}">
+        </div>
+        {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('email'), hasErrorFor('email')) }}
+      </div>
+      <div class="form-group">
+        <label for="www">WWW</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-globe"></i></span>
+          </div>
+          <input
+            type="www"
+            class="form-control {{ hasErrorFor('www') ? 'is-invalid' : '' }}"
+            name="www"
+            id="www"
+            value="{{ settings.www }}">
+        </div>
+        {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('www'), hasErrorFor('www')) }}
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <table class="table table-sm table-borderless text-nowrap m-0">
+        <tbody>
+          <tr>
+            <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('settings.standard_sprache') }}:</th>
+            <td>
+              <div class="form-group mb-0">
+                <select id="locale" name="locale" class="form-control">
+                  <option value="de"
+                    @if(settings.default_locale == 'de')
+                      selected
+                    @endif
+                  >Deutsch</option>
+                  <option value="en"
+                    @if(settings.default_locale == 'en')
+                      selected
+                    @endif
+                  >English</option>
+                </select>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2"><hr></th>
+          </tr>
+          <tr>
+            <th scope="row" colspan="2">
+              <div class="form-group">
+                <div class="custom-control custom-switch">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="allow_registration"
+                    name="allow_registration"
+                    @if(settings.allow_registration == true)
+                      checked
+                    @endif
+                  >
+                  <label class="custom-control-label" for="allow_registration">{{ antl.forLocale(auth.user.locale).formatMessage('settings.erlaube_registrierung') }}</label>
+                </div>
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <th scope="row" colspan="2">
+              <div class="form-group">
+                <div class="custom-control custom-switch">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="maintenance_mode"
+                    name="maintenance_mode"
+                    @if(settings.maintenance_mode == true)
+                      checked
+                    @endif
+                  >
+                  <label class="custom-control-label" for="maintenance_mode">{{ antl.forLocale(auth.user.locale).formatMessage('settings.wartungsmodus') }}</label>
+                </div>
+              </div>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

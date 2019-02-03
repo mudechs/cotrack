@@ -7,7 +7,9 @@ class SettingsProvider extends ServiceProvider {
     const settings = await Setting.query().first()
 
     View.global('settings', function () {
-      return settings.toJSON()
+      if(settings) {
+        return settings.toJSON()
+      }
     })
   }
 }
