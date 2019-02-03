@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="commentEditModalLabel">Kommentar bearbeiten</h5>
+          <h5 class="modal-title" id="commentEditModalLabel">{{ antl.forLocale(auth.user.locale).formatMessage('static.kommentar_bearbeiten') }}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -12,7 +12,7 @@
             {{ csrfField() }}
             <input type="hidden" name="ticket_id" id="ticket_id">
             <div class="form-group">
-              <label for="body">Text <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">[Markdown erlaubt]</a></label>
+              <label for="body">Text <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">[{{ antl.forLocale(auth.user.locale).formatMessage('static.markdown_erlaubt') }}]</a></label>
               <textarea
                 name="body"
                 class="form-control {{ hasErrorFor('body') ? 'is-invalid' : '' }}"
@@ -24,8 +24,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-            <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> Speichern</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ antl.forLocale(auth.user.locale).formatMessage('static.abbrechen') }}</button>
+            <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.speichern') }}</button>
           </div>
         </form>
       </div>

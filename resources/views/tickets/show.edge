@@ -206,8 +206,8 @@
     <input type="hidden" name="status" value="Anerkannt">
   </form>
 
-  @!component('tickets.components.commentCreateModal', { ticket, csrfField })
-  @!component('tickets.components.commentEditModal', { csrfField })
+  @include('tickets.includes.commentCreateModal')
+  @include('tickets.includes.commentEditModal')
 
 @endsection
 

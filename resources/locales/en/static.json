@@ -35,5 +35,7 @@
   "kommentare": "Comments",
   "bearbeiten": "Edit",
   "erstellt": "Created at",
-  "geaendert": "Updated at"
+  "geaendert": "Updated at",
+  "kommentar_verfassen": "New comment",
+  "kommentar_bearbeiten": "Edit comment"
 }

@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between align-items-center">
-  <small><b>Projekt: </b>{{ ticket.project.title }}</small>
+  <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}: </b>{{ ticket.project.title }}</small>
   <div>
     @if(ticket.attachments)
       <small class="mr-2"><i class="fas fa-paperclip fa-fw"></i></small>
