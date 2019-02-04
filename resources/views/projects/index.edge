@@ -39,9 +39,11 @@
                       <td scope="row">{{ project.id }}</td>
                       <td>{{ project.title }}</td>
                       <td>
-                        @if(project.phase)
-                          {{ project.phase }}
-                        @endif
+                        @each(phase in phases)
+                          @if(phase.value == $parent.project.phase)
+                            {{ phase.label }}
+                          @endif
+                        @endeach
                       </td>
                       <td>{{ project.created_at }}</td>
                       <td>{{ project.projectAuthor.first_name }} {{ project.projectAuthor.last_name }}</td>

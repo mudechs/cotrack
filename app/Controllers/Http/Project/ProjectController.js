@@ -58,7 +58,8 @@ class ProjectController {
 
     return view.render('projects.index', {
       projectsActive: projectsActive.toJSON(),
-      projectsInactive: projectsInactive.toJSON()
+      projectsInactive: projectsInactive.toJSON(),
+      phases: phases[0][auth.user.locale]
     })
   }
 
