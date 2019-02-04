@@ -1,15 +1,15 @@
 <p>
-  Das Ticket wurde anerkannt und wird bearbeitet.
+  {{ messages.body }}
 </p>
 <br>
 <br>
 <p>
-  <a href="{{ appUrl('tickets/show/' + id) }}">Ticket beobachten</a>
+  <a href="{{ appUrl('tickets/show/' + ticket.id) }}">{{ messages.link }}</a>
 </p>
 <br>
 <br>
 <br>
 <hr>
-<p>Bitte auf diese Mail nicht antworten.</p>
+<p>{{ messages.hint }}</p>
 <hr>
 @include('emails.includes.address_footer')

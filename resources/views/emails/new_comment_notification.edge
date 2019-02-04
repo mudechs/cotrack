@@ -1,15 +1,15 @@
 <p>
-  Es wurde ein neuer Kommentar erfasst.
+  {{ messages.body }}
 </p>
 <br>
 <br>
 <p>
-  <a href="{{ appUrl('tickets/show/' + ticket.id) }}/#kommentar_{{ comment.id }}">Kommentar lesen</a>
+  <a href="{{ appUrl('tickets/show/' + ticket.id) }}/#kommentar_{{ comment.id }}">{{ messages.link }}</a>
 </p>
 <br>
 <br>
 <br>
 <hr>
-<p>Bitte auf diese Mail nicht antworten.</p>
+<p>{{ messages.hint }}</p>
 <hr>
 @include('emails.includes.address_footer')

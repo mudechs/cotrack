@@ -1,5 +1,17 @@
 {
-	"message1": "Das Ticket wurde anerkannt und wird bearbeitet.",
-	"message2": "Bitte auf diese Mail nicht antworten.",
-	"message3": "Ticket beobachten"
+	"message1": "Das Ticket {ticketid} wurde von {recipientFirstName} {recipientLastName} übernommen.",
+	"message2": "Das Ticket wurde anerkannt und wird bearbeitet.",
+	"message3": "Ticket beobachten",
+	"message4": "Das Ticket {ticketid} wurde auf '{status}' gesetzt.",
+	"message5": "Das Ticket {ticketid} wurde auf '{status}' gesetzt.",
+	"message6": "Ticket ansehen",
+	"message7": "Dir wurde ein neues Ticket {ticketid} zugewiesen.",
+	"message8": "Dir wurde ein neues Ticket zugewiesen.",
+	"message9": "Willkommen {firstname}! Hier deine Zugangsdaten.",
+	"message10": "Hier deine Zugangsdaten:",
+	"message11": "Anmelden",
+	"message12": "Es wurde ein neuer Kommentar in Ticket ID: {ticketid} erfasst.",
+	"message13": "Es wurde ein neuer Kommentar erfasst.",
+	"message14": "Kommentar lesen",
+	"hint": "Bitte auf diese Mail nicht antworten."
 }

@@ -1,15 +1,15 @@
 <p>
-  Dir wurde soeben ein neues Ticket zugewiesen:
+  {{ messages.body }}
 </p>
 <br>
 <br>
 <p>
-  <a href="{{ appUrl('tickets/show/' + id) }}">Ticket ansehen</a>
+  <a href="{{ appUrl('tickets/show/' + ticket.id) }}">{{ messages.link }}</a>
 </p>
 <br>
 <br>
 <br>
 <hr>
-<p>Bitte auf diese Mail nicht antworten.</p>
+<p>{{ messages.hint }}</p>
 <hr>
 @include('emails.includes.address_footer')

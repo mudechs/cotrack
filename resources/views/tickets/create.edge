@@ -33,7 +33,7 @@
         $.getJSON(apiUrl, function(data) {
           if(data.length > 0) {
             let items = [];
-            items.push('<option value="">Bitte wählen...</option>');
+            items.push('<option value="">...</option>');
 
             $.each(data, function(key, val) {
               const fullName = val.first_name + " " + val.last_name;

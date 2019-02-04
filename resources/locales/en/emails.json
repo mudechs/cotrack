@@ -1,5 +1,17 @@
 {
-	"message1": "The ticket has been recognized and is being processed.",
-	"message2": "Please do not respond to this mail.",
-	"message3": "Watch ticket"
+	"message1": "The Ticket {ticketid} was accepted by {recipientFirstName} {recipientLastName}.",
+	"message2": "The ticket has been recognized and is being processed.",
+	"message3": "Watch ticket",
+	"message4": "The Ticket {ticketid} was changed to '{status}'.",
+	"message5": "The Ticket {ticketid} was changed to '{status}'.",
+	"message6": "Show ticket",
+	"message7": "You have been assigned a new ticket with ID: {ticketid}.",
+	"message8": "You have been assigned a new ticket.",
+	"message9": "Welcome {firstname}! Here are your access data.",
+	"message10": "Here are your access data:",
+	"message11": "Login",
+	"message12": "A new comment has been added to the ticket ID: {ticketid}.",
+	"message13": "A new comment has been written.",
+	"message14": "Read comment",
+	"hint": "Please do not reply to this mail."
 }

@@ -43,6 +43,17 @@
                   <label class="custom-control-label" for="is_admin">Administrator</label>
                 </div>
               </div>
+              <div class="form-group">
+                <label for="locale">{{ antl.forLocale(auth.user.locale).formatMessage('static.sprache') }}</label>
+                <div class="row">
+                  <div class="col-4 col-md4">
+                    <select id="locale" name="locale" class="form-control">
+                      <option value="de" selected>Deutsch</option>
+                      <option value="en">English</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
               <hr>
               <div class="form-group">
                 <label for="salutation">{{ antl.forLocale(auth.user.locale).formatMessage('static.anrede') }}</label>

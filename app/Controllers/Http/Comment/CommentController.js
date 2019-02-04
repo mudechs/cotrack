@@ -35,25 +35,29 @@ class CommentController {
       .select('id', 'author_id', 'recipient_id')
       .first()
 
-    const authorEmail = await ticket.ticketAuthor().select('email').first()
-    const recipientEmail = await ticket.ticketRecipient().select('email').first()
-    let email
+    const author = await ticket.ticketAuthor().select('email', 'locale').first()
+    const recipient = await ticket.ticketRecipient().select('email', 'locale').first()
+    let email, locale
 
     if (ticket.author_id != ticket.recipient_id) {
       switch (comment.author_id) {
-        case ticket.author_id:
-          email = recipientEmail.email
-          break
-        case ticket.recipient_id:
-          email = authorEmail.email
-        default:
-          break
+      case ticket.author_id:
+        email = recipient.email
+        locale = recipient.locale
+        break
+      case ticket.recipient_id:
+        email = author.email
+        locale = author.locale
+        break
+      default:
+        break
       }
 
       Event.fire('new::comment', {
         ticket,
         comment,
-        email
+        email,
+        locale
       })
     }
 

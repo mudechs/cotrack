@@ -67,16 +67,16 @@ class UserController {
     }
 
     let tfaActive = request.input('tfa_active')
-    tfaActive = (tfaActive == 'on')? true : false;
+    tfaActive = (tfaActive == 'on')? true : false
 
     let isActive = request.input('is_active')
-    isActive = (isActive == 'on')? true : false;
+    isActive = (isActive == 'on')? true : false
 
     let isAdmin = request.input('is_admin')
-    isAdmin = (isAdmin == 'on')? true : false;
+    isAdmin = (isAdmin == 'on')? true : false
 
     let sendEmail = request.input('send_email')
-    sendEmail = (sendEmail == 'on')? true : false;
+    sendEmail = (sendEmail == 'on')? true : false
 
     // Create User
     const user = await User.create({
@@ -90,7 +90,8 @@ class UserController {
       password: request.input('password'),
       tfa_active: tfaActive,
       is_active: isActive,
-      is_admin: isAdmin
+      is_admin: isAdmin,
+      locale: request.input('locale')
     })
 
     const file = request.file('avatar', {
@@ -105,11 +106,11 @@ class UserController {
 
     const password = request.input('password')
 
+    await user.save()
+
     if(isActive && sendEmail) {
       Event.fire('new::user', { user, password })
     }
-
-    await user.save()
 
     session.flash({
       notification: {
