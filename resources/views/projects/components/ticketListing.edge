@@ -15,7 +15,7 @@
           <td scope="row">
             <span class="badge badge-pill
               @each(priority in priorities)
-              @if(priority.label == $parent.ticket.priority)
+              @if(priority.value == $parent.ticket.priority)
               badge-{{ priority.color }}
               @endif
               @endeach
