@@ -80,5 +80,8 @@
   "bitte_sicherheitscode_eingeben": "Please enter the security code sent by e-mail",
   "email": "E-Mail",
   "login_merken": "Remember me",
-  "passwort_vergessen": "Forgot password"
+  "passwort_vergessen": "Forgot password",
+  "passwort_zuruecksetzen": "Reset password",
+  "gib_deine_email_adresse_ein": "Please enter your e-mail address",
+  "abschicken": "Submit"
 }

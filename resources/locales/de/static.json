@@ -80,5 +80,8 @@
   "bitte_sicherheitscode_eingeben": "Bitte den per Mail verschickten Sicherheitscode eingeben",
   "email": "E-Mail",
   "login_merken": "Login merken",
-  "passwort_vergessen": "Passwort vergessen"
+  "passwort_vergessen": "Passwort vergessen",
+  "passwort_zuruecksetzen": "Passwort zurücksetzen",
+  "gib_deine_email_adresse_ein": "Gib deine E-Mail Adresse ein",
+  "abschicken": "Abschicken"
 }
