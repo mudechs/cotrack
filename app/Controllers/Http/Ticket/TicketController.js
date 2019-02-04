@@ -43,13 +43,13 @@ class TicketController {
     const userProjects = await ProjectServices.getUserProjects(auth.user.id, 'open')
 
     return view.render('tickets.index', {
-      priorities: priorities,
       ticketsNeu: ticketsNeu.toJSON(),
       ticketsAnerkannt: ticketsAnerkannt.toJSON(),
       ticketsWarten: ticketsWarten.toJSON(),
       ticketsFeedback: ticketsFeedback.toJSON(),
       ticketsBearbeitung: ticketsBearbeitung.toJSON(),
-      userProjects: userProjects.toJSON()
+      userProjects: userProjects.toJSON(),
+      priorities: priorities[0][auth.user.locale]
     })
   }
 
