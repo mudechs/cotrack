@@ -79,6 +79,9 @@ nodemon server.js
 - Username: admin
 - Password: Nkz8289TMU
 
+### General settings
+Navigate to "Einstellungen" and fill out everything. There, among other things, you can change the default language. However, users can choose their own language in their own settings. After language change everything will be translated - even mail notifications.
+
 ## API
 There can be created Tickets from other Applications. As identifiers are used 3 fields:
 
