@@ -80,7 +80,7 @@ nodemon server.js
 - Password: Nkz8289TMU
 
 ### General settings
-On first login as admin user you will be redirected to the general settings form. You have to fill in everything. There, among other things, you can change the default language. However, users can choose their own language in their own settings.
+On first login as admin you will be redirected to the general settings form. You have to fill in everything. There, among other things, you can change the default language. However, users can choose their own language in their own settings.
 
 ## API
 There can be created Tickets from other Applications. As identifiers are used 3 fields:
