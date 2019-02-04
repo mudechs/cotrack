@@ -2,10 +2,16 @@
 
 @section('content')
   <div class="container mt-3">
-    <h2>Datenschutzerkl&auml;rung</h2>
+    <h2>
+      @loggedIn
+        {{ antl.forLocale(auth.user.locale).formatMessage('static.datenschutz') }}
+      @else
+        {{ antl.forLocale('en').formatMessage('static.datenschutz') }}
+      @endloggedIn
+    </h2>
     <p>Verantwortliche Stelle im Sinne der Datenschutzgesetze, insbesondere der EU-Datenschutzgrundverordnung (DSGVO), ist:</p><br />
-    <p>De-Giuli Custom Websolutions<br />Omar De-Giuli<br />Raiweg 2<br />8108 Dällikon</p>
-    <p>E-Mail: info@codiac.ch<br />WebSite: https://cotrack.codiac.ch/ </p>
+    <p>{{ globals().company }}<br />{{ globals().contact_person }}<br />{{ globals().address }}<br />{{ globals().zip_code }} {{ globals().city }}</p>
+    <p>E-Mail: <a href="mailto:{{ globals().email }}" target="_blank">{{ globals().email }}</a><br />Wesite: <a href="{{ globals().www }}" target="_blank">{{ globals().www }}</a></p>
     <p>&nbsp;</p>
     <h2>Allgemeiner Hinweis</h2>
     <p>Gest&uuml;tzt auf Artikel 13 der schweizerischen Bundesverfassung und die datenschutzrechtlichen Bestimmungen des
