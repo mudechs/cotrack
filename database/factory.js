@@ -29,7 +29,7 @@ Factory.blueprint('App/Models/User', async () => {
   }
 })
 
-Factory.blueprint('App/Models/Setting', async () => {
+/* Factory.blueprint('App/Models/Setting', async () => {
   return {
     company: 'De-Giuli Custom Websolutions',
     address: 'Raiweg 2',
@@ -45,4 +45,4 @@ Factory.blueprint('App/Models/Setting', async () => {
     allow_registration: '0',
     maintenance_mode: '0'
   }
-})
+}) */
