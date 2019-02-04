@@ -70,5 +70,9 @@
   "zeichen": "Characters",
   "kontodaten_per_mail_senden": "Send account information by email",
   "sprache": "Language",
-  "einstellungen": "Settings"
+  "einstellungen": "Settings",
+  "passwort_aendern": "Change password",
+  "aktuelles_passwort": "Current password",
+  "neues_passwort": "New password",
+  "neues_passwort_wiederholen": "Confirm new passwort"
 }

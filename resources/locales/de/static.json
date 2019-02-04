@@ -70,5 +70,9 @@
   "zeichen": "Zeichen",
   "kontodaten_per_mail_senden": "Kontodaten per E-Mail senden",
   "sprache": "Sprache",
-  "einstellungen": "Einstellungen"
+  "einstellungen": "Einstellungen",
+  "passwort_aendern": "Passwort ändern",
+  "aktuelles_passwort": "Aktuelles Passwort",
+  "neues_passwort": "Neues Passwort",
+  "neues_passwort_wiederholen": "Neues Passwort wiederholen"
 }
