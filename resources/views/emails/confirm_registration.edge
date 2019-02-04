@@ -1,16 +1,20 @@
-<p>Hallo {{ first_name }} {{ last_name }}</p>
-<p>
-  Vielen Dank für die Registration bei CoTrack. Bitte bestätige deine E-Mail Adresse mit unten stehendem Link:
-</p>
-<br>
-<br>
-<p>
-  <a href="{{ appUrl('register/confirm/' + confirmation_token) }}">E-Mail Adresse bestätigen</a>
-</p>
-<br>
-<br>
-<br>
-<hr>
-<p>Bitte auf diese Mail nicht antworten.</p>
-<hr>
-@include('emails.includes.address_footer')
+@layout('emails.layout.main')
+
+@section('content')
+  <p>Hallo {{ first_name }} {{ last_name }}</p>
+  <p>
+    Vielen Dank für die Registration bei CoTrack. Bitte bestätige deine E-Mail Adresse mit unten stehendem Link:
+  </p>
+  <br>
+  <br>
+  <p>
+    <a href="{{ appUrl('register/confirm/' + confirmation_token) }}">E-Mail Adresse bestätigen</a>
+  </p>
+  <br>
+  <br>
+  <br>
+  <hr>
+  <p>Bitte auf diese Mail nicht antworten.</p>
+  <hr>
+  @include('emails.includes.address_footer')
+@endsection

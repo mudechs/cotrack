@@ -1,15 +1,19 @@
-<p>
-  {{ messages.body }}
-</p>
-<br>
-<br>
-<p>
-  <a href="{{ appUrl('tickets/show/' + ticket.id) }}">{{ messages.link }}</a>
-</p>
-<br>
-<br>
-<br>
-<hr>
-<p>{{ messages.hint }}</p>
-<hr>
-@include('emails.includes.address_footer')
+@layout('emails.layout.main')
+
+@section('content')
+  <p>
+    {{ messages.body }}
+  </p>
+  <br>
+  <br>
+  <p>
+    <a href="{{ appUrl('tickets/show/' + ticket.id) }}">{{ messages.link }}</a>
+  </p>
+  <br>
+  <br>
+  <br>
+  <hr>
+  <p>{{ messages.hint }}</p>
+  <hr>
+  @include('emails.includes.address_footer')
+@endsection

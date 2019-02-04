@@ -1,13 +1,17 @@
-<p>
-  {{ messages.body }}
-</p>
-<br>
-<br>
-<h1><code>{{ token }}</code></h1>
-<br>
-<br>
-<br>
-<hr>
-<p>{{ messages.hint }}</p>
-<hr>
-@include('emails.includes.address_footer')
+@layout('emails.layout.main')
+
+@section('content')
+  <p>
+    {{ messages.body }}
+  </p>
+  <br>
+  <br>
+  <h1><code>{{ token }}</code></h1>
+  <br>
+  <br>
+  <br>
+  <hr>
+  <p>{{ messages.hint }}</p>
+  <hr>
+  @include('emails.includes.address_footer')
+@endsection
