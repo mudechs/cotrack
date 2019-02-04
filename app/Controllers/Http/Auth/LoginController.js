@@ -83,14 +83,21 @@ class LoginController {
               return response.route('dashboard')
             }
             else {
-              session.flash({
-                notification: {
-                  type: 'success',
-                  message: `Willkommen ${user.first_name}! Bitte definere die globalen Einstellungen der App.`
-                }
-              })
+              if(auth.user.is_admin == true) {
+                session.flash({
+                  notification: {
+                    type: 'success',
+                    message: `Willkommen ${user.first_name}! Bitte definere die globalen Einstellungen der App.`
+                  }
+                })
 
-              return response.route('settingsCreate')
+                return response.route('settingsCreate')
+              }
+              else {
+                return response
+                  .status(403)
+                  .send('Die App wurde noch nicht konfiguriert. Bitte logge dich mit einem Admin-Konto ein. :-)')
+              }
             }
           }
         }
