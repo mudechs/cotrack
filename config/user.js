@@ -2,8 +2,17 @@
 
 module.exports = {
   salutations: [
-    { 'label': 'Frau' },
-    { 'label': 'Herr' },
-    { 'label': 'Divers' }
+    {
+      de: [
+        { 'label': 'Frau', 'value': 'Frau' },
+        { 'label': 'Herr', 'value' : 'Herr' },
+        { 'label': 'Divers', 'value' : 'Divers' }
+      ],
+      en: [
+        { 'label': 'Mrs', 'value': 'Frau' },
+        { 'label': 'Mr', 'value' : 'Herr' },
+        { 'label': 'Third', 'value' : 'Divers' }
+      ]
+    }
   ]
 }

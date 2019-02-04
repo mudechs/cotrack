@@ -81,8 +81,8 @@
                     <select id="salutation" name="salutation" class="form-control {{ hasErrorFor('salutation') ? 'is-invalid' : '' }}">
                       <option value=""></option>
                       @each(salutation in salutations)
-                        <option value="{{ salutation.label }}"
-                          @if(salutation.label == user.salutation)
+                        <option value="{{ salutation.value }}"
+                          @if(salutation.value == user.salutation)
                             selected
                           @endif
                         >{{ salutation.label }}</option>

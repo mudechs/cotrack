@@ -26,7 +26,12 @@
                     <h6 class="card-subtitle text-muted mb-5">
                       {{ user.profession }}
                     </h6>
-                    <i class="fas fa-transgender-alt fa-fw mr-2"></i> {{ user.salutation }}
+                    <i class="fas fa-transgender-alt fa-fw mr-2"></i>
+                    @each(salutation in salutations)
+                      @if(salutation.value == user.salutation)
+                        {{ salutation.label }}
+                      @endif
+                    @endeach
                     <hr>
                     @if(user.phone && user.phone != 'null')
                       <i class="fas fa-phone fa-fw mr-2"></i> <a href="tel:{{ user.phone }}" rel="noopener">{{ user.phone }}</a>

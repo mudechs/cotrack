@@ -27,7 +27,7 @@ class UserController {
     })
   }
 
-  async show({ params, view }) {
+  async show({ auth, params, view }) {
     const user = await User.query()
       .where('id', params.id)
       .with('lastLogin')
@@ -40,13 +40,14 @@ class UserController {
       .first()
 
     return view.render('users.show', {
-      user: user.toJSON()
+      user: user.toJSON(),
+      salutations: salutations[0][auth.user.locale]
     })
   }
 
-  async create({ view }) {
+  async create({ auth, view }) {
     return view.render('users.create', {
-      salutations: salutations
+      salutations: salutations[0][auth.user.locale]
     })
   }
 
@@ -122,11 +123,11 @@ class UserController {
     return response.route('usersShow', { id: user.id })
   }
 
-  async edit({ params, view }) {
+  async edit({ auth, params, view }) {
     const user = await User.find(params.id)
     return view.render('users.edit', {
       user: user,
-      salutations: salutations
+      salutations: salutations[0][auth.user.locale]
     })
   }
 

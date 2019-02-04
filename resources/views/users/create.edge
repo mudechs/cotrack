@@ -60,9 +60,9 @@
                 <div class="row">
                   <div class="col-4 col-md4">
                     <select name="salutation" class="form-control {{ hasErrorFor('salutation') ? 'is-invalid' : '' }}">
-                      <option value=""></option>
+                      <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
                       @each(salutation in salutations)
-                        <option value="{{ salutation.label }}">{{ salutation.label }}</option>
+                        <option value="{{ salutation.value }}">{{ salutation.label }}</option>
                       @endeach
                     </select>
                   </div>
