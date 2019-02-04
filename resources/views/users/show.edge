@@ -29,14 +29,14 @@
                     <i class="fas fa-transgender-alt fa-fw mr-2"></i> {{ user.salutation }}
                     <hr>
                     @if(user.phone && user.phone != 'null')
-                      <i class="fas fa-phone fa-fw mr-2"></i> <a href="tel:{{ user.phone }}" target="_blank" rel="noopener">{{ user.phone }}</a>
+                      <i class="fas fa-phone fa-fw mr-2"></i> <a href="tel:{{ user.phone }}" rel="noopener">{{ user.phone }}</a>
                       <hr>
                     @endif
                     @if(user.mobile && user.mobile != 'null')
-                      <i class="fas fa-mobile-alt fa-fw mr-2"></i> <a href="tel:{{ user.mobile }}" target="_blank" rel="noopener">{{ user.mobile }}</a>
+                      <i class="fas fa-mobile-alt fa-fw mr-2"></i> <a href="tel:{{ user.mobile }}" rel="noopener">{{ user.mobile }}</a>
                       <hr>
                     @endif
-                    <i class="far fa-envelope fa-fw mr-2"></i> <a href="mailto:{{ user.email }}" target="_blank" rel="noopener">{{ user.email }}</a>
+                    <i class="far fa-envelope fa-fw mr-2"></i> <a href="mailto:{{ user.email }}" rel="noopener">{{ user.email }}</a>
                   </div>
                 </div>
               </div>
