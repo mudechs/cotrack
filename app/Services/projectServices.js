@@ -4,8 +4,8 @@ const Project = use('App/Models/Project')
 const TicketServices = use('App/Services/ticketServices')
 
 class projectServices {
-  async getUserProjects(user, statusGroup) {
-    const statuses = await TicketServices.ticketStatuses(statusGroup)
+  async getUserProjects(user, statusGroup, locale) {
+    const statuses = await TicketServices.ticketStatuses(statusGroup, locale)
 
     return await Project.query()
       .where('is_active', true)
