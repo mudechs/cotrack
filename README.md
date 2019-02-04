@@ -75,9 +75,11 @@ or
 nodemon server.js
 ```
 
-### Login with Admin-User
-- Username: admin
+### Log in as admin-user
+- Username (E-Mail): info@codiac.ch
 - Password: Nkz8289TMU
+
+(You can change all informations later in your personal settings)
 
 ### General settings
 On first login as admin you will be redirected to the general settings form. You have to fill in everything. There, among other things, you can change the default language. However, users can choose their own language in their own settings.
