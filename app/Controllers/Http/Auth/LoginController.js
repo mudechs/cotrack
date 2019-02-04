@@ -2,6 +2,7 @@
 
 const { validate } = use('Validator')
 const User = use('App/Models/User')
+const Setting = use('App/Models/Setting')
 const Token = use('App/Models/Token')
 const LastLogin = use('App/Models/LastLogin')
 const Hash = use('Hash')
@@ -69,14 +70,28 @@ class LoginController {
             // Login the user
             await auth.remember(!!remember).login(user)
 
-            session.flash({
-              notification: {
-                type: 'success',
-                message: `Willkommen ${user.first_name}!`
-              }
-            })
+            const settings = await Setting.query().first()
 
-            return response.route('dashboard')
+            if(settings) {
+              session.flash({
+                notification: {
+                  type: 'success',
+                  message: `Willkommen ${user.first_name}!`
+                }
+              })
+
+              return response.route('dashboard')
+            }
+            else {
+              session.flash({
+                notification: {
+                  type: 'success',
+                  message: `Willkommen ${user.first_name}! Bitte definere die globalen Einstellungen der App.`
+                }
+              })
+
+              return response.route('settingsCreate')
+            }
           }
         }
       }

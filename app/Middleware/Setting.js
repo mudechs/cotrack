@@ -9,7 +9,7 @@ class Setting {
    * @param {Request} ctx.request
    * @param {Function} next
    */
-  async handle ({ auth }, next) {
+  async handle ({ response }, next) {
     const View = use('View')
     const Setting = use('App/Models/Setting')
     const settings = await Setting.query().first()
