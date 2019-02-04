@@ -1,7 +1,6 @@
 'use strict'
 
 const Config = use('Config')
-const { priorities } = Config.get('ticket')
 const { phases } = Config.get('project')
 const Project = use('App/Models/Project')
 const Ticket = use('App/Models/Ticket')
@@ -9,7 +8,7 @@ const User = use('App/Models/User')
 const TicketServices = use('App/Services/ticketServices')
 
 class ProjectController {
-  async index({ auth, view, response }) {
+  async index({ auth, view }) {
     let projectsActive = []
     let projectsInactive = []
 
@@ -63,7 +62,7 @@ class ProjectController {
     })
   }
 
-  async show({ params, session, view, response }) {
+  async show({ auth, params, session, view, response }) {
     const project = await Project.query()
       .where('id', params.id)
       .with('projectAuthor', (builder) => {
@@ -106,7 +105,7 @@ class ProjectController {
         project: project.toJSON(),
         ticketsOpen: ticketsOpen.toJSON(),
         ticketsClosed: ticketsClosed.toJSON(),
-        priorities: priorities
+        phases: phases[0][auth.user.locale]
       })
     }
 
@@ -120,7 +119,7 @@ class ProjectController {
     return response.redirect('back')
   }
 
-  async create({ view }) {
+  async create({ auth, view }) {
     const users = await User.query()
       .select('id', 'first_name', 'last_name')
       .whereNot('is_active', false)
@@ -128,13 +127,13 @@ class ProjectController {
 
     return view.render('projects.create', {
       members: users.toJSON(),
-      phases: phases
+      phases: phases[0][auth.user.locale]
     })
   }
 
   async store({ request, auth, session, response }) {
     let isActive = request.input('is_active')
-    isActive = (isActive == 'on')? true : false;
+    isActive = (isActive == 'on')? true : false
 
     // Create Project
     const project = await Project.create({
@@ -157,7 +156,7 @@ class ProjectController {
     return response.route('projectsShow', { id: project.id })
   }
 
-  async edit({ params, view }) {
+  async edit({ auth, params, view }) {
     const project = await Project.query()
       .where('id', params.id)
       .with('members', (builder) => {
@@ -173,7 +172,7 @@ class ProjectController {
     return view.render('projects.edit', {
       project: project.toJSON(),
       users: users.toJSON(),
-      phases: phases
+      phases: phases[0][auth.user.locale]
     })
   }
 
@@ -181,7 +180,7 @@ class ProjectController {
     const project = await Project.find(params.id)
 
     let isActive = request.input('is_active')
-    isActive = (isActive == 'on')? true : false;
+    isActive = (isActive == 'on')? true : false
 
     project.title = request.input('title')
     project.description = request.input('description')

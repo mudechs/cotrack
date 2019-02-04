@@ -39,9 +39,11 @@
                           <tr>
                               <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.phase') }}:</th>
                               <td>
-                                @if(project.phase)
-                                  {{ project.phase }}
-                                @endif
+                                @each(phase in phases)
+                                  @if(phase.value == project.phase)
+                                    {{ phase.label }}
+                                  @endif
+                                @endeach
                               </td>
                             </tr>
                           <tr>
