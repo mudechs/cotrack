@@ -40,7 +40,7 @@ class TicketController {
     const ticketsFeedback = await TicketServices.ticketGroupedByStatusAndProject('Feedback', auth.user.id, params.id)
     const ticketsBearbeitung = await TicketServices.ticketGroupedByStatusAndProject('Bearbeitung', auth.user.id, params.id)
 
-    const userProjects = await ProjectServices.getUserProjects(auth.user.id, 'open')
+    const userProjects = await ProjectServices.getUserProjects(auth.user.id, 'open', auth.user.locale)
 
     return view.render('tickets.index', {
       ticketsNeu: ticketsNeu.toJSON(),
