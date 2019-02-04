@@ -5,27 +5,27 @@
     <div class="row">
       <div class="col-md-8 offset-md-2 p-0">
         <div class="card">
-          <div class="card-header text-center">Registrieren</div>
+          <div class="card-header text-center">{{ antl.forLocale('de').formatMessage('static.registrieren') }}</div>
           <form action="{{ route('register') }}" method="post">
             {{ csrfField() }}
             <div class="card-body">
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="salutation">Anrede</label>
+                    <label for="salutation">{{ antl.forLocale('de').formatMessage('static.anrede') }}</label>
                     <div class="row">
                       <div class="col-4 col-md4">
                         <select name="salutation" class="form-control">
                           <option value=""></option>
                           @each(salutation in salutations)
-                            <option value="{{ salutation.label }}">{{ salutation.label }}</option>
+                            <option value="{{ salutation.value }}">{{ salutation.label }}</option>
                           @endeach
                         </select>
                       </div>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="first_name">Vorname</label>
+                    <label for="first_name">{{ antl.forLocale('de').formatMessage('static.vorname') }}</label>
                     <input
                       type="text"
                       class="form-control {{ hasErrorFor('first_name') ? 'is-invalid' : '' }}"
@@ -37,7 +37,7 @@
                     {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('first_name'), hasErrorFor('first_name')) }}
                   </div>
                   <div class="form-group">
-                    <label for="last_name">Nachname</label>
+                    <label for="last_name">{{ antl.forLocale('de').formatMessage('static.nachname') }}</label>
                     <input
                       type="text"
                       class="form-control {{ hasErrorFor('last_name') ? 'is-invalid' : '' }}"
@@ -48,7 +48,7 @@
                     {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('last_name'), hasErrorFor('last_name')) }}
                   </div>
                   <div class="form-group">
-                    <label for="profession">Funktion</label>
+                    <label for="profession">{{ antl.forLocale('de').formatMessage('static.funktion') }}</label>
                     <input
                       type="text"
                       class="form-control {{ hasErrorFor('profession') ? 'is-invalid' : '' }}"
@@ -62,14 +62,14 @@
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox" name="tfa_active" id="tfa_active">
                       <label class="form-check-label" for="tfa_active">
-                          TwoFactor-Authentifizierung aktivieren
+                          2FA
                       </label>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="phone">Telefon</label>
+                    <label for="phone">{{ antl.forLocale('de').formatMessage('static.telefon') }}</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-phone fa-fw"></i></span>
@@ -117,7 +117,7 @@
                     {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('email'), hasErrorFor('email')) }}
                   </div>
                   <div class="form-group">
-                    <label for="password">Passwort</label>
+                    <label for="password">{{ antl.forLocale('de').formatMessage('static.passwort') }}</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-key"></i></span>
@@ -136,7 +136,7 @@
               </div>
             </div>
             <div class="card-footer d-flex justify-content-center">
-              <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> Abschicken</button>
+              <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> {{ antl.forLocale('de').formatMessage('static.abschicken') }}</button>
             </div>
           </form>
         </div>

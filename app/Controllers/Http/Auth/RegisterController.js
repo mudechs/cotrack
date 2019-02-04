@@ -10,7 +10,7 @@ const Mail = use('Mail')
 class RegisterController {
   showRegistrationForm({ view }) {
     return view.render('auth.register', {
-      salutations: salutations
+      salutations: salutations[0]['de']
     })
   }
 
@@ -31,7 +31,7 @@ class RegisterController {
     }
 
     let tfaActive = request.input('tfa_active')
-    tfaActive = (tfaActive == 'on')? true : false;
+    tfaActive = (tfaActive == 'on')? true : false
 
     // Create User
     const user = await User.create({

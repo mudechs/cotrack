@@ -19,7 +19,7 @@ const Route = use('Route')
 Route.get('/', 'DashboardController.index').middleware(['auth']).as('dashboard')
 Route.on('/privacy-policy').render('auth.privacy_policy').as('privacyPolicy')
 
-Route.get('register', 'Auth/RegisterController.showRegistrationForm').middleware(['authenticated'])
+Route.get('register', 'Auth/RegisterController.showRegistrationForm')
 Route.post('register', 'Auth/RegisterController.register').as('register')
 Route.get('register/confirm/:token', 'Auth/RegisterController.confirmEmail')
 
