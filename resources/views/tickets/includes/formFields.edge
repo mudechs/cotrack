@@ -82,11 +82,11 @@
         <label for="priority">{{ antl.forLocale(auth.user.locale).formatMessage('static.prioritaet') }}</label>
         <select name="priority" class="form-control">
           @each(priority in priorities)
-            <option value="{{ priority.label }}"
-              @if(priority.label == ticket.priority)
+            <option value="{{ priority.value }}"
+              @if(priority.value == ticket.priority)
                 selected
               @endif
-              {{ old('priority') == priority.label ? 'selected' : ''  }}
+              {{ old('priority') == priority.value ? 'selected' : ''  }}
             >{{ priority.label }}</option>
           @endeach
         </select>
@@ -96,11 +96,11 @@
         <select name="impact" class="form-control">
           <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
           @each(impact in impacts)
-            <option value="{{ impact.label }}"
-              @if(impact.label == ticket.impact)
+            <option value="{{ impact.value }}"
+              @if(impact.value == ticket.impact)
                 selected
               @endif
-              {{ old('impact') == impact.label ? 'selected' : ''  }}
+              {{ old('impact') == impact.value ? 'selected' : ''  }}
             >{{ impact.label }}</option>
           @endeach
         </select>
@@ -110,11 +110,11 @@
         <select name="reproducible" class="form-control">
           <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
           @each(reproducible in reproducibles)
-            <option value="{{ reproducible.label }}"
-              @if(reproducible.label == ticket.reproducible)
+            <option value="{{ reproducible.value }}"
+              @if(reproducible.value == ticket.reproducible)
                 selected
               @endif
-              {{ old('reproducible') == reproducible.label ? 'selected' : ''  }}
+              {{ old('reproducible') == reproducible.value ? 'selected' : ''  }}
             >{{ reproducible.label }}</option>
           @endeach
         </select>

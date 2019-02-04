@@ -5,11 +5,13 @@ const { statuses } = Config.get('ticket')
 const Ticket = use('App/Models/Ticket')
 
 class ticketServices {
-  ticketStatuses(statusGroup) {
+  ticketStatuses(statusGroup, locale) {
     let data = []
-    for(let i in statuses)
-      if(statuses[i].type == statusGroup)
-        data[data.length] = statuses[i].label
+    let localizedStatuses = statuses[0][locale]
+
+    for(let i in localizedStatuses)
+      if(localizedStatuses[i].type == statusGroup)
+        data[data.length] = localizedStatuses[i].value
     return data
   }
 

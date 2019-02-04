@@ -1,0 +1,16 @@
+<span>
+  <span class="
+    badge badge-pill
+    @each(priority in priorities)
+    @if(priority.value == ticketPriority)
+    badge-{{ priority.color }}
+    @endif
+    @endeach
+  ">
+    @each(priority in priorities)
+      @if(priority.value == ticketPriority)
+        {{ priority.label }}
+      @endif
+    @endeach
+  </span>
+</span>

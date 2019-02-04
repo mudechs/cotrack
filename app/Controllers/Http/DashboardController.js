@@ -1,13 +1,13 @@
 'use strict'
 
 const Config = use('Config')
-const { priorities } = Config.get('ticket')
+const { statuses, priorities } = Config.get('ticket')
 const Ticket = use('App/Models/Ticket')
 const TicketServices = use('App/Services/ticketServices')
 
 class DashboardController {
   async index({ auth, view }) {
-    const statuses = await TicketServices.ticketStatuses('open')
+    const customStatuses = await TicketServices.ticketStatuses('open', auth.user.locale)
 
     const ticketsAssignedToMe = await Ticket.query()
       .where('recipient_id', auth.user.id)
@@ -22,7 +22,7 @@ class DashboardController {
     const ticketsAssignedToOthers = await Ticket.query()
       .where('author_id', auth.user.id)
       .whereNot('recipient_id', auth.user.id)
-      .whereIn('status', statuses)
+      .whereIn('status', customStatuses)
       .orderBy('created_at', 'desc')
       .with('project', (builder) => {
         builder.select('id', 'title')
@@ -32,7 +32,7 @@ class DashboardController {
 
     const ticketsNotAssigned = await Ticket.query()
       .whereNull('recipient_id')
-      .whereIn('status', statuses)
+      .whereIn('status', customStatuses)
       .orderBy('created_at', 'desc')
       .with('project', (builder) => {
         builder.select('id', 'title')
@@ -44,7 +44,8 @@ class DashboardController {
       ticketsAssignedToMe: ticketsAssignedToMe.toJSON(),
       ticketsAssignedToOthers: ticketsAssignedToOthers.toJSON(),
       ticketsNotAssigned: ticketsNotAssigned.toJSON(),
-      priorities: priorities
+      priorities: priorities[0][auth.user.locale],
+      statuses: statuses[0][auth.user.locale]
     })
   }
 }

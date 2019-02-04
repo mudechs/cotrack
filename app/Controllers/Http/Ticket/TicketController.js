@@ -23,13 +23,13 @@ class TicketController {
     const userProjects = await ProjectServices.getUserProjects(auth.user.id, 'open')
 
     return view.render('tickets.index', {
-      priorities: priorities,
       ticketsNeu: ticketsNeu.toJSON(),
       ticketsAnerkannt: ticketsAnerkannt.toJSON(),
       ticketsWarten: ticketsWarten.toJSON(),
       ticketsFeedback: ticketsFeedback.toJSON(),
       ticketsBearbeitung: ticketsBearbeitung.toJSON(),
-      userProjects: userProjects.toJSON()
+      userProjects: userProjects.toJSON(),
+      priorities: priorities[0][auth.user.locale]
     })
   }
 
@@ -53,7 +53,7 @@ class TicketController {
     })
   }
 
-  async show({ params, view }) {
+  async show({ auth, params, view }) {
     const ticket = await Ticket.query()
       .where('id', params.id)
       .with('ticketAuthor', (builder) => {
@@ -75,8 +75,10 @@ class TicketController {
 
     return view.render('tickets.show', {
       ticket: ticket.toJSON(),
-      statuses: statuses,
-      priorities: priorities
+      statuses: statuses[0][auth.user.locale],
+      priorities: priorities[0][auth.user.locale],
+      impacts: impacts[0][auth.user.locale],
+      reproducibles: reproducibles[0][auth.user.locale]
     })
   }
 
@@ -95,9 +97,9 @@ class TicketController {
 
     return view.render('tickets.create', {
       statuses: statuses,
-      priorities: priorities,
-      impacts: impacts,
-      reproducibles: reproducibles,
+      priorities: priorities[0][auth.user.locale],
+      impacts: impacts[0][auth.user.locale],
+      reproducibles: reproducibles[0][auth.user.locale],
       projects: projects.toJSON()
     })
   }
@@ -145,7 +147,7 @@ class TicketController {
     return response.route('ticketsShow', { id: ticket.id })
   }
 
-  async edit({ params, view }) {
+  async edit({ auth, params, view }) {
     const ticket = await Ticket.query()
       .where('id', params.id)
       .with('ticketAuthor', (builder) => {
@@ -168,9 +170,9 @@ class TicketController {
     }
 
     return view.render('tickets.edit', {
-      priorities: priorities,
-      impacts: impacts,
-      reproducibles: reproducibles,
+      priorities: priorities[0][auth.user.locale],
+      impacts: impacts[0][auth.user.locale],
+      reproducibles: reproducibles[0][auth.user.locale],
       ticket: ticket.toJSON(),
       attachments: attachments,
       attachmentsCurrent: attachmentsCurrent,

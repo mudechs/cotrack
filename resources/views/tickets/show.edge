@@ -17,15 +17,19 @@
               @if(ticket.recipient_id == auth.user.id && ticket.status != "Erledigt" && ticket.status != "Sistiert" && ticket.status != "Abgelehnt")
                 <div class="dropdown mr-md-2 mr-1">
                   <button class="btn btn-sm btn-warning dropdown-toggle" type="button" id="statusDropdownButtons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{ ticket.status }}
+                    @each(status in statuses)
+                      @if(status.value == ticket.status)
+                        {{ status.label }}
+                      @endif
+                    @endeach
                   </button>
                   <div class="dropdown-menu" aria-labelledby="statusDropdownButtons">
                     @each(status in statuses)
-                      @if(status.label != ticket.status && status.label != "Erledigt")
+                      @if(status.value != ticket.status && status.value != "Erledigt")
                         <a class="
                           dropdown-item
                           status-change-item
-                        " href="#" data-status="{{ status.label }}">{{ status.label }}</a>
+                        " href="#" data-status="{{ status.value }}">{{ status.label }}</a>
                       @endif
                     @endeach
                   </div>
@@ -74,20 +78,26 @@
             <div class="card-text">
               <h3>{{ ticket.subject }}</h3>
               <hr>
-              <span class="
-                badge badge-pill
-                @each(priority in priorities)
-                @if(priority.label == ticket.priority)
-                badge-{{ priority.color }}
-                @endif
-                @endeach
-              ">{{ ticket.priority }}</span><br>
+              @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
+              <br>
               <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}: </b><a href="{{ route('projectsShow', { id: ticket.project.id }) }}">{{ ticket.project.title }}</a></small><br>
               @if(ticket.impact)
-                <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.auswirkung') }}: </b>{{ ticket.impact }}</small><br>
+                <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.auswirkung') }}: </b>
+                  @each(impact in impacts)
+                    @if(impact.value == ticket.impact)
+                      {{ impact.label }}
+                    @endif
+                  @endeach
+                </small><br>
               @endif
               @if(ticket.reproducible)
-                <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.reproduzierbar') }}: </b>{{ ticket.reproducible }}</small><br>
+                <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.reproduzierbar') }}: </b>
+                  @each(reproducible in reproducibles)
+                    @if(reproducible.value == ticket.reproducible)
+                      {{ reproducible.label }}
+                    @endif
+                  @endeach
+                </small><br>
               @endif
               @if(ticket.done_until)
                 <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.zu_erledigen_bis') }}: </b><span class="text-danger">{{ ticket.done_until }}</span></small><br>

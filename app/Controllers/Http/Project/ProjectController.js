@@ -2,6 +2,7 @@
 
 const Config = use('Config')
 const { phases } = Config.get('project')
+const { statuses } = Config.get('ticket')
 const Project = use('App/Models/Project')
 const Ticket = use('App/Models/Ticket')
 const User = use('App/Models/User')
@@ -75,8 +76,8 @@ class ProjectController {
       .first()
 
     if(project) {
-      const statusesOpen = await TicketServices.ticketStatuses('open')
-      const statusesClosed = await TicketServices.ticketStatuses('closed')
+      const statusesOpen = await TicketServices.ticketStatuses('open', auth.user.locale)
+      const statusesClosed = await TicketServices.ticketStatuses('closed', auth.user.locale)
 
       const ticketsOpen = await Ticket.query()
         .where('project_id', project.id)
@@ -106,7 +107,8 @@ class ProjectController {
         project: project.toJSON(),
         ticketsOpen: ticketsOpen.toJSON(),
         ticketsClosed: ticketsClosed.toJSON(),
-        phases: phases[0][auth.user.locale]
+        phases: phases[0][auth.user.locale],
+        statuses: statuses[0][auth.user.locale]
       })
     }
 

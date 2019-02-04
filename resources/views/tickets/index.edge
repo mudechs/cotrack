@@ -32,17 +32,7 @@
                   <input type="hidden" name="status" id="status-change-input-{{ ticket.id }}">
                 </form>
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <span>
-                    <span class="
-                      badge badge-pill
-                      @each(priority in priorities)
-                      @if(priority.label == $parent.ticket.priority)
-                      badge-{{ priority.color }}
-                      @endif
-                      @endeach
-                    ">{{ ticket.priority }}</span>
-
-                  </span>
+                  @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
                   <span><small>{{ ticket.created_at }}</small></span>
                 </div>
                 <p class="mb-0">{{ ticket.subject }}</p>
@@ -64,17 +54,7 @@
                   <input type="hidden" name="status" id="status-change-input-{{ ticket.id }}">
                 </form>
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <span>
-                    <span class="
-                      badge badge-pill
-                      @each(priority in priorities)
-                      @if(priority.label == $parent.ticket.priority)
-                      badge-{{ priority.color }}
-                      @endif
-                      @endeach
-                    ">{{ ticket.priority }}</span>
-
-                  </span>
+                  @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
                   <span><small>{{ ticket.created_at }}</small></span>
                 </div>
                 <p class="mb-0">{{ ticket.subject }}</p>
@@ -96,17 +76,7 @@
                   <input type="hidden" name="status" id="status-change-input-{{ ticket.id }}">
                 </form>
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <span>
-                    <span class="
-                      badge badge-pill
-                      @each(priority in priorities)
-                      @if(priority.label == $parent.ticket.priority)
-                      badge-{{ priority.color }}
-                      @endif
-                      @endeach
-                    ">{{ ticket.priority }}</span>
-
-                  </span>
+                  @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
                   <span><small>{{ ticket.created_at }}</small></span>
                 </div>
                 <p class="mb-0">{{ ticket.subject }}</p>
@@ -128,17 +98,7 @@
                   <input type="hidden" name="status" id="status-change-input-{{ ticket.id }}">
                 </form>
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <span>
-                    <span class="
-                      badge badge-pill
-                      @each(priority in priorities)
-                      @if(priority.label == $parent.ticket.priority)
-                      badge-{{ priority.color }}
-                      @endif
-                      @endeach
-                    ">{{ ticket.priority }}</span>
-
-                  </span>
+                  @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
                   <span><small>{{ ticket.created_at }}</small></span>
                 </div>
                 <p class="mb-0">{{ ticket.subject }}</p>
@@ -160,17 +120,7 @@
                   <input type="hidden" name="status" id="status-change-input-{{ ticket.id }}">
                 </form>
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <span>
-                    <span class="
-                      badge badge-pill
-                      @each(priority in priorities)
-                      @if(priority.label == $parent.ticket.priority)
-                      badge-{{ priority.color }}
-                      @endif
-                      @endeach
-                    ">{{ ticket.priority }}</span>
-
-                  </span>
+                  @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
                   <span><small>{{ ticket.created_at }}</small></span>
                 </div>
                 <p class="mb-0">{{ ticket.subject }}</p>

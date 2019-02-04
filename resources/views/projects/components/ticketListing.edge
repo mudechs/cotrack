@@ -21,7 +21,13 @@
               @endeach
             ">{{ ticket.priority }}</span>
           </td>
-          <td>{{ ticket.status }}</td>
+          <td>
+            @each(status in statuses)
+              @if(status.value == $parent.ticket.status)
+                {{ status.label }}
+              @endif
+            @endeach
+          </td>
           <td>{{ ticket.updated_at }}</td>
           <td>{{ ticket.subject }}</td>
           <td>

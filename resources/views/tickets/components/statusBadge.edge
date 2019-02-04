@@ -1,0 +1,7 @@
+<span class="badge badge-pill badge-secondary">
+  @each(status in statuses)
+    @if(status.value == ticketStatus)
+      {{ status.label }}
+    @endif
+  @endeach
+</span>
