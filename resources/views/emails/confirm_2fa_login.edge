@@ -1,6 +1,5 @@
-<p>Hallo {{ fullName }}</p>
 <p>
-  Hier dein Code für die 2FA-Anmeldung:
+  {{ messages.body }}
 </p>
 <br>
 <br>
@@ -9,6 +8,6 @@
 <br>
 <br>
 <hr>
-<p>Bitte auf diese Mail nicht antworten.</p>
+<p>{{ messages.hint }}</p>
 <hr>
 @include('emails.includes.address_footer')

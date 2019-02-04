@@ -56,11 +56,11 @@ class LoginController {
             // aus token einen hash machen
             const hash = await Hash.make(token)
 
-            const fullName = user.first_name + ' ' + user.last_name
             const email = user.email
+            const locale = user.locale
 
             // mail mit token senden
-            Event.fire('new::login', { fullName, token, email })
+            Event.fire('new::login', { token, email, locale })
 
             // auf token formular weiterleiten
             return response.route('loginTokenForm', { 'hash': hash })
@@ -85,7 +85,7 @@ class LoginController {
       session.flash({
         notification: {
           type: 'danger',
-          message: `Die Anmeldung ist fehlgeschlagen. Überprüfe bitte ob deine E-Mail Adresse aktiviert wurde, oder ob deine Angaben korrekt sind.`
+          message: 'Die Anmeldung ist fehlgeschlagen. Überprüfe bitte ob deine E-Mail Adresse aktiviert wurde, oder ob deine Angaben korrekt sind.'
         }
       })
 
@@ -129,7 +129,7 @@ class LoginController {
       session.flash({
         notification: {
           type: 'danger',
-          message: `Der eingegebene Code ist ungültig.`
+          message: 'Der eingegebene Code ist ungültig.'
         }
       })
 
@@ -164,7 +164,7 @@ class LoginController {
     session.flash({
       notification: {
         type: 'danger',
-        message: `Die Anmeldung ist fehlgeschlagen.`
+        message: 'Die Anmeldung ist fehlgeschlagen.'
       }
     })
 

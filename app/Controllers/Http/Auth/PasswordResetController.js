@@ -35,11 +35,11 @@ class PasswordResetController {
         token: randomString({ length: 40 })
       })
 
-      const fullName = user.first_name + ' ' + user.last_name
       const email = user.email
+      const locale = user.locale
 
       // Send confirmation E-Mail
-      Event.fire('new::passwordReset', { fullName, email, token })
+      Event.fire('new::passwordReset', { email, token, locale })
 
       // Show success Message
       session.flash({

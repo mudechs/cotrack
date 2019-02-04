@@ -2,17 +2,30 @@ const Mail = use('Mail')
 const Event = use('Event')
 const Antl = use('Antl')
 
-Event.on('new::login', async ({ fullName, token, email }) => {
-  await Mail.send('emails.confirm_2fa_login', { fullName, token }, message => {
+Event.on('new::login', async ({ token, email, locale }) => {
+  const messages = {
+    subject: Antl.forLocale(locale).formatMessage('emails.message15'),
+    body: Antl.forLocale(locale).formatMessage('emails.message16'),
+    hint: Antl.forLocale(locale).formatMessage('emails.hint')
+  }
+
+  await Mail.send('emails.confirm_2fa_login', { token, messages }, message => {
     message
       .to(email)
       .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
-      .subject('Dein 2FA-Code zum Anmelden')
+      .subject(messages.subject)
   })
 })
 
-Event.on('new::passwordReset', async ({ fullName, email, token }) => {
-  await Mail.send('emails.password_reset', { fullName, token }, message => {
+Event.on('new::passwordReset', async ({ email, token, locale }) => {
+  const messages = {
+    subject: Antl.forLocale(locale).formatMessage('emails.message17'),
+    body: Antl.forLocale(locale).formatMessage('emails.message18'),
+    link: Antl.forLocale(locale).formatMessage('emails.message19'),
+    hint: Antl.forLocale(locale).formatMessage('emails.hint')
+  }
+
+  await Mail.send('emails.password_reset', { token, messages }, message => {
     message
       .to(email)
       .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
