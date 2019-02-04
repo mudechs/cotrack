@@ -74,5 +74,11 @@
   "passwort_aendern": "Change password",
   "aktuelles_passwort": "Current password",
   "neues_passwort": "New password",
-  "neues_passwort_wiederholen": "Confirm new passwort"
+  "neues_passwort_wiederholen": "Confirm new passwort",
+  "anmelden": "Login",
+  "login_bestaetigen": "Confirm login",
+  "bitte_sicherheitscode_eingeben": "Please enter the security code sent by e-mail",
+  "email": "E-Mail",
+  "login_merken": "Remember me",
+  "passwort_vergessen": "Forgot password"
 }

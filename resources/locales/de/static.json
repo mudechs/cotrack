@@ -74,5 +74,11 @@
   "passwort_aendern": "Passwort ändern",
   "aktuelles_passwort": "Aktuelles Passwort",
   "neues_passwort": "Neues Passwort",
-  "neues_passwort_wiederholen": "Neues Passwort wiederholen"
+  "neues_passwort_wiederholen": "Neues Passwort wiederholen",
+  "anmelden": "Anmelden",
+  "login_bestaetigen": "Login bestätigen",
+  "bitte_sicherheitscode_eingeben": "Bitte den per Mail verschickten Sicherheitscode eingeben",
+  "email": "E-Mail",
+  "login_merken": "Login merken",
+  "passwort_vergessen": "Passwort vergessen"
 }
