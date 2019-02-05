@@ -95,7 +95,7 @@ The JSON key `project` will be checked and assigned against a existing and activ
 with the database field `id` in the `projects`-table.
 
 ### Token
-The JSON key `token` will be checked against the deposited token in `.env` config file.
+The JSON key `token` will be checked against a existing project. Each project has his own individual token that will be automatically generated on create.
 
 ### Request format
 
@@ -106,8 +106,7 @@ The JSON key `token` will be checked against the deposited token in `.env` confi
 	"subject": "The subject of the ticket",
 	"description": "This is the description of the Ticket",
 	"priority": "Normal or Hoch or Dringend",
-	"email": "user@domain.com",
-	"project": "xxx"
+	"email": "user@domain.com"
 }
 ```
 
@@ -119,8 +118,7 @@ https://yourdomain.com/api/public/tickets/create
 ```js
 {
 	"token": "xxxxxxxx",
-	"email": "user@domain.com",
-	"project": "1"
+	"email": "user@domain.com"
 }
 ```
 ### API Url

@@ -37,15 +37,15 @@
                             <td>{{ project.id }}</td>
                           </tr>
                           <tr>
-                              <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.phase') }}:</th>
-                              <td>
-                                @each(phase in phases)
-                                  @if(phase.value == project.phase)
-                                    {{ phase.label }}
-                                  @endif
-                                @endeach
-                              </td>
-                            </tr>
+                            <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.phase') }}:</th>
+                            <td>
+                              @each(phase in phases)
+                                @if(phase.value == project.phase)
+                                  {{ phase.label }}
+                                @endif
+                              @endeach
+                            </td>
+                          </tr>
                           <tr>
                             <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.autor') }}:</th>
                             <td>{{ project.projectAuthor.first_name }} {{ project.projectAuthor.last_name }}</td>
@@ -113,6 +113,13 @@
           </div>
         </div>
       </div>
+      @if(auth.user.is_admin == true)
+        <div class="col-12">
+          <div class="card p-2" style="overflow-x: auto;">
+            <b>Token: </b><code>{{{ project.token }}}</code>
+          </div>
+        </div>
+      @endif
     </div>
   </div>
 @endsection

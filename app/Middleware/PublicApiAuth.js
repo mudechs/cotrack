@@ -3,7 +3,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Env = use('Env')
+const Project = use('App/Models/Project')
 
 class PublicApiAuth {
   /**
@@ -14,12 +14,16 @@ class PublicApiAuth {
   async handle ({ request, response }, next) {
     const { token } = request.all()
 
-    if(token != Env.get('APP_KEY')) {
+    const project = await Project.query()
+      .where('token', token)
+      .first()
+
+    if(project) {
+      await next()
+    } else {
       return response
         .status(403)
         .send('NO ACCESS TO THIS ROUTE')
-    } else {
-      await next()
     }
   }
 }

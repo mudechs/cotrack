@@ -335,7 +335,6 @@ class TicketController {
       subject: 'required',
       description: 'required',
       priority: 'required',
-      project: 'required',
       email: 'required'
     })
 
@@ -350,7 +349,7 @@ class TicketController {
       .first()
 
     const project = await Project.query()
-      .where('id', ticket.project)
+      .where('token', ticket.token)
       .first()
 
     if (user && project) {
@@ -371,12 +370,9 @@ class TicketController {
   }
 
   async apiPublicTicketFetch({ request, response }) {
-    // token wird über die middleware geprüft
-    // ich brauche die emailadresse des users
     const validation = await validateAll(request.all(), {
       token: 'required',
-      email: 'required',
-      project: 'required'
+      email: 'required'
     })
 
     if (validation.fails()) {
@@ -387,7 +383,9 @@ class TicketController {
       .where('email', request.body.email)
       .first()
 
-    const project = await Project.find(request.body.project)
+    const project = await Project.query()
+      .where('token', request.body.token)
+      .first()
 
     if(user && project) {
       const tickets = await Ticket.query()
