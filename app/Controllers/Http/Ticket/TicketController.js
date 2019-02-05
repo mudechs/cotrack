@@ -342,21 +342,21 @@ class TicketController {
       return response.status(406).send(validation.messages())
     }
 
-    const ticket = request.all()
+    const data = request.all()
 
     const user = await User.query()
-      .where('email', ticket.email)
+      .where('email', data.email)
       .first()
 
     const project = await Project.query()
-      .where('token', ticket.token)
+      .where('token', data.token)
       .first()
 
     if (user && project) {
-      await Ticket.create({
-        subject: ticket.subject,
-        description: ticket.description,
-        priority: ticket.priority,
+      const ticket = await Ticket.create({
+        subject: data.subject,
+        description: data.description,
+        priority: data.priority,
         author_id: user.id,
         project_id: project.id
       })
