@@ -75,6 +75,14 @@
                       </td>
                     </tr>
                     <tr>
+                        <th>Superadmin:</th>
+                        <td>
+                          @if(user.is_superadmin == 1)
+                            <i class="fas fa-check"></i>
+                          @endif
+                        </td>
+                      </tr>
+                    <tr>
                       <th>2FA {{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}:</th>
                       <td>
                         @if(user.tfa_active == 1)
