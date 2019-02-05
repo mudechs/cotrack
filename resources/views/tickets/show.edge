@@ -119,9 +119,11 @@
         <div class="card mt-md-3 mt-0">
           <div class="card-header d-flex justify-content-between align-items-center">
               <span><i class="far fa-comments fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.kommentare') }}</span>
-              <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#commentCreateModal">
-                <i class="fas fa-plus"></i>
-              </button>
+              @if(ticket.recipient_id)
+                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#commentCreateModal">
+                  <i class="fas fa-plus"></i>
+                </button>
+              @endif
           </div>
           <div class="card-body">
             @each(comment in ticket.comments)

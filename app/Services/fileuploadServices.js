@@ -26,7 +26,7 @@ class fileuploadServices {
   async updateMultiple(modifiedFiles, storedFiles, newFiles, path, data) {
     if (modifiedFiles) {
       while(modifiedFiles.length) {
-        storedFiles.splice(modifiedFiles.pop(), 1);
+        storedFiles.splice(modifiedFiles.pop(), 1)
       }
     }
 
