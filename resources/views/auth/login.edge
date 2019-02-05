@@ -6,7 +6,8 @@
       <div class="col-md-4 offset-md-4 p-0">
         <div class="card">
           <div class="card-header text-center">{{ globals().app_name }} {{--  - Demo  --}}</div>
-          {{--  <div class="p-3">
+          {{--
+            <div class="p-3">
             <p><b>Log in as Admin:</b><br>
               Username (email): info@codiac.ch<br>
               Password: Nkz8289TMU
@@ -16,7 +17,8 @@
               Password: reporter1234
             </p>
           </div>
-          <hr>  --}}
+          <hr>
+          --}}
           <form action="{{ route('login') }}" method="post">
             {{ csrfField() }}
             <div class="card-body">
