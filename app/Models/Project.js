@@ -3,24 +3,8 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 const markdown = require('showdown')
-const RandomString = require('random-string')
 
 class Project extends Model {
-
-  static boot() {
-    super.boot()
-
-    /**
-     * A hook to generalte a individual token before saving
-     * it to the database.
-     */
-    this.addHook('beforeCreate', async (projectInstance) => {
-      if(projectInstance.token == '') {
-        projectInstance.token = RandomString({ length: 64 })
-      }
-    })
-  }
-
   static castDates(field, value) {
     if (field === 'created_at' || field === 'updated_at') {
       return value.format('DD.MM.YY')

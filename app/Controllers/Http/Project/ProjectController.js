@@ -7,6 +7,7 @@ const Project = use('App/Models/Project')
 const Ticket = use('App/Models/Ticket')
 const User = use('App/Models/User')
 const TicketServices = use('App/Services/ticketServices')
+const RandomString = require('random-string')
 
 class ProjectController {
   async index({ auth, view }) {
@@ -144,7 +145,8 @@ class ProjectController {
       description: request.input('description'),
       phase: request.input('phase'),
       is_active: isActive,
-      author_id: auth.user.id
+      author_id: auth.user.id,
+      token: RandomString({ length: 64 })
     })
 
     await project.members().attach(request.input('members'))
