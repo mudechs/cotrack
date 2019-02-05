@@ -16,3 +16,4 @@ database/seeds/SettingSeeder.js
 public/uploads
 
 .DS_Store
+.vscode
