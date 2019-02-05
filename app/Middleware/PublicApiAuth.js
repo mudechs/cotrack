@@ -12,7 +12,8 @@ class PublicApiAuth {
    * @param {Function} next
    */
   async handle ({ request, response }, next) {
-    const { token, email } = request.all()
+    const token = request.header('token')
+    const email = request.header('email')
 
     const project = await Project.query()
       .where('token', token)

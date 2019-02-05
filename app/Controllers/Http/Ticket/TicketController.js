@@ -330,7 +330,7 @@ class TicketController {
 
   // Public API
   async apiPublicTicketCreate({ request, response }) {
-    const validation = await validateAll(request.all(), {
+    const validation = await validateAll(request.headers(), {
       token: 'required',
       subject: 'required',
       description: 'required',
@@ -342,7 +342,7 @@ class TicketController {
       return response.status(406).send(validation.messages())
     }
 
-    const data = request.all()
+    const data = request.headers()
 
     const user = await User.query()
       .where('email', data.email)
@@ -370,7 +370,7 @@ class TicketController {
   }
 
   async apiPublicTicketFetch({ request, response }) {
-    const validation = await validateAll(request.all(), {
+    const validation = await validateAll(request.headers(), {
       token: 'required',
       email: 'required'
     })
@@ -380,11 +380,11 @@ class TicketController {
     }
 
     const user = await User.query()
-      .where('email', request.body.email)
+      .where('email', request.header('email'))
       .first()
 
     const project = await Project.query()
-      .where('token', request.body.token)
+      .where('token', request.header('token'))
       .first()
 
     if(user && project) {
