@@ -105,11 +105,7 @@
               <hr>
               <small>
                 {{ ticket.ticketAuthor.first_name }} {{ ticket.ticketAuthor.last_name }} &rarr;
-                @if(ticket.ticketRecipient)
-                  {{ ticket.ticketRecipient.first_name }} {{ ticket.ticketRecipient.last_name }}
-                @else
-                  {{ antl.forLocale(auth.user.locale).formatMessage('static.nicht_zugewiesen') }}
-                @endif
+                @!component('tickets.components.recipientInfo', { antl, locale: auth.user.locale, recipient: ticket.ticketRecipient })
               </small>
               <hr>
               {{{ ticket.descriptionHtml }}}

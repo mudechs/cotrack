@@ -3,7 +3,9 @@
     <div class="col-md-8">
       @if(ticket != undefined)
         <b>{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}: </b>{{ ticket.project.title }}<br>
-        <b>{{ antl.forLocale(auth.user.locale).formatMessage('static.empfaenger') }}: </b>{{ ticket.ticketRecipient.first_name }} {{ ticket.ticketRecipient.last_name }}<br>
+        <b>{{ antl.forLocale(auth.user.locale).formatMessage('static.empfaenger') }}: </b>
+        @!component('tickets.components.recipientInfo', { antl, locale: auth.user.locale, recipient: ticket.ticketRecipient })
+        <br>
       @else
         <div class="form-group">
           <label for="project">{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}</label>

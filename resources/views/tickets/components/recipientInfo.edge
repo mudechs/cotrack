@@ -1,0 +1,5 @@
+@if(recipient)
+  {{ recipient.first_name }} {{ recipient.last_name }}
+@else
+  {{ antl.forLocale(locale).formatMessage('static.nicht_zugewiesen') }}
+@endif
