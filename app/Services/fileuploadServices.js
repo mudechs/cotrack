@@ -65,8 +65,6 @@ class fileuploadServices {
 
       return file.fileName
     }
-
-    return null
   }
 
 }
