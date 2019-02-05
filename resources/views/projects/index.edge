@@ -21,7 +21,7 @@
         <div class="tab-content" id="projectsContent">
           <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="active-tab">
             <div class="table-responsive">
-              <table class="table table-hover table-striped table-sm text-nowrap m-0 data-table">
+              <table class="table table-hover table-striped table-sm text-nowrap m-0 data-table linkable">
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
@@ -35,7 +35,7 @@
                 </thead>
                 <tbody>
                   @each(project in projectsActive)
-                    <tr class="linkable" data-route="{{ route('projectsShow', { id: project.id }) }}">
+                    <tr data-route="{{ route('projectsShow', { id: project.id }) }}">
                       <td scope="row">{{ project.id }}</td>
                       <td>{{ project.title }}</td>
                       <td>
@@ -67,7 +67,7 @@
           </div>
           <div class="tab-pane fade" id="inactive" role="tabpanel" aria-labelledby="inactive-tab">
             <div class="table-responsive">
-              <table class="table table-hover table-striped table-sm text-nowrap m-0 data-table">
+              <table class="table table-hover table-striped table-sm text-nowrap m-0 data-table linkable">
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
@@ -81,7 +81,7 @@
                 </thead>
                 <tbody>
                   @each(project in projectsInactive)
-                    <tr class="linkable" data-route="{{ route('projectsShow', { id: project.id }) }}">
+                    <tr data-route="{{ route('projectsShow', { id: project.id }) }}">
                       <td scope="row">{{ project.id }}</td>
                       <td>{{ project.title }}</td>
                       <td>

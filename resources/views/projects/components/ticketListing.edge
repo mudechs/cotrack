@@ -1,5 +1,5 @@
 <div class="table-responsive">
-  <table class="table table-hover table-sm table-borderless table-striped text-nowrap m-0 data-table">
+  <table class="table table-hover table-sm table-borderless table-striped text-nowrap m-0 data-table linkable">
     <thead>
       <tr>
         <th>{{ priority }}</th>
@@ -11,7 +11,7 @@
     </thead>
     <tbody>
       @each(ticket in tickets)
-        <tr class="linkable" data-route="{{ route('ticketsShow', { id: ticket.id }) }}">
+        <tr data-route="{{ route('ticketsShow', { id: ticket.id }) }}">
           <td scope="row">
             <span class="badge badge-pill
               @each(priority in priorities)

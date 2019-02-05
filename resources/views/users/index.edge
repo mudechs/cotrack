@@ -21,7 +21,7 @@
         <div class="tab-content" id="usersContent">
           <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="active-tab">
             <div class="table-responsive">
-              <table class="table table-hover table-striped table-sm text-nowrap m-0 data-table">
+              <table class="table table-hover table-striped table-sm text-nowrap m-0 data-table linkable">
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
@@ -35,7 +35,7 @@
                 </thead>
                 <tbody>
                   @each(user in usersActive)
-                    <tr class="linkable" data-route="{{ route('usersShow', { id: user.id }) }}">
+                    <tr data-route="{{ route('usersShow', { id: user.id }) }}">
                       <th scope="row">{{ user.id }}</th>
                       <td>{{ user.first_name }}</td>
                       <td><b>{{ user.last_name }}</b></td>
@@ -65,7 +65,7 @@
           </div>
           <div class="tab-pane fade" id="inactive" role="tabpanel" aria-labelledby="inactive-tab">
             <div class="table-responsive">
-              <table class="table table-hover table-striped table-sm text-nowrap m-0 data-table">
+              <table class="table table-hover table-striped table-sm text-nowrap m-0 data-table linkable">
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
@@ -79,7 +79,7 @@
                 </thead>
                 <tbody>
                   @each(user in usersInactive)
-                    <tr class="linkable" data-route="{{ route('usersShow', { id: user.id }) }}">
+                    <tr data-route="{{ route('usersShow', { id: user.id }) }}">
                       <th scope="row">{{ user.id }}</th>
                       <td>{{ user.first_name }}</td>
                       <td><b>{{ user.last_name }}</b></td>
