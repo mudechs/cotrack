@@ -108,7 +108,7 @@
                 @if(ticket.ticketRecipient)
                   {{ ticket.ticketRecipient.first_name }} {{ ticket.ticketRecipient.last_name }}
                 @else
-                  {{ antl.forLocale(auth.user.locale).formatMessage('static.zu_erledigen_bis') }}
+                  {{ antl.forLocale(auth.user.locale).formatMessage('static.nicht_zugewiesen') }}
                 @endif
               </small>
               <hr>
