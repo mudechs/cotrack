@@ -48,8 +48,6 @@ $(document).ready(function () {
 
     const url = $(this).closest('tr').data('route')
 
-    console.log(url)
-
     if (url) {
       window.location.href = url
     }
