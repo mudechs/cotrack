@@ -51,11 +51,11 @@ module.exports = {
         { 'label': 'Showstopper', 'value': 'Showstopper' }
       ],
       en: [
-        { 'label': 'feature request', 'value': 'Feature-Wunsch' },
+        { 'label': 'feature', 'value': 'Feature-Wunsch' },
         { 'label': 'trivial', 'value': 'Trivial' },
-        { 'label': 'disturbing', 'value': 'Unschönheit' },
-        { 'label': 'modest error', 'value': 'kleiner Fehler' },
-        { 'label': 'grave error', 'value': 'schwerer Fehler' },
+        { 'label': 'tweak', 'value': 'Unschönheit' },
+        { 'label': 'minor', 'value': 'kleiner Fehler' },
+        { 'label': 'major', 'value': 'schwerer Fehler' },
         { 'label': 'crash', 'value': 'Absturz' },
         { 'label': 'showstopper', 'value': 'Showstopper' }
       ]
@@ -74,8 +74,8 @@ module.exports = {
         { 'label': 'always', 'value': 'immer' },
         { 'label': 'sometimes', 'value': 'manchmal' },
         { 'label': 'random', 'value': 'zufällig' },
-        { 'label': 'not yet tested', 'value': 'nicht getestet' },
-        { 'label': 'not reproducible', 'value': 'nicht reproduzierbar' }
+        { 'label': 'have not tried', 'value': 'nicht getestet' },
+        { 'label': 'unable to reproduce', 'value': 'nicht reproduzierbar' }
       ]
     }
   ]
