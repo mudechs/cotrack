@@ -28,7 +28,7 @@ class ProjectOam {
     } else {
       return response
         .status(403)
-        .send('Kein Zugriff :-)')
+        .send('NO ACCESS TO THIS ROUTE')
     }
   }
 }

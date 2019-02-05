@@ -39,7 +39,7 @@
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {{ antl.forLocale(auth.user.locale).formatMessage('static.hallo') }} <span class="text-danger">{{ auth.user.first_name }} {{ auth.user.last_name }}</span>
+            {{ antl.forLocale(auth.user.locale).formatMessage('static.hallo') }} <span class="text-danger">{{ auth.user.first_name }} {{ auth.user.last_name }}</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item px-3" href="{{ route('usersShow', { id: auth.user.id }) }}"><i class="fas fa-user-circle fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.meinprofil') }}</a>
@@ -50,5 +50,13 @@
         </li>
       </ul>
     </div>
+  @else
+    @if(globals().allow_registration == true)
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('register') }}">Register</a>
+        </li>
+      </ul>
+    @endif
   @endloggedIn
 </nav>

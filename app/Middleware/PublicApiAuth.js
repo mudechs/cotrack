@@ -17,7 +17,7 @@ class PublicApiAuth {
     if(token != Env.get('APP_KEY')) {
       return response
         .status(403)
-        .send('Kein Zugriff :-)')
+        .send('NO ACCESS TO THIS ROUTE')
     } else {
       await next()
     }

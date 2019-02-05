@@ -8,10 +8,16 @@ const randomString = require('random-string')
 const Mail = use('Mail')
 
 class RegisterController {
-  showRegistrationForm({ view }) {
-    return view.render('auth.register', {
-      salutations: salutations[0]['de']
-    })
+  showRegistrationForm({ request, view, response }) {
+    if(request.globals.allow_registration) {
+      return view.render('auth.register', {
+        salutations: salutations[0]['de']
+      })
+    } else {
+      return response
+        .status(403)
+        .send('NO ACCESS TO THIS ROUTE')
+    }
   }
 
   async register({ request, session, response }) {
