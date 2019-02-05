@@ -130,9 +130,9 @@ class TicketController {
 
     // Sende eine Notifikation falls der Recipient NICHT der Author ist
     if(ticket.recipient_id != null && ticket.recipient_id != auth.user.id) {
-      const recipient = await ticket.ticketRecipient().fetch()
+      const user = await ticket.ticketRecipient().fetch()
 
-      Event.fire('new::ticket', { ticket, recipient })
+      Event.fire('new::ticket', { ticket, user })
     }
 
     await ticket.save()
@@ -300,9 +300,9 @@ class TicketController {
     await ticket.save()
 
     // Informiere den neuen Recipient, dass ihm ein Ticket zugewiesen wurde
-    const recipient = await ticket.ticketRecipient().fetch()
+    const user = await ticket.ticketRecipient().fetch()
 
-    Event.fire('new::ticket', { ticket, recipient })
+    Event.fire('new::ticket', { ticket, user })
 
     session.flash({
       notification: {
@@ -350,7 +350,7 @@ class TicketController {
       .first()
 
     const project = await Project.query()
-      .where('id', ticket.id)
+      .where('id', ticket.project)
       .first()
 
     if (user && project) {
@@ -362,9 +362,7 @@ class TicketController {
         project_id: project.id
       })
 
-      const recipient = await ticket.ticketRecipient().fetch()
-
-      Event.fire('new::ticket', { ticket, recipient })
+      Event.fire('new::ticket', { ticket, user })
 
       return response.status(200).send('Das Ticket wurde erfolgreich übermittelt.')
     }

@@ -109,6 +109,9 @@ The JSON key `token` will be checked against the deposited token in `.env` confi
 }
 ```
 
+### API Url to create a ticket
+https://yourdomain.com/api/public/tickets/create
+
 ---
 
 # License

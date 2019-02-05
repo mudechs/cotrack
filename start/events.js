@@ -33,18 +33,18 @@ Event.on('new::passwordReset', async ({ email, token, locale }) => {
   })
 })
 
-Event.on('new::ticket', async ({ ticket, recipient }) => {
+Event.on('new::ticket', async ({ ticket, user }) => {
   const messages = {
-    subject: Antl.forLocale(recipient.locale).formatMessage('emails.message7', { ticketid: ticket.id }),
-    body: Antl.forLocale(recipient.locale).formatMessage('emails.message8'),
-    link: Antl.forLocale(recipient.locale).formatMessage('emails.message6'),
-    hint: Antl.forLocale(recipient.locale).formatMessage('emails.hint')
+    subject: Antl.forLocale(user.locale).formatMessage('emails.message7', { ticketid: ticket.id }),
+    body: Antl.forLocale(user.locale).formatMessage('emails.message8'),
+    link: Antl.forLocale(user.locale).formatMessage('emails.message6'),
+    hint: Antl.forLocale(user.locale).formatMessage('emails.hint')
   }
 
   await Mail.send('emails.new_ticket_notification', { messages, ticket }, message => {
     message
       .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
-      .to(recipient.email)
+      .to(user.email)
       .subject(messages.subject)
   })
 })
