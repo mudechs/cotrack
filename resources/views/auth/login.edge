@@ -6,19 +6,22 @@
       <div class="col-md-4 offset-md-4 p-0">
         <div class="card">
           <div class="card-header text-center">{{ globals().app_name }}</div>
-          {{--
-            <div class="p-3">
-            <p><b>Log in as Admin:</b><br>
-              Username (email): admin@cotrack-demo.codiac.ch<br>
-              Password: admin1234
+          <div class="p-3">
+            <h5>Log in as Reporter:</h5>
+            <p>
+              <b>Username (email):</b><br>
+              <code>admin@cotrack-demo.codiac.ch</code><br>
+              Password: <code>admin1234</code>
             </p>
-            <p><b>Log in as Reporter:</b><br>
-              Username (email): reporter@cotrack-demo.codiac.ch<br>
-              Password: reporter1234
+            <h5>Log in as Reporter:</h5>
+            <p>
+              <b>Username (email):</b><br>
+              <code>reporter@cotrack-demo.codiac.ch</code><br>
+              Password: <code>reporter1234</code>
             </p>
           </div>
           <hr>
-          --}}
+
           <form action="{{ route('login') }}" method="post">
             {{ csrfField() }}
             <div class="card-body">
