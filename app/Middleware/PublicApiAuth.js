@@ -12,10 +12,16 @@ class PublicApiAuth {
    * @param {Function} next
    */
   async handle ({ request, response }, next) {
-    const { token } = request.all()
+    const { token, email } = request.all()
 
     const project = await Project.query()
       .where('token', token)
+      .andWhere(function() {
+        this
+          .whereHas('members', (builder) => {
+            builder.where('email', email)
+          })
+      })
       .first()
 
     if(project) {
