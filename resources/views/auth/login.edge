@@ -6,6 +6,15 @@
       <div class="col-md-4 offset-md-4 p-0">
         <div class="card">
           <div class="card-header text-center">{{ globals().app_name }}</div>
+          <p><b>Log in as Admin:</b><br>
+            Username (email): info@codiac.ch<br>
+            Password: Nkz8289TMU
+          </p>
+          <p><b>Log in as Reporter:</b><br>
+            Username (email): omar@codiac.ch<br>
+            Password: reporter1234
+          </p>
+          <hr>
           <form action="{{ route('login') }}" method="post">
             {{ csrfField() }}
             <div class="card-body">
