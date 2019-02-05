@@ -75,9 +75,9 @@ or
 nodemon server.js
 ```
 
-### Log in as admin-user
+### Log in as superadmin
 - Username (E-Mail): info@codiac.ch
-- Password: Nkz8289TMU
+- Password: mfc9Cxs6EdKTt33G
 
 (You can change all informations later in your personal settings)
 
