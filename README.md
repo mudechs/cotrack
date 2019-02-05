@@ -98,6 +98,8 @@ with the database field `id` in the `projects`-table.
 The JSON key `token` will be checked against the deposited token in `.env` config file.
 
 ### Request format
+
+#### Create a ticket
 ```js
 {
 	"token": "xxxxxxxx",
@@ -109,8 +111,20 @@ The JSON key `token` will be checked against the deposited token in `.env` confi
 }
 ```
 
-### API Url to create a ticket
+### API Url
 https://yourdomain.com/api/public/tickets/create
+
+
+#### Fetch all tickets per user (author of the ticket)
+```js
+{
+	"token": "xxxxxxxx",
+	"email": "user@domain.com",
+	"project": "1"
+}
+```
+### API Url
+https://yourdomain.com/api/public/tickets/fetch
 
 ---
 

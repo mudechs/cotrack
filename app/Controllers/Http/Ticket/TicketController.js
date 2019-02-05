@@ -369,6 +369,42 @@ class TicketController {
 
     return response.status(500).send('Das Ticket konnte nicht erstellt werden weil entweder der User oder das Projekt nicht existieren.')
   }
+
+  async apiPublicTicketFetch({ request, response }) {
+    // token wird über die middleware geprüft
+    // ich brauche die emailadresse des users
+    const validation = await validateAll(request.all(), {
+      token: 'required',
+      email: 'required',
+      project: 'required'
+    })
+
+    if (validation.fails()) {
+      return response.status(406).send(validation.messages())
+    }
+
+    const user = await User.query()
+      .where('email', request.body.email)
+      .first()
+
+    const project = await Project.find(request.body.project)
+
+    if(user && project) {
+      const tickets = await Ticket.query()
+        .where('project_id', project.id)
+        .where('author_id', user.id)
+        .fetch()
+
+      if(tickets) {
+        return response.status(200).send(tickets)
+      }
+
+      return response.status(404).send('Keine Tickets vorhanden für diesen User')
+    }
+
+    return response.status(500).send('Die Tickets konnten nicht abgerufen werden weil entweder der User oder das Projekt nicht existieren.')
+
+  }
 }
 
 module.exports = TicketController

@@ -86,3 +86,4 @@ Route.get('api/comments/:id', 'Comment/CommentController.apiGetComment').middlew
 
 // Public API
 Route.post('api/public/tickets/create', 'Ticket/TicketController.apiPublicTicketCreate').middleware(['publicApi'])
+Route.get('api/public/tickets/fetch', 'Ticket/TicketController.apiPublicTicketFetch').middleware(['publicApi'])
