@@ -23,7 +23,7 @@ class ProjectOam {
       })
       .first()
 
-    if(project || auth.user.is_admin == true ) {
+    if(project || auth.user.is_admin == true || auth.user.is_superadmin == true ) {
       await next()
     } else {
       return response

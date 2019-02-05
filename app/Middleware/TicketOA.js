@@ -14,7 +14,7 @@ class TicketOa {
   async handle ({ params, auth, response }, next) {
     const { author_id } = await Ticket.find(params.id)
 
-    if(author_id == auth.user.id || auth.user.is_admin == true) {
+    if(author_id == auth.user.id || auth.user.is_admin == true || auth.user.is_superadmin == true) {
       await next()
     } else {
       return response
