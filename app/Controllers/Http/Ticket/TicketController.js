@@ -328,7 +328,7 @@ class TicketController {
     response.send(members)
   }
 
-  // Public API
+  // Public API (all informations in headers)
   async apiPublicTicketCreate({ request, response }) {
     const validation = await validateAll(request.headers(), {
       token: 'required',
