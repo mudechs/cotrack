@@ -14,7 +14,7 @@ class Project extends Model {
      * A hook to generalte a individual token before saving
      * it to the database.
      */
-    this.addHook('beforeSave', async (projectInstance) => {
+    this.addHook('beforeCreate', async (projectInstance) => {
       if(projectInstance.token == '') {
         projectInstance.token = RandomString({ length: 64 })
       }
