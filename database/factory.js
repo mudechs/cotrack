@@ -16,22 +16,23 @@ const Factory = use('Factory')
 
 Factory.blueprint('App/Models/User', async () => {
   return {
-    salutation: 'Frau',
-    first_name: 'Admin',
-    last_name: 'Admin',
-    profession: 'Administrator',
+    salutation: 'Herr',
+    first_name: 'Superadmin',
+    last_name: 'Superadmin',
+    profession: 'Superadministrator',
     phone: '',
     mobile: '',
     email: 'info@codiac.ch',
-    password: 'Nkz8289TMU',
+    password: 'mfc9Cxs6EdKTt33G',
     is_active: true,
-    is_admin: true
+    is_admin: true,
+    is_superadmin: true
   }
 })
 
-/* Factory.blueprint('App/Models/Setting', async () => {
+Factory.blueprint('App/Models/Setting', async () => {
   return {
-    company: 'De-Giuli Custom Websolutions',
+    company: 'De-Giuli [Custom Websolutions]',
     address: 'Raiweg 2',
     zip_code: '8108',
     area: 'ZH',
@@ -45,4 +46,4 @@ Factory.blueprint('App/Models/User', async () => {
     allow_registration: '0',
     maintenance_mode: '0'
   }
-}) */
+})

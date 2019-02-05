@@ -92,6 +92,7 @@ class UserController {
       tfa_active: tfaActive,
       is_active: isActive,
       is_admin: isAdmin,
+      is_superadmin: false,
       locale: request.input('locale')
     })
 
@@ -99,11 +100,13 @@ class UserController {
       size: '1mb'
     })
 
-    user.avatar = await FileuploadServices.storeSingle(
-      file,
-      'avatars',
-      user
-    )
+    if(file) {
+      user.avatar = await FileuploadServices.storeSingle(
+        file,
+        'avatars',
+        user
+      )
+    }
 
     const password = request.input('password')
 
@@ -153,11 +156,13 @@ class UserController {
       size: '1mb'
     })
 
-    user.avatar = await FileuploadServices.storeSingle(
-      file,
-      'avatars',
-      user
-    )
+    if(file) {
+      user.avatar = await FileuploadServices.storeSingle(
+        file,
+        'avatars',
+        user
+      )
+    }
 
     let isAdmin = request.input('is_admin')
     isAdmin = (isAdmin == 'on')? true : false

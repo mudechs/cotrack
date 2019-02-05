@@ -54,17 +54,15 @@ class fileuploadServices {
   }
 
   async storeSingle(file, path, data) {
-    if (file) {
-      await file.move(Helpers.publicPath(`uploads/${path}/${data.id}`), {
-        name: `${new Date().getTime()}.${file.subtype}`
-      })
+    await file.move(Helpers.publicPath(`uploads/${path}/${data.id}`), {
+      name: `${new Date().getTime()}.${file.subtype}`
+    })
 
-      if (!file.moved()) {
-        return file.error()
-      }
-
-      return file.fileName
+    if (!file.moved()) {
+      return file.error()
     }
+
+    return file.fileName
   }
 
 }

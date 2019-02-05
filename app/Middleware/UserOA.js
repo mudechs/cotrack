@@ -12,10 +12,10 @@ class UserOA {
    * @param {Function} next
    */
   async handle ({ params, auth, response }, next) {
-    const { id } = await User.find(auth.user.id)
+    const { id, is_superadmin } = await User.find(auth.user.id)
     const reqId = params.id
 
-    if(id == reqId || auth.user.is_admin == true) {
+    if(id == reqId || auth.user.is_superadmin == true || (auth.user.is_admin == true && auth.user.is_superadmin != is_superadmin)) {
       await next()
     } else {
       return response
