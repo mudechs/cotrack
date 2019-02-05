@@ -46,7 +46,7 @@
               <div class="form-group">
                 <label for="locale">{{ antl.forLocale(auth.user.locale).formatMessage('static.sprache') }}</label>
                 <div class="row">
-                  <div class="col-4 col-md4">
+                  <div class="col-6 col-md-4">
                     <select id="locale" name="locale" class="form-control">
                       <option value="de" selected>Deutsch</option>
                       <option value="en">English</option>
@@ -58,7 +58,7 @@
               <div class="form-group">
                 <label for="salutation">{{ antl.forLocale(auth.user.locale).formatMessage('static.anrede') }}</label>
                 <div class="row">
-                  <div class="col-4 col-md4">
+                  <div class="col-6 col-md-4">
                     <select name="salutation" class="form-control {{ hasErrorFor('salutation') ? 'is-invalid' : '' }}">
                       <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
                       @each(salutation in salutations)
