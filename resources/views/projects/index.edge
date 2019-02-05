@@ -25,12 +25,12 @@
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">{{ antl.forLocale(auth.user.locale).formatMessage('static.titel') }}</th>
-                    <th scope="col">{{ antl.forLocale(auth.user.locale).formatMessage('static.phase') }}</th>
-                    <th scope="col">{{ antl.forLocale(auth.user.locale).formatMessage('static.erstellt') }}</th>
-                    <th scope="col">{{ antl.forLocale(auth.user.locale).formatMessage('static.autor') }}</th>
-                    <th scope="col" class="text-center">Status</th>
-                    <th></th>
+                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.titel') }}</th>
+                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.phase') }}</th>
+                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.erstellt') }}</th>
+                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.autor') }}</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-right"><i class="fas fa-cog"></i></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -71,11 +71,12 @@
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">{{ antl.forLocale(auth.user.locale).formatMessage('static.titel') }}</th>
-                    <th scope="col">{{ antl.forLocale(auth.user.locale).formatMessage('static.erstellt') }}</th>
-                    <th scope="col">{{ antl.forLocale(auth.user.locale).formatMessage('static.autor') }}</th>
-                    <th scope="col" class="text-center">Status</th>
-                    <th scope="col"></th>
+                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.titel') }}</th>
+                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.phase') }}</th>
+                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.erstellt') }}</th>
+                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.autor') }}</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-right"><i class="fas fa-cog"></i></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -83,6 +84,13 @@
                     <tr class="linkable" data-route="{{ route('projectsShow', { id: project.id }) }}">
                       <td scope="row">{{ project.id }}</td>
                       <td>{{ project.title }}</td>
+                      <td>
+                        @each(phase in phases)
+                          @if(phase.value == $parent.project.phase)
+                            {{ phase.label }}
+                          @endif
+                        @endeach
+                      </td>
                       <td>{{ project.created_at }}</td>
                       <td>{{ project.projectAuthor.first_name }} {{ project.projectAuthor.last_name }}</td>
                       <td class="text-center">
@@ -113,7 +121,7 @@
   <script>
     $(document).ready(function () {
       $('.data-table').DataTable({
-        order: [ 1, 'asc' ],
+        'order': [ 1, 'asc' ],
         'columnDefs': [
           { 'orderable': false, 'targets': 6 }
         ]
