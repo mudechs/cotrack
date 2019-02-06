@@ -88,6 +88,12 @@ Route
   })
   .middleware(['auth', 'isAdmin'])
 
+Route
+  .group(() => {
+    Route.post('user/restorepassword/:id', 'Auth/PasswordRestoreController.restorePassword').as('restorePassword')
+  })
+  .middleware(['auth', 'isSuperAdmin'])
+
 // Internal API
 Route.get('api/tickets/projectMembers/:id', 'Ticket/TicketController.apiGetProjectMembers').middleware(['auth'])
 Route.get('api/comments/:id', 'Comment/CommentController.apiGetComment').middleware(['auth'])

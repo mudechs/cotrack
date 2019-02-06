@@ -43,7 +43,7 @@
           </div>
         </div>
       </div>
-      @if(auth.user.is_admin == true)
+      @if(auth.user.is_admin == true || auth.user.is_superadmin)
         <div class="col-lg-4">
           <div class="card mb-3">
             <div class="card-header text-center">{{ antl.forLocale(auth.user.locale).formatMessage('static.nicht_zugewiesen_offen') }}</div>
