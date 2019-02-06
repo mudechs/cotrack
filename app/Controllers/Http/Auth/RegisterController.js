@@ -30,8 +30,6 @@ class RegisterController {
 
     if (validation.fails()) {
       session.withErrors(validation.messages()).flashExcept(['password'])
-
-      return response.route('login')
     }
 
     let tfaActive = request.input('tfa_active')
@@ -48,7 +46,7 @@ class RegisterController {
       email: request.input('email'),
       password: request.input('password'),
       tfa_active: tfaActive,
-      confirmation_token: randomString({ length: 40 })
+      confirmation_token: randomString({ length: 64 })
     })
 
     // Send confirmation E-Mail
