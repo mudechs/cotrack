@@ -115,7 +115,7 @@ Event.on('new::userRegistration', async ({ user }) => {
   })
 })
 
-Event.on('new::comment', async ({ ticket, comment, email, locale }) => {
+Event.on('new::comment', async (ticket, comment, email, locale) => {
   const messages = {
     subject: Antl.forLocale(locale).formatMessage('emails.message12', { ticketid: ticket.id }),
     body: Antl.forLocale(locale).formatMessage('emails.message13'),
@@ -123,7 +123,7 @@ Event.on('new::comment', async ({ ticket, comment, email, locale }) => {
     hint: Antl.forLocale(locale).formatMessage('emails.hint')
   }
 
-  await Mail.send('emails.new_comment_notification', { ticket, comment, messages }, message => {
+  await Mail.send('emails.new_comment_notification', { ticket, comment, messages} , message => {
     message
       .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
       .to(email)
