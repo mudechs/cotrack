@@ -10,11 +10,11 @@
             {{ csrfField() }}
             <div class="card-body">
               <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label for="salutation">{{ antl.forLocale('en').formatMessage('static.anrede') }}</label>
                     <div class="row">
-                      <div class="col-4 col-md4">
+                      <div class="col-12 col-md-4">
                         <select name="salutation" class="form-control {{ hasErrorFor('salutation') ? 'is-invalid' : '' }}">
                           <option value=""></option>
                           @each(salutation in salutations)
