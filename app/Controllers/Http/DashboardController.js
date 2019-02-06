@@ -21,8 +21,8 @@ class DashboardController {
 
     const ticketsAssignedToOthers = await Ticket.query()
       .where('author_id', auth.user.id)
-      .where('recipient_id', null)
       .whereNot('recipient_id', auth.user.id)
+      .where('recipient_id', null)
       .whereIn('status', customStatuses)
       .orderBy('created_at', 'desc')
       .with('project', (builder) => {
