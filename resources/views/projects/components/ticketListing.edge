@@ -13,20 +13,10 @@
       @each(ticket in tickets)
         <tr data-route="{{ route('ticketsShow', { id: ticket.id }) }}">
           <td scope="row">
-            <span class="badge badge-pill
-              @each(priority in priorities)
-              @if(priority.value == $parent.ticket.priority)
-              badge-{{ priority.color }}
-              @endif
-              @endeach
-            ">{{ ticket.priority }}</span>
+            @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
           </td>
           <td>
-            @each(status in statuses)
-              @if(status.value == $parent.ticket.status)
-                {{ status.label }}
-              @endif
-            @endeach
+            @!component('tickets.components.statusBadge', { statuses, ticketStatus: ticket.status })
           </td>
           <td>{{ ticket.updated_at }}</td>
           <td>{{ ticket.subject }}</td>

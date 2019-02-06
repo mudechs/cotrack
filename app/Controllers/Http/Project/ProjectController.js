@@ -2,7 +2,7 @@
 
 const Config = use('Config')
 const { phases } = Config.get('project')
-const { statuses } = Config.get('ticket')
+const { statuses, priorities } = Config.get('ticket')
 const Project = use('App/Models/Project')
 const Ticket = use('App/Models/Ticket')
 const User = use('App/Models/User')
@@ -109,7 +109,8 @@ class ProjectController {
         ticketsOpen: ticketsOpen.toJSON(),
         ticketsClosed: ticketsClosed.toJSON(),
         phases: phases[0][auth.user.locale],
-        statuses: statuses[0][auth.user.locale]
+        statuses: statuses[0][auth.user.locale],
+        priorities: priorities[0][auth.user.locale]
       })
     }
 
