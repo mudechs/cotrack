@@ -53,6 +53,22 @@
                   </div>
                 </div>
               @endif
+              @if(auth.user.is_superadmin)
+                <div class="form-group">
+                  <div class="custom-control custom-switch">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      id="is_superadmin"
+                      name="is_superadmin"
+                      @if(user.is_superadmin === 1)
+                        checked
+                      @endif
+                    >
+                    <label class="custom-control-label" for="is_superadmin">Super-Administrator</label>
+                  </div>
+                </div>
+              @endif
               <hr>
               <div class="form-group">
                 <label for="locale">{{ antl.forLocale(auth.user.locale).formatMessage('static.sprache') }}</label>
