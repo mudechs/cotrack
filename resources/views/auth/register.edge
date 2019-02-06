@@ -15,12 +15,13 @@
                     <label for="salutation">{{ antl.forLocale('en').formatMessage('static.anrede') }}</label>
                     <div class="row">
                       <div class="col-4 col-md4">
-                        <select name="salutation" class="form-control">
+                        <select name="salutation" class="form-control {{ hasErrorFor('salutation') ? 'is-invalid' : '' }}">
                           <option value=""></option>
                           @each(salutation in salutations)
                             <option value="{{ salutation.value }}">{{ salutation.label }}</option>
                           @endeach
                         </select>
+                        {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('salutation'), hasErrorFor('salutation')) }}
                       </div>
                     </div>
                   </div>
