@@ -115,13 +115,15 @@ Event.on('new::userRegistration', async ({ user }) => {
   })
 })
 
-Event.on('new::comment', async (ticket, comment, email, locale) => {
+Event.on('new::comment', async (ticket, commentRaw, email, locale) => {
   const messages = {
     subject: Antl.forLocale(locale).formatMessage('emails.message12', { ticketid: ticket.id }),
     body: Antl.forLocale(locale).formatMessage('emails.message13'),
     link: Antl.forLocale(locale).formatMessage('emails.message14'),
     hint: Antl.forLocale(locale).formatMessage('emails.hint')
   }
+
+  const comment = commentRaw.toJSON()
 
   await Mail.send('emails.new_comment_notification', { ticket, comment, messages} , message => {
     message

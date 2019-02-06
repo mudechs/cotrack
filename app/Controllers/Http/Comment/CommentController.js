@@ -33,6 +33,7 @@ class CommentController {
     const author = await ticket.ticketAuthor().select('email', 'locale').first()
     const recipient = await ticket.ticketRecipient().select('email', 'locale').first()
 
+    const commentRaw = await Comment.findBy('id', comment.id)
     const commentAuthorId = comment.author_id
     const ticketAuthorId = author.author_id
     const ticketAuthorLocale = author.locale
@@ -43,18 +44,18 @@ class CommentController {
 
     if (commentAuthorId != ticketAuthorId && commentAuthorId != ticketRecipientId) {
       if(ticketAuthorId == ticketRecipientId) {
-        Event.fire('new::comment', ticket, comment, authorEmail, ticketAuthorLocale)
+        Event.fire('new::comment', ticket, commentRaw, authorEmail, ticketAuthorLocale)
       }
       else {
-        Event.fire('new::comment', ticket, comment, authorEmail, ticketAuthorLocale)
-        Event.fire('new::comment', ticket, comment, recipientEmail, ticketRecipientLocale)
+        Event.fire('new::comment', ticket, commentRaw, authorEmail, ticketAuthorLocale)
+        Event.fire('new::comment', ticket, commentRaw, recipientEmail, ticketRecipientLocale)
       }
     }
     else if(commentAuthorId == ticketAuthorId) {
-      Event.fire('new::comment', ticket, comment, recipientEmail, ticketRecipientLocale)
+      Event.fire('new::comment', ticket, commentRaw, recipientEmail, ticketRecipientLocale)
     }
     else if(commentAuthorId == ticketRecipientId) {
-      Event.fire('new::comment', ticket, comment, authorEmail, ticketAuthorLocale)
+      Event.fire('new::comment', ticket, commentRaw, authorEmail, ticketAuthorLocale)
     }
 
     return response.route('ticketsShow', {
