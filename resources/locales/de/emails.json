@@ -11,7 +11,7 @@
 	"message10": "Hier deine Zugangsdaten:",
 	"message11": "Anmelden",
 	"message12": "Es wurde ein neuer Kommentar in Ticket #{ticketid} erfasst",
-	"message13": "Es wurde ein neuer Kommentar erfasst",
+	"message13": "Es wurde ein neuer Kommentar erfasst:",
 	"message14": "Kommentar lesen",
 	"message15": "Dein 2FA-Code zum Anmelden",
 	"message16": "Hier dein Code für die Zwei-Faktor-Authentifizierung:",
