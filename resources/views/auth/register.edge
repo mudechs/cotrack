@@ -5,14 +5,14 @@
     <div class="row">
       <div class="col-md-8 offset-md-2 p-0">
         <div class="card">
-          <div class="card-header text-center">{{ antl.forLocale('en').formatMessage('static.registrieren') }}</div>
+          <div class="card-header text-center">{{ antl.forLocale(globals().default_locale).formatMessage('static.registrieren') }}</div>
           <form action="{{ route('register') }}" method="post">
             {{ csrfField() }}
             <div class="card-body">
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="salutation">{{ antl.forLocale('en').formatMessage('static.anrede') }}</label>
+                    <label for="salutation">{{ antl.forLocale(globals().default_locale).formatMessage('static.anrede') }}</label>
                     <div class="row">
                       <div class="col-12 col-md-6">
                         <select name="salutation" class="form-control {{ hasErrorFor('salutation') ? 'is-invalid' : '' }}">
@@ -28,7 +28,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="first_name">{{ antl.forLocale('en').formatMessage('static.vorname') }}</label>
+                    <label for="first_name">{{ antl.forLocale(globals().default_locale).formatMessage('static.vorname') }}</label>
                     <input
                       type="text"
                       class="form-control {{ hasErrorFor('first_name') ? 'is-invalid' : '' }}"
@@ -40,7 +40,7 @@
                     {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('first_name'), hasErrorFor('first_name')) }}
                   </div>
                   <div class="form-group">
-                    <label for="last_name">{{ antl.forLocale('en').formatMessage('static.nachname') }}</label>
+                    <label for="last_name">{{ antl.forLocale(globals().default_locale).formatMessage('static.nachname') }}</label>
                     <input
                       type="text"
                       class="form-control {{ hasErrorFor('last_name') ? 'is-invalid' : '' }}"
@@ -51,7 +51,7 @@
                     {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('last_name'), hasErrorFor('last_name')) }}
                   </div>
                   <div class="form-group">
-                    <label for="profession">{{ antl.forLocale('en').formatMessage('static.funktion') }}</label>
+                    <label for="profession">{{ antl.forLocale(globals().default_locale).formatMessage('static.funktion') }}</label>
                     <input
                       type="text"
                       class="form-control {{ hasErrorFor('profession') ? 'is-invalid' : '' }}"
@@ -65,14 +65,14 @@
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox" name="tfa_active" id="tfa_active">
                       <label class="form-check-label" for="tfa_active">
-                        {{ antl.forLocale('en').formatMessage('static.2fa') }}
+                        {{ antl.forLocale(globals().default_locale).formatMessage('static.2fa') }}
                       </label>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="phone">{{ antl.forLocale('en').formatMessage('static.telefon') }}</label>
+                    <label for="phone">{{ antl.forLocale(globals().default_locale).formatMessage('static.telefon') }}</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-phone fa-fw"></i></span>
@@ -120,7 +120,7 @@
                     {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('email'), hasErrorFor('email')) }}
                   </div>
                   <div class="form-group">
-                    <label for="password">{{ antl.forLocale('en').formatMessage('static.passwort') }}</label>
+                    <label for="password">{{ antl.forLocale(globals().default_locale).formatMessage('static.passwort') }}</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-key"></i></span>
@@ -139,7 +139,7 @@
               </div>
             </div>
             <div class="card-footer d-flex justify-content-center">
-              <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> {{ antl.forLocale('en').formatMessage('static.abschicken') }}</button>
+              <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> {{ antl.forLocale(globals().default_locale).formatMessage('static.abschicken') }}</button>
             </div>
           </form>
         </div>

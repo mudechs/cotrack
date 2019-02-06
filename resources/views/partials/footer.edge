@@ -6,7 +6,7 @@
         @loggedIn
           {{ antl.forLocale(auth.user.locale).formatMessage('static.datenschutz') }}
         @else
-          {{ antl.forLocale('en').formatMessage('static.datenschutz') }}
+          {{ antl.forLocale(globals().default_locale).formatMessage('static.datenschutz') }}
         @endloggedIn
       </small>
     </a>

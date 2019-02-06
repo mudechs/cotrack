@@ -5,14 +5,14 @@
     <div class="row">
       <div class="col-md-4 offset-md-4 p-0">
         <div class="card">
-          <div class="card-header text-center">{{ antl.forLocale('en').formatMessage('static.login_bestaetigen') }}</div>
+          <div class="card-header text-center">{{ antl.forLocale(globals().default_locale).formatMessage('static.login_bestaetigen') }}</div>
           <form action="{{ route('loginToken', { 'hash': hash }) }}" method="post">
             {{ csrfField() }}
             <input type="hidden" name="hash" value="{{ hash }}">
 
             <div class="card-body">
               <div class="form-group">
-                <label for="token">{{ antl.forLocale('en').formatMessage('static.bitte_sicherheitscode_eingeben') }}:</label>
+                <label for="token">{{ antl.forLocale(globals().default_locale).formatMessage('static.bitte_sicherheitscode_eingeben') }}:</label>
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-unlock"></i></span>
@@ -29,7 +29,7 @@
               </div>
             </div>
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary btn-block"><i class="far fa-paper-plane fa-fw"></i> {{ antl.forLocale('en').formatMessage('static.anmelden') }}</button>
+              <button type="submit" class="btn btn-primary btn-block"><i class="far fa-paper-plane fa-fw"></i> {{ antl.forLocale(globals().default_locale).formatMessage('static.anmelden') }}</button>
             </div>
           </form>
         </div>
