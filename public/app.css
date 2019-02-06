@@ -7408,6 +7408,11 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 .badge {
   font-weight: 300; }
 
+.badge.badge-pill {
+  border-radius: 10px;
+  padding-left: .7em;
+  padding-right: .7em; }
+
 .multiselect-container > li > a > label {
   padding: 3px 10px; }
 
