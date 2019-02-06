@@ -9,9 +9,14 @@
             <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
                 <div><h3 class="m-0">{{ user.first_name }} {{ user.last_name }}</h3></div>
-                @if(auth.user.id == user.id || auth.user.is_admin == true || auth.user.is_superadmin)
-                  <div><a href="{{ route('usersEdit', { id: user.id }) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pencil-alt"></i></a></div>
-                @endif
+                <div>
+                  @if(auth.user.id == user.id || auth.user.is_admin == true || auth.user.is_superadmin)
+                    <a href="{{ route('usersEdit', { id: user.id }) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pencil-alt"></i></a>
+                  @endif
+                  @if(auth.user.is_superadmin)
+                    <a href="#" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#passwordRestoreModal"><i class="fas fa-key"></i></a>
+                  @endif
+                </div>
               </div>
               <div class="card-body">
                 <div class="row">
@@ -149,4 +154,29 @@
       </div>
     </div>
   </div>
+
+  @if(auth.user.is_superadmin)
+    @!component('users.components.passwordRestoreModal', {
+      antl,
+      locale: auth.user.locale,
+      csrfField,
+      userId: user.id,
+    })
+  @endif
+@endsection
+
+@section('js')
+  @if(auth.user.is_superadmin)
+    <script>
+      $(document).ready(function () {
+        $('#passwordRestoreModal').on('show.bs.modal', function (e) {
+          $('#password').val('');
+        });
+
+        $('#passwordRestoreModal').on('shown.bs.modal', function (e) {
+          $('#password').focus();
+        });
+      });
+    </script>
+  @endif
 @endsection

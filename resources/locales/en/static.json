@@ -87,5 +87,8 @@
   "registrieren": "Sign up",
   "kein_zugriff": "No access (403)",
   "2fa": "Two-Factor-Authentication",
-  "register_success": "Thank you for the registration. We have sent you an email to confirm and activate your account."
+  "register_success": "Thank you for the registration. We have sent you an email to confirm and activate your account.",
+  "password_restoren": "Restore password",
+  "your_superadmin_password": "Your superadmin password",
+  "new_password_sent": "A new password was sent to the user by e-mail."
 }
