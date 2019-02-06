@@ -31,7 +31,7 @@ class RegisterController {
     if (validation.fails()) {
       session.withErrors(validation.messages()).flashExcept(['password'])
 
-      return response.redirect('back')
+      return response.route('login')
     }
 
     let tfaActive = request.input('tfa_active')
