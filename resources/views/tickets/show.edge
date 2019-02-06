@@ -129,12 +129,8 @@
           <div class="card-body">
             @each(comment in ticket.comments)
               <div id="kommentar_{{ comment.id }}" class="media">
-                @if(comment.commentAuthor.avatar)
-                  <img src="{{ assetsUrl('uploads/avatars/' + comment.commentAuthor.id + '/' + comment.commentAuthor.avatar) }}" alt="{{ comment.commentAuthor.first_name }} {{ comment.commentAuthor.last_name }}" class="mr-3 rounded-circle" width="60">
-                @else
-                  <div class="dummy-avatar mr-3"></div>
-                @endif
-                <div class="media-body">
+                @!component('users.components.avatar', { user: comment.commentAuthor, size: 60 })
+                <div class="media-body ml-3">
                   <p class="mt-0 d-flex justify-content-between">
                     <span><small>{{ comment.commentAuthor.first_name }} {{ comment.commentAuthor.last_name }}</small></span>
                     <span>

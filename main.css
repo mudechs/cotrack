@@ -7396,8 +7396,8 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 
 .dummy-avatar {
   display: block;
-  width: 60px;
-  height: 60px;
+  width: 100%;
+  height: auto;
   border-radius: 50%;
   background: #272B30; }
 
