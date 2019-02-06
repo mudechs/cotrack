@@ -79,6 +79,7 @@
               <h3>{{ ticket.subject }}</h3>
               <hr>
               @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
+              @!component('tickets.components.statusBadge', { statuses, ticketStatus: ticket.status })
               <br>
               <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}: </b><a href="{{ route('projectsShow', { id: ticket.project.id }) }}">{{ ticket.project.title }}</a></small><br>
               @if(ticket.impact)
