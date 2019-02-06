@@ -21,7 +21,7 @@ class DashboardController {
 
     const ticketsAssignedToOthers = await Ticket.query()
       .where('author_id', auth.user.id)
-      .havingNull('recipient_id')
+      .where('recipient_id', null)
       .orWhereNot('recipient_id', auth.user.id)
       .whereIn('status', customStatuses)
       .orderBy('created_at', 'desc')
