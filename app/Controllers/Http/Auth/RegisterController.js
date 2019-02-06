@@ -5,6 +5,7 @@ const { salutations } = Config.get('user')
 const { validateAll } = use('Validator')
 const User = use('App/Models/User')
 const randomString = require('random-string')
+const Event = use('Event')
 
 class RegisterController {
   showRegistrationForm({ request, view, response }) {
