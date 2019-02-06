@@ -53,7 +53,7 @@ module.exports = {
       en: [
         { 'label': 'feature', 'value': 'Feature-Wunsch' },
         { 'label': 'trivial', 'value': 'Trivial' },
-        { 'label': 'tweak', 'value': 'Unschönheit' },
+        { 'label': 'inelegance', 'value': 'Unschönheit' },
         { 'label': 'minor', 'value': 'kleiner Fehler' },
         { 'label': 'major', 'value': 'schwerer Fehler' },
         { 'label': 'crash', 'value': 'Absturz' },
