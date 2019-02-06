@@ -21,5 +21,7 @@
 	"message20": "Thank you for registration. Please confirm your email address with the link below:",
 	"message21": "Confirm email now",
 	"message22": "Please confirm your email address",
+	"message23": "A new, unassigned ticket #{ticketid} was recorded.",
+	"message24": "Registered by",
 	"hint": "Please do not reply to this mail"
 }

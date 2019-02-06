@@ -1,9 +1,12 @@
 @layout('emails.layout.main')
 
 @section('content')
-  <p>
-    {{ messages.body }}
-  </p>
+  <h4>{{ messages.titleLabel }}:</h6>
+  <p>{{ ticket.subject }} </p>
+  <h4>{{ messages.projectLabel }}:</h6>
+  <p>{{ project.title }}</p>
+  <h4>{{ messages.fromLabel }}:</h6>
+  <p>{{ author.first_name }} {{ author.last_name }}</p>
   <br>
   <br>
   <p>

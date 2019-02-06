@@ -33,15 +33,37 @@ Event.on('new::passwordReset', async ({ email, token, locale }) => {
   })
 })
 
-Event.on('new::ticket', async ({ ticket, user }) => {
+Event.on('new::ticket', async ({ ticket, project, user, author }) => {
   const messages = {
     subject: Antl.forLocale(user.locale).formatMessage('emails.message7', { ticketid: ticket.id }),
     body: Antl.forLocale(user.locale).formatMessage('emails.message8'),
     link: Antl.forLocale(user.locale).formatMessage('emails.message6'),
-    hint: Antl.forLocale(user.locale).formatMessage('emails.hint')
+    hint: Antl.forLocale(user.locale).formatMessage('emails.hint'),
+    titleLabel: Antl.forLocale(user.locale).formatMessage('static.betreff'),
+    projectLabel: Antl.forLocale(user.locale).formatMessage('static.projekt'),
+    fromLabel: Antl.forLocale(user.locale).formatMessage('emails.message24')
   }
 
-  await Mail.send('emails.new_ticket_notification', { messages, ticket }, message => {
+  await Mail.send('emails.new_ticket_notification', { messages, ticket, project, author }, message => {
+    message
+      .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
+      .to(user.email)
+      .subject(messages.subject)
+  })
+})
+
+Event.on('new::ticketUnassigned', async ({ ticket, project, user, author }) => {
+  const messages = {
+    subject: Antl.forLocale(user.locale).formatMessage('emails.message23', { ticketid: ticket.id }),
+    body: Antl.forLocale(user.locale).formatMessage('emails.message8'),
+    link: Antl.forLocale(user.locale).formatMessage('emails.message6'),
+    hint: Antl.forLocale(user.locale).formatMessage('emails.hint'),
+    titleLabel: Antl.forLocale(user.locale).formatMessage('static.betreff'),
+    projectLabel: Antl.forLocale(user.locale).formatMessage('static.projekt'),
+    fromLabel: Antl.forLocale(user.locale).formatMessage('emails.message24')
+  }
+
+  await Mail.send('emails.new_ticket_notification', { messages, ticket, project, author }, message => {
     message
       .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
       .to(user.email)

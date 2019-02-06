@@ -29,7 +29,7 @@ class PasswordRestoreController {
       if(user) {
         const password = RandomString({ length: 10 })
 
-        user.password = password
+        user.password = await Hash.make(password)
 
         await user.save()
 

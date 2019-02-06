@@ -129,14 +129,25 @@ class TicketController {
       ticket
     )
 
-    // Sende eine Notifikation falls der Recipient NICHT der Author ist
-    if(ticket.recipient_id != null && ticket.recipient_id != auth.user.id) {
-      const user = await ticket.ticketRecipient().fetch()
-
-      Event.fire('new::ticket', { ticket, user })
-    }
-
     await ticket.save()
+
+    let user
+    const author = await ticket.ticketAuthor().select('first_name', 'last_name').fetch()
+    const project = await ticket.project().fetch()
+
+    if(ticket.recipient_id == null) {
+      // Sende eine Notifikation an den Author des Projektes, wenn kein Recipient ausgewählt wurde
+      user = await project.projectAuthor().select('id', 'email', 'locale').fetch()
+      if(auth.user.id != user.id) {
+        Event.fire('new::ticketUnassigned', { ticket, project, user, author })
+      }
+    }
+    else if(ticket.recipient_id != auth.user.id) {
+      // Sende eine Notifikation falls der Recipient NICHT der Author ist
+      user = await ticket.ticketRecipient().fetch()
+
+      Event.fire('new::ticket', { ticket, project, user, author })
+    }
 
     const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message3')
 
