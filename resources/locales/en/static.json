@@ -86,5 +86,6 @@
   "abschicken": "Submit",
   "registrieren": "Sign up",
   "kein_zugriff": "No access (403)",
-  "2fa": "Two-Factor-Authentication"
+  "2fa": "Two-Factor-Authentication",
+  "register_success": "Thank you for the registration. We have sent you an email to confirm and activate your account."
 }

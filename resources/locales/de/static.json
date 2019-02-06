@@ -86,5 +86,6 @@
   "abschicken": "Abschicken",
   "registrieren": "Registrieren",
   "kein_zugriff": "Kein Zugriff (403)",
-  "2fa": "Zwei-Faktor-Authentifizierung"
+  "2fa": "Zwei-Faktor-Authentifizierung",
+  "register_success": "Vielen Dank für die Registrierung. Wir haben dir eine Mail geschickt, damit du dein Konto bestätigen und aktivieren kannst."
 }

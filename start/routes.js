@@ -22,6 +22,9 @@ Route.on('/privacy-policy').render('auth.privacy_policy').as('privacyPolicy')
 Route.get('register', 'Auth/RegisterController.showRegistrationForm')
 Route.post('register', 'Auth/RegisterController.register').as('register')
 Route.get('register/confirm/:token', 'Auth/RegisterController.confirmEmail')
+Route.get('register/success', ({ view }) => {
+  return view.render('register_success')
+}).as('registerSuccess')
 
 Route.get('login', 'Auth/LoginController.showLoginForm').middleware(['authenticated']).as('showLoginForm')
 Route.post('login', 'Auth/LoginController.login').as('login').validator('LoginUser')
