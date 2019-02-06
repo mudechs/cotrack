@@ -18,7 +18,9 @@
                         <select name="salutation" class="form-control {{ hasErrorFor('salutation') ? 'is-invalid' : '' }}">
                           <option value=""></option>
                           @each(salutation in salutations)
-                            <option value="{{ salutation.value }}">{{ salutation.label }}</option>
+                            <option value="{{ salutation.value }}"
+                            {{ old('salutation') == salutation.value ? 'selected' : ''  }}
+                            >{{ salutation.label }}</option>
                           @endeach
                         </select>
                         {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('salutation'), hasErrorFor('salutation')) }}

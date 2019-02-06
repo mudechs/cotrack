@@ -62,7 +62,9 @@
                     <select name="salutation" class="form-control {{ hasErrorFor('salutation') ? 'is-invalid' : '' }}">
                       <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
                       @each(salutation in salutations)
-                        <option value="{{ salutation.value }}">{{ salutation.label }}</option>
+                        <option value="{{ salutation.value }}"
+                        {{ old('salutation') == salutation.value ? 'selected' : ''  }}
+                        >{{ salutation.label }}</option>
                       @endeach
                     </select>
                   </div>
