@@ -70,6 +70,11 @@ Route
   })
   .middleware(['auth'])
 
+// Error pages
+Route.get('error-403', ({ view }) => {
+  return view.render('errors/403')
+}).as('error403')
+
 Route
   .group(() => {
     Route.get('settings', 'Setting/SettingController.index').as('settingsIndex')

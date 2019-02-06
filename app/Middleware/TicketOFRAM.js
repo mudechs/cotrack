@@ -34,9 +34,7 @@ class TicketOfram {
     if(isMember || author_id == auth.user.id || forwarder_id == auth.user.id || recipient_id == auth.user.id || auth.user.is_admin == true || auth.user.is_superadmin == true) {
       await next()
     } else {
-      return response
-        .status(403)
-        .send('NO ACCESS TO THIS ROUTE')
+      return response.route('error403')
     }
   }
 }

@@ -84,5 +84,6 @@
   "passwort_zuruecksetzen": "Passwort zurücksetzen",
   "gib_deine_email_adresse_ein": "Gib deine E-Mail Adresse ein",
   "abschicken": "Abschicken",
-  "registrieren": "Registrieren"
+  "registrieren": "Registrieren",
+  "kein_zugriff": "Kein Zugriff (403)"
 }

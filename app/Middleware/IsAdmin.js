@@ -13,9 +13,7 @@ class IsAdmin {
     if(auth.user.is_admin == true) {
       await next()
     } else {
-      return response
-        .status(403)
-        .send('NO ACCESS TO THIS ROUTE')
+      return response.route('error403')
     }
   }
 }

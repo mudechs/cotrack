@@ -28,9 +28,7 @@ class PublicApiAuth {
     if(project) {
       await next()
     } else {
-      return response
-        .status(403)
-        .send('NO ACCESS TO THIS ROUTE')
+      return response.route('error403')
     }
   }
 }

@@ -1,0 +1,13 @@
+@layout('layouts.app')
+
+@section('content')
+  <div class="container-fluid mt-5 d-flex justify-content-center text-center">
+    <div class="card" style="width: 200px;">
+      <div class="card-body">
+        <small><code>ERROR</code></small>
+        <hr>
+        {{ antl.forLocale(auth.user.locale).formatMessage('static.kein_zugriff') }}
+      </div>
+    </div>
+  </div>
+@endsection

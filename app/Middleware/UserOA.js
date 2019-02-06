@@ -18,9 +18,7 @@ class UserOA {
     if(id == reqId || auth.user.is_superadmin == true || (auth.user.is_admin == true && auth.user.is_superadmin != is_superadmin)) {
       await next()
     } else {
-      return response
-        .status(403)
-        .send('NO ACCESS TO THIS ROUTE')
+      return response.route('error403')
     }
   }
 }

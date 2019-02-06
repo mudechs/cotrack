@@ -84,5 +84,6 @@
   "passwort_zuruecksetzen": "Reset password",
   "gib_deine_email_adresse_ein": "Please enter your e-mail address",
   "abschicken": "Submit",
-  "registrieren": "Sign up"
+  "registrieren": "Sign up",
+  "kein_zugriff": "No access (403)"
 }
