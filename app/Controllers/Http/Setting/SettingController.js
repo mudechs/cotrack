@@ -57,7 +57,7 @@ class SettingController {
       }
     })
 
-    return response.route('settingsIndex')
+    return response.route('settings.index')
   }
 
   async edit({ params, view }) {
@@ -104,7 +104,7 @@ class SettingController {
       }
     })
 
-    return response.route('settingsIndex')
+    return response.route('settings.index')
   }
 }
 

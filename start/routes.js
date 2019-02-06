@@ -80,13 +80,9 @@ Route.get('error-403', ({ view }) => {
 
 Route
   .group(() => {
-    Route.get('settings', 'Setting/SettingController.index').as('settingsIndex')
-    Route.get('settings/create', 'Setting/SettingController.create').as('settingsCreate')
-    Route.post('settings/store', 'Setting/SettingController.store').as('settingsStore')
-    Route.get('settings/edit/:id', 'Setting/SettingController.edit').as('settingsEdit')
-    Route.post('settings/update/:id', 'Setting/SettingController.update').as('settingsUpdate')
+    Route.resource('settings', 'Setting/SettingController')
   })
-  .middleware(['auth', 'isAdmin'])
+  .middleware(['auth', 'isSuperAdmin', 'isAdmin'])
 
 Route
   .group(() => {

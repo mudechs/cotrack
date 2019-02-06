@@ -9,7 +9,7 @@
             <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
                 <div><h5 class="m-0">{{ antl.forLocale(auth.user.locale).formatMessage('settings.titel') }}</h5></div>
-                <div><a href="{{ route('settingsEdit', { id: settings.id }) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pencil-alt"></i></a></div>
+                <div><a href="{{ route('settings.edit', { id: settings.id }) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pencil-alt"></i></a></div>
               </div>
               <div class="card-body">
                 <address>

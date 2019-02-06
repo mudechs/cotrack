@@ -29,7 +29,7 @@
             </div>
           </li>
           <li class="nav-item {{ activeRoute('settings*') }}">
-            <a class="nav-link" href="{{ route('settingsIndex') }}"><i class="fas fa-cogs fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.einstellungen') }}</a>
+            <a class="nav-link" href="{{ route('settings.index') }}"><i class="fas fa-cogs fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.einstellungen') }}</a>
           </li>
         @endif
       </ul>

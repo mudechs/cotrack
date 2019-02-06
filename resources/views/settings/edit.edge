@@ -5,13 +5,13 @@
     <div class="row">
       <div class="col-12 col-lg-8 offset-lg-2 p-md-3 p-0">
         <div class="card">
-          <form action="{{ route('settingsUpdate', { id: settings.id }) }}" method="post">
+          <form action="{{ route('settings.update', { id: settings.id }) }}?_method=PUT" method="post">
             {{ csrfField() }}
 
             @include('settings.includes.formFields')
 
             <div class="card-footer d-flex justify-content-center">
-              <a href="{{ route('settingsIndex') }}" class="btn btn-secondary mr-2"><i class="fas fa-times"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.abbrechen') }}</a>
+              <a href="{{ route('settings.index') }}" class="btn btn-secondary mr-2"><i class="fas fa-times"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.abbrechen') }}</a>
               <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.speichern') }}</button>
             </div>
           </form>

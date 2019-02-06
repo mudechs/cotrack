@@ -94,7 +94,7 @@ class LoginController {
                   }
                 })
 
-                return response.route('settingsCreate')
+                return response.route('settings.create')
               }
               else {
                 return response
