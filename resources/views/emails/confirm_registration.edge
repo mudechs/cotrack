@@ -3,18 +3,18 @@
 @section('content')
   <p>Hallo {{ first_name }} {{ last_name }}</p>
   <p>
-    Vielen Dank für die Registration bei CoTrack. Bitte bestätige deine E-Mail Adresse mit unten stehendem Link:
+    {{ antl.forLocale('en').formatMessage('emails.message20') }}
   </p>
   <br>
   <br>
   <p>
-    <a href="{{ appUrl('register/confirm/' + confirmation_token) }}" class="btn">E-Mail Adresse bestätigen</a>
+    <a href="{{ appUrl('register/confirm/' + confirmation_token) }}" class="btn">{{ antl.forLocale('en').formatMessage('emails.message21') }}</a>
   </p>
   <br>
   <br>
   <br>
   <hr>
-  <p>Bitte auf diese Mail nicht antworten.</p>
+  <p>{{ antl.forLocale('en').formatMessage('emails.hint') }}</p>
   <hr>
   @include('emails.includes.address_footer')
 @endsection
