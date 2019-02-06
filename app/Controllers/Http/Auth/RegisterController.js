@@ -66,8 +66,6 @@ class RegisterController {
   async confirmEmail({ params, session, response }) {
     const user = await User.findBy('confirmation_token', params.token)
 
-    return response.send(user)
-
     user.confirmation_token = null
     user.is_active = true
 
