@@ -7,6 +7,7 @@ const User = use('App/Models/User')
 const Event = use('Event')
 const FileuploadServices = use('App/Services/fileuploadServices')
 const Antl = use('Antl')
+const RandomString = require('random-string')
 
 class UserController {
   async index({ view }) {
@@ -58,12 +59,11 @@ class UserController {
       salutation: 'required',
       first_name: 'required',
       last_name: 'required',
-      email: 'required|email|unique:users, email',
-      password: 'required|min:6'
+      email: 'required|email|unique:users, email'
     })
 
     if (validation.fails()) {
-      session.withErrors(validation.messages()).flashExcept(['password'])
+      session.withErrors(validation.messages())
 
       return response.redirect('back')
     }
@@ -80,6 +80,8 @@ class UserController {
     let sendEmail = request.input('send_email')
     sendEmail = (sendEmail == 'on')? true : false
 
+    const randomPassword = RandomString({ length: 10 })
+
     // Create User
     const user = await User.create({
       salutation: request.input('salutation'),
@@ -89,7 +91,7 @@ class UserController {
       phone: request.input('phone'),
       mobile: request.input('mobile'),
       email: request.input('email'),
-      password: request.input('password'),
+      password: randomPassword,
       tfa_active: tfaActive,
       is_active: isActive,
       is_admin: isAdmin,
@@ -109,7 +111,7 @@ class UserController {
       )
     }
 
-    const password = request.input('password')
+    const password = randomPassword
 
     await user.save()
 
