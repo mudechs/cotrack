@@ -11,10 +11,10 @@
                 <div><h3 class="m-0">{{ user.first_name }} {{ user.last_name }}</h3></div>
                 <div>
                   @if(auth.user.id == user.id || auth.user.is_admin || auth.user.is_superadmin)
-                    <a href="{{ route('usersEdit', { id: user.id }) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="{{ route('usersEdit', { id: user.id }) }}" class="btn btn-sm btn-link"><i class="fas fa-pencil-alt"></i></a>
                   @endif
                   @if(auth.user.is_superadmin)
-                    <a href="#" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#passwordRestoreModal"><i class="fas fa-key"></i></a>
+                    <a href="#" class="btn btn-sm btn-link" data-toggle="modal" data-target="#passwordRestoreModal"><i class="fas fa-key"></i></a>
                   @endif
                 </div>
               </div>
@@ -24,7 +24,7 @@
                     @!component('users.components.avatar', { user, size: 120 })
                   </div>
                   <div class="col-12">
-                    <h6 class="card-subtitle text-muted mb-5">
+                    <h6 class="card-subtitle text-muted mb-5 text-center">
                       {{ user.profession }}
                     </h6>
                     <i class="fas fa-transgender-alt fa-fw mr-2"></i>
