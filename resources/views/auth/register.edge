@@ -14,7 +14,7 @@
                   <div class="form-group">
                     <label for="salutation">{{ antl.forLocale('en').formatMessage('static.anrede') }}</label>
                     <div class="row">
-                      <div class="col-12 col-md-4">
+                      <div class="col-12 col-md-6">
                         <select name="salutation" class="form-control {{ hasErrorFor('salutation') ? 'is-invalid' : '' }}">
                           <option value=""></option>
                           @each(salutation in salutations)
