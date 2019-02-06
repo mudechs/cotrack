@@ -37,7 +37,7 @@
                   <label class="custom-control-label" for="tfa_active">2FA</label>
                 </div>
               </div>
-              @if(auth.user.is_admin == true || auth.user.is_superadmin)
+              @if(auth.user.is_admin || auth.user.is_superadmin)
                 <div class="form-group">
                   <div class="custom-control custom-switch">
                     <input
