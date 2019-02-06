@@ -39,9 +39,11 @@ $(document).ready(function () {
   })
 
   // Add loading icon on clicked submit buttons
-  $('button[type=submit]').on('click', function () {
+  /* $('button[type=submit]').on('click', function(e) {
+    e.preventDefault()
+
     $(this).html('<i class="fas fa-spinner fa-spin fa-fw"></i>')
-  })
+  }) */
 
   $('.linkable tr').on('click', 'td:not(:has(a))', function(e) {
     e.preventDefault()
