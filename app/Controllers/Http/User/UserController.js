@@ -34,10 +34,10 @@ class UserController {
       .where('id', params.id)
       .with('lastLogin')
       .with('authorOfProjects', (builder) => {
-        builder.select('id', 'author_id', 'title')
+        builder.select('id', 'author_id', 'title', 'phase')
       })
       .with('memberInProjects', (builder) => {
-        builder.select('id', 'title')
+        builder.select('id', 'title', 'phase')
       })
       .first()
 

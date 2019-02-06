@@ -50,98 +50,93 @@
           </div>
           <div class="col-12 col-md-6 col-lg p-md-3 p-0">
             <div class="card">
-              <div class="card-body p-2">
-                <table class="table table-sm table-borderless text-nowrap m-0">
-                  <tbody>
-                    <tr>
-                      <th scope="row">Status:</th>
-                      <td>
-                        @if(user.is_active == 0)
-                          <span class="text-danger">Inaktiv</span>
-                        @else
-                          <span class="text-success">Aktiv</span>
-                        @endif
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.sprache') }}:</th>
-                      <td>{{ upperCase(user.locale) }}</td>
-                    </tr>
-                    <tr>
-                      <th>Admin:</th>
-                      <td>
-                        @if(user.is_admin == 1)
-                          <i class="fas fa-check"></i>
-                        @endif
-                      </td>
-                    </tr>
-                    <tr>
-                        <th>Superadmin:</th>
+              <ul class="nav nav-tabs" id="memberInfos" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true"><i class="fas fa-info-circle fa-fw"></i></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="myProjects-tab" data-toggle="tab" href="#myProjects" role="tab" aria-controls="myProjects" aria-selected="false"><i class="fas fa-project-diagram fa-fw"></i></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="memberInProjects-tab" data-toggle="tab" href="#memberInProjects" role="tab" aria-controls="memberInProjects" aria-selected="false"><i class="fas fa-hands-helping fa-fw"></i></a>
+                </li>
+              </ul>
+              <div class="tab-content p-2" id="memberInfosContent">
+                <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
+                  <table class="table table-sm table-borderless text-nowrap m-0">
+                    <tbody>
+                      <tr>
+                        <th scope="row">Status:</th>
                         <td>
-                          @if(user.is_superadmin == 1)
+                          @if(user.is_active == 0)
+                            <span class="text-danger">Inaktiv</span>
+                          @else
+                            <span class="text-success">Aktiv</span>
+                          @endif
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.sprache') }}:</th>
+                        <td>{{ upperCase(user.locale) }}</td>
+                      </tr>
+                      <tr>
+                        <th>Admin:</th>
+                        <td>
+                          @if(user.is_admin == 1)
                             <i class="fas fa-check"></i>
                           @endif
                         </td>
                       </tr>
-                    <tr>
-                      <th>2FA {{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}:</th>
-                      <td>
-                        @if(user.tfa_active == 1)
-                          <i class="fas fa-check"></i>
-                        @endif
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">ID:</th>
-                      <td>{{ user.id }}</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.erstellt') }}:</th>
-                      <td>{{ user.created_at }}</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.geaendert') }}:</th>
-                      <td>{{ user.updated_at }}</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.letzte_anmeldung') }}:</th>
-                      <td>{{ user.lastLogin.created_at }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 px-0 px-md-3">
-            <div class="accordion" id="projectAccordion">
-              @if(auth.user.is_admin || auth.user.is_superadmin)
-              <div class="card">
-                <a class="card-header text-center" data-toggle="collapse" href="#myProjects" role="button" aria-expanded="true" aria-controls="myProjects">
-                  {{ antl.forLocale(auth.user.locale).formatMessage('static.meine_projekte') }}
-                </a>
-                <div id="myProjects" class="collapse" aria-labelledby="myProjects" data-parent="#projectAccordion">
-                  <div class="list-group list-group-flush">
-                    @each(project in user.authorOfProjects)
-                      <a href="{{ route('projectsShow', { id: project.id }) }}" class="list-group-item list-group-item-action py-1">
-                        {{ project.title }}
-                      </a>
-                    @endeach
-                  </div>
+                      <tr>
+                          <th>Superadmin:</th>
+                          <td>
+                            @if(user.is_superadmin == 1)
+                              <i class="fas fa-check"></i>
+                            @endif
+                          </td>
+                        </tr>
+                      <tr>
+                        <th>2FA {{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}:</th>
+                        <td>
+                          @if(user.tfa_active == 1)
+                            <i class="fas fa-check"></i>
+                          @endif
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">ID:</th>
+                        <td>{{ user.id }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.erstellt') }}:</th>
+                        <td>{{ user.created_at }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.geaendert') }}:</th>
+                        <td>{{ user.updated_at }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.letzte_anmeldung') }}:</th>
+                        <td>{{ user.lastLogin.created_at }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-              </div>
-              @endif
-              <div class="card">
-                <a class="card-header text-center" data-toggle="collapse" href="#projectMember" role="button" aria-expanded="true" aria-controls="projectMember">
-                    {{ antl.forLocale(auth.user.locale).formatMessage('static.projekt_member') }}
-                </a>
-                <div id="projectMember" class="collapse" aria-labelledby="projectMember" data-parent="#projectAccordion">
-                  <div class="list-group list-group-flush">
-                    @each(project in user.memberInProjects)
-                      <a href="{{ route('projectsShow', { id: project.id }) }}" class="list-group-item list-group-item-action py-1">
-                        {{ project.title }}
-                      </a>
-                    @endeach
-                  </div>
+                <div class="tab-pane fade" id="myProjects" role="tabpanel" aria-labelledby="info-tab">
+                  @each(project in user.authorOfProjects)
+                    <a href="{{ route('projectsShow', { id: project.id }) }}" class="list-group-item list-group-item-action py-1 d-flex justify-content-between">
+                      <span>{{ project.title }}</span>
+                      <span><small>{{ project.phase }}</small></span>
+                    </a>
+                  @endeach
+                </div>
+                <div class="tab-pane fade" id="memberInProjects" role="tabpanel" aria-labelledby="info-tab">
+                  @each(project in user.memberInProjects)
+                    <a href="{{ route('projectsShow', { id: project.id }) }}" class="list-group-item list-group-item-action py-1 d-flex justify-content-between">
+                      <span>{{ project.title }}</span>
+                      <span><small>{{ project.phase }}</small></span>
+                    </a>
+                  @endeach
                 </div>
               </div>
             </div>
