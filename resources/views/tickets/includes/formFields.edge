@@ -27,7 +27,7 @@
 
       @if(ticket == undefined)
         <div class="form-group" style="display: none;">
-          <label for="recipient">{{ antl.forLocale(auth.user.locale).formatMessage('static.empfaenger') }}</label>
+          <label for="recipient">{{ antl.forLocale(auth.user.locale).formatMessage('static.empfaenger') }} (optional)</label>
           <div class="row">
             <div class="col-md-6 col-12">
               <select name="recipient" id="recipient" class="form-control">
