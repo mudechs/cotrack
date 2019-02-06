@@ -11,7 +11,7 @@ class RegisterController {
   showRegistrationForm({ request, view, response }) {
     if(request.globals.allow_registration) {
       return view.render('auth.register', {
-        salutations: salutations[0]['de']
+        salutations: salutations[0]['en']
       })
     } else {
       return response.route('error403')
