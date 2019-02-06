@@ -85,5 +85,6 @@
   "gib_deine_email_adresse_ein": "Please enter your e-mail address",
   "abschicken": "Submit",
   "registrieren": "Sign up",
-  "kein_zugriff": "No access (403)"
+  "kein_zugriff": "No access (403)",
+  "2fa": "Two-Factor-Authentication"
 }
