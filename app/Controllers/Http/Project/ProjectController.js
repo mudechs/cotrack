@@ -8,6 +8,7 @@ const Ticket = use('App/Models/Ticket')
 const User = use('App/Models/User')
 const TicketServices = use('App/Services/ticketServices')
 const RandomString = require('random-string')
+const Antl = use('Antl')
 
 class ProjectController {
   async index({ auth, view }) {
@@ -152,10 +153,12 @@ class ProjectController {
 
     await project.members().attach(request.input('members'))
 
+    const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message8')
+
     session.flash({
       notification: {
         type: 'success',
-        message: 'Das Projekt wurde erfolgreich angelegt.'
+        message: message
       }
     })
 
@@ -182,7 +185,7 @@ class ProjectController {
     })
   }
 
-  async update({ params, request, session, response }) {
+  async update({ params, request, auth, session, response }) {
     const project = await Project.find(params.id)
 
     let isActive = request.input('is_active')
@@ -197,10 +200,12 @@ class ProjectController {
 
     await project.members().sync(request.input('members'))
 
+    const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message2')
+
     session.flash({
       notification: {
         type: 'success',
-        message: 'Die Änderungen wurden erfolgreich übernommen.'
+        message: message
       }
     })
 

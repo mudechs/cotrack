@@ -1,6 +1,7 @@
 'use strict'
 
 const Setting = use('App/Models/Setting')
+const Antl = use('Antl')
 
 class SettingController {
   async index({ view }) {
@@ -20,7 +21,7 @@ class SettingController {
     return view.render('settings.create')
   }
 
-  async store({ request, session, response }) {
+  async store({ request, auth, session, response }) {
     const setting = new Setting()
 
     let allowRegistration = request.input('allow_registration')
@@ -47,10 +48,12 @@ class SettingController {
 
     await setting.save()
 
+    const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message7')
+
     session.flash({
       notification: {
         type: 'success',
-        message: 'Die Einstellungen wurden gespeichert.'
+        message: message
       }
     })
 
@@ -65,7 +68,7 @@ class SettingController {
     })
   }
 
-  async update({ params, request, session, response }) {
+  async update({ params, request, auth, session, response }) {
     const setting = await Setting.find(params.id)
 
     let allowRegistration = request.input('allow_registration')
@@ -92,10 +95,12 @@ class SettingController {
 
     await setting.save()
 
+    const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message2')
+
     session.flash({
       notification: {
         type: 'success',
-        message: 'Die Einstellungen wurden aktualisiert.'
+        message: message
       }
     })
 

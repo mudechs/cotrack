@@ -2,6 +2,7 @@
 
 const User = use('App/Models/User')
 const Hash = use('Hash')
+const Antl = use('Antl')
 
 class PasswordChangeController {
   async edit({ params, view }) {
@@ -11,7 +12,7 @@ class PasswordChangeController {
     })
   }
 
-  async update ({ params, request, session, response }) {
+  async update ({ params, request, auth, session, response }) {
     // formdaten auslesen
     const password_current = request.input('password_current')
 
@@ -22,10 +23,12 @@ class PasswordChangeController {
     const passwordVerified = await Hash.verify(password_current, user.password)
 
     if (!passwordVerified) {
+      const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message13')
+
       session.flash({
         notification: {
           type: 'danger',
-          message: `Das angegebene Passwort ist falsch.`
+          message: message
         }
       })
 
@@ -39,10 +42,12 @@ class PasswordChangeController {
     await user.save()
 
     // meldung zeigen
+    const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message14')
+
     session.flash({
       notification: {
         type: 'success',
-        message: 'Das Passwort wurde erfolgreich geändert.'
+        message: message
       }
     })
     // weiterleiten

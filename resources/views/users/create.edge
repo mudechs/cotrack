@@ -67,9 +67,9 @@
                         >{{ salutation.label }}</option>
                       @endeach
                     </select>
+                    {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('salutation'), hasErrorFor('salutation')) }}
                   </div>
                 </div>
-                {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('salutation'), hasErrorFor('salutation')) }}
               </div>
               <div class="form-group">
                 <label for="first_name">{{ antl.forLocale(auth.user.locale).formatMessage('static.vorname') }}</label>

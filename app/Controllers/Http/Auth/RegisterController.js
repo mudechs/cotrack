@@ -6,6 +6,7 @@ const { validateAll } = use('Validator')
 const User = use('App/Models/User')
 const randomString = require('random-string')
 const Event = use('Event')
+const Antl = use('Antl')
 
 class RegisterController {
   showRegistrationForm({ request, view, response }) {
@@ -55,17 +56,19 @@ class RegisterController {
     Event.fire('new::userRegistration', { user })
 
     // Show success Message
+    const message = Antl.forLocale(request.globals.default_locale).formatMessage('messages.message19')
+
     session.flash({
       notification: {
         type: 'success',
-        message: 'Das Konto wurde erfolgreich erstellt. Eine E-Mail wurde verschickt um das Konto zu aktivieren.'
+        message: message
       }
     })
 
     return response.route('registerSuccess')
   }
 
-  async confirmEmail({ params, session, response }) {
+  async confirmEmail({ params, request, session, response }) {
     const user = await User.findBy('confirmation_token', params.token)
 
     user.confirmation_token = null
@@ -73,10 +76,12 @@ class RegisterController {
 
     await user.save()
 
+    const message = Antl.forLocale(request.globals.default_locale).formatMessage('messages.message20')
+
     session.flash({
       notification: {
         type: 'success',
-        message: 'Die E-Mail Adresse wurde bestätigt.'
+        message: message
       }
     })
 

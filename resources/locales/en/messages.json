@@ -1,0 +1,22 @@
+{
+  "message1": "The user account has been successfully created.",
+  "message2": "The changes have been successfully applied.",
+  "message3": "The ticket has been successfully created.",
+  "message4": "The ticket was successfully assigned to you.",
+  "message5": "The status was changed successfully.",
+  "message6": "The ticket was successfully forwarded.",
+  "message7": "The settings have been successfully saved.",
+  "message8": "The project has been successfully created.",
+  "message9": "Welcome {firstName}! Please define the global settings of the app first.",
+  "message10": "Login failed. Please check if your e-mail address has been activated or if your details are correct.",
+  "message11": "The entered code is invalid.",
+  "message12": "The login failed.",
+  "message13": "The specified password is wrong.",
+  "message14": "The password was changed successfully.",
+  "message15": "A link to reset your password has been sent to your e-mail address.",
+  "message16": "Oops, this email address seems to be invalid.",
+  "message17": "Oops, the token seems to be invalid.",
+  "message18": "The password was successfully reset.",
+  "message19": "The account was created successfully. An e-mail has been sent to you to activate the account.",
+  "message20": "The e-mail address has been confirmed. You can sign up now."
+}

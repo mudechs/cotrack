@@ -1,0 +1,22 @@
+{
+  "message1": "Das Benutzerkonto wurde erfolgreich erstellt.",
+  "message2": "Die Änderungen wurden erfolgreich übernommen.",
+  "message3": "Das Ticket wurde erfolgreich erstellt.",
+  "message4": "Das Ticket wurde erfolgreich übernommen.",
+  "message5": "Der Status wurde erfolgreich geändert.",
+  "message6": "Das Ticket wurde erfolgreich weitergeleitet.",
+  "message7": "Die Einstellungen wurden gespeichert.",
+  "message8": "Das Projekt wurde erfolgreich angelegt.",
+  "message9": "Willkommen {firstName}! Bitte definere die globalen Einstellungen der App.",
+  "message10": "Die Anmeldung ist fehlgeschlagen. Überprüfe bitte ob deine E-Mail Adresse aktiviert wurde, oder ob deine Angaben korrekt sind.",
+  "message11": "Der eingegebene Code ist ungültig.",
+  "message12": "Die Anmeldung ist fehlgeschlagen.",
+  "message13": "Das angegebene Passwort ist falsch.",
+  "message14": "Das Passwort wurde erfolgreich geändert.",
+  "message15": "Ein Link zum zurücksetzen deines Passwortes wurde an deine E-Mail Adresse verschickt.",
+  "message16": "Ups, diese E-Mail Adresse scheint ungültig zu sein.",
+  "message17": "Ups, das Token scheint ungültig zu sein.",
+  "message18": "Das Passwort wurde erfolgreich zurückgesetzt.",
+  "message19": "Das Konto wurde erfolgreich erstellt. Eine E-Mail wurde an dich verschickt um das Konto zu aktivieren.",
+  "message20": "Die E-Mail Adresse wurde bestätigt. Du kannst dich jetzt anmelden."
+}

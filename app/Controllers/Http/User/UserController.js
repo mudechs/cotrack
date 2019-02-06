@@ -6,6 +6,7 @@ const { validateAll } = use('Validator')
 const User = use('App/Models/User')
 const Event = use('Event')
 const FileuploadServices = use('App/Services/fileuploadServices')
+const Antl = use('Antl')
 
 class UserController {
   async index({ view }) {
@@ -51,7 +52,7 @@ class UserController {
     })
   }
 
-  async store({ request, session, response }) {
+  async store({ request, auth, session, response }) {
     // Validate
     const validation = await validateAll(request.all(), {
       salutation: 'required',
@@ -116,10 +117,12 @@ class UserController {
       Event.fire('new::user', { user, password })
     }
 
+    const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message1')
+
     session.flash({
       notification: {
         type: 'success',
-        message: 'Das Benutzerkonto wurde erfolgreich erstellt.'
+        message: message
       }
     })
 
@@ -134,7 +137,7 @@ class UserController {
     })
   }
 
-  async update({ params, request, session, response }) {
+  async update({ params, request, auth, session, response }) {
     const userId = params.id
 
     const validation = await validateAll(request.all(), {
@@ -187,10 +190,12 @@ class UserController {
 
     await user.save()
 
+    const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message2')
+
     session.flash({
       notification: {
         type: 'success',
-        message: 'Die Änderungen wurden erfolgreich übernommen.'
+        message: message
       }
     })
 

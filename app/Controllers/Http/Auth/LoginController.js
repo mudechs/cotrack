@@ -8,6 +8,7 @@ const LastLogin = use('App/Models/LastLogin')
 const Hash = use('Hash')
 const RandomString = require('random-string')
 const Event = use('Event')
+const Antl = use('Antl')
 
 class LoginController {
   showLoginForm({ view }) {
@@ -76,7 +77,7 @@ class LoginController {
               session.flash({
                 notification: {
                   type: 'success',
-                  message: `Willkommen ${user.first_name}!`
+                  message: `Hey ${user.first_name}!`
                 }
               })
 
@@ -84,10 +85,12 @@ class LoginController {
             }
             else {
               if(auth.user.is_admin == true) {
+                const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message9', { firstName: user.first_name })
+
                 session.flash({
                   notification: {
                     type: 'success',
-                    message: `Willkommen ${user.first_name}! Bitte definere die globalen Einstellungen der App.`
+                    message: message
                   }
                 })
 
@@ -104,10 +107,12 @@ class LoginController {
       }
 
       // Error message if login fails
+      const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message10')
+
       session.flash({
         notification: {
           type: 'danger',
-          message: 'Die Anmeldung ist fehlgeschlagen. Überprüfe bitte ob deine E-Mail Adresse aktiviert wurde, oder ob deine Angaben korrekt sind.'
+          message: message
         }
       })
 
@@ -148,10 +153,11 @@ class LoginController {
     const token = await Token.findBy('token', request.input('token'))
 
     if(!token) {
+      const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message11')
       session.flash({
         notification: {
           type: 'danger',
-          message: 'Der eingegebene Code ist ungültig.'
+          message: message
         }
       })
 
@@ -174,7 +180,7 @@ class LoginController {
         session.flash({
           notification: {
             type: 'success',
-            message: `Willkommen ${user.first_name}!`
+            message: `Hey ${user.first_name}!`
           }
         })
 
@@ -183,10 +189,11 @@ class LoginController {
     }
 
     // Error message if login fails
+    const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message12')
     session.flash({
       notification: {
         type: 'danger',
-        message: 'Die Anmeldung ist fehlgeschlagen.'
+        message: message
       }
     })
 

@@ -11,6 +11,7 @@ const FileuploadServices = use('App/Services/fileuploadServices')
 const TicketServices = use('App/Services/ticketServices')
 const Moment = use('moment')
 const Event = use('Event')
+const Antl = use('Antl')
 
 class TicketController {
   async index({ auth, view }) {
@@ -137,10 +138,12 @@ class TicketController {
 
     await ticket.save()
 
+    const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message3')
+
     session.flash({
       notification: {
         type: 'success',
-        message: 'Das Ticket wurde erfolgreich angelegt.'
+        message: message
       }
     })
 
@@ -208,17 +211,19 @@ class TicketController {
 
     await ticket.save()
 
+    const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message2')
+
     session.flash({
       notification: {
         type: 'success',
-        message: 'Die Änderungen wurden erfolgreich übernommen.'
+        message: message
       }
     })
 
     return response.route('ticketsShow', { id: ticket.id })
   }
 
-  async assignToMe({ params, request, session, response }) {
+  async assignToMe({ params, request, auth, session, response }) {
     const ticket = await Ticket.find(params.id)
 
     ticket.recipient_id = request.input('recipient_id')
@@ -235,10 +240,12 @@ class TicketController {
       Event.fire('new::ticketAssigned', { ticket, author, recipient })
     }
 
+    const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message4')
+
     session.flash({
       notification: {
         type: 'success',
-        message: 'Das Ticket wurde erfolgreich übernommen.'
+        message: message
       }
     })
 
@@ -262,10 +269,12 @@ class TicketController {
 
     await ticket.save()
 
+    const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message5')
+
     session.flash({
       notification: {
         type: 'success',
-        message: 'Der Status wurde erfolgreich geändert.'
+        message: message
       }
     })
 
@@ -304,10 +313,12 @@ class TicketController {
 
     Event.fire('new::ticket', { ticket, user })
 
+    const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message6')
+
     session.flash({
       notification: {
         type: 'success',
-        message: 'Das Ticket wurde erfolgreich weitergeleitet.'
+        message: message
       }
     })
 
@@ -363,10 +374,10 @@ class TicketController {
 
       Event.fire('new::ticket', { ticket, user })
 
-      return response.status(200).send('Das Ticket wurde erfolgreich übermittelt.')
+      return response.status(200).send('OK')
     }
 
-    return response.status(500).send('Das Ticket konnte nicht erstellt werden weil entweder der User oder das Projekt nicht existieren.')
+    return response.status(404).send('ERROR')
   }
 
   async apiPublicTicketFetch({ request, response }) {

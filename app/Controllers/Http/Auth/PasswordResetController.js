@@ -6,6 +6,7 @@ const PasswordReset = use('App/Models/PasswordReset')
 const randomString = require('random-string')
 const Hash = use('Hash')
 const Event = use('Event')
+const Antl = use('Antl')
 
 class PasswordResetController {
   showLinkRequestForm ({ view }) {
@@ -42,20 +43,24 @@ class PasswordResetController {
       Event.fire('new::passwordReset', { email, token, locale })
 
       // Show success Message
+      const message = Antl.forLocale(request.globals.default_locale).formatMessage('messages.message15')
+
       session.flash({
         notification: {
           type: 'success',
-          message: 'Ein Link zum zurücksetzen deines Passwortes wurde an deine E-Mail Adresse verschickt.'
+          message: message
         }
       })
 
       return response.redirect('back')
 
     } catch (error) {
+      const message = Antl.forLocale(request.globals.default_locale).formatMessage('messages.message16')
+
       session.flash({
         notification: {
           type: 'danger',
-          message: 'Ups, diese E-Mail Adresse scheint ungültig zu sein.'
+          message: message
         }
       })
 
@@ -89,10 +94,12 @@ class PasswordResetController {
         .first()
 
       if (!token) {
+        const message = Antl.forLocale(request.globals.default_locale).formatMessage('messages.message17')
+
         session.flash({
           notification: {
             type: 'danger',
-            message: 'Ups, das Passwortrücksetzungs-Token scheint ungültig zu sein.'
+            message: message
           }
         })
 
@@ -106,10 +113,12 @@ class PasswordResetController {
       // delete the password token
       await PasswordReset.query().where('email', user.email).delete()
 
+      const message = Antl.forLocale(request.globals.default_locale).formatMessage('messages.message18')
+
       session.flash({
         notification: {
           type: 'success',
-          message: 'Das Passwort wurde erfolgreich zurückgesetzt.'
+          message: message
         }
       })
 
