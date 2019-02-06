@@ -99,6 +99,22 @@ Event.on('new::user', async ({ user, password }) => {
   })
 })
 
+Event.on('new::userRegistration', async ({ user }) => {
+  const messages = {
+    subject: Antl.forLocale('en').formatMessage('emails.message22'),
+    body: Antl.forLocale('en').formatMessage('emails.message20'),
+    link: Antl.forLocale('en').formatMessage('emails.message21'),
+    hint: Antl.forLocale('en').formatMessage('emails.hint')
+  }
+
+  await Mail.send('emails.confirm_registration', { user, messages }, message => {
+    message
+      .to(user.email)
+      .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
+      .subject(messages.subject)
+  })
+})
+
 Event.on('new::comment', async ({ ticket, comment, email, locale }) => {
   const messages = {
     subject: Antl.forLocale(locale).formatMessage('emails.message12', { ticketid: ticket.id }),

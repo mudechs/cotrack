@@ -1,20 +1,20 @@
 @layout('emails.layout.main')
 
 @section('content')
-  <p>Hallo {{ first_name }} {{ last_name }}</p>
+  <p>Hi {{ user.first_name }} {{ user.last_name }}</p>
   <p>
-    {{ antl.forLocale('en').formatMessage('emails.message20') }}
+    {{ messages.body }}
   </p>
   <br>
   <br>
   <p>
-    <a href="{{ appUrl('register/confirm/' + confirmation_token) }}" class="btn">{{ antl.forLocale('en').formatMessage('emails.message21') }}</a>
+    <a href="{{ appUrl('register/confirm/' + user.confirmation_token) }}" class="btn">{{ messages.link }}</a>
   </p>
   <br>
   <br>
   <br>
   <hr>
-  <p>{{ antl.forLocale('en').formatMessage('emails.hint') }}</p>
+  <p>{{ messages.hint }}</p>
   <hr>
   @include('emails.includes.address_footer')
 @endsection

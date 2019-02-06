@@ -5,7 +5,6 @@ const { salutations } = Config.get('user')
 const { validateAll } = use('Validator')
 const User = use('App/Models/User')
 const randomString = require('random-string')
-const Mail = use('Mail')
 
 class RegisterController {
   showRegistrationForm({ request, view, response }) {
@@ -52,12 +51,7 @@ class RegisterController {
     })
 
     // Send confirmation E-Mail
-    await Mail.send('emails.confirm_registration', user.toJSON(), message => {
-      message
-        .to(user.email)
-        .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
-        .subject('Bitte bestätige deine E-Mail Adresse')
-    })
+    Event.fire('new::userRegistration', { user })
 
     // Show success Message
     session.flash({
