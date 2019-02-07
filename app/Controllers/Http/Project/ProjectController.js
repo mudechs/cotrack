@@ -73,7 +73,7 @@ class ProjectController {
         builder.select('id', 'first_name', 'last_name')
       })
       .with('members', (builder) => {
-        builder.select('id', 'first_name', 'last_name', 'profession', 'avatar', 'is_available')
+        builder.select('id', 'first_name', 'last_name', 'profession', 'avatar', 'is_available').orderBy('created_at', 'desc')
       })
       .first()
 
