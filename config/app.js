@@ -188,7 +188,7 @@ module.exports = {
     | Available drivers are: `file` and `console`.
     |
     */
-    transport: 'console',
+    transport: 'file',
 
     /*
     |--------------------------------------------------------------------------
@@ -219,7 +219,7 @@ module.exports = {
     file: {
       driver: 'file',
       name: 'adonis-app',
-      filename: 'adonis.log',
+      filename: '/home/omar/cotrack/logs/cotrack.log',
       level: 'info'
     }
   },

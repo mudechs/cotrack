@@ -12,6 +12,7 @@ const TicketServices = use('App/Services/ticketServices')
 const Moment = use('moment')
 const Event = use('Event')
 const Antl = use('Antl')
+const Logger = use('Logger')
 
 class TicketController {
   async index({ auth, view }) {
@@ -159,6 +160,13 @@ class TicketController {
         type: 'success',
         message: message
       }
+    })
+
+    Logger.info('request url is %s', request.url())
+
+    Logger.info('request details %j', {
+      url: request.url(),
+      user: auth.user.id
     })
 
     return response.route('ticketsShow', { id: ticket.id })
