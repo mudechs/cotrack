@@ -129,7 +129,7 @@ class ProjectController {
     const users = await User.query()
       .select('id', 'first_name', 'last_name')
       .orderBy('last_name', 'asc')
-      .whereNot('is_active', false)
+      .where('is_active', true)
       .fetch()
 
     return view.render('projects.create', {
@@ -178,6 +178,7 @@ class ProjectController {
     const users = await User.query()
       .select('id', 'first_name', 'last_name')
       .where('is_active', true)
+      .orderBy('last_name', 'asc')
       .fetch()
 
     return view.render('projects.edit', {
