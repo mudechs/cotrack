@@ -23,5 +23,7 @@
 	"message22": "Bitte bestätige deine E-Mail Adresse",
 	"message23": "Es wurde ein neues, unzugewiesenes Ticket #{ticketid} erfasst.",
 	"message24": "Erfasst von",
+	"message25": "Das Ticket #{ticketId} wurde von {name} wiedereröffnet.",
+	"message26": "Bearbeitet durch:",
 	"hint": "Bitte auf diese Mail nicht antworten"
 }

@@ -33,21 +33,21 @@ Event.on('new::passwordReset', async ({ email, token, locale }) => {
   })
 })
 
-Event.on('new::ticket', async ({ ticket, project, user, author }) => {
+Event.on('new::ticket', async ({ ticket, project, author, recipient }) => {
   const messages = {
-    subject: Antl.forLocale(user.locale).formatMessage('emails.message7', { ticketid: ticket.id }),
-    body: Antl.forLocale(user.locale).formatMessage('emails.message8'),
-    link: Antl.forLocale(user.locale).formatMessage('emails.message6'),
-    hint: Antl.forLocale(user.locale).formatMessage('emails.hint'),
-    titleLabel: Antl.forLocale(user.locale).formatMessage('static.betreff'),
-    projectLabel: Antl.forLocale(user.locale).formatMessage('static.projekt'),
-    fromLabel: Antl.forLocale(user.locale).formatMessage('emails.message24')
+    subject: Antl.forLocale(recipient.locale).formatMessage('emails.message7', { ticketid: ticket.id }),
+    link: Antl.forLocale(recipient.locale).formatMessage('emails.message6'),
+    hint: Antl.forLocale(recipient.locale).formatMessage('emails.hint'),
+    titleLabel: Antl.forLocale(recipient.locale).formatMessage('static.betreff'),
+    projectLabel: Antl.forLocale(recipient.locale).formatMessage('static.projekt'),
+    authorLabel: Antl.forLocale(recipient.locale).formatMessage('emails.message24'),
+    recipientLabel: Antl.forLocale(recipient.locale).formatMessage('emails.message26')
   }
 
-  await Mail.send('emails.new_ticket_notification', { messages, ticket, project, author }, message => {
+  await Mail.send('emails.new_ticket_notification', { messages, ticket, project, author, recipient }, message => {
     message
       .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
-      .to(user.email)
+      .to(recipient.email)
       .subject(messages.subject)
   })
 })
@@ -71,15 +71,38 @@ Event.on('new::ticketUnassigned', async ({ ticket, project, user, author }) => {
   })
 })
 
-Event.on('new::ticketStatusChange', async ({ ticket, author }) => {
+Event.on('new::ticketStatusChange', async ({ ticket, project, author, recipient }) => {
   const messages = {
     subject: Antl.forLocale(author.locale).formatMessage('emails.message4', { ticketid: ticket.id, status: ticket.status }),
-    body: Antl.forLocale(author.locale).formatMessage('emails.message5', { ticketid: ticket.id, status: ticket.status }),
     link: Antl.forLocale(author.locale).formatMessage('emails.message6'),
-    hint: Antl.forLocale(author.locale).formatMessage('emails.hint')
+    hint: Antl.forLocale(author.locale).formatMessage('emails.hint'),
+    titleLabel: Antl.forLocale(author.locale).formatMessage('static.betreff'),
+    projectLabel: Antl.forLocale(author.locale).formatMessage('static.projekt'),
+    authorLabel: Antl.forLocale(author.locale).formatMessage('emails.message24'),
+    recipientLabel: Antl.forLocale(author.locale).formatMessage('emails.message26')
   }
 
-  await Mail.send('emails.ticket_change_status_notification', { messages, ticket }, message => {
+  await Mail.send('emails.new_ticket_notification', { messages, ticket, project, author, recipient }, message => {
+    message
+      .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
+      .to(author.email)
+      .subject(messages.subject)
+  })
+})
+
+Event.on('new::ticketReopen', async ({ ticket, project, author, recipient }) => {
+  const fullName = recipient.first_name + ' ' + recipient.last_name
+  const messages = {
+    subject: Antl.forLocale(author.locale).formatMessage('emails.message25', { ticketId: ticket.id, status: ticket.status, name: fullName }),
+    link: Antl.forLocale(author.locale).formatMessage('emails.message6'),
+    hint: Antl.forLocale(author.locale).formatMessage('emails.hint'),
+    titleLabel: Antl.forLocale(author.locale).formatMessage('static.betreff'),
+    projectLabel: Antl.forLocale(author.locale).formatMessage('static.projekt'),
+    authorLabel: Antl.forLocale(author.locale).formatMessage('emails.message24'),
+    recipientLabel: Antl.forLocale(author.locale).formatMessage('emails.message26')
+  }
+
+  await Mail.send('emails.new_ticket_notification', { messages, ticket, project, author, recipient }, message => {
     message
       .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
       .to(author.email)

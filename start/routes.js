@@ -65,6 +65,7 @@ Route
     Route.post('tickets/store', 'Ticket/TicketController.store').as('ticketsStore').validator('StoreTicket')
     Route.post('tickets/update/:id', 'Ticket/TicketController.update').middleware(['ticketOA']).as('ticketsUpdate').validator('UpdateTicket')
     Route.post('tickets/change/status/:id', 'Ticket/TicketController.changeStatus').as('ticketsChangeStatus')
+    Route.post('tickets/reopen/:id', 'Ticket/TicketController.reopen').as('ticketsReopen')
     Route.post('tickets/change/dragged/status/:id', 'Ticket/TicketController.changeDraggedStatus').as('ticketsChangeDraggedStatus')
     Route.post('tickets/change/recipient/:id', 'Ticket/TicketController.changeRecipient').as('ticketsChangeRecipient')
     Route.post('tickets/assign/:id', 'Ticket/TicketController.assignToMe').as('ticketsAssignToMe')

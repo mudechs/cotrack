@@ -133,22 +133,22 @@ class TicketController {
 
     await ticket.save()
 
-    let user
+    let recipient
     const author = await ticket.ticketAuthor().select('first_name', 'last_name').fetch()
     const project = await ticket.project().fetch()
 
     if(ticket.recipient_id == null) {
       // Sende eine Notifikation an den Author des Projektes, wenn KEIN Recipient ausgewählt wurde
-      user = await project.projectAuthor().select('id', 'email', 'locale').fetch()
-      if(auth.user.id != user.id) {
-        Event.fire('new::ticketUnassigned', { ticket, project, user, author })
+      recipient = await project.projectAuthor().select('id', 'email', 'locale').fetch()
+      if(auth.user.id != recipient.id) {
+        Event.fire('new::ticketUnassigned', { ticket, project, author, recipient })
       }
     }
     else if(ticket.recipient_id != auth.user.id) {
       // Sende eine Notifikation falls der Recipient NICHT der Author ist
-      user = await ticket.ticketRecipient().fetch()
+      recipient = await ticket.ticketRecipient().fetch()
 
-      Event.fire('new::ticket', { ticket, project, user, author })
+      Event.fire('new::ticket', { ticket, project, author, recipient })
     }
 
     const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message3')
@@ -268,16 +268,47 @@ class TicketController {
   async changeStatus({ params, request, auth, session, response }) {
     const ticket = await Ticket.find(params.id)
 
-    const author = await ticket.ticketAuthor().select('id').fetch()
-
     ticket.status = request.input('status')
 
-    /* Informiere den Recipient, dass sich der Ticket-Status verändert hat.
+    /* Informiere den Author, dass sich der Ticket-Status verändert hat.
     Informiere NICHT, wenn der Author die selbe Person wie der Recipient ist! */
-    if(author.id != auth.user.id && ticket.status != 'Feedback' && ticket.status != 'Sistiert') {
-      const author = await ticket.ticketAuthor().fetch()
+    const author = await ticket.ticketAuthor().select('id', 'email', 'first_name', 'last_name', 'locale').fetch()
+    const recipient = await ticket.ticketRecipient().select('id', 'email', 'first_name', 'last_name', 'locale').fetch()
+    const project = await ticket.project().select('id', 'title').fetch()
 
-      Event.fire('new::ticketStatusChange', { ticket, author })
+    if(author.id != auth.user.id && ticket.status != 'Feedback' && ticket.status != 'Sistiert') {
+      Event.fire('new::ticketStatusChange', { ticket, project, author, recipient })
+    }
+
+    await ticket.save()
+
+    const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message5')
+
+    session.flash({
+      notification: {
+        type: 'success',
+        message: message
+      }
+    })
+
+    return response.route('ticketsShow', { id: ticket.id })
+
+  }
+
+  async reopen({ params, request, auth, session, response }) {
+    const ticket = await Ticket.find(params.id)
+
+    ticket.status = request.input('status')
+    ticket.recipient_id = request.input('recipient_id')
+
+    /* Informiere den Author, dass das Ticket wiedereröffnet wurde.
+    Informiere NICHT, wenn der Author die selbe Person wie der Recipient ist! */
+    const author = await ticket.ticketAuthor().select('id', 'email', 'first_name', 'last_name', 'locale').fetch()
+    const recipient = await ticket.ticketRecipient().select('id', 'email', 'first_name', 'last_name', 'locale').fetch()
+    const project = await ticket.project().select('id', 'title').fetch()
+
+    if(author.id != auth.user.id) {
+      Event.fire('new::ticketReopen', { ticket, project, author, recipient })
     }
 
     await ticket.save()

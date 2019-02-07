@@ -8,7 +8,7 @@
           <div class="card-header d-flex justify-content-between p-md-3 p-1">
             <div class="d-flex d-inline">
               {{--  Ticket übernehmen  --}}
-              @if(ticket.recipient_id != auth.user.id)
+              @if(ticket.recipient_id != auth.user.id && ticket.status != "Erledigt" && ticket.status != "Sistiert" && ticket.status != "Abgelehnt" )
                 <button class="btn btn-sm btn-danger" type="button" id="assignToMeButton" data-recipient="{{ auth.user.id }}">
                   {{ antl.forLocale(auth.user.locale).formatMessage('static.uebernehmen') }}
                 </button>
@@ -41,7 +41,7 @@
               @endif
               {{--  Ticket wiedereröffnen  --}}
               @if(ticket.status == "Erledigt" || ticket.status == "Sistiert" || ticket.status == "Abgelehnt")
-                <button class="status-change-item btn btn-sm btn-success mr-md-2 mr-1" data-status="Neu"><i class="fas fa-lock-open fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.wiedereroeffnen') }}</button>
+                <button class="ticket-reopen-item btn btn-sm btn-success mr-md-2 mr-1"><i class="fas fa-lock-open fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.wiedereroeffnen') }}</button>
               @endif
               {{--  Ticket weiterleiten  --}}
               @if(ticket.status != "Abgelehnt" && ticket.status != "Erledigt" && ticket.status != "Sistiert" && ticket.recipient_id == auth.user.id)
@@ -208,6 +208,11 @@
     {{ csrfField() }}
     <input type="hidden" name="status" id="status-change-input" value="{{ ticket.status }}">
   </form>
+  <form id="ticket-reopen-form" action="{{ route('ticketsReopen', { id: ticket.id }) }}" method="post">
+    {{ csrfField() }}
+    <input type="hidden" name="status" value="Neu">
+    <input type="hidden" name="recipient_id" value="{{ auth.user.id }}">
+  </form>
   <form id="recipient-change-form" action="{{ route('ticketsChangeRecipient', { id: ticket.id }) }}" method="post">
     {{ csrfField() }}
     <input type="hidden" name="recipient_id" id="recipient-change-input" value="{{ ticket.recipient_id }}">
@@ -245,6 +250,13 @@
         $('#statusDropdownButtons').text(status);
 
         $('#status-change-form').submit();
+      });
+
+      // Ticket wiedereröffnen
+      $('.ticket-reopen-item').on('click', function(e){
+        e.preventDefault();
+
+        $('#ticket-reopen-form').submit();
       });
 
       // Ticket weiterleiten

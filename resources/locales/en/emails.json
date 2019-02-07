@@ -23,5 +23,7 @@
 	"message22": "Please confirm your email address",
 	"message23": "A new, unassigned ticket #{ticketid} was recorded.",
 	"message24": "Registered by",
+	"message25": "The Ticket #{ticketId} was re-opened by {fullName}.",
+	"message26": "Edited by:",
 	"hint": "Please do not reply to this mail"
 }

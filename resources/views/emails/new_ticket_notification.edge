@@ -2,11 +2,13 @@
 
 @section('content')
   <h4>{{ messages.titleLabel }}:</h6>
-  <p>{{ ticket.subject }} </p>
+  <p><small>{{ ticket.subject }}</small></p>
   <h4>{{ messages.projectLabel }}:</h6>
-  <p>{{ project.title }}</p>
-  <h4>{{ messages.fromLabel }}:</h6>
-  <p>{{ author.first_name }} {{ author.last_name }}</p>
+  <p><small>{{ project.title }}</small></p>
+  <h4>{{ messages.authorLabel }}:</h6>
+  <p><small>{{ author.first_name }} {{ author.last_name }}</small></p>
+  <h4>{{ messages.recipientLabel }}</h6>
+  <p><small>{{ recipient.first_name }} {{ recipient.last_name }}</small></p>
   <br>
   <br>
   <p>
