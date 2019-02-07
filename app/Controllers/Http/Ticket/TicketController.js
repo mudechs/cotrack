@@ -162,9 +162,7 @@ class TicketController {
       }
     })
 
-    Logger.info('request url is %s', request.url())
-
-    Logger.info('request details %j', {
+    Logger.info(`Ticket created by ${auth.user.first_name} ${auth.user.last_name}`, {
       url: request.url(),
       user: auth.user.id
     })
@@ -242,9 +240,7 @@ class TicketController {
       }
     })
 
-    Logger.info('request url is %s', request.url())
-
-    Logger.info('request details %j', {
+    Logger.info(`Ticket updated by ${auth.user.first_name} ${auth.user.last_name}`, {
       url: request.url(),
       user: auth.user.id
     })
