@@ -18,7 +18,7 @@
                             class="custom-control-input"
                             id="is_available"
                             name="is_available"
-                            @if(auth.user.id != user.id || auth.user.is_superadmin != 1)
+                            @if(auth.user.id != user.id && auth.user.is_superadmin != 1)
                               disabled
                             @endif
                             @if(user.is_available == 1)
