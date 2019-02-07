@@ -424,7 +424,7 @@ class TicketController {
 
         Event.fire('new::ticketUnassigned', { ticket, project, author, recipient })
 
-        return response.status(200).send('Ok')
+        return response.status(200).send('OK')
       }
     } catch {
       return response.status(404).send('Error')
