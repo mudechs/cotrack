@@ -402,10 +402,12 @@ class TicketController {
       const data = request.all()
 
       const author = await User.query()
+        .select('id', 'first_name', 'last_name', 'email', 'locale')
         .where('email', data.email)
         .first()
 
       const project = await Project.query()
+        .select('id', 'title', 'author_id')
         .where('token', data.token)
         .first()
 
@@ -422,10 +424,10 @@ class TicketController {
 
         Event.fire('new::ticketUnassigned', { ticket, project, author, recipient })
 
-        return response.status(200).send('OK')
+        return response.status(200).send('Ok')
       }
     } catch {
-      return response.status(404).send('ERROR')
+      return response.status(404).send('Error')
     }
   }
 
