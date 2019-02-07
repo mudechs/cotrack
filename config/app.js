@@ -218,7 +218,7 @@ module.exports = {
     */
     file: {
       driver: 'file',
-      name: 'adonis-app',
+      name: 'cotrack-app',
       filename: '/home/omar/cotrack/logs/cotrack.log',
       level: 'info'
     }

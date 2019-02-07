@@ -164,7 +164,8 @@ class TicketController {
 
     Logger.info(`Ticket created by ${auth.user.first_name} ${auth.user.last_name}`, {
       url: request.url(),
-      user: auth.user.id
+      user: auth.user.id,
+      record: ticket.id
     })
 
     return response.route('ticketsShow', { id: ticket.id })
@@ -242,7 +243,8 @@ class TicketController {
 
     Logger.info(`Ticket updated by ${auth.user.first_name} ${auth.user.last_name}`, {
       url: request.url(),
-      user: auth.user.id
+      user: auth.user.id,
+      record: ticket.id
     })
 
     return response.route('ticketsShow', { id: ticket.id })
