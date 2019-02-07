@@ -73,7 +73,7 @@ class ProjectController {
         builder.select('id', 'first_name', 'last_name')
       })
       .with('members', (builder) => {
-        builder.select('id', 'first_name', 'last_name', 'profession', 'avatar', 'is_available').orderBy('last_name', 'desc')
+        builder.select('id', 'first_name', 'last_name', 'profession', 'avatar', 'is_available').orderBy('last_name', 'asc')
       })
       .first()
 
@@ -128,6 +128,7 @@ class ProjectController {
   async create({ auth, view }) {
     const users = await User.query()
       .select('id', 'first_name', 'last_name')
+      .orderBy('last_name', 'asc')
       .whereNot('is_active', false)
       .fetch()
 
