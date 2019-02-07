@@ -22,8 +22,6 @@ class PublicApiAuth {
       email = request.input('email')
     }
 
-    // return response.send(email)
-
     const project = await Project.query()
       .where('token', token)
       .andWhere(function() {
