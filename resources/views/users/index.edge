@@ -46,9 +46,9 @@
                       <td>{{ user.profession }}</td>
                       <td class="text-center">
                         @if(user.is_active == 0)
-                          <span class="text-danger">{{ antl.forLocale(auth.user.locale).formatMessage('static.inaktiv') }}</span>
+                          {{ antl.forLocale(auth.user.locale).formatMessage('static.inaktiv') }}
                         @else
-                          <span class="text-success">{{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}</span>
+                          {{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}
                         @endif
                       </td>
                       <td class="text-center">
@@ -94,9 +94,9 @@
                       <td>{{ user.profession }}</td>
                       <td class="text-center">
                         @if(user.is_active == 0)
-                          <span class="text-danger">{{ antl.forLocale(auth.user.locale).formatMessage('static.inaktiv') }}</span>
+                          {{ antl.forLocale(auth.user.locale).formatMessage('static.inaktiv') }}
                         @else
-                          <span class="text-success">{{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}</span>
+                          {{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}
                         @endif
                       </td>
                       <td class="text-center">
@@ -127,7 +127,7 @@
       $('.data-table').DataTable({
         order: [ 3, 'asc' ],
         'columnDefs': [
-          { 'orderable': false, 'targets': 7 }
+          { 'orderable': false, 'targets': [0, 7] }
         ]
       });
     });
