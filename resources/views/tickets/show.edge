@@ -69,7 +69,7 @@
               @endif
             </div>
             {{--  Ticket bearbeiten  --}}
-            @if(ticket.author_id == auth.user.id || ticket.recipient_id == auth.user.id)
+            @if(ticket.author_id == auth.user.id || ticket.recipient_id == auth.user.id || auth.user.is_superadmin)
               <a href="{{ route('ticketsEdit', { id: ticket.id }) }}"
                 class="btn btn-sm btn-secondary
                 @if(ticket.status == "Erledigt" && ticket.status == "Sistiert" && ticket.status == "Abgelehnt")
