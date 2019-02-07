@@ -242,6 +242,13 @@ class TicketController {
       }
     })
 
+    Logger.info('request url is %s', request.url())
+
+    Logger.info('request details %j', {
+      url: request.url(),
+      user: auth.user.id
+    })
+
     return response.route('ticketsShow', { id: ticket.id })
   }
 
