@@ -24,7 +24,8 @@
               <table class="table table-hover table-striped table-sm text-nowrap m-0 data-table linkable">
                 <thead>
                   <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col"></th>
+                    <th>ID</th>
                     <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.vorname') }}</th>
                     <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.nachname') }}</th>
                     <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.funktion') }}</th>
@@ -36,7 +37,10 @@
                 <tbody>
                   @each(user in usersActive)
                     <tr data-route="{{ route('usersShow', { id: user.id }) }}">
-                      <th scope="row">{{ user.id }}</th>
+                      <th scope="row" width="20">
+                        @!component('users.components.availableCircle', { user })
+                      </th>
+                      <th>{{ user.id }}</th>
                       <td>{{ user.first_name }}</td>
                       <td><b>{{ user.last_name }}</b></td>
                       <td>{{ user.profession }}</td>
@@ -68,7 +72,8 @@
               <table class="table table-hover table-striped table-sm text-nowrap m-0 data-table linkable">
                 <thead>
                   <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col"></th>
+                    <th>ID</th>
                     <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.vorname') }}</th>
                     <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.nachname') }}</th>
                     <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.funktion') }}</th>
@@ -80,7 +85,10 @@
                 <tbody>
                   @each(user in usersInactive)
                     <tr data-route="{{ route('usersShow', { id: user.id }) }}">
-                      <th scope="row">{{ user.id }}</th>
+                      <th scope="row" width="20">
+                        @!component('users.components.availableCircle', { user })
+                      </th>
+                      <th>{{ user.id }}</th>
                       <td>{{ user.first_name }}</td>
                       <td><b>{{ user.last_name }}</b></td>
                       <td>{{ user.profession }}</td>
@@ -117,9 +125,9 @@
   <script>
     $(document).ready(function () {
       $('.data-table').DataTable({
-        order: [ 2, 'asc' ],
+        order: [ 3, 'asc' ],
         'columnDefs': [
-          { 'orderable': false, 'targets': 6 }
+          { 'orderable': false, 'targets': 7 }
         ]
       });
     });

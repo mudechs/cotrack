@@ -76,7 +76,14 @@
                             <div class="media">
                               @!component('users.components.avatar', { user: member, size: 40 })
                               <div class="media-body ml-3">
-                                <h6 class="my-0"><a href="{{ route('usersShow', { id: member.id }) }}">{{ member.first_name }} {{ member.last_name }}</a></h6>
+                                <h6 class="my-0">
+                                  <a href="{{ route('usersShow', { id: member.id }) }}" class="d-flex justify-content-between">
+                                    <span>{{ member.first_name }} {{ member.last_name }}</span>
+                                    <span>
+                                      @!component('users.components.availableCircle', { user: member })
+                                    </span>
+                                  </a>
+                                </h6>
                                 {{ member.profession }}
                               </div>
                             </div>

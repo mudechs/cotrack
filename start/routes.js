@@ -48,6 +48,7 @@ Route
     Route.get('users/edit/:id', 'User/UserController.edit').middleware(['userOA']).as('usersEdit')
     Route.post('users/store', 'User/UserController.store').middleware(['isAdmin']).as('usersStore')
     Route.post('users/update/:id', 'User/UserController.update').middleware(['userOA']).as('usersUpdate')
+    Route.post('users/availability/:id', 'User/UserController.userChangeAvailability').middleware(['userOA']).as('userChangeAvailability')
 
     Route.get('projects', 'Project/ProjectController.index').as('projectsIndex')
     Route.get('projects/create', 'Project/ProjectController.create').middleware(['isAdmin']).as('projectsCreate')

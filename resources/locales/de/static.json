@@ -90,5 +90,7 @@
   "register_success": "Vielen Dank für die Registrierung. Wir haben dir eine Mail geschickt, damit du dein Konto bestätigen und aktivieren kannst.",
   "password_restoren": "Passwort zurücksetzen",
   "your_superadmin_password": "Dein Superadmin Passwort:",
-  "new_password_sent": "Ein neues Passwort wurde per E-Mail an den Benutzer gesendet."
+  "new_password_sent": "Ein neues Passwort wurde per E-Mail an den Benutzer gesendet.",
+  "verfuegbar": "Verfügbar",
+  "abwesend": "Abwesend"
 }

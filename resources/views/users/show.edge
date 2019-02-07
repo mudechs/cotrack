@@ -8,7 +8,34 @@
           <div class="col-12 col-md-6 col-lg p-md-3 p-0">
             <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
-                <div><h3 class="m-0">{{ user.first_name }} {{ user.last_name }}</h3></div>
+                  <div>
+                    <form id="availability-change-form" action="{{ route('userChangeAvailability', { id: user.id }) }}" method="post">
+                      {{ csrfField() }}
+                      <div class="form-group m-0">
+                        <div class="custom-control custom-switch">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="is_available"
+                            name="is_available"
+                            @if(auth.user.id !== user.id || auth.user.is_superadmin !== 1)
+                              disabled
+                            @endif
+                            @if(user.is_available === 1)
+                              checked
+                            @endif
+                          >
+                          <label class="custom-control-label" for="is_available">
+                            @if(user.is_available === 1)
+                              {{ antl.forLocale(auth.user.locale).formatMessage('static.verfuegbar') }}
+                            @else
+                              {{ antl.forLocale(auth.user.locale).formatMessage('static.abwesend') }}
+                            @endif
+                          </label>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
                 <div>
                   @if(auth.user.id == user.id || auth.user.is_admin || auth.user.is_superadmin)
                     <a href="{{ route('usersEdit', { id: user.id }) }}" class="btn btn-sm btn-link"><i class="fas fa-pencil-alt"></i></a>
@@ -24,7 +51,8 @@
                     @!component('users.components.avatar', { user, size: 120 })
                   </div>
                   <div class="col-12">
-                    <h6 class="card-subtitle text-muted mb-5 text-center">
+                    <h3 class="m-0 text-center">{{ user.first_name }} {{ user.last_name }}</h3>
+                    <h6 class="card-subtitle text-muted mt-2 mb-5 text-center">
                       {{ user.profession }}
                     </h6>
                     <i class="fas fa-transgender-alt fa-fw mr-2"></i>
@@ -161,13 +189,22 @@
     <script>
       $(document).ready(function () {
         $('#passwordRestoreModal').on('show.bs.modal', function (e) {
-          $('#password').val('');
-        });
+          $('#password').val('')
+        })
 
         $('#passwordRestoreModal').on('shown.bs.modal', function (e) {
-          $('#password').focus();
-        });
-      });
+          $('#password').focus()
+        })
+      })
+    </script>
+  @endif
+  @if(auth.user.id == user.id || auth.user.is_superadmin)
+    <script>
+      $(document).ready(function () {
+        $('#is_available').change(function() {
+          $('#availability-change-form').submit()
+        })
+      })
     </script>
   @endif
 @endsection

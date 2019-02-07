@@ -12,13 +12,13 @@ const RandomString = require('random-string')
 class UserController {
   async index({ view }) {
     const usersActive = await User.query()
-      .select('id', 'first_name', 'last_name', 'profession', 'is_active', 'is_admin')
+      .select('id', 'first_name', 'last_name', 'profession', 'is_active', 'is_admin', 'is_available')
       .where('is_active', true)
       .orderBy('last_name', 'asc')
       .fetch()
 
     const usersInactive = await User.query()
-      .select('id', 'first_name', 'last_name', 'profession', 'is_active', 'is_admin')
+      .select('id', 'first_name', 'last_name', 'profession', 'is_active', 'is_admin', 'is_available')
       .where('is_active', false)
       .orderBy('last_name', 'asc')
       .fetch()
@@ -206,6 +206,19 @@ class UserController {
     })
 
     return response.route('usersShow', { id: user.id })
+  }
+
+  async userChangeAvailability({ params, request, response}) {
+    const user = await User.find(params.id)
+
+    let isAvailable = request.input('is_available')
+    isAvailable = (isAvailable == 'on')? true : false
+
+    user.is_available = isAvailable
+
+    await user.save()
+
+    return response.route('usersShow', { id: params.id })
   }
 }
 

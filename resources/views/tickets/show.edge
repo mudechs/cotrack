@@ -54,10 +54,15 @@
                       <a class="
                         dropdown-item
                         recipient-dropdown-item
-                        @if(member.id == ticket.recipient_id)
+                        @if(member.id == ticket.recipient_id || member.is_available == 0)
                           disabled
                         @endif
-                      " href="#" data-recipient="{{ member.id }}">{{ member.first_name }} {{ member.last_name }}</a>
+                      " href="#" data-recipient="{{ member.id }}">
+                        @if(member.id == ticket.recipient_id || member.is_available == 0)
+                          <i class="fas fa-user-alt-slash fa-fw"></i>
+                        @endif
+                        {{ member.first_name }} {{ member.last_name }}
+                      </a>
                     @endeach
                   </div>
                 </div>
@@ -105,7 +110,9 @@
               @endif
               <hr>
               <small>
+                @!component('users.components.availableCircle', { user: ticket.ticketAuthor })
                 {{ ticket.ticketAuthor.first_name }} {{ ticket.ticketAuthor.last_name }} &rarr;
+                @!component('users.components.availableCircle', { user: ticket.ticketRecipient })
                 @!component('tickets.components.recipientInfo', { antl, locale: auth.user.locale, recipient: ticket.ticketRecipient })
               </small>
               <hr>

@@ -11,15 +11,20 @@
           <label for="project">{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}</label>
           <div class="row">
             <div class="col-md-6 col-12">
-              <select name="project" id="project" class="form-control {{ hasErrorFor('project') ? 'is-invalid' : '' }}">
-                <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
-                @each(project in projects)
-                  <option value="{{ project.id }}"
-                  {{ old('project') == project.id ? 'selected' : ''  }}
-                  >{{ project.title }}</option>
-                @endeach
-              </select>
-              {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('project'), hasErrorFor('project')) }}
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-project-diagram fa-fw"></i></span>
+                </div>
+                <select name="project" id="project" class="form-control {{ hasErrorFor('project') ? 'is-invalid' : '' }}">
+                  <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
+                  @each(project in projects)
+                    <option value="{{ project.id }}"
+                    {{ old('project') == project.id ? 'selected' : ''  }}
+                    >{{ project.title }}</option>
+                  @endeach
+                </select>
+                {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('project'), hasErrorFor('project')) }}
+              </div>
             </div>
           </div>
         </div>
@@ -30,8 +35,12 @@
           <label for="recipient">{{ antl.forLocale(auth.user.locale).formatMessage('static.empfaenger') }} (optional)</label>
           <div class="row">
             <div class="col-md-6 col-12">
-              <select name="recipient" id="recipient" class="form-control">
-              </select>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-users fa-fw"></i></span>
+                </div>
+                <select name="recipient" id="recipient" class="form-control"></select>
+              </div>
             </div>
           </div>
         </div>

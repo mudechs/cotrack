@@ -58,19 +58,21 @@ class TicketController {
     const ticket = await Ticket.query()
       .where('id', params.id)
       .with('ticketAuthor', (builder) => {
-        builder.select('id', 'first_name', 'last_name')
+        builder.select('id', 'first_name', 'last_name', 'is_available')
       })
       .with('ticketRecipient', (builder) => {
-        builder.select('id', 'first_name', 'last_name')
+        builder.select('id', 'first_name', 'last_name', 'is_available')
       })
       .with('ticketForwarder', (builder) => {
-        builder.select('id', 'first_name', 'last_name')
+        builder.select('id', 'first_name', 'last_name', 'is_available')
       })
       .with('comments', (builder) => {
         builder.with('commentAuthor')
       })
       .with('project.members', (builder) => {
-        builder.select('id', 'first_name', 'last_name')
+        builder.select('id', 'first_name', 'last_name', 'is_available')
+          .where('is_active', true)
+          .whereNot('user_id', auth.user.id)
       })
       .first()
 
@@ -106,7 +108,7 @@ class TicketController {
   }
 
   async store({ request, auth, session, response }) {
-    // Create Project
+    // Get formdata
     const ticket = await Ticket.create({
       subject: request.input('subject'),
       description: request.input('description'),
@@ -136,7 +138,7 @@ class TicketController {
     const project = await ticket.project().fetch()
 
     if(ticket.recipient_id == null) {
-      // Sende eine Notifikation an den Author des Projektes, wenn kein Recipient ausgewählt wurde
+      // Sende eine Notifikation an den Author des Projektes, wenn KEIN Recipient ausgewählt wurde
       user = await project.projectAuthor().select('id', 'email', 'locale').fetch()
       if(auth.user.id != user.id) {
         Event.fire('new::ticketUnassigned', { ticket, project, user, author })
@@ -344,7 +346,8 @@ class TicketController {
       .first()
 
     const members = await project.members()
-      .select('id', 'first_name', 'last_name')
+      .select('id', 'first_name', 'last_name', 'is_available')
+      .where('is_active', true)
       .fetch()
 
     response.send(members)

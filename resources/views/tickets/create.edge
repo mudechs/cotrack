@@ -24,31 +24,37 @@
 
 @section('js')
   <script>
-    $(document).ready(function () {
-      $('#project').on('change', function(){
-        const projectId = $(this).val();
-        const apiUrl = '/api/tickets/projectMembers/' + projectId;
-        const recipient = $('#recipient');
+    $(document).ready(function() {
+      $('#project').on('change', function() {
+        const projectId = $(this).val()
+        const apiUrl = '/api/tickets/projectMembers/' + projectId
+        const recipient = $('#recipient')
 
         $.getJSON(apiUrl, function(data) {
           if(data.length > 0) {
             let items = [];
-            items.push('<option value="">...</option>');
+            items.push('<option value="">...</option>')
 
             $.each(data, function(key, val) {
-              const fullName = val.first_name + " " + val.last_name;
-              items.push('<option value="' + val.id + '">' + fullName + '</option>');
+              const fullName = val.first_name + " " + val.last_name
+              const available = val.is_available
+              let state = ""
+
+              if(available == 0) {
+                state = "disabled"
+              }
+              items.push('<option value="' + val.id + '" ' + state + '>' + fullName + '</option>')
             });
 
-            recipient.html(items);
-            recipient.closest('.form-group').fadeIn('fast');
+            recipient.html(items)
+            recipient.closest('.form-group').fadeIn('fast')
           } else {
-            console.log('No data');
-            recipient.closest('.form-group').hide();
+            console.log('No data')
+            recipient.closest('.form-group').hide()
           }
         })
         .fail(function() {
-          console.log('Error');
+          console.log('Error')
         })
       });
     });

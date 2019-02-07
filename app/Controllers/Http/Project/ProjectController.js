@@ -73,7 +73,7 @@ class ProjectController {
         builder.select('id', 'first_name', 'last_name')
       })
       .with('members', (builder) => {
-        builder.select('id', 'first_name', 'last_name', 'profession', 'avatar')
+        builder.select('id', 'first_name', 'last_name', 'profession', 'avatar', 'is_available')
       })
       .first()
 
@@ -170,12 +170,13 @@ class ProjectController {
       .where('id', params.id)
       .with('members', (builder) => {
         builder.select('id', 'first_name', 'last_name')
+          .where('is_active', true)
       })
       .first()
 
     const users = await User.query()
       .select('id', 'first_name', 'last_name')
-      .whereNot('is_active', false)
+      .where('is_active', true)
       .fetch()
 
     return view.render('projects.edit', {
