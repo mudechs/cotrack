@@ -18,15 +18,15 @@
                             class="custom-control-input"
                             id="is_available"
                             name="is_available"
-                            @if(auth.user.id !== user.id || auth.user.is_superadmin !== 1)
+                            @if(auth.user.id != user.id || auth.user.is_superadmin != 1)
                               disabled
                             @endif
-                            @if(user.is_available === 1)
+                            @if(user.is_available == 1)
                               checked
                             @endif
                           >
                           <label class="custom-control-label" for="is_available">
-                            @if(user.is_available === 1)
+                            @if(user.is_available == 1)
                               {{ antl.forLocale(auth.user.locale).formatMessage('static.verfuegbar') }}
                             @else
                               {{ antl.forLocale(auth.user.locale).formatMessage('static.abwesend') }}
