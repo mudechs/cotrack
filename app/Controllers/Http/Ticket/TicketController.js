@@ -72,6 +72,7 @@ class TicketController {
       .with('project.members', (builder) => {
         builder.select('id', 'first_name', 'last_name', 'is_available')
           .where('is_active', true)
+          .orderBy('last_name', 'asc')
           .whereNot('user_id', auth.user.id)
       })
       .first()
