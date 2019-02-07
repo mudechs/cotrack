@@ -12,8 +12,8 @@ class PublicApiAuth {
    * @param {Function} next
    */
   async handle ({ request, response }, next) {
-    const token = request.header('token')
-    const email = request.header('email')
+    const token = request.input('token')
+    const email = request.input('email')
 
     const project = await Project.query()
       .where('token', token)
@@ -28,7 +28,7 @@ class PublicApiAuth {
     if(project) {
       await next()
     } else {
-      return response.route('error403')
+      return response.status(404).send('ERROR')
     }
   }
 }

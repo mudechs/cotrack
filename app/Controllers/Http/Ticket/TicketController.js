@@ -386,43 +386,47 @@ class TicketController {
 
   // Public API (all informations in headers)
   async apiPublicTicketCreate({ request, response }) {
-    const validation = await validateAll(request.headers(), {
-      token: 'required',
-      subject: 'required',
-      description: 'required',
-      priority: 'required',
-      email: 'required'
-    })
-
-    if (validation.fails()) {
-      return response.status(406).send(validation.messages())
-    }
-
-    const data = request.headers()
-
-    const user = await User.query()
-      .where('email', data.email)
-      .first()
-
-    const project = await Project.query()
-      .where('token', data.token)
-      .first()
-
-    if (user && project) {
-      const ticket = await Ticket.create({
-        subject: data.subject,
-        description: data.description,
-        priority: data.priority,
-        author_id: user.id,
-        project_id: project.id
+    try {
+      const validation = await validateAll(request.all(), {
+        token: 'required',
+        subject: 'required',
+        description: 'required',
+        priority: 'required',
+        email: 'required'
       })
 
-      Event.fire('new::ticket', { ticket, user })
+      if (validation.fails()) {
+        return response.status(406).send(validation.messages())
+      }
 
-      return response.status(200).send('OK')
+      const data = request.all()
+
+      const author = await User.query()
+        .where('email', data.email)
+        .first()
+
+      const project = await Project.query()
+        .where('token', data.token)
+        .first()
+
+      if (author && project) {
+        const ticket = await Ticket.create({
+          subject: data.subject,
+          description: data.description,
+          priority: data.priority,
+          author_id: author.id,
+          project_id: project.id
+        })
+
+        const recipient = await project.projectAuthor().select('id', 'email', 'first_name', 'last_name', 'locale').fetch()
+
+        Event.fire('new::ticketUnassigned', { ticket, project, author, recipient })
+
+        return response.status(200).send('OK')
+      }
+    } catch {
+      return response.status(404).send('ERROR')
     }
-
-    return response.status(404).send('ERROR')
   }
 
   async apiPublicTicketFetch({ request, response }) {
