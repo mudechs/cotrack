@@ -132,3 +132,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 .custom-switch .custom-control-input:checked ~ .custom-control-label::before {
   background-color: #28A745;
 }
+
+.custom-switch label {
+  padding-top: 2px;
+}
