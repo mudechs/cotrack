@@ -202,7 +202,17 @@
     <script>
       $(document).ready(function () {
         $('#is_available').change(function() {
-          $('#availability-change-form').submit()
+          const form = $('#availability-change-form')
+          const url = form.attr('action')
+
+          $.ajax({
+            type: 'POST',
+            url: url,
+            data: form.serialize(),
+            success: (data) => {
+              $(form).find('label').text(data)
+            }
+          })
         })
       })
     </script>

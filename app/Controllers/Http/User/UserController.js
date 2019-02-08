@@ -208,7 +208,7 @@ class UserController {
     return response.route('usersShow', { id: user.id })
   }
 
-  async userChangeAvailability({ params, request, response}) {
+  async userChangeAvailability({ params, auth, request, response}) {
     const user = await User.find(params.id)
 
     let isAvailable = request.input('is_available')
@@ -218,7 +218,15 @@ class UserController {
 
     await user.save()
 
-    return response.route('usersShow', { id: params.id })
+    let label
+
+    if(user.is_available) {
+      label = Antl.forLocale(auth.user.locale).formatMessage('static.verfuegbar')
+    } else {
+      label = Antl.forLocale(auth.user.locale).formatMessage('static.abwesend')
+    }
+
+    return response.status(200).send(label)
   }
 }
 
