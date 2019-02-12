@@ -7269,8 +7269,10 @@ table .btn.btn-sm, table .btn-group-sm > .btn {
   width: 150px; }
 
 .dataTable-pagination ul {
-  margin: 0;
-  padding-left: 0; }
+  margin: 10px;
+  padding-left: 0;
+  float: right;
+  background: #272B2F; }
 
 .dataTable-pagination li {
   list-style: none;

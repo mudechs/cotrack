@@ -82,8 +82,10 @@ table .btn.btn-sm {
 }
 
 .dataTable-pagination ul {
-	margin: 0;
-	padding-left: 0;
+	margin: 10px;
+  padding-left: 0;
+  float: right;
+  background: #272B2F;
 }
 
 .dataTable-pagination li {
