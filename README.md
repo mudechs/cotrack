@@ -19,8 +19,8 @@ coming soon...
 - [FontAwesome Free Icons 5.x](https://fontawesome.com/)
 - [MySQL 5.7.x](https://dev.mysql.com/)
 - [Webpack 4.x](https://webpack.js.org/)
-- [jQuery 3.x](https://jquery.com/)
-- [DataTables 1.10.x](https://datatables.net/)
+- [jQuery Slim 3.x](https://jquery.com/)
+- [Simple-DataTables](https://github.com/fiduswriter/Simple-DataTables/)
 - [Dragula Drag&Drop 3.x](https://github.com/bevacqua/dragula/)
 - [Bootstrap Multiselect 0.9.x](https://github.com/davidstutz/bootstrap-multiselect/)
 - HTML5
