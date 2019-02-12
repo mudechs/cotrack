@@ -364,6 +364,7 @@ class TicketController {
     const ticket = await Ticket.find(params.id)
 
     ticket.recipient_id = request.input('recipient_id')
+    ticket.status = 'Neu'
     ticket.forwarder_id = auth.user.id
 
     await ticket.save()
