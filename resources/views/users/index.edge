@@ -123,13 +123,17 @@
 
 @section('js')
   <script>
-    $(document).ready(function () {
-      $('.data-table').DataTable({
-        order: [ 3, 'asc' ],
-        'columnDefs': [
-          { 'orderable': false, 'targets': [0, 7] }
-        ]
-      });
-    });
+    document.addEventListener('DOMContentLoaded', function(event) {
+      const dataTable = new datatable('.data-table', {
+        columns: [
+          { select: 2, sort: "desc" }
+        ],
+        labels: {
+            placeholder: '',
+            perPage: '{select}',
+            info: '{start} &rarr; {end} ({rows})',
+        }
+      })
+    })
   </script>
 @endsection

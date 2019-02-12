@@ -27,8 +27,8 @@ function cssRules() {
   return [{
     test: /\.css$/,
     use: ExtractTextPlugin.extract({
-      fallback: "style-loader",
-      use: "css-loader"
+      fallback: 'style-loader',
+      use: 'css-loader'
     })
   }]
 }

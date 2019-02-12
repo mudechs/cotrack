@@ -3,7 +3,6 @@
 @import "node_modules/bootstrap/scss/bootstrap";
 @import "node_modules/bootswatch/dist/slate/bootswatch";
 @import "node_modules/dragula/dist/dragula.min";
-@import "node_modules/datatables.net-bs4/css/dataTables.bootstrap4";
 @import "node_modules/bootstrap-multiselect/dist/css/bootstrap-multiselect";
 
 body {
@@ -90,6 +89,28 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 
 .dataTables_info {
   margin-left: 14px;
+}
+
+.dataTable-dropdown {
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: 15px;
+}
+
+.dataTable-info {
+  display: inline-block;
+  margin: 10px;
+}
+
+.dataTable-search {
+  float: right;
+  margin: 10px;
+}
+
+.dataTable-search input {
+  background: #515960;
+  border: 1px solid #272B30;
+  width: 150px;
 }
 
 .dummy-avatar {

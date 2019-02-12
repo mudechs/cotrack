@@ -34,15 +34,15 @@
     "@adonisjs/shield": "^1.0.8",
     "@adonisjs/validator": "^5.0.6",
     "axios": "^0.18.0",
-    "bootstrap": "^4.2.1",
+    "bootstrap": "^4.3.0",
     "bootstrap-multiselect": "^0.9.13-1",
     "bootswatch": "^4.2.1",
-    "datatables.net-bs4": "^1.10.19",
     "dragula": "^3.7.2",
     "jquery": "^3.3.1",
     "mysql": "^2.16.0",
     "random-string": "^0.2.0",
     "showdown": "^1.9.0",
+    "simple-datatables": "^1.7.9",
     "url-parse": "^1.4.4"
   },
   "devDependencies": {
@@ -57,8 +57,8 @@
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
-    "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1"
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3"
   },
   "autoload": {
     "App": "./app"

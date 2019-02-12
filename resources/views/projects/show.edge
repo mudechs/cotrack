@@ -147,8 +147,17 @@
 
 @section('js')
   <script>
-    $('.data-table').DataTable({
-      order: [ 2, 'desc' ]
-    });
+    document.addEventListener('DOMContentLoaded', function(event) {
+      const dataTable = new datatable('.data-table', {
+        columns: [
+          { select: 2, sort: "desc" }
+        ],
+        labels: {
+            placeholder: '',
+            perPage: '{select}',
+            info: '{start} &rarr; {end} ({rows})',
+        }
+      })
+    })
   </script>
 @endsection
