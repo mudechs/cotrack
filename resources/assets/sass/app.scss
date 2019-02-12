@@ -58,39 +58,6 @@ table .btn.btn-sm {
   color: #515960;
 }
 
-table.dataTable.table-sm > thead > tr > th {
-  padding-right: .3rem;
-}
-
-.dataTables_filter {
-  text-align: left !important;
-  margin-top: 14px;
-  margin-left: 10px;
-}
-
-.dataTables_filter input {
-  background: #515960;
-  border-color: #272B30;
-}
-
-.dataTables_length {
-  text-align: right !important;
-  margin-top: 14px;
-  margin-right: 10px;
-}
-
-div.dataTables_wrapper div.dataTables_info {
-  padding-top: 0;
-}
-
-div.dataTables_wrapper div.dataTables_paginate ul.pagination {
-  margin: 14px;
-}
-
-.dataTables_info {
-  margin-left: 14px;
-}
-
 .dataTable-dropdown {
   display: inline-block;
   margin-left: 10px;
@@ -111,6 +78,11 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
   background: #515960;
   border: 1px solid #272B30;
   width: 150px;
+}
+
+.dataTable-pagination {
+  float: right;
+  margin: 10px;
 }
 
 .dummy-avatar {
