@@ -7296,7 +7296,8 @@ table .btn.btn-sm, table .btn-group-sm > .btn {
 .dataTable-pagination .active a,
 .dataTable-pagination .active a:focus,
 .dataTable-pagination .active a:hover {
-  background-color: #32383E;
+  background-color: #d9d9d9;
+  color: #32383E;
   cursor: default; }
 
 .dataTable-pagination .ellipsis a,
