@@ -7270,9 +7270,8 @@ table .btn.btn-sm, table .btn-group-sm > .btn {
 
 .dataTable-pagination {
   float: right;
-  background: #32383E;
-  margin-right: 10px;
-  margin-top: 10px; }
+  background: #3C4248;
+  margin: 10px; }
 
 .dataTable-pagination ul {
   margin: 10px;
