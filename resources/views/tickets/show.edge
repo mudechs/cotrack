@@ -41,7 +41,7 @@
               @endif
               {{--  Ticket wiedereröffnen  --}}
               @if((ticket.recipient_id == auth.user.id || ticket.author_id == auth.user.id) && ticket.status == "Erledigt" || ticket.status == "Sistiert" || ticket.status == "Abgelehnt")
-                <button class="ticket-reopen-item btn btn-sm btn-success mr-md-2 mr-1"><i class="fas fa-lock-open fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.wiedereroeffnen') }}</button>
+                <button class="ticket-reopen-item btn btn-sm btn-warning mr-md-2 mr-1"><i class="fas fa-lock-open fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.wiedereroeffnen') }}</button>
               @endif
               {{--  Ticket weiterleiten  --}}
               @if(ticket.status != "Abgelehnt" && ticket.status != "Erledigt" && ticket.status != "Sistiert" && ticket.recipient_id == auth.user.id)
