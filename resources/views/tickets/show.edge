@@ -36,7 +36,7 @@
                 </div>
               @endif
               {{--  Ticket auf "Erledigt" setzen  --}}
-              @if((ticket.recipient_id == auth.user.id || ticket.author.id == auth.user.id) && ticket.status != "Erledigt" && ticket.status != "Sistiert" && ticket.status != "Abgelehnt")
+              @if(ticket.recipient_id == auth.user.id || ticket.author.id == auth.user.id && ticket.status != "Erledigt" && ticket.status != "Sistiert" && ticket.status != "Abgelehnt")
                 <button class="status-change-item btn btn-sm btn-success mr-md-2 mx-1" data-status="Erledigt"><i class="fas fa-check fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.erledigt') }}</button>
               @endif
               {{--  Ticket wiedereröffnen  --}}
