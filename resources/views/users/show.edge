@@ -14,6 +14,7 @@
                       <div class="form-group m-0">
                         <div class="custom-control custom-switch">
                           <input
+                            onchange="availabilityHandler(event)"
                             type="checkbox"
                             class="custom-control-input"
                             id="is_available"
@@ -25,7 +26,7 @@
                               checked
                             @endif
                           >
-                          <label class="custom-control-label" for="is_available">
+                          <label id="availability-change-label" class="custom-control-label" for="is_available">
                             @if(user.is_available == 1)
                               {{ antl.forLocale(auth.user.locale).formatMessage('static.verfuegbar') }}
                             @else
@@ -187,7 +188,7 @@
 @section('js')
   @if(auth.user.is_superadmin)
     <script>
-      $(document).ready(function () {
+      $(document).ready(function() {
         $('#passwordRestoreModal').on('show.bs.modal', function (e) {
           $('#password').val('')
         })
@@ -200,19 +201,29 @@
   @endif
   @if(auth.user.id == user.id || auth.user.is_superadmin)
     <script>
-      $('#is_available').change(function() {
-        const form = $('#availability-change-form')
-        const url = form.attr('action')
+      function availabilityHandler(event) {
+        const formData = document.getElementById('availability-change-form')
+        const data = helpers.formSerialize(formData)
 
-        $.ajax({
-          type: 'POST',
-          url: url,
-          data: form.serialize(),
-          success: (data) => {
-            $(form).find('label').text(data)
-          }
+        if(event.target.checked) {
+          data.is_available = true
+        } else {
+          data.is_available = false
+        }
+
+        const url = formData.getAttribute('action')
+
+        axios.post(url, {
+          data: data
         })
-      })
+        .then(function (response) {
+          console.log(response)
+          document.getElementById('availability-change-label').innerHTML = response.data
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+      }
     </script>
   @endif
 @endsection

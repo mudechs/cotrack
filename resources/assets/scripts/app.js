@@ -4,11 +4,13 @@ import 'bootstrap/dist/js/bootstrap.bundle'
 import 'datatables.net-bs4/js/dataTables.bootstrap4'
 import 'bootstrap-multiselect/dist/js/bootstrap-multiselect'
 import axios from 'axios/dist/axios'
+import helpers from './helpers'
 
 window.jQuery = $
 window.$ = $
 window.dragula = dragula
 window.axios = axios
+window.helpers = helpers
 
 $.extend(true, $.fn.dataTable.defaults, {
   dom: "<'row'<'col-6 col-sm-6 col-md-6'f><'col-6 col-sm-6 col-md-6'l>>" +

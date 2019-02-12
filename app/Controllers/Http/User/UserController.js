@@ -211,10 +211,13 @@ class UserController {
   async userChangeAvailability({ params, auth, request, response}) {
     const user = await User.find(params.id)
 
-    let isAvailable = request.input('is_available')
-    isAvailable = (isAvailable == 'on')? true : false
+    // let isAvailable = request.input('is_available')
+    // isAvailable = (isAvailable == 'on')? true : false
 
-    user.is_available = isAvailable
+    // let isAvailable = request.body.data.is_available
+    // isAvailable = (isAvailable == 'on')? true : false
+
+    user.is_available = request.body.data.is_available
 
     await user.save()
 
