@@ -7,8 +7,10 @@ const TicketServices = use('App/Services/ticketServices')
 
 class DashboardController {
   async index({ auth, view }) {
+    // Hole Statusgruppe "open"
     const customStatuses = await TicketServices.ticketStatuses('open', auth.user.locale)
 
+    // Lade tickets die mir zugewiesen wurden und den Status "Neu" haben
     const ticketsAssignedToMe = await Ticket.query()
       .where('recipient_id', auth.user.id)
       .where('status', 'Neu')
@@ -19,6 +21,7 @@ class DashboardController {
       .withCount('comments')
       .fetch()
 
+    // Lade tickets die ich anderen zugewiesen habe und die Statusgruppe "open" haben
     const ticketsAssignedToOthers = await Ticket.query()
       .where('author_id', auth.user.id)
       .whereNot('recipient_id', auth.user.id)
@@ -30,6 +33,7 @@ class DashboardController {
       .withCount('comments')
       .fetch()
 
+    // Lade tickets die noch keinen recipient haben und in der Statusgruppe "open" sind
     const ticketsNotAssigned = await Ticket.query()
       .whereNull('recipient_id')
       .whereIn('status', customStatuses)

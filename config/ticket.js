@@ -4,24 +4,24 @@ module.exports = {
   statuses: [
     {
       de: [
-        { 'label': 'Neu', 'value': 'Neu', 'type': 'open' },
-        { 'label': 'Anerkannt', 'value': 'Anerkannt', 'type': 'open' },
-        { 'label': 'Abgelehnt', 'value': 'Abgelehnt', 'type': 'closed' },
-        { 'label': 'Warten', 'value': 'Warten', 'type': 'open' },
-        { 'label': 'Feedback', 'value': 'Feedback', 'type': 'open' },
-        { 'label': 'Bearbeitung', 'value': 'Bearbeitung', 'type': 'open' },
-        { 'label': 'Erledigt', 'value': 'Erledigt', 'type': 'closed' },
-        { 'label': 'Sistiert', 'value': 'Sistiert', 'type': 'closed' }
+        { 'label': 'Neu', 'value': 'Neu', 'type': 'open', 'icon': 'fas fa-bolt' },
+        { 'label': 'Anerkannt', 'value': 'Anerkannt', 'type': 'open', 'icon': 'fas fa-thumbs-up' },
+        { 'label': 'Abgelehnt', 'value': 'Abgelehnt', 'type': 'closed', 'icon': 'fas fa-thumbs-down' },
+        { 'label': 'Warten', 'value': 'Warten', 'type': 'open', 'icon': 'fas fa-hourglass-start' },
+        { 'label': 'Feedback', 'value': 'Feedback', 'type': 'open', 'icon': 'fas fa-bullhorn' },
+        { 'label': 'Bearbeitung', 'value': 'Bearbeitung', 'type': 'open', 'icon': 'fas fa-pencil-alt' },
+        { 'label': 'Erledigt', 'value': 'Erledigt', 'type': 'closed', 'icon': 'fas fa-check' },
+        { 'label': 'Sistiert', 'value': 'Sistiert', 'type': 'closed', 'icon': 'fas fa-ban' }
       ],
       en: [
-        { 'label': 'New', 'value': 'Neu', 'type': 'open' },
-        { 'label': 'Accepted', 'value': 'Anerkannt', 'type': 'open' },
-        { 'label': 'Rejected', 'value': 'Abgelehnt', 'type': 'closed' },
-        { 'label': 'Waiting', 'value': 'Warten', 'type': 'open' },
-        { 'label': 'Feedback', 'value': 'Feedback', 'type': 'open' },
-        { 'label': 'Progress', 'value': 'Bearbeitung', 'type': 'open' },
-        { 'label': 'Done', 'value': 'Erledigt', 'type': 'closed' },
-        { 'label': 'Suspended', 'value': 'Sistiert', 'type': 'closed' }
+        { 'label': 'New', 'value': 'Neu', 'type': 'open', 'icon': 'fas fa-bolt' },
+        { 'label': 'Accepted', 'value': 'Anerkannt', 'type': 'open', 'icon': 'fas fa-thumbs-up' },
+        { 'label': 'Rejected', 'value': 'Abgelehnt', 'type': 'closed', 'icon': 'fas fa-thumbs-down' },
+        { 'label': 'Waiting', 'value': 'Warten', 'type': 'open', 'icon': 'fas fa-hourglass-start' },
+        { 'label': 'Feedback', 'value': 'Feedback', 'type': 'open', 'icon': 'fas fa-bullhorn' },
+        { 'label': 'Progress', 'value': 'Bearbeitung', 'type': 'open', 'icon': 'fas fa-pencil-alt' },
+        { 'label': 'Done', 'value': 'Erledigt', 'type': 'closed', 'icon': 'fas fa-check' },
+        { 'label': 'Suspended', 'value': 'Sistiert', 'type': 'closed', 'icon': 'fas fa-ban' }
       ]
     }
   ],
