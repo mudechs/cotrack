@@ -1,4 +1,4 @@
-import $ from 'jquery/dist/jquery.slim'
+import $ from 'jquery/dist/jquery'
 import dragula from 'dragula/dragula'
 import 'bootstrap/dist/js/bootstrap.bundle'
 import 'bootstrap-multiselect/dist/js/bootstrap-multiselect'
