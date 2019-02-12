@@ -13,31 +13,6 @@ window.axios = axios
 window.helpers = helpers
 window.datatable = DataTable
 
-$.extend(true, $.fn.dataTable.defaults, {
-  dom: "<'row'<'col-6 col-sm-6 col-md-6'f><'col-6 col-sm-6 col-md-6'l>>" +
-    "<'row'<'col-sm-12'tr>>" +
-    "<'row d-flex align-items-center'<'col-6'i><'col-6'p>>",
-  'initComplete': function() {
-    $('div.dataTables_length select').removeClass('custom-select custom-select-sm')
-  },
-  info: true,
-  paging: true,
-  lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'Alle']],
-  language: {
-    'search': "<i class='fas fa-filter'></i> ",
-    'info': '_START_ &rarr; _END_ (_TOTAL_)',
-    'infoEmpty': '0 &rarr; 0 (0)',
-    'emptyTable': 'Keine Daten vorhanden',
-    'lengthMenu': '_MENU_',
-    'paginate': {
-      'first': "<i class='fas fa-step-backward'></i>",
-      'last': "<i class='fas fa-step-forward'></i>",
-      'next': "<i class='fas fa-forward'></i>",
-      'previous': "<i class='fas fa-backward'></i>"
-    },
-  }
-})
-
 $(document).ready(function () {
   $('.multiselect').multiselect({
     buttonWidth: '100%'
