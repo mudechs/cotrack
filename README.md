@@ -100,6 +100,7 @@ The JSON key `token` will be checked against a existing project. Each project ha
 ### Request format
 
 #### Create a ticket
+This informations must be set in the body of the request via GET
 ```js
 {
 	"token": "xxxxxxxx",
@@ -115,6 +116,7 @@ https://yourdomain.com/api/public/tickets/create
 
 
 #### Fetch all tickets per user (author of the ticket)
+This informations must be set in the header of the request via GET
 ```js
 {
 	"token": "xxxxxxxx",
