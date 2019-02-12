@@ -81,11 +81,14 @@ table .btn.btn-sm {
   width: 150px;
 }
 
+.dataTable-pagination {
+  float: right;
+  background: #272B2F;
+}
+
 .dataTable-pagination ul {
 	margin: 10px;
   padding-left: 0;
-  float: right;
-  background: #272B2F;
 }
 
 .dataTable-pagination li {

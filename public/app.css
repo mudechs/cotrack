@@ -7268,11 +7268,13 @@ table .btn.btn-sm, table .btn-group-sm > .btn {
   border: 1px solid #272B30;
   width: 150px; }
 
-.dataTable-pagination ul {
-  margin: 10px;
-  padding-left: 0;
+.dataTable-pagination {
   float: right;
   background: #272B2F; }
+
+.dataTable-pagination ul {
+  margin: 10px;
+  padding-left: 0; }
 
 .dataTable-pagination li {
   list-style: none;
