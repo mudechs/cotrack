@@ -26,7 +26,7 @@ Route.get('register/success', ({ view }) => {
   return view.render('register_success')
 }).as('registerSuccess')
 
-Route.get('login', 'Auth/LoginController.showLoginForm').middleware(['authenticated']).as('showLoginForm')
+Route.get('login', 'Auth/LoginController.showLoginForm').as('showLoginForm')
 Route.post('login', 'Auth/LoginController.login').as('login').validator('LoginUser')
 Route.get('login/:hash', 'Auth/LoginController.loginTokenForm').as('loginTokenForm')
 Route.post('login/token', 'Auth/LoginController.loginToken').as('loginToken')

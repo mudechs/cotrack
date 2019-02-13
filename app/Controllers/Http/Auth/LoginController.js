@@ -94,7 +94,7 @@ class LoginController {
                   }
                 })
 
-                return response.route('settings.edit')
+                return response.route('settings.edit', { id: settings.id })
               }
               else {
                 return response
