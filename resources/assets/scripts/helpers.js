@@ -1,5 +1,7 @@
 'use strict'
 
+import { DataTable } from 'simple-datatables'
+
 export default {
   formSerialize(formElement) {
     const values = {}
@@ -10,6 +12,7 @@ export default {
     }
     return values
   },
+
   clickableRow() {
     const rows = document.querySelectorAll('tr[data-href]')
     rows.forEach(row => {
@@ -17,5 +20,20 @@ export default {
         window.location.href = row.dataset.href
       })
     })
+  },
+
+  dataTable(col, order) {
+    const dataTable = new DataTable('.data-table', {
+      columns: [
+        { select: col, sort: order }
+      ],
+      labels: {
+        placeholder: '',
+        perPage: '{select}',
+        info: '{start} &rarr; {end} ({rows})',
+      }
+    })
+
+    return dataTable
   }
 }
