@@ -203,7 +203,7 @@
     </div>
   </div>
 
-  {{--  Forms  --}}
+  {{--  Forms  TODO: Konsolidieren --}}
   <form id="status-change-form" action="{{ route('ticketsChangeStatus', { id: ticket.id }) }}" method="post">
     {{ csrfField() }}
     <input type="hidden" name="status" id="status-change-input" value="{{ ticket.status }}">
