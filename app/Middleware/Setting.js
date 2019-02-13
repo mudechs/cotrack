@@ -12,7 +12,7 @@ class Setting {
   async handle ({ request }, next) {
     const View = use('View')
     const Setting = use('App/Models/Setting')
-    const settings = await Setting.query().first()
+    let settings = await Setting.query().first()
 
     request.globals = settings
 
