@@ -204,20 +204,20 @@
   </div>
 
   {{--  Forms  TODO: Konsolidieren --}}
-  <form id="status-change-form" action="{{ route('ticketsChangeStatus', { id: ticket.id }) }}" method="post">
+  <form id="statusChangeForm" action="{{ route('ticketsChangeStatus', { id: ticket.id }) }}" method="post">
     {{ csrfField() }}
     <input type="hidden" name="status" id="status-change-input" value="{{ ticket.status }}">
   </form>
-  <form id="ticket-reopen-form" action="{{ route('ticketsReopen', { id: ticket.id }) }}" method="post">
+  <form id="ticketReopenForm" action="{{ route('ticketsReopen', { id: ticket.id }) }}" method="post">
     {{ csrfField() }}
     <input type="hidden" name="status" value="Neu">
     <input type="hidden" name="recipient_id" value="{{ auth.user.id }}">
   </form>
-  <form id="recipient-change-form" action="{{ route('ticketsChangeRecipient', { id: ticket.id }) }}" method="post">
+  <form id="recipientChangeForm" action="{{ route('ticketsChangeRecipient', { id: ticket.id }) }}" method="post">
     {{ csrfField() }}
     <input type="hidden" name="recipient_id" id="recipient-change-input" value="{{ ticket.recipient_id }}">
   </form>
-  <form id="assign-change-form" action="{{ route('ticketsAssignToMe', { id: ticket.id }) }}" method="post">
+  <form id="assignChangeForm" action="{{ route('ticketsAssignToMe', { id: ticket.id }) }}" method="post">
     {{ csrfField() }}
     <input type="hidden" name="recipient_id" id="recipient-assign-input" value="{{ ticket.recipient_id }}">
     <input type="hidden" name="status" value="Anerkannt">
@@ -241,7 +241,7 @@
           const recipient = assignToMeButton.dataset.recipient
 
           document.getElementById('recipient-assign-input').value = recipient
-          document.getElementById('assign-change-form').submit()
+          document.getElementById('assignChangeForm').submit()
         })
       }
 
@@ -257,7 +257,7 @@
 
             document.getElementById('status-change-input').value = status
 
-            document.getElementById('status-change-form').submit()
+            document.getElementById('statusChangeForm').submit()
           })
         })
       }
@@ -269,7 +269,7 @@
         ticketReopenButton.addEventListener('click', (event) => {
           event.preventDefault()
 
-          document.getElementById('ticket-reopen-form').submit()
+          document.getElementById('ticketReopenForm').submit()
         })
       }
 
@@ -285,7 +285,7 @@
 
             document.getElementById('recipient-change-input').value = user
 
-            document.getElementById('recipient-change-form').submit()
+            document.getElementById('recipientChangeForm').submit()
           })
         })
       }
