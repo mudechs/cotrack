@@ -3,7 +3,7 @@
 @import "node_modules/bootstrap/scss/bootstrap";
 @import "node_modules/bootswatch/dist/slate/bootswatch";
 @import "node_modules/dragula/dist/dragula.min";
-@import "node_modules/bootstrap-multiselect/dist/css/bootstrap-multiselect";
+@import "node_modules/choices.js/src/styles/choices";
 
 body {
   padding-bottom: 120px;
@@ -159,10 +159,6 @@ table .btn.btn-sm {
   border-radius: 10px;
   padding-left: .7em;
   padding-right: .7em;
-}
-
-.multiselect-container > li > a > label {
-  padding: 3px 10px;
 }
 
 .dropdown-item {
