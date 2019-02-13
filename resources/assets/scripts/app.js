@@ -18,14 +18,7 @@ $(document).ready(function () {
     buttonWidth: '100%'
   })
 
-  // Add loading icon on clicked submit buttons
-  /* $('button[type=submit]').on('click', function(e) {
-    e.preventDefault()
-
-    $(this).html('<i class="fas fa-spinner fa-spin fa-fw"></i>')
-  }) */
-
-  $('.linkable tr').on('click', 'td:not(:has(a))', function(e) {
+  /* $('.linkable tr').on('click', 'td:not(:has(a))', function(e) {
     e.preventDefault()
 
     const url = $(this).closest('tr').data('route')
@@ -35,5 +28,5 @@ $(document).ready(function () {
     }
 
     return false
-  })
+  }) */
 })

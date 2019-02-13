@@ -9,5 +9,13 @@ export default {
       values[inputs[i].name] = inputs[i].value
     }
     return values
+  },
+  clickableRow() {
+    const rows = document.querySelectorAll('tr[data-href]')
+    rows.forEach(row => {
+      row.addEventListener('click', () => {
+        window.location.href = row.dataset.href
+      })
+    })
   }
 }

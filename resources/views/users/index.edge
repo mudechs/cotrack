@@ -36,7 +36,7 @@
                 </thead>
                 <tbody>
                   @each(user in usersActive)
-                    <tr data-route="{{ route('usersShow', { id: user.id }) }}">
+                    <tr class="clickable" data-href="{{ route('usersShow', { id: user.id }) }}">
                       <th scope="row" width="20">
                         @!component('users.components.availableCircle', { user })
                       </th>
@@ -84,7 +84,7 @@
                 </thead>
                 <tbody>
                   @each(user in usersInactive)
-                    <tr data-route="{{ route('usersShow', { id: user.id }) }}">
+                    <tr class="clickable" data-href="{{ route('usersShow', { id: user.id }) }}">
                       <th scope="row" width="20">
                         @!component('users.components.availableCircle', { user })
                       </th>
@@ -134,6 +134,8 @@
             info: '{start} &rarr; {end} ({rows})',
         }
       })
+
+      helpers.clickableRow()
     })
   </script>
 @endsection

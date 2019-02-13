@@ -35,7 +35,7 @@
                 </thead>
                 <tbody>
                   @each(project in projectsActive)
-                    <tr data-route="{{ route('projectsShow', { id: project.id }) }}">
+                    <tr class="clickable" data-href="{{ route('projectsShow', { id: project.id }) }}">
                       <td scope="row">{{ project.id }}</td>
                       <td>{{ project.title }}</td>
                       <td>
@@ -81,7 +81,7 @@
                 </thead>
                 <tbody>
                   @each(project in projectsInactive)
-                    <tr data-route="{{ route('projectsShow', { id: project.id }) }}">
+                    <tr class="clickable" data-href="{{ route('projectsShow', { id: project.id }) }}">
                       <td scope="row">{{ project.id }}</td>
                       <td>{{ project.title }}</td>
                       <td>
@@ -130,6 +130,8 @@
             info: '{start} &rarr; {end} ({rows})',
         }
       })
+
+      helpers.clickableRow()
     })
   </script>
 @endsection

@@ -11,7 +11,7 @@
     </thead>
     <tbody>
       @each(ticket in tickets)
-        <tr data-route="{{ route('ticketsShow', { id: ticket.id }) }}">
+        <tr class="clickable" data-href="{{ route('ticketsShow', { id: ticket.id }) }}">
           <td scope="row">
             @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
           </td>
