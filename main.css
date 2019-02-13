@@ -7435,6 +7435,18 @@ hr {
   margin-top: .75rem;
   margin-bottom: .75rem; }
 
+#notification {
+  width: 300px;
+  position: absolute;
+  left: 50%;
+  margin-left: -150px;
+  top: 0;
+  z-index: 10;
+  padding: 10px; }
+
+#notification p {
+  margin: 0; }
+
 .navbar {
   border-top: none;
   border-left: none;

@@ -1,5 +1,5 @@
-import $ from 'jquery/dist/jquery'
-import dragula from 'dragula/dragula'
+import $ from 'jquery/dist/jquery.slim'
+import dragula from 'dragula'
 import 'bootstrap/dist/js/bootstrap.bundle'
 import axios from 'axios'
 import helpers from './helpers'

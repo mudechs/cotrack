@@ -37,10 +37,11 @@
 
     @if(flashMessage('notification'))
       <script>
-        $(document).ready(function () {
-          $('.toast-wrapper').show();
-          $('.toast').toast('show');
-        });
+        document.getElementById('notification').style.display = 'block'
+
+        setTimeout(function() {
+          document.getElementById('notification').style.display = 'none'
+        }, 3000)
       </script>
     @endif
 

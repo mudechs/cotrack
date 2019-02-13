@@ -232,7 +232,9 @@
   <script>
     $(document).ready(function () {
       // Ticket übernehmen
-      $('#assignToMeButton').on('click', function() {
+      $('#assignToMeButton').on('click', function(e) {
+        e.preventDefault();
+
         const recipient = $(this).data('recipient');
 
         $('#recipient-assign-input').val(recipient);

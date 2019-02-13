@@ -59,7 +59,7 @@
       </div>
       <div class="form-group">
         <label for="members">Members</label><br>
-        <select id="members" name="members[]" class="custom-select multiselect" multiple="multiple">
+        <select id="members" name="members[]" class="custom-select" multiple="multiple">
           @if(project == undefined)
             @each(member in members)
               <option value="{{ member.id }}"
