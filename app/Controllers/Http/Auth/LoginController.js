@@ -73,7 +73,7 @@ class LoginController {
 
             const settings = await Setting.query().first()
 
-            if(settings) {
+            if(settings.email) {
               session.flash({
                 notification: {
                   type: 'success',
