@@ -7443,9 +7443,8 @@ hr {
   top: 0;
   z-index: 10;
   padding: 10px; }
-
-#notification p {
-  margin: 0; }
+  #notification p {
+    margin: 0; }
 
 .navbar {
   border-top: none;
@@ -7458,9 +7457,8 @@ hr {
 
 .fa-stack {
   font-size: 0.6rem; }
-
-.fa-stack > i {
-  vertical-align: middle; }
+  .fa-stack > i {
+    vertical-align: middle; }
 
 label, table.table th {
   font-size: 0.8rem;
