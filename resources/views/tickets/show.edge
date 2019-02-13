@@ -9,7 +9,7 @@
             <div class="d-flex d-inline">
               {{--  Ticket übernehmen  --}}
               @if(ticket.recipient_id != auth.user.id && ticket.status != "Erledigt" && ticket.status != "Sistiert" && ticket.status != "Abgelehnt" )
-                <button class="btn btn-sm btn-danger" type="button" id="assignToMeButton" data-recipient="{{ auth.user.id }}">
+                <button class="btn btn-sm btn-danger mr-1" type="button" id="assignToMeButton" data-recipient="{{ auth.user.id }}">
                   {{ antl.forLocale(auth.user.locale).formatMessage('static.uebernehmen') }}
                 </button>
               @endif
@@ -41,7 +41,7 @@
               @endif
               {{--  Ticket wiedereröffnen  --}}
               @if((ticket.recipient_id == auth.user.id || ticket.author_id == auth.user.id) && ticket.status == "Erledigt" || ticket.status == "Sistiert" || ticket.status == "Abgelehnt")
-                <button class="ticket-reopen-item btn btn-sm btn-warning mr-md-2 mr-1"><i class="fas fa-lock-open fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.wiedereroeffnen') }}</button>
+                <button id="ticketReopenButton" class="btn btn-sm btn-warning mr-md-2 mr-1"><i class="fas fa-lock-open fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.wiedereroeffnen') }}</button>
               @endif
               {{--  Ticket weiterleiten  --}}
               @if(ticket.status != "Abgelehnt" && ticket.status != "Erledigt" && ticket.status != "Sistiert" && ticket.recipient_id == auth.user.id)
@@ -230,49 +230,68 @@
 
 @section('js')
   <script>
-    $(document).ready(function () {
+    document.addEventListener('DOMContentLoaded', function(event) {
       // Ticket übernehmen
-      $('#assignToMeButton').on('click', function(e) {
-        e.preventDefault();
+      if(document.getElementById('assignToMeButton')) {
+        const assignToMeButton = document.getElementById('assignToMeButton')
 
-        const recipient = $(this).data('recipient');
+        assignToMeButton.addEventListener('click', (event) => {
+          event.preventDefault()
 
-        $('#recipient-assign-input').val(recipient);
+          const recipient = assignToMeButton.dataset.recipient
 
-        $('#assign-change-form').submit();
-      });
+          document.getElementById('recipient-assign-input').value = recipient
+          document.getElementById('assign-change-form').submit()
+        })
+      }
 
       // Status wechseln
-      $('.status-change-item').on('click', function(e){
-        e.preventDefault();
+      if(document.querySelectorAll('.status-change-item')) {
+        const statusChangeDropdowns = document.querySelectorAll('.status-change-item')
 
-        const status = $(this).data('status');
+        statusChangeDropdowns.forEach(statusChangeDropdown => {
+          statusChangeDropdown.addEventListener('click', (event) => {
+            event.preventDefault()
 
-        $('#status-change-input').val(status);
-        $('#statusDropdownButtons').text(status);
+            const status = statusChangeDropdown.dataset.status
 
-        $('#status-change-form').submit();
-      });
+            document.getElementById('status-change-input').value = status
+
+            document.getElementById('status-change-form').submit()
+          })
+        })
+      }
 
       // Ticket wiedereröffnen
-      $('.ticket-reopen-item').on('click', function(e){
-        e.preventDefault();
+      if(document.getElementById('ticketReopenButton')) {
+        const ticketReopenButton = document.getElementById('ticketReopenButton')
+        console.log(ticketReopenButton)
+        ticketReopenButton.addEventListener('click', (event) => {
+          event.preventDefault()
 
-        $('#ticket-reopen-form').submit();
-      });
+          document.getElementById('ticket-reopen-form').submit()
+        })
+      }
 
       // Ticket weiterleiten
-      $('.recipient-dropdown-item').on('click', function(e){
-        e.preventDefault();
+      if(document.querySelectorAll('.recipient-dropdown-item')) {
+        const recipients = document.querySelectorAll('.recipient-dropdown-item')
 
-        const recipient = $(this).data('recipient');
+        recipients.forEach(recipient => {
+          recipient.addEventListener('click', (event) => {
+            event.preventDefault()
 
-        $('#recipient-change-input').val(recipient);
-        $('#recipientDropdownButtons').text(recipient);
+            const user = recipient.dataset.recipient
 
-        $('#recipient-change-form').submit();
-      });
+            document.getElementById('recipient-change-input').value = user
 
+            document.getElementById('recipient-change-form').submit()
+          })
+        })
+      }
+    })
+
+    $(document).ready(function () {
       $('#commentCreateModal').on('shown.bs.modal', function (e) {
         $('#body').focus();
       });
