@@ -24,6 +24,7 @@
 
 @section('js')
   <script>
+    // Zeige ein Select Menu mit den im ausgewählten Projekt zugewiesenen Members
     function projectSelectorHandler(event) {
       const projectId = event.target.value
       const url = '/api/tickets/projectMembers/' + projectId
