@@ -247,13 +247,13 @@
 
       // Status wechseln
       if(document.querySelectorAll('.status-change-item')) {
-        const statusChangeDropdowns = document.querySelectorAll('.status-change-item')
+        const elements = document.querySelectorAll('.status-change-item')
 
-        statusChangeDropdowns.forEach(statusChangeDropdown => {
-          statusChangeDropdown.addEventListener('click', (event) => {
+        elements.forEach(element => {
+          element.addEventListener('click', (event) => {
             event.preventDefault()
 
-            const status = statusChangeDropdown.dataset.status
+            const status = element.dataset.status
 
             document.getElementById('status-change-input').value = status
 

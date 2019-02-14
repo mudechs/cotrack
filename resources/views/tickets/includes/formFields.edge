@@ -15,7 +15,12 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-project-diagram fa-fw"></i></span>
                 </div>
-                <select name="project" id="project" class="form-control {{ hasErrorFor('project') ? 'is-invalid' : '' }}">
+                <select
+                  onchange="projectSelectorHandler(event)"
+                  id="project"
+                  name="project"
+                  class="form-control {{ hasErrorFor('project') ? 'is-invalid' : '' }}"
+                  >
                   <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
                   @each(project in projects)
                     <option value="{{ project.id }}"
@@ -34,13 +39,8 @@
         <div class="form-group" style="display: none;">
           <label for="recipient">{{ antl.forLocale(auth.user.locale).formatMessage('static.empfaenger') }} (optional)</label>
           <div class="row">
-            <div class="col-md-6 col-12">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-users fa-fw"></i></span>
-                </div>
-                <select name="recipient" id="recipient" class="form-control"></select>
-              </div>
+            <div id="recipientSelect" class="col-md-6 col-12">
+
             </div>
           </div>
         </div>

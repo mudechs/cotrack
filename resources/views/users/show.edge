@@ -26,7 +26,7 @@
                               checked
                             @endif
                           >
-                          <label id="availability-change-label" class="custom-control-label" for="is_available">
+                          <label id="availabilityChangeLabel" class="custom-control-label" for="is_available">
                             @if(user.is_available == 1)
                               {{ antl.forLocale(auth.user.locale).formatMessage('static.verfuegbar') }}
                             @else
@@ -218,7 +218,7 @@
         })
         .then(function (response) {
           console.log(response)
-          document.getElementById('availability-change-label').innerHTML = response.data
+          document.getElementById('availabilityChangeLabel').innerHTML = response.data
         })
         .catch(function (error) {
           console.log(error)
