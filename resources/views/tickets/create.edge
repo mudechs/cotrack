@@ -24,7 +24,10 @@
 
 @section('js')
   <script>
-    // Zeige ein Select Menu mit den im ausgewählten Projekt zugewiesenen Members
+    /* Zeige ein Select Menu mit den im ausgewählten Projekt zugewiesenen Members
+      Falls der Member is_available auf false gesetzt hat, wird dieser zwar angezeigt, jedoch
+      auf disabled gesetzt.
+    */
     function projectSelectorHandler(event) {
       const projectId = event.target.value
       const url = '/api/tickets/projectMembers/' + projectId
@@ -55,6 +58,9 @@
           option = document.createElement('option')
           option.text = fullName
           option.value = element.id
+          if(element.is_available == false) {
+            option.disabled = true
+          }
           select.add(option)
         })
 
