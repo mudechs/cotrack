@@ -6,8 +6,8 @@ Project and Team based Ticket-System using AdonisJs 4.1
 0.9 BETA
 
 ## Languages
-- German
-- English (95% completed)
+- German (default)
+- English
 
 ## Working demo
 coming soon...

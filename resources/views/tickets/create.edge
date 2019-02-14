@@ -58,7 +58,7 @@
           option = document.createElement('option')
           option.text = fullName
           option.value = element.id
-          if(element.is_available == false) {
+          if(element.is_available === false) {
             option.disabled = true
           }
           select.add(option)
