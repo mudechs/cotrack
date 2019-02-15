@@ -24,14 +24,21 @@
 
 @section('js')
   <script>
-    $(document).ready(function () {
-      let data = [];
-      $('.btn-files-remover').on('click', function(e) {
-          e.preventDefault();
-          data.push($(this).data('index'));
-          $('#modified-files').val(JSON.stringify(data));
-          $(this).parent().parent().fadeOut('fast');
-      });
-    });
+    document.addEventListener('DOMContentLoaded', function(event) {
+      if(document.querySelectorAll('.btn-files-remover')) {
+        let data = []
+        const elements = document.querySelectorAll('.btn-files-remover')
+
+        elements.forEach(element => {
+          element.addEventListener('click', (event) => {
+            event.preventDefault()
+
+            data.push(element.dataset.index)
+            document.getElementById('modified-files').value = JSON.stringify(data)
+            element.parentNode.parentElement.style.display = 'none'
+          })
+        })
+      }
+    })
   </script>
 @endsection
