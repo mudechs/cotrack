@@ -14,15 +14,15 @@ coming soon...
 
 ## Used technologies
 - [AdonisJs 4.1](https://adonisjs.com/)
-- [Bootstrap 4.2.1](https://getbootstrap.com/)
+- [Bootstrap 4.3](https://getbootstrap.com/)
 - [Bootswatch Bootstrap Theme (Slate)](https://bootswatch.com/)
 - [FontAwesome Free Icons 5.x](https://fontawesome.com/)
 - [MySQL 5.7.x](https://dev.mysql.com/)
 - [Webpack 4.x](https://webpack.js.org/)
 - [jQuery Slim 3.x](https://jquery.com/)
 - [Simple-DataTables](https://github.com/fiduswriter/Simple-DataTables/)
-- [Dragula Drag&Drop](https://github.com/bevacqua/dragula/)
-- [Choices.js](https://github.com/jshjohnson/Choices)
+- [SortableJS](https://github.com/SortableJS/Sortable)
+- [ChoicesJS](https://github.com/jshjohnson/Choices)
 - HTML5
 - CSS3
 - ES6 JavaScript
