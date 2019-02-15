@@ -117,6 +117,7 @@
               to: antl.forLocale(auth.user.locale).formatMessage('static.an'),
               dateLabel: antl.forLocale(auth.user.locale).formatMessage('static.erstellt'),
               tickets: ticketsOpen,
+              dataTable: 'data-table-open',
               priorities,
               statuses
             })
@@ -129,6 +130,7 @@
               to: antl.forLocale(auth.user.locale).formatMessage('static.an'),
               dateLabel: antl.forLocale(auth.user.locale).formatMessage('static.abgeschlossen'),
               tickets: ticketsClosed,
+              dataTable: 'data-table-closed',
               priorities,
               statuses
             })
@@ -149,7 +151,8 @@
 @section('js')
   <script>
     document.addEventListener('DOMContentLoaded', function(event) {
-      helpers.dataTable(2, 'desc')
+      helpers.dataTable('.data-table-open', 2, 'desc')
+      helpers.dataTable('.data-table-closed', 2, 'desc')
       helpers.clickableRow()
     })
   </script>

@@ -36,8 +36,8 @@ function clickableRow() {
   })
 }
 
-function dataTable(col, order) {
-  const dataTable = new DataTable('.data-table', {
+function dataTable(table, col, order) {
+  const dataTable = new DataTable(table, {
     columns: [{
       select: col,
       sort: order

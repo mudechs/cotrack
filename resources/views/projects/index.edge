@@ -21,7 +21,7 @@
         <div class="tab-content" id="projectsContent">
           <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="active-tab">
             <div class="table-responsive">
-              <table class="table table-hover table-striped table-sm text-nowrap m-0 data-table linkable">
+              <table class="table table-hover table-striped table-sm text-nowrap m-0 data-table-active linkable">
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
@@ -67,7 +67,7 @@
           </div>
           <div class="tab-pane fade" id="inactive" role="tabpanel" aria-labelledby="inactive-tab">
             <div class="table-responsive">
-              <table class="table table-hover table-striped table-sm text-nowrap m-0 data-table linkable">
+              <table class="table table-hover table-striped table-sm text-nowrap m-0 data-table-inactive linkable">
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
@@ -120,7 +120,8 @@
 @section('js')
   <script>
     document.addEventListener('DOMContentLoaded', function(event) {
-      helpers.dataTable(1, 'asc')
+      helpers.dataTable('.data-table-active', 1, 'asc')
+      helpers.dataTable('.data-table-inactive', 1, 'asc')
       helpers.clickableRow()
     })
   </script>
