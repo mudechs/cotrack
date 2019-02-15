@@ -1,17 +1,9 @@
 @import "custom";
-@import "node_modules/bootswatch/dist/slate/variables";
-@import "node_modules/bootstrap/scss/bootstrap";
-@import "node_modules/bootswatch/dist/slate/bootswatch";
+@import "node_modules/bulma/bulma";
 @import "node_modules/choices.js/src/styles/choices";
 
 body {
   padding-bottom: 120px;
-  font-weight: 200;
-}
-
-hr {
-  margin-top: .75rem;
-  margin-bottom: .75rem;
 }
 
 #notification {
@@ -42,23 +34,8 @@ hr {
   }
 }
 
-.navbar {
-  border-top: none;
-  border-left: none;
-  border-right: none;
-}
-
 .navbar-brand {
   font-family: Impact, Charcoal, sans-serif;
-  padding-left: 0;
-}
-
-.fa-stack {
-  font-size: 0.6rem;
-
-  > i {
-    vertical-align: middle;
-  }
 }
 
 label, table.table th {
@@ -74,11 +51,6 @@ table .btn.btn-sm {
 
 .linkable:hover {
   cursor: pointer;
-}
-
-.draggable .list-group-item {
-  cursor: move;
-  padding: .75rem;
 }
 
 .list-group-item small {

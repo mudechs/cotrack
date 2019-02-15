@@ -1,15 +1,15 @@
-<footer>
-  <nav class="navbar fixed-bottom navbar-dark bg-dark p-2 d-flex justify-content-between">
-    <small>&copy; <a href="{{ globals().www }}" target="_blank" rel="noopener">{{ globals().company }}</a></small>
-    <a href="{{ route('privacyPolicy') }}">
-      <small>
+<footer class="footer is-fixed-bottom">
+  <div class="content has-text-centered">
+    <p>
+      <strong>{{ globals().app_name }}</strong> by <a href="{{ globals().www }}" target="_blank" rel="noopener">{{ globals().company }}</a>
+      <a href="{{ route('privacyPolicy') }}">
         @loggedIn
-          {{ antl.forLocale(auth.user.locale).formatMessage('static.datenschutz') }}
+          &nbsp;-&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.datenschutz') }}<br>
         @else
-          {{ antl.forLocale(globals().default_locale).formatMessage('static.datenschutz') }}
+          &nbsp;-&nbsp;{{ antl.forLocale(globals().default_locale).formatMessage('static.datenschutz') }}<br>
         @endloggedIn
-      </small>
-    </a>
-    <small>Version 0.9 BETA</small>
-  </nav>
+      </a>
+      Version 0.9 BETA
+    </p>
+  </div>
 </footer>

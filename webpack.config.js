@@ -1,17 +1,17 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const webpack = require('webpack')
+// const webpack = require('webpack')
 const path = require('path')
 
 const extractSass = new ExtractTextPlugin({
   filename: 'public/app.css'
 })
 
-const jquery = new webpack.ProvidePlugin({
+/* const jquery = new webpack.ProvidePlugin({
   jQuery: 'jquery',
   $: 'jquery',
   jquery: 'jquery',
   'window.jQuery': 'jquery'
-})
+}) */
 
 function sassRules() {
   return [{
@@ -58,7 +58,6 @@ module.exports = {
   },
   plugins: [
     extractSass,
-    jquery,
     new ExtractTextPlugin('[name].css')
   ]
 }
