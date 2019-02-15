@@ -234,17 +234,19 @@
   <script>
     document.addEventListener('DOMContentLoaded', function(event) {
       // Kommentar erfassen
-      const button = document.getElementById('createCommentButton')
-      button.addEventListener('click', function() {
-        const element = document.getElementById('commentCreate')
-        if(element.classList.contains('show') === true) {
-          element.classList.remove('show')
-          document.getElementById('commentForm').reset()
-        } else {
-          element.classList.add('show')
-          document.getElementById('body').focus()
-        }
-      })
+      if(document.getElementById('createCommentButton')) {
+        const button = document.getElementById('createCommentButton')
+        button.addEventListener('click', function() {
+          const element = document.getElementById('commentCreate')
+          if(element.classList.contains('show') === true) {
+            element.classList.remove('show')
+            document.getElementById('commentForm').reset()
+          } else {
+            element.classList.add('show')
+            document.getElementById('body').focus()
+          }
+        })
+      }
 
       // Ticket übernehmen
       if(document.getElementById('assignToMeButton')) {
