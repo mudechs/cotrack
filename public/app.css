@@ -7574,3 +7574,7 @@ table .btn.btn-sm, table .btn-group-sm > .btn {
 .comment-create-form.show {
   display: block;
   z-index: 10; }
+
+.comment-edit-form textarea {
+  background: #272b30;
+  border-color: #515960; }
