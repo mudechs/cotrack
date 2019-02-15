@@ -1,5 +1,4 @@
-import $ from 'jquery/dist/jquery'
-import dragula from 'dragula'
+import $ from 'jquery/dist/jquery.slim'
 import 'bootstrap/dist/js/bootstrap.bundle'
 import axios from 'axios'
 import helpers from './helpers'
@@ -8,7 +7,6 @@ import sortable from 'sortablejs'
 
 window.jQuery = $
 window.$ = $
-window.dragula = dragula
 window.axios = axios
 window.helpers = helpers
 window.choices = choices
