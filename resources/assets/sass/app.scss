@@ -206,23 +206,11 @@ table .btn.btn-sm {
 }
 
 .comment-create-form {
-  height: 0;
-  overflow: hidden;
+  display: none;
   background: #32383e;
-  // z-index: -10;
-  -webkit-transition: height 300ms ease;
-  -moz-transition: height 300ms ease;
-  -ms-transition: height 300ms ease;
-  -o-transition: height 300ms ease;
-  transition: height 300ms ease;
 }
 
 .comment-create-form.show {
-  height: 300px;
+  display: block;
   z-index: 10;
-  -webkit-transition: height 300ms ease;
-  -moz-transition: height 300ms ease;
-  -ms-transition: height 300ms ease;
-  -o-transition: height 300ms ease;
-  transition: height 300ms ease;
 }

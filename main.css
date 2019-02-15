@@ -7568,20 +7568,9 @@ table .btn.btn-sm, table .btn-group-sm > .btn {
   padding-top: 2px; }
 
 .comment-create-form {
-  height: 0;
-  overflow: hidden;
-  background: #32383e;
-  -webkit-transition: height 300ms ease;
-  -moz-transition: height 300ms ease;
-  -ms-transition: height 300ms ease;
-  -o-transition: height 300ms ease;
-  transition: height 300ms ease; }
+  display: none;
+  background: #32383e; }
 
 .comment-create-form.show {
-  height: 300px;
-  z-index: 10;
-  -webkit-transition: height 300ms ease;
-  -moz-transition: height 300ms ease;
-  -ms-transition: height 300ms ease;
-  -o-transition: height 300ms ease;
-  transition: height 300ms ease; }
+  display: block;
+  z-index: 10; }
