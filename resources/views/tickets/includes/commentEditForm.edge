@@ -1,0 +1,19 @@
+<div id="comment-edit-{{ comment.id }}" style="display:none;">
+  <form class="comment-edit-form" action="{{ route('commentsUpdate', { id: comment.id }) }}" method="post">
+    {{ csrfField() }}
+    <input type="hidden" name="ticket_id" id="ticket_id" value="{{ ticket.id }}">
+    <div class="form-group">
+      <label for="body">Text <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">[{{ antl.forLocale(auth.user.locale).formatMessage('static.markdown_erlaubt') }}]</a></label>
+      <textarea
+        name="body"
+        class="form-control {{ hasErrorFor('body') ? 'is-invalid' : '' }}"
+        id="body-{{ comment.id }}"
+        rows="8"
+        required
+      >{{ old('body', '') }}</textarea>
+      {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('body'), hasErrorFor('body')) }}
+    </div>
+    <button type="button" class="btn btn-sm btn-secondary closer">{{ antl.forLocale(auth.user.locale).formatMessage('static.abbrechen') }}</button>
+    <button type="submit" class="btn btn-sm btn-success"><i class="far fa-paper-plane fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.speichern') }}</button>
+  </form>
+</div>

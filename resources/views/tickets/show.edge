@@ -146,14 +146,19 @@
                     <span>
                       <small>{{ comment.created_at }}</small>
                       @if(comment.commentAuthor.id == auth.user.id)
-                        <small class="ml-2"><a href="#" data-toggle="modal" data-target="#commentEditModal" data-commentid="{{ comment.id }}" data-ticketid="{{ ticket.id }}"><i class="fas fa-pencil-alt fa-fw"></i></a></small>
+                        <small class="ml-2"><a href="#" class="comment-edit-button" data-commentid="{{ comment.id }}" data-ticketid="{{ ticket.id }}"><i class="fas fa-pencil-alt fa-fw"></i></a></small>
                       @endif
                     </span>
                   </p>
-                  <h6 class="mb-3">{{{ comment.bodyHtml }}}</h6>
-                  @each(attachment in comment.attachments)
-                    <small><a href="/uploads/comments/{{ $parent.comment.id }}/{{ attachment.fileName }}" target="_blank"><i class="fas fa-paperclip fa-fw"></i> {{ attachment.clientName }}</a></small><br>
-                  @endeach
+                  <div id="comment-show-{{ comment.id }}">
+                    <p class="mb-3">{{{ comment.bodyHtml }}}</p>
+                    @each(attachment in comment.attachments)
+                      <small><a href="/uploads/comments/{{ $parent.comment.id }}/{{ attachment.fileName }}" target="_blank"><i class="fas fa-paperclip fa-fw"></i> {{ attachment.clientName }}</a></small><br>
+                    @endeach
+                  </div>
+
+                  @include('tickets.includes.commentEditForm')
+
                 </div>
               </div>
               <hr>
@@ -226,8 +231,6 @@
     <input type="hidden" name="status" value="Anerkannt">
   </form>
 
-  @include('tickets.includes.commentEditModal')
-
 @endsection
 
 @section('js')
@@ -236,15 +239,56 @@
       // Kommentar erfassen
       if(document.getElementById('createCommentButton')) {
         const button = document.getElementById('createCommentButton')
+        const form = document.getElementById('commentForm')
         button.addEventListener('click', function() {
           const element = document.getElementById('commentCreate')
           if(element.classList.contains('show') === true) {
             element.classList.remove('show')
-            document.getElementById('commentForm').reset()
+            form.reset()
           } else {
             element.classList.add('show')
             document.getElementById('body').focus()
           }
+        })
+      }
+
+      // Kommentar bearbeiten
+      if(document.querySelectorAll('.comment-edit-button')) {
+        const elements = document.querySelectorAll('.comment-edit-button')
+
+        elements.forEach(element => {
+          element.addEventListener('click', (event) => {
+            event.preventDefault()
+
+            const commentId = element.dataset.commentid
+            const ticketId = element.dataset.ticketid
+            const url = '/api/comments/' + commentId
+
+            axios.get(url)
+              .then(function (response) {
+                const show = document.getElementById('comment-show-' + commentId)
+                const edit = document.getElementById('comment-edit-' + commentId)
+                const body = edit.getElementsByClassName('form-control')[0]
+
+                body.value = response.data.body
+                show.style.display = 'none'
+                edit.style.display = 'block'
+
+                const closer = edit.getElementsByClassName('closer')[0]
+
+                closer.addEventListener('click', function(event) {
+                  event.preventDefault()
+                  const form = edit.getElementsByClassName('comment-edit-form')[0]
+                  edit.style.display = 'none'
+                  show.style.display = 'block'
+                  form.reset()
+
+                })
+              })
+              .catch(function (error) {
+
+              })
+          })
         })
       }
 
@@ -307,24 +351,5 @@
         })
       }
     })
-
-    $(document).ready(function () {
-      // Kommentar bearbeiten
-      $('#commentEditModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        var commentId = button.data('commentid');
-        var ticketId = button.data('ticketid');
-        var modal = $(this);
-        var apiUrl = '/api/comments/' + commentId;
-
-        $.getJSON(apiUrl, function(data) {
-          if(data) {
-            modal.find('#body').val(data.body);
-            modal.find('#ticket_id').val(ticketId);
-            modal.find('form').attr('action', '/tickets/comment/update/' + commentId);
-          }
-        });
-      });
-    });
   </script>
 @endsection
