@@ -136,7 +136,7 @@
 
           @include('tickets.includes.commentCreateForm')
 
-          <div class="card-body">
+          <div class="card-body p-2 p-md-3">
             @each(comment in ticket.comments)
               <div id="kommentar_{{ comment.id }}" class="media">
                 @!component('users.components.avatar', { user: comment.commentAuthor, size: 60 })
@@ -146,7 +146,7 @@
                     <span>
                       <small>{{ comment.created_at }}</small>
                       @if(comment.commentAuthor.id == auth.user.id)
-                        <small class="ml-2"><a href="#" data-toggle="modal" data-target="#commentEditModal" data-commentid="{{ comment.id }}" data-ticketid="{{ ticket.id }}"><i class="fas fa-pencil-alt fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.bearbeiten') }}</a></small>
+                        <small class="ml-2"><a href="#" data-toggle="modal" data-target="#commentEditModal" data-commentid="{{ comment.id }}" data-ticketid="{{ ticket.id }}"><i class="fas fa-pencil-alt fa-fw"></i></a></small>
                       @endif
                     </span>
                   </p>
