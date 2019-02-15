@@ -42,7 +42,7 @@
                     <a href="{{ route('usersEdit', { id: user.id }) }}" class="btn btn-sm btn-link"><i class="fas fa-pencil-alt"></i></a>
                   @endif
                   @if(auth.user.is_superadmin)
-                    <a href="#" class="btn btn-sm btn-link" data-toggle="modal" data-target="#passwordRestoreModal"><i class="fas fa-key"></i></a>
+                    <a id="passwordRestoreButton" href="#" class="btn btn-sm btn-link"><i class="fas fa-key"></i></a>
                   @endif
                 </div>
               </div>
@@ -89,6 +89,11 @@
                 <li class="nav-item">
                   <a class="nav-link" id="memberInProjects-tab" data-toggle="tab" href="#memberInProjects" role="tab" aria-controls="memberInProjects" aria-selected="false"><i class="fas fa-hands-helping fa-fw"></i></a>
                 </li>
+                @if(auth.user.is_superadmin)
+                  <li class="nav-item">
+                    <a class="nav-link" id="passwordRestore-tab" data-toggle="tab" href="#passwordRestore" role="tab" aria-controls="passwordRestore" aria-selected="false"><i class="fas fa-key fa-fw"></i></a>
+                  </li>
+                @endif
               </ul>
               <div class="tab-content p-2" id="memberInfosContent">
                 <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
@@ -167,6 +172,16 @@
                     </a>
                   @endeach
                 </div>
+                @if(auth.user.is_superadmin)
+                  <div class="tab-pane fade" id="passwordRestore" role="tabpanel" aria-labelledby="info-tab">
+                    @!component('users.components.passwordRestoreForm', {
+                      antl,
+                      locale: auth.user.locale,
+                      csrfField,
+                      userId: user.id,
+                    })
+                  </div>
+                @endif
               </div>
             </div>
           </div>
@@ -174,33 +189,15 @@
       </div>
     </div>
   </div>
-
-  @if(auth.user.is_superadmin)
-    @!component('users.components.passwordRestoreModal', {
-      antl,
-      locale: auth.user.locale,
-      csrfField,
-      userId: user.id,
-    })
-  @endif
 @endsection
 
 @section('js')
-  @if(auth.user.is_superadmin)
-    <script>
-      $(document).ready(function() {
-        $('#passwordRestoreModal').on('show.bs.modal', function (e) {
-          $('#password').val('')
-        })
-
-        $('#passwordRestoreModal').on('shown.bs.modal', function (e) {
-          $('#password').focus()
-        })
-      })
-    </script>
-  @endif
   @if(auth.user.id == user.id || auth.user.is_superadmin)
     <script>
+      document.addEventListener('DOMContentLoaded', function(event) {
+        document.getElementById('password').value = ''
+      })
+
       function availabilityHandler(event) {
         const formData = document.getElementById('availability-change-form')
         const data = helpers.formSerialize(formData)
