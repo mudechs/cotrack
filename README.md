@@ -21,8 +21,8 @@ coming soon...
 - [Webpack 4.x](https://webpack.js.org/)
 - [jQuery Slim 3.x](https://jquery.com/)
 - [Simple-DataTables](https://github.com/fiduswriter/Simple-DataTables/)
-- [Dragula Drag&Drop 3.x](https://github.com/bevacqua/dragula/)
-- [Bootstrap Multiselect 0.9.x](https://github.com/davidstutz/bootstrap-multiselect/)
+- [Dragula Drag&Drop](https://github.com/bevacqua/dragula/)
+- [Choices.js](https://github.com/jshjohnson/Choices)
 - HTML5
 - CSS3
 - ES6 JavaScript
