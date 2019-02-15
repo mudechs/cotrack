@@ -307,11 +307,6 @@
     })
 
     $(document).ready(function () {
-      // Kommentar schreiben
-      $('#commentCreateModal').on('shown.bs.modal', function (e) {
-        $('#body').focus();
-      });
-
       // Kommentar bearbeiten
       $('#commentEditModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
