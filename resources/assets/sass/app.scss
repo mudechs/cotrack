@@ -28,6 +28,20 @@ hr {
   }
 }
 
+#toast {
+  width: 100px;
+  position: absolute;
+  left: 50%;
+  margin-left:-50px;
+  top: 0;
+  z-index: 10;
+  padding: 10px;
+
+  p {
+    margin: 0;
+  }
+}
+
 .navbar {
   border-top: none;
   border-left: none;

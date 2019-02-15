@@ -37,11 +37,7 @@
 
     @if(flashMessage('notification'))
       <script>
-        document.getElementById('notification').style.display = 'block'
-
-        setTimeout(function() {
-          document.getElementById('notification').style.display = 'none'
-        }, 3000)
+        helpers.showNotification()
       </script>
     @endif
 

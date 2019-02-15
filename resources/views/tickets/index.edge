@@ -128,54 +128,37 @@
         group: 'tickets',
         animation: 150,
         onEnd: function(evt) {
-          saveTicket(evt)
+          helpers.saveDraggedTicket(evt)
         }
       })
       new sortable(Anerkannt, {
         group: 'tickets',
         animation: 150,
         onEnd: function(evt) {
-          saveTicket(evt)
+          helpers.saveDraggedTicket(evt)
         }
       })
       new sortable(Warten, {
         group: 'tickets',
         animation: 150,
         onEnd: function(evt) {
-          saveTicket(evt)
+          helpers.saveDraggedTicket(evt)
         }
       })
       new sortable(Feedback, {
         group: 'tickets',
         animation: 150,
         onEnd: function(evt) {
-          saveTicket(evt)
+          helpers.saveDraggedTicket(evt)
         }
       })
       new sortable(Bearbeitung, {
         group: 'tickets',
         animation: 150,
         onEnd: function(evt) {
-          saveTicket(evt)
+          helpers.saveDraggedTicket(evt)
         }
       })
     })
-
-    function saveTicket(evt) {
-      const status = evt.to.id
-      const id = evt.item.id
-
-      const url = '/tickets/change/dragged/status/' + id
-
-      axios.post(url, {
-        status: status
-      })
-      .then(function (response) {
-        console.log(response.data)
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
-    }
   </script>
 @endsection

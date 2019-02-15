@@ -7424,6 +7424,17 @@ hr {
   #notification p {
     margin: 0; }
 
+#toast {
+  width: 100px;
+  position: absolute;
+  left: 50%;
+  margin-left: -50px;
+  top: 0;
+  z-index: 10;
+  padding: 10px; }
+  #toast p {
+    margin: 0; }
+
 .navbar {
   border-top: none;
   border-left: none;
