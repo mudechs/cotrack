@@ -27,10 +27,6 @@
           <div id="Neu" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsNeu)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">
-                <form id="status-change-form-{{ ticket.id }}" action="{{ route('ticketsChangeDraggedStatus', { id: ticket.id }) }}" method="post">
-                  {{ csrfField() }}
-                  <input type="hidden" name="status" id="status-change-input-{{ ticket.id }}">
-                </form>
                 <div class="d-flex justify-content-between align-items-center mb-3">
                   @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
                   <span><small>{{ ticket.created_at }}</small></span>
@@ -49,10 +45,6 @@
           <div id="Anerkannt" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsAnerkannt)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">
-                <form id="status-change-form-{{ ticket.id }}" action="{{ route('ticketsChangeDraggedStatus', { id: ticket.id }) }}" method="post">
-                  {{ csrfField() }}
-                  <input type="hidden" name="status" id="status-change-input-{{ ticket.id }}">
-                </form>
                 <div class="d-flex justify-content-between align-items-center mb-3">
                   @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
                   <span><small>{{ ticket.created_at }}</small></span>
@@ -71,10 +63,6 @@
           <div id="Warten" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsWarten)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">
-                <form id="status-change-form-{{ ticket.id }}" action="{{ route('ticketsChangeDraggedStatus', { id: ticket.id }) }}" method="post">
-                  {{ csrfField() }}
-                  <input type="hidden" name="status" id="status-change-input-{{ ticket.id }}">
-                </form>
                 <div class="d-flex justify-content-between align-items-center mb-3">
                   @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
                   <span><small>{{ ticket.created_at }}</small></span>
@@ -93,10 +81,6 @@
           <div id="Feedback" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsFeedback)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">
-                <form id="status-change-form-{{ ticket.id }}" action="{{ route('ticketsChangeDraggedStatus', { id: ticket.id }) }}" method="post">
-                  {{ csrfField() }}
-                  <input type="hidden" name="status" id="status-change-input-{{ ticket.id }}">
-                </form>
                 <div class="d-flex justify-content-between align-items-center mb-3">
                   @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
                   <span><small>{{ ticket.created_at }}</small></span>
@@ -115,10 +99,6 @@
           <div id="Bearbeitung" class="list-group list-group-flush" style="min-height: 100px">
             @each(ticket in ticketsBearbeitung)
               <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">
-                <form id="status-change-form-{{ ticket.id }}" action="{{ route('ticketsChangeDraggedStatus', { id: ticket.id }) }}" method="post">
-                  {{ csrfField() }}
-                  <input type="hidden" name="status" id="status-change-input-{{ ticket.id }}">
-                </form>
                 <div class="d-flex justify-content-between align-items-center mb-3">
                   @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
                   <span><small>{{ ticket.created_at }}</small></span>
