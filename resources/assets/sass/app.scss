@@ -16,7 +16,7 @@ hr {
 
 #notification {
   width: 300px;
-  position: absolute;
+  position: fixed;
   left: 50%;
   margin-left:-150px;
   top: 0;
@@ -30,7 +30,7 @@ hr {
 
 #toast {
   width: 100px;
-  position: absolute;
+  position: fixed;
   left: 50%;
   margin-left:-50px;
   top: 0;
