@@ -43,6 +43,7 @@
     "random-string": "^0.2.0",
     "showdown": "^1.9.0",
     "simple-datatables": "^1.7.9",
+    "sortablejs": "^1.8.3",
     "url-parse": "^1.4.4"
   },
   "devDependencies": {

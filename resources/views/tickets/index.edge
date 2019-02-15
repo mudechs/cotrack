@@ -5,7 +5,7 @@
     <div class="row mb-3">
       <div class="col pl-1">
         <div class="btn-group dropright">
-          <button type="button" class="btn-show-all-projects btn btn-sm btn-primary"><i class="fas fa-project-diagram fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.alle_zeigen') }}</button>
+          <button id="showAllProjectsButton" type="button" class="btn-show-all-projects btn btn-sm btn-primary"><i class="fas fa-project-diagram fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.alle_zeigen') }}</button>
           <button type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="sr-only">Toggle Dropdown</span>
           </button>
@@ -136,27 +136,66 @@
 
 @section('js')
   <script>
-    $(document).ready(function () {
-      $('.btn-show-all-projects').on('click', function() {
+    document.addEventListener('DOMContentLoaded', function(event) {
+      const element = document.getElementById('showAllProjectsButton')
+      element.addEventListener('click', (event) => {
+        event.preventDefault()
+
         window.location.href = '/tickets'
-      });
+      })
 
-      const drake = dragula([
-          document.querySelector('#Neu'),
-          document.querySelector('#Anerkannt'),
-          document.querySelector('#Warten'),
-          document.querySelector('#Feedback'),
-          document.querySelector('#Bearbeitung')
-        ]);
+      new sortable(Neu, {
+        group: 'tickets',
+        animation: 150,
+        onEnd: function(evt) {
+          saveTicket(evt)
+        }
+      })
+      new sortable(Anerkannt, {
+        group: 'tickets',
+        animation: 150,
+        onEnd: function(evt) {
+          saveTicket(evt)
+        }
+      })
+      new sortable(Warten, {
+        group: 'tickets',
+        animation: 150,
+        onEnd: function(evt) {
+          saveTicket(evt)
+        }
+      })
+      new sortable(Feedback, {
+        group: 'tickets',
+        animation: 150,
+        onEnd: function(evt) {
+          saveTicket(evt)
+        }
+      })
+      new sortable(Bearbeitung, {
+        group: 'tickets',
+        animation: 150,
+        onEnd: function(evt) {
+          saveTicket(evt)
+        }
+      })
+    })
 
-      drake.on('drop', function (el, target) {
-        const status = target.id;
-        const id = el.id;
+    function saveTicket(evt) {
+      const status = evt.to.id
+      const id = evt.item.id
 
-        $('#status-change-input-' + id).attr('value', status);
+      const url = '/tickets/change/dragged/status/' + id
 
-        $('#status-change-form-' + id).submit();
-      });
-    });
+      axios.post(url, {
+        status: status
+      })
+      .then(function (response) {
+        console.log(response.data)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+    }
   </script>
 @endsection

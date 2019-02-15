@@ -345,7 +345,7 @@ class TicketController {
   async changeDraggedStatus({ params, request, auth, response }) {
     const ticket = await Ticket.find(params.id)
 
-    ticket.status = request.input('status')
+    ticket.status = request.body.status
 
     /* Informiere den Author, dass sich der Ticket-Status verändert hat.
     Informiere NICHT, wenn der Author die selbe Person wie der Recipient ist! */
@@ -357,7 +357,9 @@ class TicketController {
 
     await ticket.save()
 
-    return response.redirect('back')
+    const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message5')
+
+    return response.status(200).send(message)
   }
 
   async changeRecipient({ params, auth, request, session, response }) {
