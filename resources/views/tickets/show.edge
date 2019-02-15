@@ -128,11 +128,14 @@
           <div class="card-header d-flex justify-content-between align-items-center">
               <span><i class="far fa-comments fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.kommentare') }}</span>
               @if(ticket.recipient_id)
-                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#commentCreateModal">
+                <button type="button" id="createCommentButton" class="btn btn-sm btn-danger">
                   <i class="fas fa-plus"></i>
                 </button>
               @endif
           </div>
+
+          @include('tickets.includes.commentCreateForm')
+
           <div class="card-body">
             @each(comment in ticket.comments)
               <div id="kommentar_{{ comment.id }}" class="media">
@@ -223,7 +226,6 @@
     <input type="hidden" name="status" value="Anerkannt">
   </form>
 
-  @include('tickets.includes.commentCreateModal')
   @include('tickets.includes.commentEditModal')
 
 @endsection
@@ -231,6 +233,19 @@
 @section('js')
   <script>
     document.addEventListener('DOMContentLoaded', function(event) {
+      // Kommentar erfassen
+      const button = document.getElementById('createCommentButton')
+      button.addEventListener('click', function() {
+        const element = document.getElementById('commentCreate')
+        if(element.classList.contains('show') === true) {
+          element.classList.remove('show')
+          document.getElementById('commentForm').reset()
+        } else {
+          element.classList.add('show')
+          document.getElementById('body').focus()
+        }
+      })
+
       // Ticket übernehmen
       if(document.getElementById('assignToMeButton')) {
         const assignToMeButton = document.getElementById('assignToMeButton')

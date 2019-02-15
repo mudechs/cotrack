@@ -204,3 +204,24 @@ table .btn.btn-sm {
 .custom-switch label {
   padding-top: 2px;
 }
+
+.comment-create-form {
+  height: 0;
+  overflow: hidden;
+  -webkit-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -ms-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
+}
+
+.comment-create-form.show {
+  display: block;
+  height: 400px;
+  overflow-y: auto;
+  -webkit-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -ms-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
+}
