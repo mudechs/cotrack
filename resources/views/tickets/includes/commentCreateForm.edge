@@ -1,5 +1,5 @@
-<div id="commentCreate" class="comment-create-form">
-  <form id="commentForm" class="m-3" action="{{ route('commentsStore', { id: ticket.id }) }}" method="post" enctype="multipart/form-data">
+<div id="commentCreate" class="comment-create-form p-4">
+  <form id="commentForm" action="{{ route('commentsStore', { id: ticket.id }) }}" method="post" enctype="multipart/form-data">
     {{ csrfField() }}
     <input type="hidden" name="author_id" id="author-id-input" value="{{ auth.user.id }}">
     <div class="form-group">

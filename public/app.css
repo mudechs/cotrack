@@ -7569,7 +7569,10 @@ table .btn.btn-sm, table .btn-group-sm > .btn {
 
 .comment-create-form {
   display: none;
-  background: #32383e; }
+  background: #515960; }
+  .comment-create-form textarea {
+    background: #272b30;
+    border-color: #515960; }
 
 .comment-create-form.show {
   display: block;

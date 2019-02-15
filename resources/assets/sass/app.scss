@@ -207,7 +207,11 @@ table .btn.btn-sm {
 
 .comment-create-form {
   display: none;
-  background: #32383e;
+  background: #515960;
+  textarea {
+    background: #272b30;
+    border-color: #515960;
+  }
 }
 
 .comment-create-form.show {
