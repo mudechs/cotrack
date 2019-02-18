@@ -39,6 +39,10 @@ button.dropdown-item {
   margin-bottom: .25rem !important;
 }
 
+.card-header {
+  border-bottom: 1px solid $white;
+}
+
 hr {
   margin: .75rem 0;
 }
@@ -69,7 +73,7 @@ footer {
   position: fixed;
   left: 50%;
   margin-left: -160px;
-  bottom: 0;
+  bottom: 10px;
   z-index: 40;
   padding: 10px;
 
@@ -83,7 +87,7 @@ footer {
   position: fixed;
   left: 50%;
   margin-left: -50px;
-  bottom: 0;
+  bottom: 10px;
   z-index: 10;
   padding: 10px;
   border-radius: 8px;

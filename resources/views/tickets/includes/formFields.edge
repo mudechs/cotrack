@@ -4,7 +4,7 @@
       <b>{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}: </b>{{ ticket.project.title }}<br>
       <b>{{ antl.forLocale(auth.user.locale).formatMessage('static.empfaenger') }}: </b>
       @!component('tickets.components.recipientInfo', { antl, locale: auth.user.locale, recipient: ticket.ticketRecipient })
-      <br>
+      <hr>
     @else
       <div class="field">
         <label for="project" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}</label>
