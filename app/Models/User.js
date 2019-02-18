@@ -1,25 +1,25 @@
-'use strict'
+'use strict';
 
 /** @type {import('@adonisjs/framework/src/Hash')} */
-const Hash = use('Hash')
+const Hash = use('Hash');
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
-const Model = use('Model')
+const Model = use('Model');
 
 class User extends Model {
   static get dates() {
-    return super.dates.concat(['last_login_at'])
+    return super.dates.concat(['last_login_at']);
   }
 
   static castDates(field, value) {
     if (field === 'created_at' || field === 'updated_at' || field === 'last_login_at') {
-      return value.format('DD.MM.YY')
+      return value.format('DD.MM.YY');
     }
-    return super.formatDates(field, value)
+    return super.formatDates(field, value);
   }
 
   static boot() {
-    super.boot()
+    super.boot();
 
     /**
      * A hook to hash the user password before saving
@@ -27,9 +27,9 @@ class User extends Model {
      */
     this.addHook('beforeCreate', async (userInstance) => {
       if (userInstance.dirty.password) {
-        userInstance.password = await Hash.make(userInstance.password)
+        userInstance.password = await Hash.make(userInstance.password);
       }
-    })
+    });
   }
 
   /**
@@ -43,7 +43,7 @@ class User extends Model {
    * @return {Object}
    */
   tokens() {
-    return this.hasMany('App/Models/Token')
+    return this.hasMany('App/Models/Token');
   }
 
   /**
@@ -54,7 +54,7 @@ class User extends Model {
    * @return {Object}
    */
   lastLogin() {
-    return this.hasOne('App/Models/LastLogin')
+    return this.hasOne('App/Models/LastLogin');
   }
 
   /**
@@ -63,7 +63,7 @@ class User extends Model {
    * @return {Object}
    */
   authorOfProjects() {
-    return this.hasMany('App/Models/Project', 'id', 'author_id')
+    return this.hasMany('App/Models/Project', 'id', 'author_id');
   }
 
   /**
@@ -72,7 +72,7 @@ class User extends Model {
    * @return {Object}
    */
   memberInProjects() {
-    return this.belongsToMany('App/Models/Project').pivotTable('project_users')
+    return this.belongsToMany('App/Models/Project').pivotTable('project_users');
   }
 
   /**
@@ -81,7 +81,7 @@ class User extends Model {
    * @return {Object}
    */
   authorOfTickets() {
-    return this.hasMany('App/Models/Ticket', 'id', 'author_id')
+    return this.hasMany('App/Models/Ticket', 'id', 'author_id');
   }
 
   /**
@@ -90,7 +90,7 @@ class User extends Model {
    * @return {Object}
    */
   forwarderOfTickets() {
-    return this.hasMany('App/Models/Ticket', 'id', 'forwarder_id')
+    return this.hasMany('App/Models/Ticket', 'id', 'forwarder_id');
   }
 
   /**
@@ -99,7 +99,7 @@ class User extends Model {
    * @return {Object}
    */
   recipientOfTickets() {
-    return this.hasMany('App/Models/Ticket', 'id', 'recipient_id')
+    return this.hasMany('App/Models/Ticket', 'id', 'recipient_id');
   }
 
   /**
@@ -108,8 +108,8 @@ class User extends Model {
    * @return {Object}
    */
   authorOfComments() {
-    return this.hasMany('App/Models/Comment', 'id', 'author_id')
+    return this.hasMany('App/Models/Comment', 'id', 'author_id');
   }
 }
 
-module.exports = User
+module.exports = User;

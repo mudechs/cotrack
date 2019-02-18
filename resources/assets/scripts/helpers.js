@@ -5,51 +5,51 @@ import axios from 'axios'
 
 // Tabs
 function openTab(evt, tabName) {
-  const tab = evt.currentTarget.closest('div')
-  const content = evt.currentTarget.closest('div').nextElementSibling
-  const tabs = content.getElementsByClassName('content-tab')
-  let i, tablinks
+  const tab = evt.currentTarget.closest('div');
+  const content = evt.currentTarget.closest('div').nextElementSibling;
+  const tabs = content.getElementsByClassName('content-tab');
+  let i, tablinks;
 
   for (i = 0; i < tabs.length; i++) {
-    tabs[i].style.display = 'none'
+    tabs[i].style.display = 'none';
   }
-  tablinks = tab.getElementsByClassName('tab')
+  tablinks = tab.getElementsByClassName('tab');
   for (i = 0; i < tabs.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(' is-active', '')
+    tablinks[i].className = tablinks[i].className.replace(' is-active', '');
   }
-  document.getElementById(tabName).style.display = 'block'
-  evt.currentTarget.className += ' is-active'
+  document.getElementById(tabName).style.display = 'block';
+  evt.currentTarget.className += ' is-active';
 }
 
 function showNotification() {
-  document.getElementById('notification').style.display = 'block'
-  setTimeout(function() {
-    document.getElementById('notification').style.display = 'none'
+  document.getElementById('notification').style.display = 'block';
+  setTimeout(function () {
+    document.getElementById('notification').style.display = 'none';
   }, 3000)
 }
 
 function showToast() {
-  document.getElementById('toast').style.display = 'block'
-  setTimeout(function() {
-    document.getElementById('toast').style.display = 'none'
+  document.getElementById('toast').style.display = 'block';
+  setTimeout(function () {
+    document.getElementById('toast').style.display = 'none';
   }, 3000)
 }
 
 function formSerialize(formElement) {
-  const values = {}
-  const inputs = formElement.elements
+  const values = {};
+  const inputs = formElement.elements;
 
   for (let i = 0; i < inputs.length; i++) {
-    values[inputs[i].name] = inputs[i].value
+    values[inputs[i].name] = inputs[i].value;
   }
-  return values
+  return values;
 }
 
 function clickableRow() {
-  const rows = document.querySelectorAll('tr[data-href]')
+  const rows = document.querySelectorAll('tr[data-href]');
   rows.forEach(row => {
     row.addEventListener('click', () => {
-      window.location.href = row.dataset.href
+      window.location.href = row.dataset.href;
     })
   })
 }
@@ -67,24 +67,24 @@ function dataTable(table, col, order) {
     }
   })
 
-  return dataTable
+  return dataTable;
 }
 
 function saveDraggedTicket(evt) {
-  const status = evt.to.id
-  const id = evt.item.id
+  const status = evt.to.id;
+  const id = evt.item.id;
 
-  const url = '/tickets/change/dragged/status/' + id
+  const url = '/tickets/change/dragged/status/' + id;
 
   axios.post(url, {
     status: status
   })
     .then(function () {
-      showToast()
+      showToast();
       // console.log(response)
     })
     .catch(function () {
-      showToast()
+      showToast();
       // console.log(error)
     })
 }

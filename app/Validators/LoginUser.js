@@ -1,24 +1,24 @@
-'use strict'
+'use strict';
 
 class LoginUser {
-  get validateAll () {
-    return true
+  get validateAll() {
+    return true;
   }
 
-  get rules () {
+  get rules() {
     return {
       email: 'required|email',
       password: 'required'
-    }
+    };
   }
 
-  get messages () {
+  get messages() {
     return {
       'email.required': 'Pflichteld',
       'email.email': 'Ungültiges E-Mail Format',
       'password.required': 'Pflichteld'
-    }
+    };
   }
 }
 
-module.exports = LoginUser
+module.exports = LoginUser;

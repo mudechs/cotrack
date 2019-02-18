@@ -1,4 +1,4 @@
-@layout('layouts.app')
+;@layout('layouts.app')
 
 @section('content')
   <div class="container">
@@ -30,16 +30,16 @@
   <script>
     document.addEventListener('DOMContentLoaded', function(event) {
       if(document.querySelectorAll('.btn-files-remover')) {
-        let data = []
-        const elements = document.querySelectorAll('.btn-files-remover')
+        let data = [];
+        const elements = document.querySelectorAll('.btn-files-remover');
 
         elements.forEach(element => {
           element.addEventListener('click', (event) => {
-            event.preventDefault()
+            event.preventDefault();
 
-            data.push(element.dataset.index)
-            document.getElementById('modified-files').value = JSON.stringify(data)
-            element.parentNode.parentElement.style.display = 'none'
+            data.push(element.dataset.index);
+            document.getElementById('modified-files').value = JSON.stringify(data);
+            element.parentNode.parentElement.style.display = 'none';
           })
         })
       }

@@ -1,21 +1,21 @@
-'use strict'
+'use strict';
 
 class StoreComment {
-  get validateAll () {
-    return true
+  get validateAll() {
+    return true;
   }
 
-  get rules () {
+  get rules() {
     return {
       body: 'required'
-    }
+    };
   }
 
-  get messages () {
+  get messages() {
     return {
       'body.required': 'Pflichteld'
-    }
+    };
   }
 }
 
-module.exports = StoreComment
+module.exports = StoreComment;

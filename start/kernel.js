@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
 /** @type {import('@adonisjs/framework/src/Server')} */
-const Server = use('Server')
+const Server = use('Server');
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +20,7 @@ const globalMiddleware = [
   'App/Middleware/ConvertEmptyStringsToNull',
   'App/Middleware/TemplateHelper',
   'App/Middleware/Setting'
-]
+];
 
 /*
 |--------------------------------------------------------------------------
@@ -50,7 +50,7 @@ const namedMiddleware = {
   ticketOA: 'App/Middleware/TicketOA',
   isAdmin: 'App/Middleware/IsAdmin',
   isSuperAdmin: 'App/Middleware/IsSuperAdmin'
-}
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -65,9 +65,9 @@ const namedMiddleware = {
 const serverMiddleware = [
   'Adonis/Middleware/Static',
   'Adonis/Middleware/Cors'
-]
+];
 
 Server
   .registerGlobal(globalMiddleware)
   .registerNamed(namedMiddleware)
-  .use(serverMiddleware)
+  .use(serverMiddleware);

@@ -1,26 +1,26 @@
-'use strict'
+'use strict';
 
 class PasswordUpdate {
-  get validateAll () {
-    return true
+  get validateAll() {
+    return true;
   }
 
-  get rules () {
+  get rules() {
     return {
       password_current: 'required',
       password: 'required|confirmed',
       password_confirmation: 'required'
-    }
+    };
   }
 
-  get messages () {
+  get messages() {
     return {
       'password_current.required': 'Pflichteld',
       'password.required': 'Pflichtfeld',
       'password.confirmed': 'Das Passwort stimmt nicht überein',
       'password_confirmation.required': 'Pflichtfeld'
-    }
+    };
   }
 }
 
-module.exports = PasswordUpdate
+module.exports = PasswordUpdate;

@@ -1,18 +1,18 @@
-'use strict'
+'use strict';
 
-const Config = use('Config')
-const { statuses } = Config.get('ticket')
-const Ticket = use('App/Models/Ticket')
+const Config = use('Config');
+const { statuses } = Config.get('ticket');
+const Ticket = use('App/Models/Ticket');
 
 class ticketServices {
   ticketStatuses(statusGroup, locale) {
-    let data = []
-    let localizedStatuses = statuses[0][locale]
+    let data = [];
+    let localizedStatuses = statuses[0][locale];
 
-    for(let i in localizedStatuses)
-      if(localizedStatuses[i].type == statusGroup)
-        data[data.length] = localizedStatuses[i].value
-    return data
+    for (let i in localizedStatuses)
+      if (localizedStatuses[i].type == statusGroup)
+        data[data.length] = localizedStatuses[i].value;
+    return data;
   }
 
   async ticketGroupedByStatus(status, recipient) {
@@ -21,10 +21,10 @@ class ticketServices {
       .where('status', status)
       .orderBy('created_at', 'desc')
       .with('project', (builder) => {
-        builder.select('id', 'title')
+        builder.select('id', 'title');
       })
       .withCount('comments')
-      .fetch()
+      .fetch();
   }
 
   async ticketGroupedByStatusAndProject(status, recipient, project) {
@@ -34,11 +34,11 @@ class ticketServices {
       .where('project_id', project)
       .orderBy('created_at', 'desc')
       .with('project', (builder) => {
-        builder.select('id', 'title')
+        builder.select('id', 'title');
       })
       .withCount('comments')
-      .fetch()
+      .fetch();
   }
 }
 
-module.exports = new ticketServices()
+module.exports = new ticketServices();

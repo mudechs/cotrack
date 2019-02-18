@@ -220,16 +220,16 @@
     document.addEventListener('DOMContentLoaded', function(event) {
       // Kommentar erfassen
       if(document.getElementById('createCommentButton')) {
-        const button = document.getElementById('createCommentButton')
-        const form = document.getElementById('commentForm')
+        const button = document.getElementById('createCommentButton');
+        const form = document.getElementById('commentForm');
         button.addEventListener('click', function() {
-          const element = document.getElementById('commentCreate')
+          const element = document.getElementById('commentCreate');
           if(element.classList.contains('show') === true) {
-            element.classList.remove('show')
-            form.reset()
+            element.classList.remove('show');
+            form.reset();
           } else {
-            element.classList.add('show')
-            document.getElementById('body').focus()
+            element.classList.add('show');
+            document.getElementById('body').focus();
           }
         })
       }

@@ -12,7 +12,7 @@
 */
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
-const Factory = use('Factory')
+const Factory = use('Factory');
 
 Factory.blueprint('App/Models/User', async () => {
   return {
@@ -28,11 +28,11 @@ Factory.blueprint('App/Models/User', async () => {
     is_admin: true,
     is_superadmin: true
   }
-})
+});
 
 Factory.blueprint('App/Models/Setting', async () => {
   return {
     company: 'Example Company',
     default_locale: 'de'
   }
-})
+});

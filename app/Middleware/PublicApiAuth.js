@@ -1,9 +1,9 @@
-'use strict'
+'use strict';
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Project = use('App/Models/Project')
+const Project = use('App/Models/Project');
 
 class PublicApiAuth {
   /**
@@ -11,33 +11,39 @@ class PublicApiAuth {
    * @param {Request} ctx.request
    * @param {Function} next
    */
-  async handle ({ request, response }, next) {
-    let { token, email } = request.headers()
+  async handle({
+    request,
+    response
+  }, next) {
+    let {
+      token,
+      email
+    } = request.headers();
 
-    if(!token) {
-      token = request.input('token')
+    if (!token) {
+      token = request.input('token');
     }
 
-    if(!email) {
-      email = request.input('email')
+    if (!email) {
+      email = request.input('email');
     }
 
     const project = await Project.query()
       .where('token', token)
-      .andWhere(function() {
+      .andWhere(function () {
         this
           .whereHas('members', (builder) => {
-            builder.where('email', email)
-          })
+            builder.where('email', email);
+          });
       })
-      .first()
+      .first();
 
-    if(project) {
-      await next()
+    if (project) {
+      await next();
     } else {
-      return response.status(404).send('ERROR')
+      return response.status(404).send('ERROR');
     }
   }
 }
 
-module.exports = PublicApiAuth
+module.exports = PublicApiAuth;

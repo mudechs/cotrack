@@ -27,9 +27,6 @@ module.exports = {
             "single",
             "avoid-escape"
         ],
-        "semi": [
-            "error",
-            "never"
-        ]
+        "semi": [2, "always"]
     }
 };

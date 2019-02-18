@@ -33,47 +33,47 @@
       auf disabled gesetzt.
     */
     function projectSelectorHandler(event) {
-      const projectId = event.target.value
-      const url = '/api/tickets/projectMembers/' + projectId
-      const container = document.getElementById('recipientSelect')
+      const projectId = event.target.value;
+      const url = '/api/tickets/projectMembers/' + projectId;
+      const container = document.getElementById('recipientSelect');
 
-      const select = document.createElement('select')
-      select.name = 'recipient'
-      select.id = 'recipient'
-      select.className = 'select'
+      const select = document.createElement('select');
+      select.name = 'recipient';
+      select.id = 'recipient';
+      select.className = 'select';
 
       axios.get(url)
       .then(function (response) {
-        const elements = response.data
-        let option = ''
+        const elements = response.data;
+        let option = '';
 
-        option = document.createElement('option')
-        option.text = ''
-        select.add(option)
+        option = document.createElement('option');
+        option.text = '';
+        select.add(option);
 
         elements.forEach(element => {
-          const fullName = element.first_name + " " + element.last_name
-          const available = element.is_available
-          let state = ""
+          const fullName = element.first_name + " " + element.last_name;
+          const available = element.is_available;
+          let state = "";
 
           if(available == 0) {
-            state = "disabled"
+            state = "disabled";
           }
-          option = document.createElement('option')
-          option.text = fullName
-          option.value = element.id
+          option = document.createElement('option');
+          option.text = fullName;
+          option.value = element.id;
           if(element.is_available === false) {
-            option.disabled = true
+            option.disabled = true;
           }
-          select.add(option)
+          select.add(option);
         })
 
-        container.appendChild(select)
-        container.closest('.field').style.display = 'block'
+        container.appendChild(select);
+        container.closest('.field').style.display = 'block';
       })
       .catch(function (error) {
-        container.innerHTML = ''
-        container.closest('.field').style.display = 'none'
+        container.innerHTML = '';
+        container.closest('.field').style.display = 'none';
       })
     }
   </script>

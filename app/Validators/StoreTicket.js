@@ -1,25 +1,25 @@
-'use strict'
+'use strict';
 
 class StoreTicket {
-  get validateAll () {
-    return true
+  get validateAll() {
+    return true;
   }
 
-  get rules () {
+  get rules() {
     return {
       subject: 'required',
       description: 'required',
       project: 'required'
-    }
+    };
   }
 
-  get messages () {
+  get messages() {
     return {
       'subject.required': 'Pflichteld',
       'description.required': 'Pflichteld',
       'project.required': 'Pflichteld'
-    }
+    };
   }
 }
 
-module.exports = StoreTicket
+module.exports = StoreTicket;

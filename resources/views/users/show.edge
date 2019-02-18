@@ -190,8 +190,8 @@
   @if(auth.user.id == user.id || auth.user.is_superadmin)
     <script>
       document.addEventListener('DOMContentLoaded', function(event) {
-        document.getElementById('password').value = ''
-        helpers.clickableRow()
+        document.getElementById('password').value = '';
+        helpers.clickableRow();
       })
 
       function availabilityHandler(event) {

@@ -11,7 +11,7 @@
 */
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
-const Factory = use('Factory')
+const Factory = use('Factory');
 
 class SettingSeeder {
   async run () {
@@ -21,4 +21,4 @@ class SettingSeeder {
   }
 }
 
-module.exports = SettingSeeder
+module.exports = SettingSeeder;

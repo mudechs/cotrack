@@ -177,46 +177,46 @@
 @section('js')
   <script>
     document.addEventListener('DOMContentLoaded', function(event) {
-      const element = document.getElementById('showAllProjectsButton')
+      const element = document.getElementById('showAllProjectsButton');
       element.addEventListener('click', (event) => {
-        event.preventDefault()
+        event.preventDefault();
 
-        window.location.href = '/tickets'
+        window.location.href = '/tickets';
       })
 
       new sortable(Neu, {
         group: 'tickets',
         animation: 150,
         onEnd: function(evt) {
-          helpers.saveDraggedTicket(evt)
+          helpers.saveDraggedTicket(evt);
         }
       })
       new sortable(Anerkannt, {
         group: 'tickets',
         animation: 150,
         onEnd: function(evt) {
-          helpers.saveDraggedTicket(evt)
+          helpers.saveDraggedTicket(evt);
         }
       })
       new sortable(Warten, {
         group: 'tickets',
         animation: 150,
         onEnd: function(evt) {
-          helpers.saveDraggedTicket(evt)
+          helpers.saveDraggedTicket(evt);
         }
       })
       new sortable(Feedback, {
         group: 'tickets',
         animation: 150,
         onEnd: function(evt) {
-          helpers.saveDraggedTicket(evt)
+          helpers.saveDraggedTicket(evt);
         }
       })
       new sortable(Bearbeitung, {
         group: 'tickets',
         animation: 150,
         onEnd: function(evt) {
-          helpers.saveDraggedTicket(evt)
+          helpers.saveDraggedTicket(evt);
         }
       })
     })

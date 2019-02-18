@@ -1,23 +1,23 @@
-'use strict'
+'use strict';
 
 class StoreProject {
-  get validateAll () {
-    return true
+  get validateAll() {
+    return true;
   }
 
-  get rules () {
+  get rules() {
     return {
       title: 'required',
       description: 'required'
-    }
+    };
   }
 
-  get messages () {
+  get messages() {
     return {
       'title.required': 'Pflichteld',
       'description.required': 'Pflichteld'
-    }
+    };
   }
 }
 
-module.exports = StoreProject
+module.exports = StoreProject;
