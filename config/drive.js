@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
-const Helpers = use('Helpers')
-const Env = use('Env')
+const Helpers = use('Helpers');
+const Env = use('Env');
 
 module.exports = {
   /*
@@ -45,4 +45,4 @@ module.exports = {
       region: Env.get('S3_REGION')
     }
   }
-}
+};

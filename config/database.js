@@ -1,12 +1,12 @@
-'use strict'
+'use strict';
 
 /** @type {import('@adonisjs/framework/src/Env')} */
-const Env = use('Env')
+const Env = use('Env');
 
 /** @type {import('@adonisjs/ignitor/src/Helpers')} */
-const Url = require('url-parse')
-const CLEARDB_DATABASE_URL = new Url(Env.get('CLEARDB_DATABASE_URL'))
-const Helpers = use('Helpers')
+const Url = require('url-parse');
+const CLEARDB_DATABASE_URL = new Url(Env.get('CLEARDB_DATABASE_URL'));
+const Helpers = use('Helpers');
 
 module.exports = {
   /*
@@ -87,4 +87,4 @@ module.exports = {
       database: Env.get('DB_DATABASE', 'adonis')
     }
   }
-}
+};

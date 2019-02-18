@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 module.exports = {
   /*
@@ -27,8 +27,7 @@ module.exports = {
     | }
     |
     */
-    directives: {
-    },
+    directives: {},
     /*
     |--------------------------------------------------------------------------
     | Report only
@@ -142,4 +141,4 @@ module.exports = {
       maxAge: 7200
     }
   }
-}
+};
