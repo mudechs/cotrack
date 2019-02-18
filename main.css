@@ -14388,6 +14388,9 @@ button.dropdown-item {
 .card-header {
   border-bottom: 1px solid white; }
 
+.draggable .box {
+  cursor: move; }
+
 hr {
   margin: .75rem 0; }
 

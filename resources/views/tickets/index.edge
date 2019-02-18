@@ -6,7 +6,7 @@
     locale: auth.user.locale,
     userProjects
   })
-  <div class="columns draggable">
+  <div class="columns">
     <div class="column">
         @component('components.card', {
           antl,
@@ -24,6 +24,7 @@
                   id="{{ ticket.id }}"
                   class="
                     box
+                    draggable
                     @each(priority in priorities)
                     @if(priority.value == $parent.ticket.priority)
                     has-background-{{ priority.color }}
@@ -57,6 +58,7 @@
                 id="{{ ticket.id }}"
                 class="
                   box
+                  draggable
                   @each(priority in priorities)
                   @if(priority.value == $parent.ticket.priority)
                   has-background-{{ priority.color }}
@@ -90,6 +92,7 @@
                 id="{{ ticket.id }}"
                 class="
                   box
+                  draggable
                   @each(priority in priorities)
                   @if(priority.value == $parent.ticket.priority)
                   has-background-{{ priority.color }}
@@ -123,6 +126,7 @@
                 id="{{ ticket.id }}"
                 class="
                   box
+                  draggable
                   @each(priority in priorities)
                   @if(priority.value == $parent.ticket.priority)
                   has-background-{{ priority.color }}
@@ -156,6 +160,7 @@
                 id="{{ ticket.id }}"
                 class="
                   box
+                  draggable
                   @each(priority in priorities)
                   @if(priority.value == $parent.ticket.priority)
                   has-background-{{ priority.color }}
