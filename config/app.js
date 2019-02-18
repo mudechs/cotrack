@@ -219,8 +219,7 @@ module.exports = {
     file: {
       driver: 'file',
       name: 'cotrack-app',
-      // filename: '/home/omar/cotrack/logs/cotrack.log',
-      filename: '/Users/omar/Sites/dev/adonis/cotrack/logs',
+      filename: Env.get('LOGGER_FILE_PATH', true),
       level: 'info'
     }
   },
