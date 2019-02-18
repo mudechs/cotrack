@@ -15,14 +15,11 @@ class MaintenanceMode {
     auth
   }, next) {
     if (request.globals.maintenance_mode == true) {
-      try {
-        await auth.check();
-        if (auth.user.is_superadmin == true) {
-          await next();
-        }
-      } catch (error) {
+      const isLoggedId = await auth.check();
+      if (isLoggedId && auth.user.is_superadmin == true) {
+        await next();
+      } else {
         await auth.logout();
-
         return response.route('error503');
       }
     } else {
