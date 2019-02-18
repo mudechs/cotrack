@@ -219,7 +219,8 @@ module.exports = {
     file: {
       driver: 'file',
       name: 'cotrack-app',
-      filename: '/home/omar/cotrack/logs/cotrack.log',
+      // filename: '/home/omar/cotrack/logs/cotrack.log',
+      filename: '/Users/omar/Sites/dev/adonis/cotrack/logs',
       level: 'info'
     }
   },
