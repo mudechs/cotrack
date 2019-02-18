@@ -1,25 +1,37 @@
-'use strict'
+'use strict';
 
-const Config = use('Config')
-const { salutations } = Config.get('user')
-const { validateAll } = use('Validator')
-const User = use('App/Models/User')
-const randomString = require('random-string')
-const Event = use('Event')
-const Antl = use('Antl')
+const Config = use('Config');
+const {
+  salutations
+} = Config.get('user');
+const {
+  validateAll
+} = use('Validator');
+const User = use('App/Models/User');
+const randomString = require('random-string');
+const Event = use('Event');
+const Antl = use('Antl');
 
 class RegisterController {
-  showRegistrationForm({ request, view, response }) {
-    if(request.globals.allow_registration) {
+  showRegistrationForm({
+    request,
+    view,
+    response
+  }) {
+    if (request.globals.allow_registration) {
       return view.render('auth.register', {
         salutations: salutations[0]['en']
-      })
+      });
     } else {
-      return response.route('error403')
+      return response.route('error403');
     }
   }
 
-  async register({ request, session, response }) {
+  async register({
+    request,
+    session,
+    response
+  }) {
     // Validate
     const validation = await validateAll(request.all(), {
       salutation: 'required',
@@ -27,16 +39,16 @@ class RegisterController {
       last_name: 'required',
       email: 'required|email|unique:users, email',
       password: 'required|min:6'
-    })
+    });
 
     if (validation.fails()) {
-      session.withErrors(validation.messages()).flashExcept(['password'])
+      session.withErrors(validation.messages()).flashExcept(['password']);
 
-      return response.redirect('back')
+      return response.redirect('back');
     }
 
-    let tfaActive = request.input('tfa_active')
-    tfaActive = (tfaActive == 'on')? true : false
+    let tfaActive = request.input('tfa_active');
+    tfaActive = (tfaActive == 'on') ? true : false;
 
     // Create User
     const user = await User.create({
@@ -49,44 +61,53 @@ class RegisterController {
       email: request.input('email'),
       password: request.input('password'),
       tfa_active: tfaActive,
-      confirmation_token: randomString({ length: 64 })
-    })
+      confirmation_token: randomString({
+        length: 64
+      })
+    });
 
     // Send confirmation E-Mail
-    Event.fire('new::userRegistration', { user })
+    Event.fire('new::userRegistration', {
+      user
+    });
 
     // Show success Message
-    const message = Antl.forLocale(request.globals.default_locale).formatMessage('messages.message19')
+    const message = Antl.forLocale(request.globals.default_locale).formatMessage('messages.message19');
 
     session.flash({
       notification: {
         type: 'success',
         message: message
       }
-    })
+    });
 
-    return response.route('register.success')
+    return response.route('register.success');
   }
 
-  async confirmEmail({ params, request, session, response }) {
-    const user = await User.findBy('confirmation_token', params.token)
+  async confirmEmail({
+    params,
+    request,
+    session,
+    response
+  }) {
+    const user = await User.findBy('confirmation_token', params.token);
 
-    user.confirmation_token = null
-    user.is_active = true
+    user.confirmation_token = null;
+    user.is_active = true;
 
-    await user.save()
+    await user.save();
 
-    const message = Antl.forLocale(request.globals.default_locale).formatMessage('messages.message20')
+    const message = Antl.forLocale(request.globals.default_locale).formatMessage('messages.message20');
 
     session.flash({
       notification: {
         type: 'success',
         message: message
       }
-    })
+    });
 
-    return response.redirect('/login')
+    return response.redirect('/login');
   }
 }
 
-module.exports = RegisterController
+module.exports = RegisterController;

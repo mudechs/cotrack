@@ -1,7 +1,9 @@
-'use strict'
+'use strict';
 
-import { DataTable } from 'simple-datatables'
-import axios from 'axios'
+import {
+  DataTable
+} from 'simple-datatables';
+import axios from 'axios';
 
 // Tabs
 function openTab(evt, tabName) {
@@ -25,14 +27,14 @@ function showNotification() {
   document.getElementById('notification').style.display = 'block';
   setTimeout(function () {
     document.getElementById('notification').style.display = 'none';
-  }, 3000)
+  }, 3000);
 }
 
 function showToast() {
   document.getElementById('toast').style.display = 'block';
   setTimeout(function () {
     document.getElementById('toast').style.display = 'none';
-  }, 3000)
+  }, 3000);
 }
 
 function formSerialize(formElement) {
@@ -50,8 +52,8 @@ function clickableRow() {
   rows.forEach(row => {
     row.addEventListener('click', () => {
       window.location.href = row.dataset.href;
-    })
-  })
+    });
+  });
 }
 
 function dataTable(table, col, order) {
@@ -65,7 +67,7 @@ function dataTable(table, col, order) {
       perPage: '{select}',
       info: '{start} &rarr; {end} ({rows})',
     }
-  })
+  });
 
   return dataTable;
 }
@@ -86,7 +88,7 @@ function saveDraggedTicket(evt) {
     .catch(function () {
       showToast();
       // console.log(error)
-    })
+    });
 }
 
 export default {
@@ -97,4 +99,4 @@ export default {
   clickableRow,
   dataTable,
   saveDraggedTicket
-}
+};
