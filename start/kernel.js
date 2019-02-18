@@ -41,6 +41,7 @@ const globalMiddleware = [
 */
 const namedMiddleware = {
   auth: 'Adonis/Middleware/Auth',
+  mMode: 'App/Middleware/MaintenanceMode',
   authenticated: 'App/Middleware/Authenticated',
   guest: 'Adonis/Middleware/AllowGuestOnly',
   publicApi: 'App/Middleware/PublicApiAuth',

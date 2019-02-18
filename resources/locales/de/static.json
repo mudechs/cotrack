@@ -95,5 +95,7 @@
   "new_password_sent": "Ein neues Passwort wurde per E-Mail an den Benutzer gesendet.",
   "verfuegbar": "Verfügbar",
   "abwesend": "Abwesend",
-  "fehler": "Fehler"
+  "fehler": "Fehler",
+  "service_unavailable": "Offline",
+  "service_unavailable_message": "Die App steht zur Zeit wegen Wartungsarbeiten nicht zur Verfügung."
 }

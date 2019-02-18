@@ -1,92 +1,94 @@
-<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="{{ route('dashboard') }}">{{ globals().app_name }}</a>
+@if(globals().maintenance_mode == false || auth.user.is_superadmin == true)
+  <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="{{ route('dashboard') }}">{{ globals().app_name }}</a>
 
-    @loggedIn
-      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="topNavigation">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    @endloggedIn
-  </div>
-
-  <div id="topNavigation" class="navbar-menu">
-    @loggedIn
-      <div class="navbar-start">
-        <a href="{{ route('ticketsIndex') }}" class="navbar-item {{ activeRoute('tickets*') }}">
-          <i class="fas fa-ticket-alt fa-fw"></i>&nbsp;Tickets
+      @loggedIn
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="topNavigation">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
         </a>
+      @endloggedIn
+    </div>
 
-        <a href="{{ route('projectsIndex') }}" class="navbar-item {{ activeRoute('projects*') }}">
-          <i class="fas fa-project-diagram fa-fw"></i>&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.projekte') }}
-        </a>
-
-        @if(auth.user.is_admin || auth.user.is_superadmin)
-          <a href="{{ route('usersIndex') }}" class="navbar-item {{ activeRoute('users*') }}">
-            <i class="fas fa-users fa-fw"></i>&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.benutzerPl') }}
+    <div id="topNavigation" class="navbar-menu">
+      @loggedIn
+        <div class="navbar-start">
+          <a href="{{ route('ticketsIndex') }}" class="navbar-item {{ activeRoute('tickets*') }}">
+            <i class="fas fa-ticket-alt fa-fw"></i>&nbsp;Tickets
           </a>
+
+          <a href="{{ route('projectsIndex') }}" class="navbar-item {{ activeRoute('projects*') }}">
+            <i class="fas fa-project-diagram fa-fw"></i>&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.projekte') }}
+          </a>
+
+          @if(auth.user.is_admin || auth.user.is_superadmin)
+            <a href="{{ route('usersIndex') }}" class="navbar-item {{ activeRoute('users*') }}">
+              <i class="fas fa-users fa-fw"></i>&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.benutzerPl') }}
+            </a>
+            <div class="navbar-item has-dropdown">
+              <a class="navbar-link">
+                <i class="fas fa-plus fa-fw"></i>&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.neu') }}
+              </a>
+
+              <div class="navbar-dropdown">
+                <a href="{{ route('usersCreate') }}" class="navbar-item">
+                  <i class="fas fa-user-plus fa-fw"></i>&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.benutzer') }}
+                </a>
+                <a href="{{ route('projectsCreate') }}" class="navbar-item">
+                  <i class="fas fa-project-diagram fa-fw"></i>&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}
+                </a>
+                <a href="{{ route('ticketsCreate') }}" class="navbar-item">
+                  <i class="fas fa-ticket-alt fa-fw"></i>&nbsp;Ticket</a>
+                </a>
+              </div>
+            </div>
+            <a href="{{ route('settings.index') }}" class="navbar-item {{ activeRoute('settings*') }}">
+              <i class="fas fa-cogs fa-fw"></i>&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.einstellungen') }}
+            </a>
+          @endif
+
+          <div class="navbar-item">
+            <a href="{{ route('ticketsCreate') }}" class="button is-primary is-inverted is-outlined">
+              <strong><i class="fas fa-plus"></i>&nbsp;Ticket</a></strong>
+            </a>
+          </div>
+        </div>
+
+        <div class="navbar-end">
           <div class="navbar-item has-dropdown">
             <a class="navbar-link">
-              <i class="fas fa-plus fa-fw"></i>&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.neu') }}
+                {{ antl.forLocale(auth.user.locale).formatMessage('static.hallo') }}&nbsp;<strong>{{ auth.user.first_name }}</strong>
             </a>
 
-            <div class="navbar-dropdown">
-              <a href="{{ route('usersCreate') }}" class="navbar-item">
-                <i class="fas fa-user-plus fa-fw"></i>&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.benutzer') }}
+            <div class="navbar-dropdown is-right">
+              <a href="{{ route('usersShow', { id: auth.user.id }) }}" class="navbar-item">
+                <i class="fas fa-user-circle fa-fw"></i>&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.meinprofil') }}
               </a>
-              <a href="{{ route('projectsCreate') }}" class="navbar-item">
-                <i class="fas fa-project-diagram fa-fw"></i>&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}
+              <a href="{{ route('passwordEdit', { id: auth.user.id }) }}" class="navbar-item">
+                <i class="fas fa-key fa-fw"></i>&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.passwortaendern') }}
               </a>
-              <a href="{{ route('ticketsCreate') }}" class="navbar-item">
-                <i class="fas fa-ticket-alt fa-fw"></i>&nbsp;Ticket</a>
-              </a>
-            </div>
-          </div>
-          <a href="{{ route('settings.index') }}" class="navbar-item {{ activeRoute('settings*') }}">
-            <i class="fas fa-cogs fa-fw"></i>&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.einstellungen') }}
-          </a>
-        @endif
-
-        <div class="navbar-item">
-          <a href="{{ route('ticketsCreate') }}" class="button is-primary is-inverted is-outlined">
-            <strong><i class="fas fa-plus"></i>&nbsp;Ticket</a></strong>
-          </a>
-        </div>
-      </div>
-
-      <div class="navbar-end">
-        <div class="navbar-item has-dropdown">
-          <a class="navbar-link">
-              {{ antl.forLocale(auth.user.locale).formatMessage('static.hallo') }}&nbsp;<strong>{{ auth.user.first_name }}</strong>
-          </a>
-
-          <div class="navbar-dropdown is-right">
-            <a href="{{ route('usersShow', { id: auth.user.id }) }}" class="navbar-item">
-              <i class="fas fa-user-circle fa-fw"></i>&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.meinprofil') }}
-            </a>
-            <a href="{{ route('passwordEdit', { id: auth.user.id }) }}" class="navbar-item">
-              <i class="fas fa-key fa-fw"></i>&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.passwortaendern') }}
-            </a>
-            <hr class="dropdown-divider">
-            <a href="{{ route('logout') }}" class="navbar-item">
-              <i class="fas fa-sign-out-alt fa-fw"></i>&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.abmelden') }}
-            </a>
-          </div>
-        </div>
-      </div>
-    @else
-      <div class="navbar-end">
-        @if(globals().allow_registration == true)
-          <div class="navbar-item">
-            <div class="buttons">
-              <a href="{{ route('register') }}" class="button is-primary">
-                <strong>Register</strong>
+              <hr class="dropdown-divider">
+              <a href="{{ route('logout') }}" class="navbar-item">
+                <i class="fas fa-sign-out-alt fa-fw"></i>&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.abmelden') }}
               </a>
             </div>
           </div>
-        @endif
-      </div>
-    @endloggedIn
-  </div>
-</nav>
+        </div>
+      @else
+        <div class="navbar-end">
+          @if(globals().allow_registration == true)
+            <div class="navbar-item">
+              <div class="buttons">
+                <a href="{{ route('register') }}" class="button is-primary">
+                  <strong>Register</strong>
+                </a>
+              </div>
+            </div>
+          @endif
+        </div>
+      @endloggedIn
+    </div>
+  </nav>
+@endif

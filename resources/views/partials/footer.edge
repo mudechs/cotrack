@@ -1,19 +1,21 @@
-<footer class="footer">
-  <div class="content has-text-centered">
-    <p>
-      <small>
-        @loggedIn
-          <strong>{{ globals().app_name }}</strong> by <a href="{{ globals().www }}" target="_blank" rel="noopener">{{ globals().company }}</a>&nbsp;-&nbsp;
-        @endloggedIn
-        <a href="{{ route('privacyPolicy') }}">
+@if(globals().maintenance_mode == false || auth.user.is_superadmin == true)
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <small>
           @loggedIn
-            {{ antl.forLocale(auth.user.locale).formatMessage('static.datenschutz') }}
-          @else
-            {{ antl.forLocale(globals().default_locale).formatMessage('static.datenschutz') }}
+            <strong>{{ globals().app_name }}</strong> by <a href="{{ globals().www }}" target="_blank" rel="noopener">{{ globals().company }}</a>&nbsp;-&nbsp;
           @endloggedIn
-        </a>
-        &nbsp;-&nbsp;Version 0.9 BETA
-      </small>
-    </p>
-  </div>
-</footer>
+          <a href="{{ route('privacyPolicy') }}">
+            @loggedIn
+              {{ antl.forLocale(auth.user.locale).formatMessage('static.datenschutz') }}
+            @else
+              {{ antl.forLocale(globals().default_locale).formatMessage('static.datenschutz') }}
+            @endloggedIn
+          </a>
+          &nbsp;-&nbsp;Version 0.9 BETA
+        </small>
+      </p>
+    </div>
+  </footer>
+@endif

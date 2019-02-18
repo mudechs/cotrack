@@ -1,0 +1,21 @@
+@layout('layouts.app')
+
+@section('content')
+  <div class="container">
+    <div class="columns is-mobile">
+      <div class="column is-half-tablet is-offset-one-quarter-tablet is-one-third-desktop is-offset-one-third-desktop">
+        @component('components.card', {
+          antl,
+          locale: globals().default_locale,
+          title: 'static.service_unavailable',
+          styles: 'has-background-danger has-text-white has-rounded-white-border',
+          footer: false
+        })
+          @slot('content')
+            {{ antl.forLocale(globals().default_locale).formatMessage('static.service_unavailable_message') }}
+          @endslot
+        @endcomponent
+      </div>
+    </div>
+  </div>
+@endsection

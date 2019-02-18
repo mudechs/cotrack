@@ -16,28 +16,28 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route');
 
-Route.get('/', 'DashboardController.index').middleware(['auth']).as('dashboard');
-Route.on('/privacy-policy').render('auth.privacy_policy').as('privacyPolicy');
+Route.get('/', 'DashboardController.index').middleware(['auth', 'mMode']).as('dashboard');
+Route.on('/privacy-policy').render('auth.privacy_policy').middleware(['mMode']).as('privacyPolicy');
 
-Route.get('register', 'Auth/RegisterController.showRegistrationForm');
-Route.post('register', 'Auth/RegisterController.register').as('register');
-Route.get('register/confirm/:token', 'Auth/RegisterController.confirmEmail');
+Route.get('register', 'Auth/RegisterController.showRegistrationForm').middleware(['mMode']);
+Route.post('register', 'Auth/RegisterController.register').as('register').middleware(['mMode']);
+Route.get('register/confirm/:token', 'Auth/RegisterController.confirmEmail').middleware(['mMode']);
 Route.get('register/success', ({
   view
 }) => {
   return view.render('auth.register_success');
-}).as('register.success');
+}).middleware(['mMode']).as('register.success');
 
-Route.get('login', 'Auth/LoginController.showLoginForm').as('showLoginForm');
-Route.post('login', 'Auth/LoginController.login').as('login').validator('LoginUser');
-Route.get('login/:hash', 'Auth/LoginController.loginTokenForm').as('loginTokenForm');
-Route.post('login/token', 'Auth/LoginController.loginToken').as('loginToken');
-Route.get('logout', 'Auth/LogoutController.logout').middleware(['auth']).as('logout');
+Route.get('login', 'Auth/LoginController.showLoginForm').middleware(['mMode']).as('showLoginForm');
+Route.post('login', 'Auth/LoginController.login').middleware(['mMode']).as('login').validator('LoginUser');
+Route.get('login/:hash', 'Auth/LoginController.loginTokenForm').middleware(['mMode']).as('loginTokenForm');
+Route.post('login/token', 'Auth/LoginController.loginToken').middleware(['mMode']).as('loginToken');
+Route.get('logout', 'Auth/LogoutController.logout').middleware(['auth', 'mMode']).as('logout');
 
-Route.get('password/reset', 'Auth/PasswordResetController.showLinkRequestForm').as('passwordResetForm');
-Route.post('password/email', 'Auth/PasswordResetController.sendResetLinkEmail').as('passwordEmail');
-Route.get('password/reset/:token', 'Auth/PasswordResetController.showResetForm');
-Route.post('password/reset', 'Auth/PasswordResetController.reset').as('passwordResetStore');
+Route.get('password/reset', 'Auth/PasswordResetController.showLinkRequestForm').middleware(['mMode']).as('passwordResetForm');
+Route.post('password/email', 'Auth/PasswordResetController.sendResetLinkEmail').middleware(['mMode']).as('passwordEmail');
+Route.get('password/reset/:token', 'Auth/PasswordResetController.showResetForm').middleware(['mMode']);
+Route.post('password/reset', 'Auth/PasswordResetController.reset').middleware(['mMode']).as('passwordResetStore');
 
 Route
   .group(() => {
@@ -75,31 +75,37 @@ Route
     Route.post('tickets/comment/store/:id', 'Comment/CommentController.store').as('commentsStore').validator('StoreComment');
     Route.post('tickets/comment/update/:id', 'Comment/CommentController.update').as('commentsUpdate').validator('StoreComment');
   })
-  .middleware(['auth']);
+  .middleware(['mMode', 'auth']);
 
 // Error pages
 Route.get('error-403', ({
   view
 }) => {
   return view.render('errors/403');
-}).as('error403');
+}).middleware(['mMode']).as('error403');
+
+Route.get('error-503', ({
+  view
+}) => {
+  return view.render('errors/503');
+}).as('error503');
 
 Route
   .group(() => {
     Route.resource('settings', 'Setting/SettingController');
   })
-  .middleware(['auth', 'isSuperAdmin', 'isAdmin']);
+  .middleware(['mMode', 'auth', 'isSuperAdmin', 'isAdmin']);
 
 Route
   .group(() => {
     Route.post('user/restorepassword/:id', 'Auth/PasswordRestoreController.restorePassword').as('restorePassword');
   })
-  .middleware(['auth', 'isSuperAdmin']);
+  .middleware(['mMode', 'auth', 'isSuperAdmin']);
 
 // Internal API
-Route.get('api/tickets/projectMembers/:id', 'Ticket/TicketController.apiGetProjectMembers').middleware(['auth']);
-Route.get('api/comments/:id', 'Comment/CommentController.apiGetComment').middleware(['auth']);
+Route.get('api/tickets/projectMembers/:id', 'Ticket/TicketController.apiGetProjectMembers').middleware(['mMode', 'auth']);
+Route.get('api/comments/:id', 'Comment/CommentController.apiGetComment').middleware(['mMode', 'auth']);
 
 // Public API
-Route.post('api/public/tickets/create', 'Ticket/TicketController.apiPublicTicketCreate').middleware(['publicApi']);
-Route.get('api/public/tickets/fetch', 'Ticket/TicketController.apiPublicTicketFetch').middleware(['publicApi']);
+Route.post('api/public/tickets/create', 'Ticket/TicketController.apiPublicTicketCreate').middleware(['mMode', 'publicApi']);
+Route.get('api/public/tickets/fetch', 'Ticket/TicketController.apiPublicTicketFetch').middleware(['mMode', 'publicApi']);
