@@ -5,7 +5,7 @@
       <div class="control">
         <input
           type="text"
-          class="input is-medium {{ hasErrorFor('title') ? 'is-danger' : '' }}"
+          class="input {{ hasErrorFor('title') ? 'is-danger' : '' }}"
           name="title"
           id="title"
           value="{{ project == undefined ? old('title', '') : project.title }}"

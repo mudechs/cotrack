@@ -44,7 +44,7 @@
                   <label for="first_name" class="label has-text-white">{{ antl.forLocale(globals().default_locale).formatMessage('static.vorname') }}</label>
                   <input
                     type="text"
-                    class="input is-medium {{ hasErrorFor('first_name') ? 'is-invalid' : '' }}"
+                    class="input {{ hasErrorFor('first_name') ? 'is-invalid' : '' }}"
                     name="first_name"
                     id="first_name"
                     value="{{ old('first_name', '') }}"
@@ -57,7 +57,7 @@
                   <label for="last_name" class="label has-text-white">{{ antl.forLocale(globals().default_locale).formatMessage('static.nachname') }}</label>
                   <input
                     type="text"
-                    class="input is-medium {{ hasErrorFor('last_name') ? 'is-invalid' : '' }}"
+                    class="input {{ hasErrorFor('last_name') ? 'is-invalid' : '' }}"
                     name="last_name"
                     id="last_name"
                     value="{{ old('last_name', '') }}"
@@ -69,7 +69,7 @@
                   <label for="profession" class="label has-text-white">{{ antl.forLocale(globals().default_locale).formatMessage('static.funktion') }}</label>
                   <input
                     type="text"
-                    class="input is-medium {{ hasErrorFor('profession') ? 'is-invalid' : '' }}"
+                    class="input {{ hasErrorFor('profession') ? 'is-invalid' : '' }}"
                     name="profession"
                     id="profession"
                     value="{{ old('profession', '') }}"
@@ -81,7 +81,7 @@
                 <div class="control has-icons-left">
                   <input
                     type="text"
-                    class="input is-medium {{ hasErrorFor('phone') ? 'is-danger' : '' }}"
+                    class="input {{ hasErrorFor('phone') ? 'is-danger' : '' }}"
                     name="phone"
                     id="phone"
                     value="{{ old('phone', '') }}">
@@ -96,7 +96,7 @@
                 <div class="control has-icons-left">
                   <input
                     type="text"
-                    class="input is-medium {{ hasErrorFor('mobile') ? 'is-danger' : '' }}"
+                    class="input {{ hasErrorFor('mobile') ? 'is-danger' : '' }}"
                     name="mobile"
                     id="mobile"
                     value="{{ old('mobile', '') }}">
@@ -111,7 +111,7 @@
                 <div class="control has-icons-left">
                   <input
                     type="email"
-                    class="input is-medium {{ hasErrorFor('email') ? 'is-danger' : '' }}"
+                    class="input {{ hasErrorFor('email') ? 'is-danger' : '' }}"
                     name="email"
                     id="email"
                     value="{{ old('email', '') }}"
@@ -127,7 +127,7 @@
                 <div class="control has-icons-left">
                   <input
                     type="password"
-                    class="input is-medium {{ hasErrorFor('password') ? 'is-danger' : '' }}"
+                    class="input {{ hasErrorFor('password') ? 'is-danger' : '' }}"
                     name="password"
                     id="password"
                     value="{{ old('password', '') }}"
