@@ -15,7 +15,7 @@
     "adonisjs",
     "adonis-app"
   ],
-  "author": "Omar De-Giuli",
+  "author": "Omar De-Giuli, Thomas Adamek",
   "license": "MIT",
   "private": true,
   "dependencies": {
