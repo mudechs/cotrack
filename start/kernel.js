@@ -41,7 +41,6 @@ const globalMiddleware = [
 */
 const namedMiddleware = {
   auth: 'Adonis/Middleware/Auth',
-  mMode: 'App/Middleware/MaintenanceMode',
   authenticated: 'App/Middleware/Authenticated',
   guest: 'Adonis/Middleware/AllowGuestOnly',
   publicApi: 'App/Middleware/PublicApiAuth',
@@ -50,7 +49,8 @@ const namedMiddleware = {
   ticketOFRAM: 'App/Middleware/TicketOFRAM',
   ticketOA: 'App/Middleware/TicketOA',
   isAdmin: 'App/Middleware/IsAdmin',
-  isSuperAdmin: 'App/Middleware/IsSuperAdmin'
+  isSuperAdmin: 'App/Middleware/IsSuperAdmin',
+  mMode: 'App/Middleware/MaintenanceMode'
 };
 
 /*
