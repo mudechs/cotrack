@@ -28,7 +28,7 @@ Route.get('register/success', ({
   return view.render('auth.register_success');
 }).middleware(['mMode']).as('register.success');
 
-Route.get('login', 'Auth/LoginController.showLoginForm').middleware(['mMode']).as('showLoginForm');
+Route.get('login', 'Auth/LoginController.showLoginForm').as('showLoginForm');
 Route.post('login', 'Auth/LoginController.login').middleware(['mMode']).as('login').validator('LoginUser');
 Route.get('login/:hash', 'Auth/LoginController.loginTokenForm').middleware(['mMode']).as('loginTokenForm');
 Route.post('login/token', 'Auth/LoginController.loginToken').middleware(['mMode']).as('loginToken');
