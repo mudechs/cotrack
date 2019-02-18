@@ -2,11 +2,7 @@ const Mail = use('Mail');
 const Event = use('Event');
 const Antl = use('Antl');
 
-Event.on('new::login', async ({
-  token,
-  email,
-  locale
-}) => {
+Event.on('new::login', async ({ token, email, locale }) => {
   const messages = {
     subject: Antl.forLocale(locale).formatMessage('emails.message15'),
     body: Antl.forLocale(locale).formatMessage('emails.message16'),
@@ -14,10 +10,7 @@ Event.on('new::login', async ({
   };
 
 
-  await Mail.send('emails.confirm_2fa_login', {
-    token,
-    messages
-  }, message => {
+  await Mail.send('emails.confirm_2fa_login', { token, messages }, message => {
     message
       .to(email)
       .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
@@ -25,11 +18,7 @@ Event.on('new::login', async ({
   });
 });
 
-Event.on('new::passwordReset', async ({
-  email,
-  token,
-  locale
-}) => {
+Event.on('new::passwordReset', async ({ email, token, locale }) => {
   const messages = {
     subject: Antl.forLocale(locale).formatMessage('emails.message17'),
     body: Antl.forLocale(locale).formatMessage('emails.message18'),
@@ -37,10 +26,7 @@ Event.on('new::passwordReset', async ({
     hint: Antl.forLocale(locale).formatMessage('emails.hint')
   };
 
-  await Mail.send('emails.password_reset', {
-    token,
-    messages
-  }, message => {
+  await Mail.send('emails.password_reset', { token, messages }, message => {
     message
       .to(email)
       .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
@@ -48,12 +34,7 @@ Event.on('new::passwordReset', async ({
   });
 });
 
-Event.on('new::ticket', async ({
-  ticket,
-  project,
-  author,
-  recipient
-}) => {
+Event.on('new::ticket', async ({ ticket, project, author, recipient }) => {
   const messages = {
     subject: Antl.forLocale(recipient.locale).formatMessage('emails.message7', {
       ticketid: ticket.id
@@ -66,13 +47,7 @@ Event.on('new::ticket', async ({
     recipientLabel: Antl.forLocale(recipient.locale).formatMessage('emails.message26')
   };
 
-  await Mail.send('emails.new_ticket_notification', {
-    messages,
-    ticket,
-    project,
-    author,
-    recipient
-  }, message => {
+  await Mail.send('emails.new_ticket_notification', { messages, ticket, project, author, recipient }, message => {
     message
       .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
       .to(recipient.email)
@@ -80,12 +55,7 @@ Event.on('new::ticket', async ({
   });
 });
 
-Event.on('new::ticketUnassigned', async ({
-  ticket,
-  project,
-  author,
-  recipient
-}) => {
+Event.on('new::ticketUnassigned', async ({ ticket, project, author, recipient }) => {
   const messages = {
     subject: Antl.forLocale(recipient.locale).formatMessage('emails.message23', {
       ticketid: ticket.id
@@ -99,13 +69,7 @@ Event.on('new::ticketUnassigned', async ({
     recipientLabel: Antl.forLocale(recipient.locale).formatMessage('emails.message26')
   };
 
-  await Mail.send('emails.new_ticket_notification', {
-    messages,
-    ticket,
-    project,
-    author,
-    recipient
-  }, message => {
+  await Mail.send('emails.new_ticket_notification', { messages, ticket, project, author, recipient }, message => {
     message
       .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
       .to(recipient.email)
@@ -113,12 +77,7 @@ Event.on('new::ticketUnassigned', async ({
   });
 });
 
-Event.on('new::ticketStatusChange', async ({
-  ticket,
-  project,
-  author,
-  recipient
-}) => {
+Event.on('new::ticketStatusChange', async ({ ticket, project, author, recipient }) => {
   const messages = {
     subject: Antl.forLocale(author.locale).formatMessage('emails.message4', {
       ticketid: ticket.id,
@@ -132,13 +91,7 @@ Event.on('new::ticketStatusChange', async ({
     recipientLabel: Antl.forLocale(author.locale).formatMessage('emails.message26')
   };
 
-  await Mail.send('emails.new_ticket_notification', {
-    messages,
-    ticket,
-    project,
-    author,
-    recipient
-  }, message => {
+  await Mail.send('emails.new_ticket_notification', { messages, ticket, project, author, recipient }, message => {
     message
       .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
       .to(author.email)
@@ -146,12 +99,7 @@ Event.on('new::ticketStatusChange', async ({
   });
 });
 
-Event.on('new::ticketReopen', async ({
-  ticket,
-  project,
-  author,
-  recipient
-}) => {
+Event.on('new::ticketReopen', async ({ ticket, project, author, recipient }) => {
   const fullName = recipient.first_name + ' ' + recipient.last_name;
   const messages = {
     subject: Antl.forLocale(author.locale).formatMessage('emails.message25', {
@@ -167,13 +115,7 @@ Event.on('new::ticketReopen', async ({
     recipientLabel: Antl.forLocale(author.locale).formatMessage('emails.message26')
   };
 
-  await Mail.send('emails.new_ticket_notification', {
-    messages,
-    ticket,
-    project,
-    author,
-    recipient
-  }, message => {
+  await Mail.send('emails.new_ticket_notification', { messages, ticket, project, author, recipient }, message => {
     message
       .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
       .to(author.email)
@@ -181,11 +123,7 @@ Event.on('new::ticketReopen', async ({
   });
 });
 
-Event.on('new::ticketAssigned', async ({
-  ticket,
-  author,
-  recipient
-}) => {
+Event.on('new::ticketAssigned', async ({ ticket, author, recipient }) => {
   const messages = {
     subject: Antl.forLocale(author.locale).formatMessage('emails.message1', {
       ticketid: ticket.id,
@@ -197,10 +135,7 @@ Event.on('new::ticketAssigned', async ({
     hint: Antl.forLocale(author.locale).formatMessage('emails.hint')
   };
 
-  await Mail.send('emails.assigned_ticket_notification', {
-    messages,
-    ticket
-  }, message => {
+  await Mail.send('emails.assigned_ticket_notification', { messages, ticket }, message => {
     message
       .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
       .to(author.email)
@@ -208,10 +143,7 @@ Event.on('new::ticketAssigned', async ({
   });
 });
 
-Event.on('new::user', async ({
-  user,
-  password
-}) => {
+Event.on('new::user', async ({ user, password }) => {
   const messages = {
     subject: Antl.forLocale(user.locale).formatMessage('emails.message9', {
       firstname: user.first_name
@@ -223,11 +155,7 @@ Event.on('new::user', async ({
     hint: Antl.forLocale(user.locale).formatMessage('emails.hint')
   };
 
-  await Mail.send('emails.user_credentials', {
-    user,
-    password,
-    messages
-  }, message => {
+  await Mail.send('emails.user_credentials', { user, password, messages }, message => {
     message
       .to(user.email)
       .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
@@ -235,9 +163,7 @@ Event.on('new::user', async ({
   });
 });
 
-Event.on('new::userRegistration', async ({
-  user
-}) => {
+Event.on('new::userRegistration', async ({ user }) => {
   const messages = {
     subject: Antl.forLocale('en').formatMessage('emails.message22'),
     body: Antl.forLocale('en').formatMessage('emails.message20'),
@@ -245,10 +171,7 @@ Event.on('new::userRegistration', async ({
     hint: Antl.forLocale('en').formatMessage('emails.hint')
   };
 
-  await Mail.send('emails.confirm_registration', {
-    user,
-    messages
-  }, message => {
+  await Mail.send('emails.confirm_registration', { user, messages }, message => {
     message
       .to(user.email)
       .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
@@ -268,11 +191,7 @@ Event.on('new::comment', async (ticket, commentRaw, email, locale) => {
 
   const comment = commentRaw.toJSON();
 
-  await Mail.send('emails.new_comment_notification', {
-    ticket,
-    comment,
-    messages
-  }, message => {
+  await Mail.send('emails.new_comment_notification', { ticket, comment, messages }, message => {
     message
       .from('noreply@codiac.ch', 'codiac.ch Helpdesk')
       .to(email)
