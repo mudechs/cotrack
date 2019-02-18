@@ -1,20 +1,20 @@
-'use strict'
+'use strict';
 
 /** @type {import('@adonisjs/lucid/src/Schema')} */
-const Schema = use('Schema')
+const Schema = use('Schema');
 
 class UserSchema extends Schema {
-  up () {
+  up() {
     this.table('users', (table) => {
-      table.boolean('is_superadmin').defaultTo(0)
-    })
+      table.boolean('is_superadmin').defaultTo(0);
+    });
   }
 
-  down () {
+  down() {
     this.table('users', () => {
       // reverse alternations
-    })
+    });
   }
 }
 
-module.exports = UserSchema
+module.exports = UserSchema;

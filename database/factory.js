@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 /*
 |--------------------------------------------------------------------------
@@ -27,12 +27,12 @@ Factory.blueprint('App/Models/User', async () => {
     is_active: true,
     is_admin: true,
     is_superadmin: true
-  }
+  };
 });
 
 Factory.blueprint('App/Models/Setting', async () => {
   return {
     company: 'Example Company',
     default_locale: 'de'
-  }
+  };
 });

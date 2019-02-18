@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +14,10 @@
 const Factory = use('Factory');
 
 class SettingSeeder {
-  async run () {
+  async run() {
     await Factory
       .model('App/Models/Setting')
-      .create()
+      .create();
   }
 }
 

@@ -1,21 +1,21 @@
-'use strict'
+'use strict';
 
 /** @type {import('@adonisjs/lucid/src/Schema')} */
-const Schema = use('Schema')
+const Schema = use('Schema');
 
 class SettingSchema extends Schema {
-  up () {
+  up() {
     this.table('settings', (table) => {
-      table.string('contact_person')
-      table.string('app_name')
-    })
+      table.string('contact_person');
+      table.string('app_name');
+    });
   }
 
-  down () {
+  down() {
     this.table('settings', () => {
       // reverse alternations
-    })
+    });
   }
 }
 
-module.exports = SettingSchema
+module.exports = SettingSchema;
