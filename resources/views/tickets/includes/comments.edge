@@ -1,44 +1,44 @@
 @each(comment in ticket.comments)
-<article id="kommentar_{{ comment.id }}" class="media">
-  <figure class="media-left">
-    <p class="image is-60x60">
-      @!component('users.components.avatar', { user: comment.commentAuthor, size: 60 })
-    </p>
-  </figure>
-  <div class="media-content">
-    <div class="content">
-      <p>
-        <strong>{{ comment.commentAuthor.first_name }} {{ comment.commentAuthor.last_name }}</strong> <small>{{ comment.created_at }}</small>
-        <br>
-        <div id="comment-show-{{ comment.id }}">
-          <p class="mb-3">{{{ comment.bodyHtml }}}</p>
-          @each(attachment in comment.attachments)
-            <small><a href="/uploads/comments/{{ $parent.comment.id }}/{{ attachment.fileName }}" target="_blank"><i class="fas fa-paperclip fa-fw"></i> {{ attachment.clientName }}</a></small><br>
-          @endeach
-        </div>
-        @include('tickets.includes.commentEditForm')
+  <article id="kommentar_{{ comment.id }}" class="media">
+    <figure class="media-left">
+      <p class="image is-60x60">
+        @!component('users.components.avatar', { user: comment.commentAuthor, size: 64 })
       </p>
-    </div>
-    <nav class="level is-mobile">
-      <div class="level-left">
-        <a class="level-item">
-          <span class="icon is-small"><i class="fas fa-reply"></i></span>
-        </a>
-        @if(comment.commentAuthor.id == auth.user.id)
-          <a class="level-item comment-edit-button" data-commentid="{{ comment.id }}" data-ticketid="{{ ticket.id }}">
-            <span class="icon is-small"><i class="fas fa-pencil-alt"></i></span>
-          </a>
-        @endif
-        <a class="level-item">
-          <span class="icon is-small"><i class="fas fa-heart"></i></span>
-        </a>
+    </figure>
+    <div class="media-content">
+      <div class="content">
+        <p>
+          <strong>{{ comment.commentAuthor.first_name }} {{ comment.commentAuthor.last_name }}</strong> <small>{{ comment.created_at }}</small>
+          <br>
+          <div id="comment-show-{{ comment.id }}">
+            <p class="mb-3">{{{ comment.bodyHtml }}}</p>
+            @each(attachment in comment.attachments)
+              <small><a href="/uploads/comments/{{ $parent.comment.id }}/{{ attachment.fileName }}" target="_blank"><i class="fas fa-paperclip fa-fw"></i> {{ attachment.clientName }}</a></small><br>
+            @endeach
+          </div>
+          @include('tickets.includes.commentEditForm')
+        </p>
       </div>
-    </nav>
-  </div>
-  @if(auth.user.is_admin == true)
-    <div class="media-right">
-      <button class="delete"></button>
+      <nav class="level is-mobile">
+        <div class="level-left">
+          <a class="level-item">
+            <span class="icon is-small"><i class="fas fa-reply"></i></span>
+          </a>
+          @if(comment.commentAuthor.id == auth.user.id)
+            <a class="level-item comment-edit-button" data-commentid="{{ comment.id }}" data-ticketid="{{ ticket.id }}">
+              <span class="icon is-small"><i class="fas fa-pencil-alt"></i></span>
+            </a>
+          @endif
+          <a class="level-item">
+            <span class="icon is-small"><i class="fas fa-heart"></i></span>
+          </a>
+        </div>
+      </nav>
     </div>
-  @endif
-</article>
+    @if(auth.user.is_admin == true)
+      <div class="media-right">
+        <button class="delete"></button>
+      </div>
+    @endif
+  </article>
 @endeach

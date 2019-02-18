@@ -1,191 +1,186 @@
 @layout('layouts.app')
 
 @section('content')
-  <div class="container mt-md-3 mt-0">
-    <div class="row">
-      <div class="col-md-10 offset-md-1">
-        <div class="row">
-          <div class="col-12 col-md-6 col-lg p-md-3 p-0">
-            <div class="card">
-              <div class="card-header d-flex justify-content-between align-items-center">
-                  <div>
-                    <form id="availability-change-form" action="{{ route('userChangeAvailability', { id: user.id }) }}" method="post">
-                      {{ csrfField() }}
-                      <div class="form-group m-0">
-                        <div class="custom-control custom-switch">
-                          <input
-                            onchange="availabilityHandler(event)"
-                            type="checkbox"
-                            class="custom-control-input"
-                            id="is_available"
-                            name="is_available"
-                            @if(auth.user.id != user.id && auth.user.is_superadmin != 1)
-                              disabled
-                            @endif
-                            @if(user.is_available == 1)
-                              checked
-                            @endif
-                          >
-                          <label id="availabilityChangeLabel" class="custom-control-label" for="is_available">
-                            @if(user.is_available == 1)
-                              {{ antl.forLocale(auth.user.locale).formatMessage('static.verfuegbar') }}
-                            @else
-                              {{ antl.forLocale(auth.user.locale).formatMessage('static.abwesend') }}
-                            @endif
-                          </label>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                <div>
-                  @if(auth.user.id == user.id || auth.user.is_admin || auth.user.is_superadmin)
-                    <a href="{{ route('usersEdit', { id: user.id }) }}" class="btn btn-sm btn-link"><i class="fas fa-pencil-alt"></i></a>
-                  @endif
-                  @if(auth.user.is_superadmin)
-                    <a id="passwordRestoreButton" href="#" class="btn btn-sm btn-link"><i class="fas fa-key"></i></a>
-                  @endif
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-12 mb-5">
-                    @!component('users.components.avatar', { user, size: 120 })
-                  </div>
-                  <div class="col-12">
-                    <h3 class="m-0 text-center">{{ user.first_name }} {{ user.last_name }}</h3>
-                    <h6 class="card-subtitle text-muted mt-2 mb-5 text-center">
-                      {{ user.profession }}
-                    </h6>
-                    <i class="fas fa-transgender-alt fa-fw mr-2"></i>
-                    @each(salutation in salutations)
-                      @if(salutation.value == user.salutation)
-                        {{ salutation.label }}
+  <div class="columns">
+    <div class="column is-8-tablet">
+      @component('components.card', {
+        antl,
+        csrf,
+        locale: auth.user.locale,
+        styles: 'has-background-light has-rounded-white-border',
+        footer: false
+      })
+        @slot('header')
+          <div class="is-clearfix">
+            <div class="is-pulled-left">
+              <form id="availability-change-form" action="{{ route('userChangeAvailability', { id: user.id }) }}" method="post">
+                {{ csrfField() }}
+                <div class="form-group m-0">
+                  <div class="custom-control custom-switch">
+                    <input
+                      onchange="availabilityHandler(event)"
+                      type="checkbox"
+                      class="custom-control-input"
+                      id="is_available"
+                      name="is_available"
+                      @if(auth.user.id != user.id && auth.user.is_superadmin != 1)
+                        disabled
                       @endif
-                    @endeach
-                    <hr>
-                    @if(user.phone && user.phone != 'null')
-                      <i class="fas fa-phone fa-fw mr-2"></i> <a href="tel:{{ user.phone }}" rel="noopener">{{ user.phone }}</a>
-                      <hr>
-                    @endif
-                    @if(user.mobile && user.mobile != 'null')
-                      <i class="fas fa-mobile-alt fa-fw mr-2"></i> <a href="tel:{{ user.mobile }}" rel="noopener">{{ user.mobile }}</a>
-                      <hr>
-                    @endif
-                    <i class="far fa-envelope fa-fw mr-2"></i> <a href="mailto:{{ user.email }}" rel="noopener">{{ user.email }}</a>
+                      @if(user.is_available == 1)
+                        checked
+                      @endif
+                    >
+                    <label id="availabilityChangeLabel" class="custom-control-label" for="is_available">
+                      @if(user.is_available == 1)
+                        {{ antl.forLocale(auth.user.locale).formatMessage('static.verfuegbar') }}
+                      @else
+                        {{ antl.forLocale(auth.user.locale).formatMessage('static.abwesend') }}
+                      @endif
+                    </label>
                   </div>
                 </div>
-              </div>
+              </form>
+            </div>
+            <div class="is-pulled-right">
+              @if(auth.user.id == user.id || auth.user.is_admin || auth.user.is_superadmin)
+                <a href="{{ route('usersEdit', { id: user.id }) }}" class="button is-small"><i class="fas fa-pencil-alt"></i></a>
+              @endif
             </div>
           </div>
-          <div class="col-12 col-md-6 col-lg p-md-3 p-0">
-            <div class="card">
-              <ul class="nav nav-tabs" id="memberInfos" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true"><i class="fas fa-info-circle fa-fw"></i></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="myProjects-tab" data-toggle="tab" href="#myProjects" role="tab" aria-controls="myProjects" aria-selected="false"><i class="fas fa-project-diagram fa-fw"></i></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="memberInProjects-tab" data-toggle="tab" href="#memberInProjects" role="tab" aria-controls="memberInProjects" aria-selected="false"><i class="fas fa-hands-helping fa-fw"></i></a>
-                </li>
-                @if(auth.user.is_superadmin)
-                  <li class="nav-item">
-                    <a class="nav-link" id="passwordRestore-tab" data-toggle="tab" href="#passwordRestore" role="tab" aria-controls="passwordRestore" aria-selected="false"><i class="fas fa-key fa-fw"></i></a>
-                  </li>
-                @endif
-              </ul>
-              <div class="tab-content p-2" id="memberInfosContent">
-                <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
-                  <table class="table table-sm table-borderless text-nowrap m-0">
-                    <tbody>
-                      <tr>
-                        <th scope="row">Status:</th>
-                        <td>
-                          @if(user.is_active == 0)
-                            <span class="text-danger">Inaktiv</span>
-                          @else
-                            <span class="text-success">Aktiv</span>
-                          @endif
-                        </td>
-                      </tr>
-                      <tr>
-                        <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.sprache') }}:</th>
-                        <td>{{ upperCase(user.locale) }}</td>
-                      </tr>
-                      <tr>
-                        <th>Admin:</th>
-                        <td>
-                          @if(user.is_admin == 1)
-                            <i class="fas fa-check"></i>
-                          @endif
-                        </td>
-                      </tr>
-                      <tr>
-                          <th>Superadmin:</th>
-                          <td>
-                            @if(user.is_superadmin == 1)
-                              <i class="fas fa-check"></i>
-                            @endif
-                          </td>
-                        </tr>
-                      <tr>
-                        <th>2FA {{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}:</th>
-                        <td>
-                          @if(user.tfa_active == 1)
-                            <i class="fas fa-check"></i>
-                          @endif
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">ID:</th>
-                        <td>{{ user.id }}</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.erstellt') }}:</th>
-                        <td>{{ user.created_at }}</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.geaendert') }}:</th>
-                        <td>{{ user.updated_at }}</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.letzte_anmeldung') }}:</th>
-                        <td>{{ user.lastLogin.created_at }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="tab-pane fade" id="myProjects" role="tabpanel" aria-labelledby="info-tab">
-                  @each(project in user.authorOfProjects)
-                    <a href="{{ route('projectsShow', { id: project.id }) }}" class="list-group-item list-group-item-action py-1 d-flex justify-content-between">
-                      <span>{{ project.title }}</span>
-                      <span><small>{{ project.phase }}</small></span>
-                    </a>
-                  @endeach
-                </div>
-                <div class="tab-pane fade" id="memberInProjects" role="tabpanel" aria-labelledby="info-tab">
-                  @each(project in user.memberInProjects)
-                    <a href="{{ route('projectsShow', { id: project.id }) }}" class="list-group-item list-group-item-action py-1 d-flex justify-content-between">
-                      <span>{{ project.title }}</span>
-                      <span><small>{{ project.phase }}</small></span>
-                    </a>
-                  @endeach
-                </div>
-                @if(auth.user.is_superadmin)
-                  <div class="tab-pane fade" id="passwordRestore" role="tabpanel" aria-labelledby="info-tab">
-                    @!component('users.components.passwordRestoreForm', {
-                      antl,
-                      locale: auth.user.locale,
-                      csrfField,
-                      userId: user.id,
-                    })
-                  </div>
-                @endif
-              </div>
-            </div>
+        @endslot
+
+        @slot('content')
+          <div class="columns is-centered m-b-lg">
+            @!component('users.components.avatar', { user, size: 128 })
           </div>
+            <div class="content">
+              <h1 class="has-text-centered">{{ user.first_name }} {{ user.last_name }}</h1>
+              <p class="has-text-centered">{{ user.profession }}</p>
+              @if(user.phone && user.phone != 'null')
+                <p class="has-text-centered"><i class="fas fa-phone"></i>&nbsp;&nbsp;<a href="tel:{{ user.phone }}" rel="noopener">{{ user.phone }}</a></p>
+              @endif
+              @if(user.mobile && user.mobile != 'null')
+                <p class="has-text-centered"><i class="fas fa-mobile-alt"></i>&nbsp;&nbsp;<a href="tel:{{ user.mobile }}" rel="noopener">{{ user.mobile }}</a></p>
+              @endif
+              <p class="has-text-centered"><i class="far fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:{{ user.email }}" rel="noopener">{{ user.email }}</a></p>
+            </div>
+        @endslot
+      @endcomponent
+    </div>
+    <div class="column is-4-tablet">
+      <div class="tabs is-centered">
+        <ul>
+          <li class="tab is-active" onclick="helpers.openTab(event,'info')">
+            <a><i class="fas fa-info-circle fa-fw"></i></a>
+          </li>
+          <li class="tab" onclick="helpers.openTab(event,'myProjects')">
+            <a><i class="fas fa-project-diagram fa-fw"></i></a>
+          </li>
+          <li class="tab" onclick="helpers.openTab(event,'memberInProjects')">
+            <a><i class="fas fa-hands-helping fa-fw"></i></a>
+          </li>
+          @if(auth.user.is_superadmin)
+            <li class="tab" onclick="helpers.openTab(event,'passwordRestore')">
+              <a><i class="fas fa-key fa-fw"></i></a>
+            </li>
+          @endif
+        </ul>
+      </div>
+      <div class="tab-content">
+        <div id="info" class="content-tab">
+          <table class="table is-narrow table-borderless is-fullwidth text-nowrap">
+            <tbody>
+              <tr>
+                <th scope="row">Status:</th>
+                <td>
+                  @if(user.is_active == 0)
+                    <span class="has-text-danger">Inaktiv</span>
+                  @else
+                    <span class="has-text-success">Aktiv</span>
+                  @endif
+                </td>
+              </tr>
+              <tr>
+                <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.sprache') }}:</th>
+                <td>{{ upperCase(user.locale) }}</td>
+              </tr>
+              <tr>
+                <th>Admin:</th>
+                <td>
+                  @if(user.is_admin == 1)
+                    <i class="fas fa-check"></i>
+                  @endif
+                </td>
+              </tr>
+              <tr>
+                  <th>Superadmin:</th>
+                  <td>
+                    @if(user.is_superadmin == 1)
+                      <i class="fas fa-check"></i>
+                    @endif
+                  </td>
+                </tr>
+              <tr>
+                <th>2FA {{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}:</th>
+                <td>
+                  @if(user.tfa_active == 1)
+                    <i class="fas fa-check"></i>
+                  @endif
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">ID:</th>
+                <td>{{ user.id }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.erstellt') }}:</th>
+                <td>{{ user.created_at }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.geaendert') }}:</th>
+                <td>{{ user.updated_at }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.letzte_anmeldung') }}:</th>
+                <td>{{ user.lastLogin.created_at }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+        <div id="myProjects" class="content-tab" style="display: none;">
+          <table class="table is-hoverable is-narrow table-borderless is-striped is-fullwidth text-nowrap linkable">
+            <tbody>
+              @each(project in user.authorOfProjects)
+                <tr class="clickable" data-href="{{ route('projectsShow', { id: project.id }) }}">
+                  <td>{{ project.title }}</td>
+                  <td>{{ project.phase }}</td>
+                </tr>
+              @endeach
+            </tbody>
+          </table>
+        </div>
+        <div id="memberInProjects" class="content-tab" style="display: none;">
+          <table class="table is-hoverable is-narrow table-borderless is-striped is-fullwidth text-nowrap linkable">
+            <tbody>
+              @each(project in user.memberInProjects)
+                <tr class="clickable" data-href="{{ route('projectsShow', { id: project.id }) }}">
+                  <td>{{ project.title }}</td>
+                  <td>{{ project.phase }}</td>
+                </tr>
+              @endeach
+            </tbody>
+          </table>
+        </div>
+        @if(auth.user.is_superadmin)
+          <div id="passwordRestore" class="content-tab" style="display: none;">
+            @!component('users.components.passwordRestoreForm', {
+              antl,
+              locale: auth.user.locale,
+              csrfField,
+              userId: user.id,
+            })
+          </div>
+        @endif
       </div>
     </div>
   </div>
@@ -196,6 +191,7 @@
     <script>
       document.addEventListener('DOMContentLoaded', function(event) {
         document.getElementById('password').value = ''
+        helpers.clickableRow()
       })
 
       function availabilityHandler(event) {

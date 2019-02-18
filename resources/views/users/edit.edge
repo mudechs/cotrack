@@ -1,101 +1,98 @@
 @layout('layouts.app')
 
 @section('content')
-  <div class="container-fluid mt-md-3 mt-0">
-    <div class="row">
-      <div class="col-12 col-lg-4 offset-lg-4 p-md-3 p-0">
-        <div class="card">
-          <div class="card-header text-center">{{ antl.forLocale(auth.user.locale).formatMessage('static.benutzer_bearbeiten') }}</div>
-          <form action="{{ route('usersUpdate', { id: user.id }) }}" method="post" enctype="multipart/form-data">
-            {{ csrfField() }}
-            <div class="card-body">
-              <div class="form-group">
-                <div class="custom-control custom-switch">
+  <div class="container">
+    @component('components.card', {
+      antl,
+      csrf,
+      locale: auth.user.locale,
+      title: 'static.benutzer_bearbeiten',
+      styles: 'has-background-light has-rounded-white-border',
+      footer: false
+    })
+      @slot('content')
+        <form action="{{ route('usersUpdate', { id: user.id }) }}" method="post" enctype="multipart/form-data">
+          {{ csrfField() }}
+          <div class="columns">
+            <div class="column">
+              <div class="field">
+                <label class="checkbox" for="is_active">
                   <input
                     type="checkbox"
-                    class="custom-control-input"
                     id="is_active"
                     name="is_active"
                     @if(user.is_active == true)
                       checked
                     @endif
                   >
-                  <label class="custom-control-label" for="is_active">{{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}</label>
-                </div>
+                  {{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}
+                </label>
               </div>
-              <div class="form-group">
-                <div class="custom-control custom-switch">
+              <div class="field">
+                <label class="checkbox" for="tfa_active">
                   <input
                     type="checkbox"
-                    class="custom-control-input"
                     id="tfa_active"
                     name="tfa_active"
                     @if(user.tfa_active == 1)
                       checked
                     @endif
                   >
-                  <label class="custom-control-label" for="tfa_active">2FA</label>
-                </div>
+                  2FA
+                </label>
               </div>
-              @if(auth.user.is_admin || auth.user.is_superadmin)
-                <div class="form-group">
-                  <div class="custom-control custom-switch">
-                    <input
-                      type="checkbox"
-                      class="custom-control-input"
-                      id="is_admin"
-                      name="is_admin"
-                      @if(user.is_admin == 1)
-                        checked
-                      @endif
-                    >
-                    <label class="custom-control-label" for="is_admin">Administrator</label>
-                  </div>
-                </div>
-              @endif
+              <div class="field">
+                <label class="checkbox" for="is_admin">
+                  <input
+                    type="checkbox"
+                    id="is_admin"
+                    name="is_admin"
+                    @if(user.is_admin == 1)
+                      checked
+                    @endif
+                  >
+                  Administrator
+                </label>
+              </div>
               @if(auth.user.is_superadmin)
-                <div class="form-group">
-                  <div class="custom-control custom-switch">
+                <div class="field">
+                  <label class="checkbox" for="is_superadmin">
                     <input
                       type="checkbox"
-                      class="custom-control-input"
                       id="is_superadmin"
                       name="is_superadmin"
                       @if(user.is_superadmin == 1)
                         checked
                       @endif
                     >
-                    <label class="custom-control-label" for="is_superadmin">Super-Administrator</label>
-                  </div>
+                    Super-Administrator
+                  </label>
                 </div>
               @endif
-              <hr>
-              <div class="form-group">
-                <label for="locale">{{ antl.forLocale(auth.user.locale).formatMessage('static.sprache') }}</label>
-                <div class="row">
-                  <div class="col-4 col-md4">
-                    <select id="locale" name="locale" class="form-control">
-                      <option value="de"
-                        @if(user.locale == 'de')
-                          selected
-                        @endif
-                      >Deutsch</option>
-                      <option value="en"
-                        @if(user.locale == 'en')
-                          selected
-                        @endif
-                      >English</option>
-                    </select>
-                  </div>
+              <div class="field">
+                <label for="locale" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.sprache') }}</label>
+                <div class="select">
+                  <select id="locale" name="locale">
+                    <option value="de"
+                      @if(user.locale == 'de')
+                        selected
+                      @endif
+                    >Deutsch</option>
+                    <option value="en"
+                      @if(user.locale == 'en')
+                        selected
+                      @endif
+                    >English</option>
+                  </select>
                 </div>
               </div>
               <hr>
-              <div class="form-group">
-                <label for="salutation">{{ antl.forLocale(auth.user.locale).formatMessage('static.anrede') }}</label>
-                <div class="row">
-                  <div class="col-4 col-md4">
-                    <select id="salutation" name="salutation" class="form-control {{ hasErrorFor('salutation') ? 'is-invalid' : '' }}">
-                      <option value=""></option>
+              <div class="field">
+                <label for="salutation" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.anrede') }}</label>
+                <div class="control">
+                  <div class="select {{ hasErrorFor('salutation') ? 'is-danger' : '' }}">
+                    <select name="salutation">
+                      <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
                       @each(salutation in salutations)
                         <option value="{{ salutation.value }}"
                           @if(salutation.value == user.salutation)
@@ -104,101 +101,108 @@
                         >{{ salutation.label }}</option>
                       @endeach
                     </select>
+                    {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('salutation'), hasErrorFor('salutation')) }}
                   </div>
                 </div>
-                {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('salutation'), hasErrorFor('salutation')) }}
               </div>
-              <div class="form-group">
-                <label for="first_name">{{ antl.forLocale(auth.user.locale).formatMessage('static.vorname') }}</label>
-                <input
-                  type="text"
-                  class="form-control {{ hasErrorFor('first_name') ? 'is-invalid' : '' }}"
-                  name="first_name"
-                  id="first_name"
-                  value="{{ user.first_name }}">
-                {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('first_name'), hasErrorFor('first_name')) }}
-              </div>
-              <div class="form-group">
-                <label for="last_name">{{ antl.forLocale(auth.user.locale).formatMessage('static.nachname') }}</label>
-                <input
-                  type="text"
-                  class="form-control {{ hasErrorFor('last_name') ? 'is-invalid' : '' }}"
-                  name="last_name"
-                  id="last_name"
-                  value="{{ user.last_name }}">
-                {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('last_name'), hasErrorFor('last_name')) }}
-              </div>
-              <div class="form-group">
-                <label for="profession">{{ antl.forLocale(auth.user.locale).formatMessage('static.funktion') }}</label>
-                <input
-                  type="text"
-                  class="form-control {{ hasErrorFor('profession') ? 'is-invalid' : '' }}"
-                  name="profession"
-                  id="profession"
-                  value="{{ user.profession }}">
-                {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('profession'), hasErrorFor('profession')) }}
-              </div>
-              <div class="form-group">
-                <label for="phone">{{ antl.forLocale(auth.user.locale).formatMessage('static.telefon') }}</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-phone fa-fw"></i></span>
-                  </div>
+              <div class="field">
+                <label for="first_name" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.vorname') }}</label>
+                <div class="control">
                   <input
                     type="text"
-                    class="form-control {{ hasErrorFor('phone') ? 'is-invalid' : '' }}"
+                    class="input {{ hasErrorFor('first_name') ? 'is-danger' : '' }}"
+                    name="first_name"
+                    id="first_name"
+                    value="{{ user.first_name }}"
+                    autofocus
+                  >
+                  {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('first_name'), hasErrorFor('first_name')) }}
+                </div>
+              </div>
+              <div class="field">
+                <label for="last_name" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.nachname') }}</label>
+                <div class="control">
+                  <input
+                    type="text"
+                    class="input {{ hasErrorFor('last_name') ? 'is-danger' : '' }}"
+                    name="last_name"
+                    id="last_name"
+                    value="{{ user.last_name }}">
+                  {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('last_name'), hasErrorFor('last_name')) }}
+                </div>
+              </div>
+              <div class="field">
+                <label for="profession" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.funktion') }}</label>
+                <div class="control">
+                  <input
+                    type="text"
+                    class="input {{ hasErrorFor('profession') ? 'is-danger' : '' }}"
+                    name="profession"
+                    id="profession"
+                    value="{{ user.profession }}">
+                  {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('profession'), hasErrorFor('profession')) }}
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="field">
+                <label for="phone" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.telefon') }}</label>
+                <div class="control has-icons-left">
+                  <input
+                    type="text"
+                    class="input {{ hasErrorFor('phone') ? 'is-danger' : '' }}"
                     name="phone"
                     id="phone"
-                    value="{{ user.phone }}">
+                    value="{{ user.phone }}"
+                  >
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-phone"></i>
+                  </span>
+                  {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('phone'), hasErrorFor('phone')) }}
                 </div>
-                {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('phone'), hasErrorFor('phone')) }}
               </div>
-              <div class="form-group">
-                <label for="mobile">Mobile</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-mobile-alt fa-fw"></i></span>
-                  </div>
+              <div class="field">
+                <label for="mobile" class="label">Mobile</label>
+                <div class="control has-icons-left">
                   <input
                     type="text"
-                    class="form-control {{ hasErrorFor('mobile') ? 'is-invalid' : '' }}"
+                    class="input {{ hasErrorFor('mobile') ? 'is-danger' : '' }}"
                     name="mobile"
                     id="mobile"
-                    value="{{ user.mobile }}">
+                    value="{{ user.mobile }}"
+                  >
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-mobile"></i>
+                  </span>
+                  {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('mobile'), hasErrorFor('mobile')) }}
                 </div>
-                {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('mobile'), hasErrorFor('mobile')) }}
               </div>
-              <div class="form-group">
-                <label for="email">E-Mail</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-at"></i></span>
-                  </div>
+              <div class="field">
+                <label for="email" class="label">E-Mail</label>
+                <div class="control has-icons-left">
                   <input
                     type="email"
-                    class="form-control {{ hasErrorFor('email') ? 'is-invalid' : '' }}"
+                    class="input {{ hasErrorFor('email') ? 'is-danger' : '' }}"
                     name="email"
                     id="email"
-                    value="{{ user.email }}">
-                </div>
-                {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('email'), hasErrorFor('email')) }}
-              </div>
-              <label for="avatar" class="mt-3">{{ antl.forLocale(auth.user.locale).formatMessage('static.foto') }}</label>
-              <div class="card mb-5">
-                <div class="card-header">
-                  <div class="form-group m-0">
-                    <input type="file" name="avatar"/>
-                  </div>
+                    value="{{ user.email }}"
+                  >
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-at"></i>
+                  </span>
+                  {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('email'), hasErrorFor('email')) }}
                 </div>
               </div>
+              <label for="avatar" class="label m-t-sm">{{ antl.forLocale(auth.user.locale).formatMessage('static.foto') }}</label>
+              <input type="file" name="avatar"/>
             </div>
-            <div class="card-footer d-flex justify-content-center">
-              <a href="{{ route('usersShow', { id: user.id }) }}" class="btn btn-secondary mr-2"><i class="fas fa-times"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.abbrechen') }}</a>
-              <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.speichern') }}</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+          </div>
+          <div class="has-text-right">
+            <a href="{{ route('usersShow', { id: user.id }) }}" class="button is-text"><i class="fas fa-times"></i>&nbsp;&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.abbrechen') }}</a>
+            <button type="submit" class="button is-primary"><i class="far fa-paper-plane fa-fw"></i>&nbsp;&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.speichern') }}</button>
+          </div>
+        </form>
+      @endslot
+    @endcomponent
   </div>
 @endsection

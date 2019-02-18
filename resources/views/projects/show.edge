@@ -20,9 +20,11 @@
         @endslot
 
         @slot('content')
-          {{{ project.descriptionHtml }}}
+          <div class="content">
+            {{{ project.descriptionHtml }}}
+          </div>
           <hr>
-          <div class="tabs is-small is-toggle is-toggle-rounded">
+          <div class="tabs is-small is-centered">
             <ul>
               <li class="tab is-active" onclick="helpers.openTab(event,'infos')">
                 <a>Infos</a>
@@ -77,21 +79,24 @@
             </div>
             <div id="members" class="content-tab" style="display: none;">
               @each(member in project.members)
-                <div class="media">
-                  @!component('users.components.avatar', { user: member, size: 40 })
-                  <div class="media-body ml-3">
-                    <h6 class="my-0">
-                      <a href="{{ route('usersShow', { id: member.id }) }}" class="d-flex justify-content-between">
-                        <span>{{ member.first_name }} {{ member.last_name }}</span>
-                        <span>
-                          @!component('users.components.availableCircle', { user: member })
+                <article id="kommentar_{{ comment.id }}" class="media">
+                  <figure class="media-left">
+                    <p class="image is-60x60">
+                      @!component('users.components.avatar', { user: member, size: 64 })
+                    </p>
+                  </figure>
+                  <div class="media-content">
+                    <div class="content">
+                      <p class="m-b-xxs">
+                        <b>{{ member.first_name }} {{ member.last_name }}</b>
+                        <span class="is-pulled-right">
+                            @!component('users.components.availableCircle', { user: member })
                         </span>
-                      </a>
-                    </h6>
-                    {{ member.profession }}
+                      </p>
+                      <small>{{ member.profession }}</small>
+                    </div>
                   </div>
-                </div>
-                <hr>
+                </article>
               @endeach
             </div>
           </div>
@@ -99,7 +104,7 @@
       @endcomponent
     </div>
     <div class="column is-8-tablet">
-      <div class="tabs is-small">
+      <div class="tabs is-small is-centered">
         <ul>
           <li class="tab is-active" onclick="helpers.openTab(event,'open')">
             <a>{{ antl.forLocale(auth.user.locale).formatMessage('static.offene_tickets') }}</a>

@@ -1,9 +1,6 @@
-<div>
-  <small>{{ ticket.project.title }}</small>
-</div>
-<div class="is-clearfix p-t-sm">
+<div class="has-text-right p-t-sm">
   @if(ticket.attachments)
-    <small class="is-pulled-left"><i class="fas fa-paperclip fa-fw"></i></small>
+    <small><i class="fas fa-paperclip fa-fw"></i></small>
   @endif
-  <small class="is-pulled-right"><i class="far fa-comments fa-fw"></i>&nbsp;{{ ticket["__meta__"].comments_count }}</small>
+  <small class="m-l-sm"><i class="far fa-comments fa-fw"></i>&nbsp;{{ ticket["__meta__"].comments_count }}</small>
 </div>

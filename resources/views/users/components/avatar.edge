@@ -1,5 +1,7 @@
 @if(user.avatar)
-  <img src="{{ assetsUrl('uploads/avatars/' + user.id + '/' + user.avatar) }}" alt="" class="rounded-circle mx-auto d-block" width="{{ size }}" height="{{ size }}">
+<figure class="image is-{{ size }}x{{ size }}">
+  <img src="{{ assetsUrl('uploads/avatars/' + user.id + '/' + user.avatar) }}" alt="" class="is-rounded">
+</figure>
 @else
-<div class="dummy-avatar dummy-avatar-big mx-auto d-block" style="width:{{ size }}px;height:{{ size }}px;"></div>
+<div class="dummy-avatar dummy-avatar-big" style="width:{{ size }}px;height:{{ size }}px;"></div>
 @endif

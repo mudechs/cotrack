@@ -1,70 +1,86 @@
 @layout('layouts.app')
 
 @section('content')
-  <div class="container-fluid mt-3">
-    <div class="row">
-      <div class="col-lg-4">
-        <div class="card mb-3">
-          <div class="card-header text-center">{{ antl.forLocale(auth.user.locale).formatMessage('static.mir_zugewiesen_neu') }}</div>
-          <div class="list-group list-group-flush">
-            @each(ticket in ticketsAssignedToMe)
-              <a href="{{ route('ticketsShow', { id: ticket.id }) }}" class="list-group-item list-group-item-action">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <span>
-                    @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
-                    @!component('tickets.components.statusBadge', { statuses, ticketStatus: ticket.status })
-                  </span>
-                  <span><small>{{ ticket.created_at }}</small></span>
-                </div>
-                <h6 class=""><i class="fas fa-ticket-alt"></i> {{ ticket.subject }}</h6>
-                @include('tickets.includes.widgetFooter')
-              </a>
-            @endeach
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="card mb-3">
-          <div class="card-header text-center">{{ antl.forLocale(auth.user.locale).formatMessage('static.von_mir_berichtet_offen') }}</div>
-          <div class="list-group list-group-flush">
-            @each(ticket in ticketsAssignedToOthers)
-              <a href="{{ route('ticketsShow', { id: ticket.id }) }}" class="list-group-item list-group-item-action">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <span>
-                    @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
-                    @!component('tickets.components.statusBadge', { statuses, ticketStatus: ticket.status })
-                  </span>
-                  <span><small>{{ ticket.created_at }}</small></span>
-                </div>
-                <h6 class=""><i class="fas fa-ticket-alt"></i> {{ ticket.subject }}</h6>
-                @include('tickets.includes.widgetFooter')
-              </a>
-            @endeach
-          </div>
-        </div>
-      </div>
-      @if(auth.user.is_admin || auth.user.is_superadmin)
-        <div class="col-lg-4">
-          <div class="card mb-3">
-            <div class="card-header text-center">{{ antl.forLocale(auth.user.locale).formatMessage('static.nicht_zugewiesen_offen') }}</div>
-            <div class="list-group list-group-flush">
-              @each(ticket in ticketsNotAssigned)
-                <a href="{{ route('ticketsShow', { id: ticket.id }) }}" class="list-group-item list-group-item-action">
-                  <div class="d-flex justify-content-between align-items-center mb-3">
-                    <span>
-                      @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
-                      @!component('tickets.components.statusBadge', { statuses, ticketStatus: ticket.status })
-                    </span>
-                    <span><small>{{ ticket.created_at }}</small></span>
-                  </div>
-                  <h6 class=""><i class="fas fa-ticket-alt"></i> {{ ticket.subject }}</h6>
-                  @include('tickets.includes.widgetFooter')
-                </a>
-              @endeach
-            </div>
-          </div>
-        </div>
-      @endif
+  <div class="columns">
+    <div class="column is-4-tablet">
+      @component('components.card', {
+        antl,
+        locale: auth.user.locale,
+        title: 'static.mir_zugewiesen_neu',
+        styles: 'has-rounded-white-border',
+        cardContentPadding: '.75rem',
+        footer: false
+      })
+        @slot('content')
+          @each(ticket in ticketsAssignedToMe)
+            <a href="{{ route('ticketsShow', { id: ticket.id }) }}" class="box has-background-light is-fullwidth">
+              <div class="is-clearfix m-b-sm">
+                <span>
+                  @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
+                  @!component('tickets.components.statusBadge', { statuses, ticketStatus: ticket.status })
+                </span>
+                <span class="is-pulled-right"><small>{{ ticket.created_at }}</small></span>
+              </div>
+              <h6 class="subtitle m-b-sm">{{ ticket.subject }}</h6>
+              @include('tickets.includes.widgetFooter')
+            </a>
+          @endeach
+        @endslot
+      @endcomponent
     </div>
+    <div class="column is-4-tablet">
+      @component('components.card', {
+        antl,
+        locale: auth.user.locale,
+        title: 'static.von_mir_berichtet_offen',
+        styles: 'has-rounded-white-border',
+        cardContentPadding: '.75rem',
+        footer: false
+      })
+        @slot('content')
+          @each(ticket in ticketsAssignedToOthers)
+            <a href="{{ route('ticketsShow', { id: ticket.id }) }}" class="box has-background-light is-fullwidth">
+              <div class="is-clearfix m-b-sm">
+                <span>
+                  @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
+                  @!component('tickets.components.statusBadge', { statuses, ticketStatus: ticket.status })
+                </span>
+                <span class="is-pulled-right"><small>{{ ticket.created_at }}</small></span>
+              </div>
+              <h6 class="subtitle m-b-sm">{{ ticket.subject }}</h6>
+              @include('tickets.includes.widgetFooter')
+            </a>
+          @endeach
+        @endslot
+      @endcomponent
+    </div>
+    @if(auth.user.is_admin || auth.user.is_superadmin)
+      <div class="column is-4-tablet">
+        @component('components.card', {
+          antl,
+          locale: auth.user.locale,
+          title: 'static.nicht_zugewiesen_offen',
+          styles: 'has-rounded-white-border',
+          cardContentPadding: '.75rem',
+          footer: false
+        })
+          @slot('content')
+            @each(ticket in ticketsNotAssigned)
+              <a href="{{ route('ticketsShow', { id: ticket.id }) }}" class="box has-background-light is-fullwidth">
+                <div class="is-clearfix m-b-sm">
+                  <span>
+                    @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
+                    @!component('tickets.components.statusBadge', { statuses, ticketStatus: ticket.status })
+                  </span>
+                  <span class="is-pulled-right"><small>{{ ticket.created_at }}</small></span>
+                </div>
+                <h6 class="subtitle m-b-sm">{{ ticket.subject }}</h6>
+                @include('tickets.includes.widgetFooter')
+              </a>
+            @endeach
+          @endslot
+        @endcomponent
+      </div>
+    @endif
   </div>
 @endsection

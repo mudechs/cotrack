@@ -1,7 +1,7 @@
 @layout('layouts.app')
 
 @section('content')
-  <div class="tabs is-toggle is-toggle-rounded">
+  <div class="tabs is-centered">
     <ul id="projects">
       <li class="tab is-active" onclick="helpers.openTab(event,'active')">
         <a>{{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}</a>

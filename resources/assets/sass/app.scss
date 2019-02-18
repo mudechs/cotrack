@@ -24,6 +24,7 @@ body {
 
 .button.is-small.is-rounded {
   padding: 0 .65rem;
+  font-size: .65rem;
 }
 
 a.dropdown-item, button.dropdown-item {
@@ -31,7 +32,8 @@ a.dropdown-item, button.dropdown-item {
 }
 
 .box {
-  padding: .5rem;
+  padding: .75rem;
+  margin-bottom: .25rem !important;
 }
 
 hr {
@@ -208,6 +210,14 @@ footer {
   }
 
   .has-rounded-white-border {
-    border-radius: 0;
+    border-radius: 0 !important;
+  }
+
+  .card-content {
+    padding: 0;
+  }
+
+  .content {
+    padding: 0 .75rem;
   }
 }

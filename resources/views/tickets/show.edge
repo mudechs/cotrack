@@ -97,40 +97,41 @@
   @slot('content')
     <div class="columns">
       <div class="column is-8-tablet">
-        <h3 class="subtitle">{{ ticket.subject }}</h3>
-        @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
-        @!component('tickets.components.statusBadge', { statuses, ticketStatus: ticket.status })
-        <div class="m-t-md m-b-md">
-        @if(ticket.impact)
-          <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.auswirkung') }}: </b>
-            @each(impact in impacts)
-              @if(impact.value == ticket.impact)
-                {{ impact.label }}
-              @endif
-            @endeach
-          </small><br>
-        @endif
-        @if(ticket.reproducible)
-          <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.reproduzierbar') }}: </b>
-            @each(reproducible in reproducibles)
-              @if(reproducible.value == ticket.reproducible)
-                {{ reproducible.label }}
-              @endif
-            @endeach
-          </small><br>
-        @endif
-        @if(ticket.done_until)
-          <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.zu_erledigen_bis') }}: </b><span class="text-danger">{{ ticket.done_until }}</span></small><br>
-        @endif
-        </div>
-        <small>
-          @!component('users.components.availableCircle', { user: ticket.ticketAuthor })
-          {{ ticket.ticketAuthor.first_name }} {{ ticket.ticketAuthor.last_name }} &rarr;
-          @!component('users.components.availableCircle', { user: ticket.ticketRecipient })
-          @!component('tickets.components.recipientInfo', { antl, locale: auth.user.locale, recipient: ticket.ticketRecipient })
-        </small>
-        <hr>
         <div class="content">
+          <h3 class="subtitle">{{ ticket.subject }}</h3>
+          @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
+          @!component('tickets.components.statusBadge', { statuses, ticketStatus: ticket.status })
+          <div class="m-t-md m-b-md">
+          @if(ticket.impact)
+            <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.auswirkung') }}: </b>
+              @each(impact in impacts)
+                @if(impact.value == ticket.impact)
+                  {{ impact.label }}
+                @endif
+              @endeach
+            </small><br>
+          @endif
+          @if(ticket.reproducible)
+            <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.reproduzierbar') }}: </b>
+              @each(reproducible in reproducibles)
+                @if(reproducible.value == ticket.reproducible)
+                  {{ reproducible.label }}
+                @endif
+              @endeach
+            </small><br>
+          @endif
+          @if(ticket.done_until)
+            <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.zu_erledigen_bis') }}: </b><span class="text-danger">{{ ticket.done_until }}</span></small><br>
+          @endif
+          </div>
+          <small>
+            @!component('users.components.availableCircle', { user: ticket.ticketAuthor })
+            {{ ticket.ticketAuthor.first_name }} {{ ticket.ticketAuthor.last_name }} &rarr;
+            @!component('users.components.availableCircle', { user: ticket.ticketRecipient })
+            @!component('tickets.components.recipientInfo', { antl, locale: auth.user.locale, recipient: ticket.ticketRecipient })
+          </small>
+          <hr>
+
           {{{ ticket.descriptionHtml }}}
           <hr>
           @each(attachment in ticket.attachments)
@@ -138,7 +139,7 @@
           @endeach
         </div>
         <div class="box has-background-light m-t-lg">
-          <div class="p-md m-b-lg">
+          <div class="p-xs m-b-lg">
             <span><i class="far fa-comments fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.kommentare') }}</span>
             @if(ticket.recipient_id)
               <button type="button" id="createCommentButton" class="button is-small is-pulled-right">

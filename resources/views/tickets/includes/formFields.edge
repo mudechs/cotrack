@@ -1,92 +1,91 @@
-<div class="card-body">
-  <div class="row">
-    <div class="col-md-8">
-      @if(ticket != undefined)
-        <b>{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}: </b>{{ ticket.project.title }}<br>
-        <b>{{ antl.forLocale(auth.user.locale).formatMessage('static.empfaenger') }}: </b>
-        @!component('tickets.components.recipientInfo', { antl, locale: auth.user.locale, recipient: ticket.ticketRecipient })
-        <br>
-      @else
-        <div class="form-group">
-          <label for="project">{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}</label>
-          <div class="row">
-            <div class="col-md-6 col-12">
-              <select
-                onchange="projectSelectorHandler(event)"
-                id="project"
-                name="project"
-                class="form-control {{ hasErrorFor('project') ? 'is-invalid' : '' }}"
-                >
-                <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
-                @each(project in projects)
-                  <option value="{{ project.id }}"
-                  {{ old('project') == project.id ? 'selected' : ''  }}
-                  >{{ project.title }}</option>
-                @endeach
-              </select>
-              {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('project'), hasErrorFor('project')) }}
-            </div>
+<div class="columns">
+  <div class="column is-8-tablet">
+    @if(ticket != undefined)
+      <b>{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}: </b>{{ ticket.project.title }}<br>
+      <b>{{ antl.forLocale(auth.user.locale).formatMessage('static.empfaenger') }}: </b>
+      @!component('tickets.components.recipientInfo', { antl, locale: auth.user.locale, recipient: ticket.ticketRecipient })
+      <br>
+    @else
+      <div class="field">
+        <label for="project" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}</label>
+        <div class="control">
+          <div class="select {{ hasErrorFor('project') ? 'is-danger' : '' }}">
+            <select
+              onchange="projectSelectorHandler(event)"
+              id="project"
+              name="project"
+              class="select"
+            >
+              <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
+              @each(project in projects)
+                <option value="{{ project.id }}"
+                {{ old('project') == project.id ? 'selected' : ''  }}
+                >{{ project.title }}</option>
+              @endeach
+            </select>
+            {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('project'), hasErrorFor('project')) }}
           </div>
         </div>
-      @endif
+      </div>
+    @endif
 
-      @if(ticket == undefined)
-        <div class="form-group" style="display: none;">
-          <label for="recipient">{{ antl.forLocale(auth.user.locale).formatMessage('static.empfaenger') }} (optional)</label>
-          <div class="row">
-            <div id="recipientSelect" class="col-md-6 col-12">
-
-            </div>
-          </div>
+    @if(ticket == undefined)
+      <div class="field" style="display: none;">
+        <label for="recipient" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.empfaenger') }} (optional)</label>
+        <div class="control">
+          <div id="recipientSelect" class="select"></div>
         </div>
-      @endif
+      </div>
+    @endif
 
-      <div class="form-group mt-4">
-        <label for="subject">{{ antl.forLocale(auth.user.locale).formatMessage('static.betreff') }}</label>
+    <div class="field">
+      <label for="subject" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.betreff') }}</label>
+      <div class="control">
         <input
           type="text"
-          class="form-control {{ hasErrorFor('subject') ? 'is-invalid' : '' }}"
+          class="input {{ hasErrorFor('subject') ? 'is-danger' : '' }}"
           name="subject"
           id="subject"
           value="{{ ticket == undefined ? old('subject', '') : ticket.subject }}"
-          autofocus>
-        {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('subject'), hasErrorFor('subject')) }}
+          autofocus
+        >
+        {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('subject'), hasErrorFor('subject')) }}
       </div>
-      <div class="form-group">
-        <label for="description">{{ antl.forLocale(auth.user.locale).formatMessage('static.beschreibung') }} <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">[{{ antl.forLocale(auth.user.locale).formatMessage('static.markdown_erlaubt') }}]</a></label>
-        <textarea
-          name="description"
-          class="form-control {{ hasErrorFor('description') ? 'is-invalid' : '' }}"
-          id="description"
-          rows="10">{{ ticket == undefined ? old('description', '') : ticket.description }}</textarea>
-        {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('description'), hasErrorFor('description')) }}
-      </div>
+    </div>
+    <div class="field">
+      <label for="description" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.beschreibung') }} <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank"><small>[{{ antl.forLocale(auth.user.locale).formatMessage('static.markdown_erlaubt') }}]</small></a></label>
+      <textarea
+        name="description"
+        class="textarea {{ hasErrorFor('description') ? 'is-danger' : '' }}"
+        id="description"
+        rows="10">{{ ticket == undefined ? old('description', '') : ticket.description }}</textarea>
+      {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('description'), hasErrorFor('description')) }}
+    </div>
 
-      <label for="attachments mt-5">Attachments</label><br>
-      @if(ticket != undefined)
-        <ul class="list-group mb-3">
-          @each(attachment in attachments)
-            <li class="list-group-item">
-              <div class="d-flex justify-content-between align-items-center">
-                <span>{{ attachment.clientName }}</span>
-                <span><small>{{ attachment.size / 1000 }} kb</small></span>
-                <button type="button" class="btn btn-sm btn-link btn-files-remover" data-index="{{ $loop.index }}"><i class="far fa-trash-alt"></i></button>
-              </div>
-            </li>
-          @endeach
-        </ul>
+    <label for="attachments" class="label m-t-lg">Attachments</label>
+    @if(ticket != undefined)
+      @each(attachment in attachments)
+        <div class="box has-background-primary" style="margin-bottom: .5rem;">
+          <div class="is-clearfix is-fullwidth">
+            <span>{{ attachment.clientName }} ({{ attachment.size / 1000 }} kb)</span>
+            <button type="button" class="btn-files-remover button is-small is-primary is-inverted is-outlined is-pulled-right" data-index="{{ $loop.index }}"><i class="far fa-trash-alt"></i></button>
+          </div>
+        </div>
+      @endeach
+      <input id="modified-files" type="hidden" name="modified-files[]" value="null">
+    @endif
 
-        <input id="modified-files" type="hidden" name="modified-files[]" value="null">
-      @endif
-
-      <div class="form-group">
+    <div class="field">
+      <div class="control">
         <input type="file" id="file" name="attachments[]" multiple />
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <label for="priority">{{ antl.forLocale(auth.user.locale).formatMessage('static.prioritaet') }}</label>
-        <select name="priority" class="form-control">
+  </div>
+  <div class="column is-4-tablet">
+    <div class="field">
+      <label for="priority" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.prioritaet') }}</label>
+      <div class="select">
+        <select name="priority">
           @each(priority in priorities)
             <option value="{{ priority.value }}"
               @if(priority.value == ticket.priority)
@@ -97,9 +96,11 @@
           @endeach
         </select>
       </div>
-      <div class="form-group">
-        <label for="impact">{{ antl.forLocale(auth.user.locale).formatMessage('static.auswirkung') }}</label>
-        <select name="impact" class="form-control">
+    </div>
+    <div class="field">
+      <label for="impact" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.auswirkung') }}</label>
+      <div class="select">
+        <select name="impact">
           <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
           @each(impact in impacts)
             <option value="{{ impact.value }}"
@@ -111,9 +112,11 @@
           @endeach
         </select>
       </div>
-      <div class="form-group">
-        <label for="reproducible">{{ antl.forLocale(auth.user.locale).formatMessage('static.reproduzierbar') }}</label>
-        <select name="reproducible" class="form-control">
+    </div>
+    <div class="field">
+      <label for="reproducible" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.reproduzierbar') }}</label>
+      <div class="select">
+        <select name="reproducible">
           <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
           @each(reproducible in reproducibles)
             <option value="{{ reproducible.value }}"
@@ -125,25 +128,26 @@
           @endeach
         </select>
       </div>
-      <div class="form-group">
-        <label for="done_until">{{ antl.forLocale(auth.user.locale).formatMessage('static.zu_erledigen_bis') }}</label>
+    </div>
+    <div class="field">
+      <label for="done_until" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.zu_erledigen_bis') }}</label>
+      <input
+        type="date"
+        class="input"
+        name="done_until"
+        id="done_until"
+        value="{{ ticket == undefined ? old('done_until', '') : doneUntil }}">
+    </div>
+    <div class="field">
+      <label for="time_expenses" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.aufwand_std') }}</label>
+      <div class="control">
         <input
-          type="date"
-          class="form-control"
-          name="done_until"
-          id="done_until"
-          value="{{ ticket == undefined ? old('done_until', '') : doneUntil }}">
-      </div>
-      <div class="form-group">
-        <label for="time_expenses">{{ antl.forLocale(auth.user.locale).formatMessage('static.aufwand_std') }}</label>
-        <div class="w-25">
-          <input
-            type="text"
-            class="form-control"
-            name="time_expenses"
-            id="time_expenses"
-            value="{{ ticket == undefined ? old('time_expenses', '') : ticket.time_expenses }}">
-        </div>
+          type="text"
+          class="input"
+          name="time_expenses"
+          id="time_expenses"
+          value="{{ ticket == undefined ? old('time_expenses', '') : ticket.time_expenses }}"
+        >
       </div>
     </div>
   </div>
