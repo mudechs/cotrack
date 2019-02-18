@@ -61,7 +61,7 @@
               {{ antl.forLocale(auth.user.locale).formatMessage('static.hallo') }}&nbsp;<strong>{{ auth.user.first_name }}</strong>
           </a>
 
-          <div class="navbar-dropdown">
+          <div class="navbar-dropdown is-right">
             <a href="{{ route('usersShow', { id: auth.user.id }) }}" class="navbar-item">
               <i class="fas fa-user-circle fa-fw"></i>&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.meinprofil') }}
             </a>
