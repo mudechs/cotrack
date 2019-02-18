@@ -19,18 +19,16 @@
     @slot('content')
       <div class="columns">
         <div class="column is-8-tablet">
-          <address>
-            {{ settings.company }}<br>
-            {{ settings.contact_person }}<br>
-            {{ settings.address }}<br>
-            {{ settings.zip_code }} {{ settings.city }} ({{ settings.area }})<br>
-            {{ settings.country }}
-          </address>
+          {{ settings.company }}<br>
+          {{ settings.contact_person }}<br>
+          {{ settings.address }}<br>
+          {{ settings.zip_code }} {{ settings.city }} ({{ settings.area }})<br>
+          {{ settings.country }}
           <hr>
           <i class="fas fa-phone fa-fw"></i> <a href="tel:{{ settings.phone }}" target="_blank">{{ settings.phone }}</a><br>
           <i class="fas fa-mobile-alt fa-fw"></i> <a href="tel:{{ settings.mobile }}" target="_blank">{{ settings.mobile }}</a><br>
           <i class="far fa-envelope fa-fw"></i> <a href="mailto:{{ settings.email }}" target="_blank">{{ settings.email }}</a><br>
-          <i class="fas fa-globe fa-fw"></i> <a href="{{ settings.www }}" target="_blank">{{ settings.www }}</a>
+          <i class="fas fa-globe fa-fw"></i> <a href="{{ settings.www }}" target="_blank" rel="noopener">{{ settings.www }}</a>
         </div>
         <div class="column is-4-tablet">
           <table class="table is-narrow table-borderless is-fullwidth text-nowrap">
@@ -47,9 +45,9 @@
                 <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('settings.erlaube_registrierung') }}:</th>
                 <td>
                   @if(settings.allow_registration == true)
-                    <i class="fas fa-circle text-success"></i>
+                    <i class="fas fa-circle has-text-success"></i>
                   @else
-                    <i class="fas fa-circle text-danger"></i>
+                    <i class="fas fa-circle has-text-danger"></i>
                   @endif
                 </td>
               </tr>
@@ -57,9 +55,9 @@
                 <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('settings.wartungsmodus') }}:</th>
                 <td>
                   @if(settings.maintenance_mode == true)
-                    <i class="fas fa-circle text-success"></i>
+                    <i class="fas fa-circle has-text-success"></i>
                   @else
-                    <i class="fas fa-circle text-danger"></i>
+                    <i class="fas fa-circle has-text-danger"></i>
                   @endif
                 </td>
               </tr>

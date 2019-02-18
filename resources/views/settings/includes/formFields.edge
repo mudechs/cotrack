@@ -194,34 +194,34 @@
     <hr>
     <div class="field">
       <div class="control">
+        <input
+          type="checkbox"
+          class="switch"
+          id="allow_registration"
+          name="allow_registration"
+          @if(settings.allow_registration == true)
+            checked
+          @endif
+          {{ old('allow_registration') == 'on' ? 'checked' : ''  }}
+        >
         <label class="checkbox" for="allow_registration">
-          <input
-            type="checkbox"
-            class="custom-control-input"
-            id="allow_registration"
-            name="allow_registration"
-            @if(settings.allow_registration == true)
-              checked
-            @endif
-            {{ old('allow_registration') == 'on' ? 'checked' : ''  }}
-          >
           {{ antl.forLocale(auth.user.locale).formatMessage('settings.erlaube_registrierung') }}
         </label>
       </div>
     </div>
     <div class="field">
       <div class="control">
+        <input
+          type="checkbox"
+          class="switch"
+          id="maintenance_mode"
+          name="maintenance_mode"
+          @if(settings.maintenance_mode == true)
+            checked
+          @endif
+          {{ old('maintenance_mode') == 'on' ? 'checked' : ''  }}
+        >
         <label class="checkbox" for="maintenance_mode">
-          <input
-            type="checkbox"
-            class="custom-control-input"
-            id="maintenance_mode"
-            name="maintenance_mode"
-            @if(settings.maintenance_mode == true)
-              checked
-            @endif
-            {{ old('maintenance_mode') == 'on' ? 'checked' : ''  }}
-          >
           {{ antl.forLocale(auth.user.locale).formatMessage('settings.wartungsmodus') }}
         </label>
       </div>
