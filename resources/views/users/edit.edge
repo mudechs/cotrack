@@ -16,59 +16,72 @@
           <div class="columns">
             <div class="column">
               <div class="field">
-                <label class="checkbox" for="is_active">
+                <div class="control">
                   <input
                     type="checkbox"
                     id="is_active"
                     name="is_active"
+                    class="switch"
                     @if(user.is_active == true)
                       checked
                     @endif
                   >
-                  {{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}
-                </label>
+                  <label class="checkbox" for="is_active">
+                    {{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}
+                  </label>
+                </div>
               </div>
               <div class="field">
-                <label class="checkbox" for="tfa_active">
+                <div class="control">
                   <input
                     type="checkbox"
                     id="tfa_active"
                     name="tfa_active"
+                    class="switch"
                     @if(user.tfa_active == 1)
                       checked
                     @endif
                   >
-                  2FA
-                </label>
+                  <label class="checkbox" for="tfa_active">
+                    2FA
+                  </label>
+                </div>
               </div>
               <div class="field">
-                <label class="checkbox" for="is_admin">
+                <div class="control">
                   <input
                     type="checkbox"
                     id="is_admin"
                     name="is_admin"
+                    class="switch"
                     @if(user.is_admin == 1)
                       checked
                     @endif
                   >
-                  Administrator
-                </label>
+                  <label class="checkbox" for="is_admin">
+                    Administrator
+                  </label>
+                </div>
               </div>
               @if(auth.user.is_superadmin)
                 <div class="field">
-                  <label class="checkbox" for="is_superadmin">
+                  <div class="control">
                     <input
                       type="checkbox"
                       id="is_superadmin"
                       name="is_superadmin"
+                      class="switch"
                       @if(user.is_superadmin == 1)
                         checked
                       @endif
                     >
-                    Super-Administrator
-                  </label>
+                    <label class="checkbox" for="is_superadmin">
+                      Super-Administrator
+                    </label>
+                  </div>
                 </div>
               @endif
+              <hr>
               <div class="field">
                 <label for="locale" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.sprache') }}</label>
                 <div class="select">

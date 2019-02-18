@@ -28,20 +28,20 @@
   <div class="column is-4-tablet">
     <div class="field">
       <div class="control">
+        <input
+          class="switch"
+          type="checkbox"
+          name="is_active"
+          id="is_active"
+          @if(project.is_active == 1)
+            checked
+          @endif
+          @if(project == undefined)
+            checked
+          @endif
+          {{ old('is_active') == 'on' ? 'checked' : ''  }}
+        >
         <label class="checkbox" for="is_active">
-          <input
-            class="custom-control-input"
-            type="checkbox"
-            name="is_active"
-            id="is_active"
-            @if(project.is_active == 1)
-              checked
-            @endif
-            @if(project == undefined)
-              checked
-            @endif
-            {{ old('is_active') == 'on' ? 'checked' : ''  }}
-          >
           {{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}
         </label>
       </div>

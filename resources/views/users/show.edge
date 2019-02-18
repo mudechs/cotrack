@@ -15,12 +15,12 @@
             <div class="is-pulled-left">
               <form id="availability-change-form" action="{{ route('userChangeAvailability', { id: user.id }) }}" method="post">
                 {{ csrfField() }}
-                <div class="form-group m-0">
-                  <div class="custom-control custom-switch">
+                <div class="field">
+                  <div class="control">
                     <input
                       onchange="availabilityHandler(event)"
                       type="checkbox"
-                      class="custom-control-input"
+                      class="switch"
                       id="is_available"
                       name="is_available"
                       @if(auth.user.id != user.id && auth.user.is_superadmin != 1)

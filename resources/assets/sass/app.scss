@@ -1,10 +1,12 @@
 @import "custom";
-@import "node_modules/bulma/bulma";
+@import "bulma";
+@import "node_modules/bulma-extensions/dist/css/bulma-extensions.min";
 @import "node_modules/choices.js/src/styles/choices";
 
 html {
   height: 100%;
 }
+
 body {
   // padding-bottom: 41px;
   min-height: 100%;
@@ -27,7 +29,8 @@ body {
   font-size: .65rem;
 }
 
-a.dropdown-item, button.dropdown-item {
+a.dropdown-item,
+button.dropdown-item {
   padding-right: 1rem;
 }
 
@@ -65,7 +68,7 @@ footer {
   width: 320px;
   position: fixed;
   left: 50%;
-  margin-left:-160px;
+  margin-left: -160px;
   bottom: 0;
   z-index: 40;
   padding: 10px;
@@ -79,7 +82,7 @@ footer {
   width: 100px;
   position: fixed;
   left: 50%;
-  margin-left:-50px;
+  margin-left: -50px;
   bottom: 0;
   z-index: 10;
   padding: 10px;
@@ -132,23 +135,23 @@ footer {
 }
 
 .dataTable-pagination ul {
-	margin: 10px;
+  margin: 10px;
   padding-left: 0;
 }
 
 .dataTable-pagination li {
-	list-style: none;
-	float: left;
+  list-style: none;
+  float: left;
 }
 
 .dataTable-pagination a {
-	border: 1px solid transparent;
-	float: left;
-	margin-left: 2px;
-	padding: 6px 12px;
-	position: relative;
-	text-decoration: none;
-	color: #D9D9D9;
+  border: 1px solid transparent;
+  float: left;
+  margin-left: 2px;
+  padding: 6px 12px;
+  position: relative;
+  text-decoration: none;
+  color: #D9D9D9;
 }
 
 .dataTable-pagination a:hover {
@@ -161,25 +164,25 @@ footer {
 .dataTable-pagination .active a:hover {
   background-color: #d9d9d9;
   color: #32383E;
-	cursor: default;
+  cursor: default;
 }
 
 .dataTable-pagination .ellipsis a,
 .dataTable-pagination .disabled a,
 .dataTable-pagination .disabled a:focus,
 .dataTable-pagination .disabled a:hover {
-	cursor: not-allowed;
+  cursor: not-allowed;
 }
 
 .dataTable-pagination .disabled a,
 .dataTable-pagination .disabled a:focus,
 .dataTable-pagination .disabled a:hover {
-	cursor: not-allowed;
-	opacity: 0.4;
+  cursor: not-allowed;
+  opacity: 0.4;
 }
 
 .dataTable-pagination .pager a {
-	font-weight: bold;
+  font-weight: bold;
 }
 
 .dummy-avatar {
