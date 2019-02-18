@@ -1,30 +1,34 @@
-<div class="card-body">
-  <div class="row">
-    <div class="col-md-8">
-      <div class="form-group">
-        <label for="title">{{ antl.forLocale(auth.user.locale).formatMessage('static.titel') }}</label>
+<div class="columns">
+  <div class="column is-8-tablet">
+    <div class="field">
+      <label for="title" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.titel') }}</label>
+      <div class="control">
         <input
           type="text"
-          class="form-control {{ hasErrorFor('title') ? 'is-invalid' : '' }}"
+          class="input is-medium {{ hasErrorFor('title') ? 'is-danger' : '' }}"
           name="title"
           id="title"
           value="{{ project == undefined ? old('title', '') : project.title }}"
           autofocus>
-        {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('title'), hasErrorFor('title')) }}
-      </div>
-      <div class="form-group">
-        <label for="description">{{ antl.forLocale(auth.user.locale).formatMessage('static.beschreibung') }} <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">[{{ antl.forLocale(auth.user.locale).formatMessage('static.markdown_erlaubt') }}]</a></label>
-        <textarea
-          name="description"
-          class="form-control {{ hasErrorFor('description') ? 'is-invalid' : '' }}"
-          id="description"
-          rows="10">{{ project == undefined ? old('description', '') : project.description }}</textarea>
-        {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('description'), hasErrorFor('description')) }}
+        {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('title'), hasErrorFor('title')) }}
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <div class="custom-control custom-switch">
+    <div class="field">
+      <label for="description" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.beschreibung') }} <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">[{{ antl.forLocale(auth.user.locale).formatMessage('static.markdown_erlaubt') }}]</a></label>
+      <div class="control">
+        <textarea
+          name="description"
+          class="textarea {{ hasErrorFor('description') ? 'is-danger' : '' }}"
+          id="description"
+          rows="10">{{ project == undefined ? old('description', '') : project.description }}</textarea>
+        {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('description'), hasErrorFor('description')) }}
+      </div>
+    </div>
+  </div>
+  <div class="column is-4-tablet">
+    <div class="field">
+      <div class="control">
+        <label class="checkbox" for="is_active">
           <input
             class="custom-control-input"
             type="checkbox"
@@ -37,15 +41,16 @@
               checked
             @endif
             {{ old('is_active') == 'on' ? 'checked' : ''  }}
-            >
-          <label class="custom-control-label" for="is_active">
-              {{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}
-          </label>
-        </div>
+          >
+          {{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}
+        </label>
       </div>
-      <div class="form-group">
-        <label for="phase">{{ antl.forLocale(auth.user.locale).formatMessage('static.phase') }}</label><br>
-        <select name="phase" class="form-control">
+    </div>
+    <hr>
+    <div class="field">
+      <label for="phase" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.phase') }}</label>
+      <div class="select">
+        <select name="phase">
           <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
           @each(phase in phases)
             <option value="{{ phase.value }}"
@@ -57,29 +62,29 @@
           @endeach
         </select>
       </div>
-      <div class="form-group">
-        <label for="members">Members</label><br>
-        <select id="members" name="members[]" class="custom-select" multiple="multiple">
-          @if(project == undefined)
-            @each(member in members)
-              <option value="{{ member.id }}"
-              {{ old('members') == member.id ? 'selected' : ''  }}
-              >{{ member.first_name }} {{ member.last_name }}</option>
-            @endeach
-          @else
-            @each(user in users)
-              <option
-                value="{{ user.id }}"
-                @each(member in project.members)
-                @if(member.id == $parent.user.id)
-                selected
-                @endif
-                @endeach
-              >{{ user.first_name }} {{ user.last_name }}</option>
-            @endeach
-          @endif
-        </select>
-      </div>
+    </div>
+    <div class="field">
+      <label for="members" class="label">Members</label>
+      <select id="members" name="members[]" class="custom-select" multiple="multiple">
+        @if(project == undefined)
+          @each(member in members)
+            <option value="{{ member.id }}"
+            {{ old('members') == member.id ? 'selected' : ''  }}
+            >{{ member.first_name }} {{ member.last_name }}</option>
+          @endeach
+        @else
+          @each(user in users)
+            <option
+              value="{{ user.id }}"
+              @each(member in project.members)
+              @if(member.id == $parent.user.id)
+              selected
+              @endif
+              @endeach
+            >{{ user.first_name }} {{ user.last_name }}</option>
+          @endeach
+        @endif
+      </select>
     </div>
   </div>
 </div>

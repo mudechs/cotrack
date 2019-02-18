@@ -3,6 +3,24 @@
 import { DataTable } from 'simple-datatables'
 import axios from 'axios'
 
+// Tabs
+function openTab(evt, tabName) {
+  const tab = evt.currentTarget.closest('div')
+  const content = evt.currentTarget.closest('div').nextElementSibling
+  const tabs = content.getElementsByClassName('content-tab')
+  let i, tablinks
+
+  for (i = 0; i < tabs.length; i++) {
+    tabs[i].style.display = 'none'
+  }
+  tablinks = tab.getElementsByClassName('tab')
+  for (i = 0; i < tabs.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(' is-active', '')
+  }
+  document.getElementById(tabName).style.display = 'block'
+  evt.currentTarget.className += ' is-active'
+}
+
 function showNotification() {
   document.getElementById('notification').style.display = 'block'
   setTimeout(function() {
@@ -61,17 +79,18 @@ function saveDraggedTicket(evt) {
   axios.post(url, {
     status: status
   })
-    .then(function (response) {
+    .then(function () {
       showToast()
-      console.log(response)
+      // console.log(response)
     })
-    .catch(function (error) {
+    .catch(function () {
       showToast()
-      console.log(error)
+      // console.log(error)
     })
 }
 
 export default {
+  openTab,
   showNotification,
   showToast,
   formSerialize,

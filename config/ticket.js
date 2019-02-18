@@ -28,12 +28,12 @@ module.exports = {
   priorities: [
     {
       de: [
-        { 'label': 'Normal', 'value': 'Normal', 'color': 'secondary' },
+        { 'label': 'Normal', 'value': 'Normal', 'color': 'light' },
         { 'label': 'Hoch', 'value': 'Hoch', 'color': 'warning' },
         { 'label': 'Dringend', 'value': 'Dringend', 'color': 'danger' }
       ],
       en: [
-        { 'label': 'Normal', 'value': 'Normal', 'color': 'secondary' },
+        { 'label': 'Normal', 'value': 'Normal', 'color': 'light' },
         { 'label': 'High', 'value': 'Hoch', 'color': 'warning' },
         { 'label': 'Urgent', 'value': 'Dringend', 'color': 'danger' }
       ]

@@ -65,7 +65,7 @@ class RegisterController {
       }
     })
 
-    return response.route('registerSuccess')
+    return response.route('register.success')
   }
 
   async confirmEmail({ params, request, session, response }) {

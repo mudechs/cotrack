@@ -1,72 +1,73 @@
 @layout('layouts.app')
 
 @section('content')
-  <div class="container-fluid mt-md-3 mt-0">
-    <div class="row">
-      <div class="col-md-8 offset-md-2">
-        <div class="row">
-          <div class="col-12 col-md-6 col-lg p-md-3 p-0">
-            <div class="card">
-              <div class="card-header d-flex justify-content-between align-items-center">
-                <div><h5 class="m-0">{{ antl.forLocale(auth.user.locale).formatMessage('settings.titel') }}</h5></div>
-                <div><a href="{{ route('settings.edit', { id: settings.id }) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pencil-alt"></i></a></div>
-              </div>
-              <div class="card-body">
-                <address>
-                  {{ settings.company }}<br>
-                  {{ settings.contact_person }}<br>
-                  {{ settings.address }}<br>
-                  {{ settings.zip_code }} {{ settings.city }} ({{ settings.area }})<br>
-                  {{ settings.country }}
-                </address>
-                <hr>
-                <i class="fas fa-phone fa-fw mr-2"></i> <a href="tel:{{ settings.phone }}" target="_blank">{{ settings.phone }}</a><hr>
-                <i class="fas fa-mobile-alt fa-fw mr-2"></i> <a href="tel:{{ settings.mobile }}" target="_blank">{{ settings.mobile }}</a><hr>
-                <i class="far fa-envelope fa-fw mr-2"></i> <a href="mailto:{{ settings.email }}" target="_blank">{{ settings.email }}</a><hr>
-                <i class="fas fa-globe fa-fw mr-2"></i> <a href="{{ settings.www }}" target="_blank">{{ settings.www }}</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-6 col-lg p-md-3 p-0">
-            <div class="card">
-              <div class="card-body p-2">
-                <table class="table table-sm table-borderless text-nowrap m-0">
-                  <tbody>
-                    <tr>
-                      <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('settings.app_name') }}:</th>
-                      <td>{{ settings.app_name }}</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('settings.standard_sprache') }}:</th>
-                      <td>{{ upperCase(settings.default_locale) }}</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('settings.erlaube_registrierung') }}:</th>
-                      <td>
-                        @if(settings.allow_registration == true)
-                          <i class="fas fa-circle text-success"></i>
-                        @else
-                          <i class="fas fa-circle text-danger"></i>
-                        @endif
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('settings.wartungsmodus') }}:</th>
-                      <td>
-                        @if(settings.maintenance_mode == true)
-                          <i class="fas fa-circle text-success"></i>
-                        @else
-                          <i class="fas fa-circle text-danger"></i>
-                        @endif
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+<div class="container">
+  @component('components.card', {
+    antl,
+    csrf,
+    locale: auth.user.locale,
+    styles: 'has-background-light has-rounded-white-border',
+    footer: false
+  })
+    @slot('header')
+      <h1 class="subtitle">
+        {{ antl.forLocale(auth.user.locale).formatMessage('settings.titel') }}
+        <a href="{{ route('settings.edit', { id: settings.id }) }}" class="button is-small is-primary is-pulled-right"><i class="fas fa-pencil-alt"></i></a>
+      </h1>
+    @endslot
+
+    @slot('content')
+      <div class="columns">
+        <div class="column is-8-tablet">
+          <address>
+            {{ settings.company }}<br>
+            {{ settings.contact_person }}<br>
+            {{ settings.address }}<br>
+            {{ settings.zip_code }} {{ settings.city }} ({{ settings.area }})<br>
+            {{ settings.country }}
+          </address>
+          <hr>
+          <i class="fas fa-phone fa-fw"></i> <a href="tel:{{ settings.phone }}" target="_blank">{{ settings.phone }}</a><br>
+          <i class="fas fa-mobile-alt fa-fw"></i> <a href="tel:{{ settings.mobile }}" target="_blank">{{ settings.mobile }}</a><br>
+          <i class="far fa-envelope fa-fw"></i> <a href="mailto:{{ settings.email }}" target="_blank">{{ settings.email }}</a><br>
+          <i class="fas fa-globe fa-fw"></i> <a href="{{ settings.www }}" target="_blank">{{ settings.www }}</a>
+        </div>
+        <div class="column is-4-tablet">
+          <table class="table is-narrow table-borderless is-fullwidth text-nowrap">
+            <tbody>
+              <tr>
+                <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('settings.app_name') }}:</th>
+                <td>{{ settings.app_name }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('settings.standard_sprache') }}:</th>
+                <td>{{ upperCase(settings.default_locale) }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('settings.erlaube_registrierung') }}:</th>
+                <td>
+                  @if(settings.allow_registration == true)
+                    <i class="fas fa-circle text-success"></i>
+                  @else
+                    <i class="fas fa-circle text-danger"></i>
+                  @endif
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('settings.wartungsmodus') }}:</th>
+                <td>
+                  @if(settings.maintenance_mode == true)
+                    <i class="fas fa-circle text-success"></i>
+                  @else
+                    <i class="fas fa-circle text-danger"></i>
+                  @endif
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-    </div>
-  </div>
+    @endslot
+  @endcomponent
+</div>
 @endsection

@@ -2,11 +2,13 @@
   <div class="navbar-brand">
     <a class="navbar-item" href="{{ route('dashboard') }}">{{ globals().app_name }}</a>
 
-    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="topNavigation">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
+    @loggedIn
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="topNavigation">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    @endloggedIn
   </div>
 
   <div id="topNavigation" class="navbar-menu">

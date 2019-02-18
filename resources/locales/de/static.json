@@ -71,13 +71,14 @@
   "kontodaten_per_mail_senden": "Kontodaten per E-Mail senden",
   "sprache": "Sprache",
   "einstellungen": "Einstellungen",
+  "einstellungen_bearbeiten": "Einstellungen bearbeiten",
   "passwort_aendern": "Passwort ändern",
   "aktuelles_passwort": "Aktuelles Passwort",
   "neues_passwort": "Neues Passwort",
   "neues_passwort_wiederholen": "Neues Passwort wiederholen",
   "anmelden": "Anmelden",
   "login_bestaetigen": "Login bestätigen",
-  "bitte_sicherheitscode_eingeben": "Bitte den per Mail verschickten Sicherheitscode eingeben",
+  "sicherheitscode": "Sicherheitscode",
   "email": "E-Mail",
   "login_merken": "Login merken",
   "passwort_vergessen": "Passwort vergessen",
@@ -92,5 +93,6 @@
   "your_superadmin_password": "Dein Superadmin Passwort:",
   "new_password_sent": "Ein neues Passwort wurde per E-Mail an den Benutzer gesendet.",
   "verfuegbar": "Verfügbar",
-  "abwesend": "Abwesend"
+  "abwesend": "Abwesend",
+  "fehler": "Fehler"
 }

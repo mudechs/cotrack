@@ -1,66 +1,66 @@
 @layout('layouts.app')
 
+@section('bodyClass')
+  has-background-primary
+@endsection
+
 @section('content')
   <div class="container">
     <div class="columns is-mobile">
-      <div class="column is-half is-offset-one-quarter">
-        <div class="box">login</div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4 offset-md-4 p-0">
-        <div class="card">
-          <div class="card-header text-center">{{ globals().app_name }}</div>
-          <form action="{{ route('login') }}" method="post">
-            {{ csrfField() }}
-            <div class="card-body">
-              <div class="form-group">
-                <label for="email">{{ antl.forLocale(globals().default_locale).formatMessage('static.email') }}</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-at"></i></span>
-                  </div>
+      <div class="column is-half-tablet is-offset-one-quarter-tablet is-one-third-desktop is-offset-one-third-desktop">
+        @component('components.card', {
+          antl,
+          csrf,
+          locale: globals().default_locale,
+          title: 'static.anmelden',
+          styles: 'has-background-primary has-rounded-white-border',
+          footer: false
+        })
+          @slot('content')
+            <form action="{{ route('login') }}" method="post">
+              {{ csrfField() }}
+              <div class="field">
+                <label for="email" class="label has-text-white">{{ antl.forLocale(globals().default_locale).formatMessage('static.email') }}</label>
+                <div class="control has-icons-left">
                   <input
                     type="email"
-                    class="form-control {{ hasErrorFor('email') ? 'is-invalid' : '' }}"
+                    class="input is-medium {{ hasErrorFor('email') ? 'is-danger' : '' }}"
                     name="email"
                     id="email"
                     value="{{ old('email', '') }}"
                     autofocus
                     autocomplete="email">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-at"></i>
+                  </span>
+                  {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('email'), hasErrorFor('email')) }}
                 </div>
-                {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('email'), hasErrorFor('email')) }}
               </div>
-              <div class="form-group">
-                <label for="password">{{ antl.forLocale(globals().default_locale).formatMessage('static.passwort') }}</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-key"></i></span>
-                  </div>
+              <div class="field">
+                <label for="password" class="label has-text-white">{{ antl.forLocale(globals().default_locale).formatMessage('static.passwort') }}</label>
+                <div class="control has-icons-left">
                   <input
                     type="password"
-                    class="form-control {{ hasErrorFor('password') ? 'is-invalid' : '' }}"
+                    class="input is-medium {{ hasErrorFor('password') ? 'is-danger' : '' }}"
                     name="password"
                     id="password"
-                    autocomplete="current-password">
-                </div>
-                {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('password'), hasErrorFor('password')) }}
-              </div>
-              <div class="form-group">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" name="remember" id="remember">
-                  <label class="form-check-label" for="remember">
-                    {{ antl.forLocale(globals().default_locale).formatMessage('static.login_merken') }}
-                  </label>
+                    value="{{ old('password', '') }}"
+                    autocomplete="password">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-key"></i>
+                  </span>
+                  {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('password'), hasErrorFor('password')) }}
                 </div>
               </div>
-            </div>
-            <div class="card-footer d-flex justify-content-between align-items-center">
-              <a href="{{ route('passwordReset') }}"><small>{{ antl.forLocale(globals().default_locale).formatMessage('static.passwort_vergessen') }}?</small></a>
-              <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> Login</button>
-            </div>
-          </form>
-        </div>
+              <label for="remember" class="checkbox has-text-white">
+                <input type="checkbox" name="remember" id="remember">
+                {{ antl.forLocale(globals().default_locale).formatMessage('static.login_merken') }}
+              </label>
+              <button type="submit" class="button is-primary is-inverted is-outlined is-fullwidth m-b-sm m-t-lg"><i class="far fa-paper-plane fa-fw"></i>&nbsp;&nbsp;Login</button>
+              <a href="{{ route('passwordResetForm') }}"><small>{{ antl.forLocale(globals().default_locale).formatMessage('static.passwort_vergessen') }}?</small></a>
+            </form>
+          @endslot
+        @endcomponent
       </div>
     </div>
   </div>

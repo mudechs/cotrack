@@ -1,222 +1,230 @@
-<div class="card-header">
-  <h5 class="m-0">{{ antl.forLocale(auth.user.locale).formatMessage('settings.einstellungen_bearbeiten') }}</h5>
-</div>
-<div class="card-body">
-  <div class="row">
-    <div class="col-12 col-md-8 mb-5">
-      <div class="form-group">
-        <label for="company">{{ antl.forLocale(auth.user.locale).formatMessage('settings.company') }}</label>
+<div class="columns">
+  <div class="column is-8-tablet">
+    <div class="field">
+      <label for="company" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('settings.company') }}</label>
+      <div class="control">
         <input
           type="text"
-          class="form-control"
+          class="input"
           name="company"
           id="company"
           value="{{ settings == undefined ? old('company', '') : settings.company }}"
           autofocus
           >
       </div>
-      <div class="form-group">
-        <label for="contact_person">{{ antl.forLocale(auth.user.locale).formatMessage('settings.contact_person') }}</label>
+    </div>
+    <div class="field">
+      <label for="contact_person" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('settings.contact_person') }}</label>
+      <div class="control">
         <input
           type="text"
-          class="form-control"
+          class="input"
           name="contact_person"
           id="contact_person"
-          value="{{ settings == undefined ? old('contact_person', '') : settings.contact_person }}">
+          value="{{ settings == undefined ? old('contact_person', '') : settings.contact_person }}"
+        >
       </div>
-      <div class="form-group">
-        <label for="address">{{ antl.forLocale(auth.user.locale).formatMessage('settings.address') }}</label>
+    </div>
+    <div class="field">
+      <label for="address" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('settings.address') }}</label>
+      <div class="control">
         <input
           type="text"
-          class="form-control"
+          class="input"
           name="address"
           id="address"
-          value="{{ settings == undefined ? old('address', '') : settings.address }}">
+          value="{{ settings == undefined ? old('address', '') : settings.address }}"
+        >
       </div>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-4">
-            <label for="zip_code">{{ antl.forLocale(auth.user.locale).formatMessage('settings.zip_code') }}</label>
+    </div>
+    <div class="field">
+      <div class="columns">
+        <div class="column is-4">
+          <label for="zip_code" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('settings.zip_code') }}</label>
+          <div class="control">
             <input
               type="text"
-              class="form-control"
+              class="input"
               name="zip_code"
               id="zip_code"
-              value="{{ settings == undefined ? old('zip_code', '') : settings.zip_code }}">
+              value="{{ settings == undefined ? old('zip_code', '') : settings.zip_code }}"
+            >
           </div>
-          <div class="col-8">
-            <label for="city">{{ antl.forLocale(auth.user.locale).formatMessage('settings.city') }}</label>
+        </div>
+        <div class="column is-8">
+          <label for="city" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('settings.city') }}</label>
+          <div class="control">
             <input
               type="text"
-              class="form-control"
+              class="input"
               name="city"
               id="city"
-              value="{{ settings == undefined ? old('city', '') : settings.city }}">
+              value="{{ settings == undefined ? old('city', '') : settings.city }}"
+            >
           </div>
-        </div>
-      </div>
-      <div class="form-group mb-5">
-        <div class="row">
-          <div class="col-4">
-            <label for="area">{{ antl.forLocale(auth.user.locale).formatMessage('settings.area') }}</label>
-            <input
-              type="text"
-              class="form-control"
-              name="area"
-              id="area"
-              value="{{ settings == undefined ? old('area', '') : settings.area }}">
-          </div>
-          <div class="col-8">
-            <label for="country">{{ antl.forLocale(auth.user.locale).formatMessage('settings.country') }}</label>
-            <input
-              type="text"
-              class="form-control"
-              name="country"
-              id="country"
-              value="{{ settings == undefined ? old('country', '') : settings.country }}">
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-          <label for="phone">{{ antl.forLocale(auth.user.locale).formatMessage('settings.phone') }}</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="fas fa-phone fa-fw"></i></span>
-            </div>
-            <input
-              type="text"
-              class="form-control"
-              name="phone"
-              id="phone"
-              value="{{ settings == undefined ? old('phone', '') : settings.phone }}">
-          </div>
-        </div>
-      <div class="form-group">
-        <label for="mobile">Mobile</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-mobile-alt fa-fw"></i></span>
-          </div>
-          <input
-            type="text"
-            class="form-control"
-            name="mobile"
-            id="mobile"
-            value="{{ settings == undefined ? old('mobile', '') : settings.mobile }}">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="email">E-Mail</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-at"></i></span>
-          </div>
-          <input
-            type="email"
-            class="form-control"
-            name="email"
-            id="email"
-            value="{{ settings == undefined ? old('email', '') : settings.email }}">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="www">WWW</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-globe"></i></span>
-          </div>
-          <input
-            type="www"
-            class="form-control"
-            name="www"
-            id="www"
-            value="{{ settings == undefined ? old('www', '') : settings.www }}">
         </div>
       </div>
     </div>
-    <div class="col-12 col-md-4">
-      <table class="table table-sm table-borderless text-nowrap m-0">
-        <tbody>
-          <tr>
-            <td scope="row" colspan="2">
-              <div class="form-group mb-0">
-                <label for="app_name">{{ antl.forLocale(auth.user.locale).formatMessage('settings.app_name') }}</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="app_name"
-                  id="app_name"
-                  value="{{ settings == undefined ? old('app_name', '') : settings.app_name }}">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td scope="row" colspan="2">
-              <div class="form-group mb-0">
-                <label for="default_locale">{{ antl.forLocale(auth.user.locale).formatMessage('settings.standard_sprache') }}:</label>
-                <select id="default_locale" name="default_locale" class="form-control">
-                  <option value="de"
-                    @if(settings.default_locale == 'de')
-                      selected
-                    @endif
-                    @if(settings == undefined)
-                      selected
-                    @endif
-                    {{ old('default_locale') == 'on' ? 'checked' : ''  }}
-                  >Deutsch</option>
-                  <option value="en"
-                    @if(settings.default_locale == 'en')
-                      selected
-                    @endif
-                    {{ old('default_locale') == 'on' ? 'checked' : ''  }}
-                  >English</option>
-                </select>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th colspan="2"><hr></th>
-          </tr>
-          <tr>
-            <th scope="row" colspan="2">
-              <div class="form-group">
-                <div class="custom-control custom-switch">
-                  <input
-                    type="checkbox"
-                    class="custom-control-input"
-                    id="allow_registration"
-                    name="allow_registration"
-                    @if(settings.allow_registration == true)
-                      checked
-                    @endif
-                    {{ old('allow_registration') == 'on' ? 'checked' : ''  }}
-                  >
-                  <label class="custom-control-label" for="allow_registration">{{ antl.forLocale(auth.user.locale).formatMessage('settings.erlaube_registrierung') }}</label>
-                </div>
-              </div>
-            </th>
-          </tr>
-          <tr>
-            <th scope="row" colspan="2">
-              <div class="form-group">
-                <div class="custom-control custom-switch">
-                  <input
-                    type="checkbox"
-                    class="custom-control-input"
-                    id="maintenance_mode"
-                    name="maintenance_mode"
-                    @if(settings.maintenance_mode == true)
-                      checked
-                    @endif
-                    {{ old('maintenance_mode') == 'on' ? 'checked' : ''  }}
-                  >
-                  <label class="custom-control-label" for="maintenance_mode">{{ antl.forLocale(auth.user.locale).formatMessage('settings.wartungsmodus') }}</label>
-                </div>
-              </div>
-            </th>
-          </tr>
-        </tbody>
-      </table>
+    <div class="field">
+      <div class="columns">
+        <div class="column is-4">
+          <label for="area" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('settings.area') }}</label>
+          <div class="control">
+            <input
+              type="text"
+              class="input"
+              name="area"
+              id="area"
+              value="{{ settings == undefined ? old('area', '') : settings.area }}"
+            >
+          </div>
+        </div>
+        <div class="column is-8">
+          <label for="country" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('settings.country') }}</label>
+          <div class="control">
+            <input
+              type="text"
+              class="input"
+              name="country"
+              id="country"
+              value="{{ settings == undefined ? old('country', '') : settings.country }}"
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label for="phone" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('settings.phone') }}</label>
+      <div class="control has-icons-left">
+        <input
+          type="text"
+          class="input"
+          name="phone"
+          id="phone"
+          value="{{ settings == undefined ? old('phone', '') : settings.phone }}"
+        >
+        <span class="icon is-small is-left">
+          <i class="fas fa-phone"></i>
+        </span>
+      </div>
+    </div>
+    <div class="field">
+      <label for="mobile" class="label">Mobile</label>
+      <div class="control has-icons-left">
+        <input
+          type="text"
+          class="input"
+          name="mobile"
+          id="mobile"
+          value="{{ settings == undefined ? old('mobile', '') : settings.mobile }}"
+        >
+        <span class="icon is-small is-left">
+          <i class="fas fa-mobile"></i>
+        </span>
+      </div>
+    </div>
+    <div class="field">
+      <label for="email" class="label">E-Mail</label>
+      <div class="control has-icons-left">
+        <input
+          type="email"
+          class="input"
+          name="email"
+          id="email"
+          value="{{ settings == undefined ? old('email', '') : settings.email }}"
+        >
+        <span class="icon is-small is-left">
+          <i class="fas fa-at"></i>
+        </span>
+      </div>
+    </div>
+    <div class="field">
+      <label for="www" class="label">WWW</label>
+      <div class="control has-icons-left">
+        <input
+          type="www"
+          class="input"
+          name="www"
+          id="www"
+          value="{{ settings == undefined ? old('www', '') : settings.www }}"
+        >
+        <span class="icon is-small is-left">
+          <i class="fas fa-key"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="column is-4-tablet">
+    <div class="field">
+      <label for="app_name" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('settings.app_name') }}</label>
+      <div class="control">
+        <input
+          type="text"
+          class="input"
+          name="app_name"
+          id="app_name"
+          value="{{ settings == undefined ? old('app_name', '') : settings.app_name }}"
+        >
+      </div>
+    </div>
+    <div class="field">
+      <label for="default_locale" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('settings.standard_sprache') }}:</label>
+      <div class="control">
+        <div class="select">
+          <select id="default_locale" name="default_locale" class="form-control">
+            <option value="de"
+              @if(settings.default_locale == 'de')
+                selected
+              @endif
+              @if(settings == undefined)
+                selected
+              @endif
+              {{ old('default_locale') == 'on' ? 'checked' : ''  }}
+            >Deutsch</option>
+            <option value="en"
+              @if(settings.default_locale == 'en')
+                selected
+              @endif
+              {{ old('default_locale') == 'on' ? 'checked' : ''  }}
+            >English</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="field">
+      <div class="control">
+        <label class="checkbox" for="allow_registration">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="allow_registration"
+            name="allow_registration"
+            @if(settings.allow_registration == true)
+              checked
+            @endif
+            {{ old('allow_registration') == 'on' ? 'checked' : ''  }}
+          >
+          {{ antl.forLocale(auth.user.locale).formatMessage('settings.erlaube_registrierung') }}
+        </label>
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <label class="checkbox" for="maintenance_mode">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="maintenance_mode"
+            name="maintenance_mode"
+            @if(settings.maintenance_mode == true)
+              checked
+            @endif
+            {{ old('maintenance_mode') == 'on' ? 'checked' : ''  }}
+          >
+          {{ antl.forLocale(auth.user.locale).formatMessage('settings.wartungsmodus') }}
+        </label>
+      </div>
     </div>
   </div>
 </div>

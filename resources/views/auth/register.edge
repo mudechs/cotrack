@@ -1,151 +1,147 @@
 @layout('layouts.app')
 
 @section('content')
-  <div class="container mt-md-5 mt-0">
-    <div class="row">
-      <div class="col-md-8 offset-md-2 p-0">
-        <div class="card">
-          <div class="card-header text-center">{{ antl.forLocale(globals().default_locale).formatMessage('static.registrieren') }}</div>
-          <form action="{{ route('register') }}" method="post">
-            {{ csrfField() }}
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="salutation">{{ antl.forLocale(globals().default_locale).formatMessage('static.anrede') }}</label>
-                    <div class="row">
-                      <div class="col-12 col-md-6">
-                        <select name="salutation" class="form-control {{ hasErrorFor('salutation') ? 'is-invalid' : '' }}">
-                          <option value="">{{ antl.forLocale(globals().default_locale).formatMessage('static.bitte_waehlen') }}</option>
-                          @each(salutation in salutations)
-                            <option value="{{ salutation.value }}"
-                            {{ old('salutation') == salutation.value ? 'selected' : ''  }}
-                            >{{ salutation.label }}</option>
-                          @endeach
-                        </select>
-                        {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('salutation'), hasErrorFor('salutation')) }}
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="first_name">{{ antl.forLocale(globals().default_locale).formatMessage('static.vorname') }}</label>
-                    <input
-                      type="text"
-                      class="form-control {{ hasErrorFor('first_name') ? 'is-invalid' : '' }}"
-                      name="first_name"
-                      id="first_name"
-                      value="{{ old('first_name', '') }}"
-                      autofocus
-                      autocomplete="off">
-                    {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('first_name'), hasErrorFor('first_name')) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="last_name">{{ antl.forLocale(globals().default_locale).formatMessage('static.nachname') }}</label>
-                    <input
-                      type="text"
-                      class="form-control {{ hasErrorFor('last_name') ? 'is-invalid' : '' }}"
-                      name="last_name"
-                      id="last_name"
-                      value="{{ old('last_name', '') }}"
-                      autocomplete="off">
-                    {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('last_name'), hasErrorFor('last_name')) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="profession">{{ antl.forLocale(globals().default_locale).formatMessage('static.funktion') }}</label>
-                    <input
-                      type="text"
-                      class="form-control {{ hasErrorFor('profession') ? 'is-invalid' : '' }}"
-                      name="profession"
-                      id="profession"
-                      value="{{ old('profession', '') }}"
-                      autocomplete="off">
-                    {{ elIf('<div class="invalid-feedback">$self</div>', getErrorFor('profession'), hasErrorFor('profession')) }}
-                  </div>
-                  <div class="form-group">
-                    <div class="custom-control custom-switch">
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="tfa_active"
-                        name="tfa_active"
-                      >
-                      <label class="custom-control-label" for="tfa_active">{{ antl.forLocale(globals().default_locale).formatMessage('static.2fa') }}</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="phone">{{ antl.forLocale(globals().default_locale).formatMessage('static.telefon') }}</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-phone fa-fw"></i></span>
-                      </div>
-                      <input
-                        type="text"
-                        class="form-control {{ hasErrorFor('phone') ? 'is-invalid' : '' }}"
-                        name="phone"
-                        id="phone"
-                        value="{{ old('phone', '') }}"
-                        autocomplete="off">
-                    </div>
-                    {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('phone'), hasErrorFor('phone')) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="mobile">Mobile</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-mobile-alt fa-fw"></i></span>
-                      </div>
-                      <input
-                        type="text"
-                        class="form-control {{ hasErrorFor('mobile') ? 'is-invalid' : '' }}"
-                        name="mobile"
-                        id="mobile"
-                        value="{{ old('mobile', '') }}"
-                        autocomplete="off">
-                    </div>
-                    {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('mobile'), hasErrorFor('mobile')) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="email">E-Mail</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-at"></i></span>
-                      </div>
-                      <input
-                        type="email"
-                        class="form-control {{ hasErrorFor('email') ? 'is-invalid' : '' }}"
-                        name="email"
-                        id="email"
-                        value="{{ old('email', '') }}"
-                        autocomplete="off">
-                    </div>
-                    {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('email'), hasErrorFor('email')) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="password">{{ antl.forLocale(globals().default_locale).formatMessage('static.passwort') }}</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-key"></i></span>
-                      </div>
-                      <input
-                        type="password"
-                        class="form-control {{ hasErrorFor('password') ? 'is-invalid' : '' }}"
-                        name="password"
-                        id="password"
-                        value="{{ old('password', '') }}"
-                        autocomplete="new-password">
-                    </div>
-                    {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('password'), hasErrorFor('password')) }}
-                  </div>
+  <div class="container">
+    <div class="columns is-mobile">
+      <div class="column is-12-mobile is-8-tablet is-offset-2-tablet is-6-desktop is-offset-3-desktop">
+        @component('components.card', {
+          antl,
+          csrf,
+          locale: globals().default_locale,
+          title: 'static.registrieren',
+          styles: 'has-background-primary has-rounded-white-border',
+          footer: false
+        })
+          @slot('content')
+            <form action="{{ route('register') }}" method="post">
+              {{ csrfField() }}
+              <div class="field">
+                <div class="control">
+                  <label for="tfa_active" class="checkbox has-text-white">
+                    <input type="checkbox" id="tfa_active" name="tfa_active">
+                    {{ antl.forLocale(globals().default_locale).formatMessage('static.2fa') }}
+                  </label>
                 </div>
               </div>
-            </div>
-            <div class="card-footer d-flex justify-content-center">
-              <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> {{ antl.forLocale(globals().default_locale).formatMessage('static.abschicken') }}</button>
-            </div>
-          </form>
-        </div>
+              <hr>
+              <div class="field">
+                <label for="salutation" class="label has-text-white">{{ antl.forLocale(globals().default_locale).formatMessage('static.anrede') }}</label>
+                <div class="control">
+                  <div class="select">
+                    <select name="salutation" class="{{ hasErrorFor('salutation') ? 'is-invalid' : '' }}">
+                      @each(salutation in salutations)
+                        <option value="{{ salutation.value }}"
+                        {{ old('salutation') == salutation.value ? 'selected' : ''  }}
+                        >{{ salutation.label }}</option>
+                      @endeach
+                    </select>
+                  </div>
+                  {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('salutation'), hasErrorFor('salutation')) }}
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <label for="first_name" class="label has-text-white">{{ antl.forLocale(globals().default_locale).formatMessage('static.vorname') }}</label>
+                  <input
+                    type="text"
+                    class="input is-medium {{ hasErrorFor('first_name') ? 'is-invalid' : '' }}"
+                    name="first_name"
+                    id="first_name"
+                    value="{{ old('first_name', '') }}"
+                    autofocus
+                    autocomplete="off">
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <label for="last_name" class="label has-text-white">{{ antl.forLocale(globals().default_locale).formatMessage('static.nachname') }}</label>
+                  <input
+                    type="text"
+                    class="input is-medium {{ hasErrorFor('last_name') ? 'is-invalid' : '' }}"
+                    name="last_name"
+                    id="last_name"
+                    value="{{ old('last_name', '') }}"
+                    autocomplete="off">
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <label for="profession" class="label has-text-white">{{ antl.forLocale(globals().default_locale).formatMessage('static.funktion') }}</label>
+                  <input
+                    type="text"
+                    class="input is-medium {{ hasErrorFor('profession') ? 'is-invalid' : '' }}"
+                    name="profession"
+                    id="profession"
+                    value="{{ old('profession', '') }}"
+                    autocomplete="off">
+                </div>
+              </div>
+              <div class="field">
+                <label for="phone" class="label has-text-white">{{ antl.forLocale(globals().default_locale).formatMessage('static.telefon') }}</label>
+                <div class="control has-icons-left">
+                  <input
+                    type="text"
+                    class="input is-medium {{ hasErrorFor('phone') ? 'is-danger' : '' }}"
+                    name="phone"
+                    id="phone"
+                    value="{{ old('phone', '') }}">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-phone"></i>
+                  </span>
+                  {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('phone'), hasErrorFor('email')) }}
+                </div>
+              </div>
+              <div class="field">
+                <label for="mobile" class="label has-text-white">Mobile</label>
+                <div class="control has-icons-left">
+                  <input
+                    type="text"
+                    class="input is-medium {{ hasErrorFor('mobile') ? 'is-danger' : '' }}"
+                    name="mobile"
+                    id="mobile"
+                    value="{{ old('mobile', '') }}">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-mobile"></i>
+                  </span>
+                  {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('mobile'), hasErrorFor('email')) }}
+                </div>
+              </div>
+              <div class="field">
+                <label for="email" class="label has-text-white">{{ antl.forLocale(globals().default_locale).formatMessage('static.email') }}</label>
+                <div class="control has-icons-left">
+                  <input
+                    type="email"
+                    class="input is-medium {{ hasErrorFor('email') ? 'is-danger' : '' }}"
+                    name="email"
+                    id="email"
+                    value="{{ old('email', '') }}"
+                    autocomplete="new-password">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-at"></i>
+                  </span>
+                  {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('email'), hasErrorFor('email')) }}
+                </div>
+              </div>
+              <div class="field">
+                <label for="password" class="label has-text-white">{{ antl.forLocale(globals().default_locale).formatMessage('static.passwort') }}</label>
+                <div class="control has-icons-left">
+                  <input
+                    type="password"
+                    class="input is-medium {{ hasErrorFor('password') ? 'is-danger' : '' }}"
+                    name="password"
+                    id="password"
+                    value="{{ old('password', '') }}"
+                    autocomplete="off">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-key"></i>
+                  </span>
+                  {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('password'), hasErrorFor('password')) }}
+                </div>
+              </div>
+              <button type="submit" class="button is-primary is-inverted is-outlined is-fullwidth m-b-sm m-t-lg"><i class="far fa-paper-plane fa-fw"></i>&nbsp;&nbsp;{{ antl.forLocale(globals().default_locale).formatMessage('static.abschicken') }}</button>
+            </form>
+          @endslot
+        @endcomponent
       </div>
     </div>
   </div>

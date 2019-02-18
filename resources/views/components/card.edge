@@ -1,0 +1,21 @@
+<div class="card {{ styles }}">
+  @if(title)
+    <div class="card-header has-text-centered">
+      <p class="card-header-title is-family-monospace is-centered has-text-black">
+        {{ antl.forLocale(locale).formatMessage(title) }}
+      </p>
+    </div>
+  @else
+    <div class="card-header is-block p-md">
+      @!yield($slot.header)
+    </div>
+  @endif
+  <div class="card-content" style="padding:{{ cardContentPadding }};">
+    @!yield($slot.content)
+  </div>
+  @if(footer)
+    <div class="card-footer is-block has-text-centered">
+      @!yield($slot.footer)
+    </div>
+  @endif
+</div>

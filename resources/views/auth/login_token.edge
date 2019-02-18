@@ -1,38 +1,46 @@
 @layout('layouts.app')
 
-@section('content')
-  <div class="container mt-md-5 mt-0">
-    <div class="row">
-      <div class="col-md-4 offset-md-4 p-0">
-        <div class="card">
-          <div class="card-header text-center">{{ antl.forLocale(globals().default_locale).formatMessage('static.login_bestaetigen') }}</div>
-          <form action="{{ route('loginToken', { 'hash': hash }) }}" method="post">
-            {{ csrfField() }}
-            <input type="hidden" name="hash" value="{{ hash }}">
+@section('bodyClass')
+  has-background-primary
+@endsection
 
-            <div class="card-body">
-              <div class="form-group">
-                <label for="token">{{ antl.forLocale(globals().default_locale).formatMessage('static.bitte_sicherheitscode_eingeben') }}:</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-unlock"></i></span>
-                  </div>
+@section('content')
+  <div class="container">
+    <div class="columns is-mobile">
+      <div class="column is-half-tablet is-offset-one-quarter-tablet is-one-third-desktop is-offset-one-third-desktop">
+        @component('components.card', {
+          antl,
+          csrf,
+          locale: globals().default_locale,
+          title: 'static.login_bestaetigen',
+          styles: 'has-background-primary has-rounded-white-border',
+          footer: false
+        })
+          @slot('content')
+            <form action="{{ route('loginToken', { 'hash': hash }) }}" method="post">
+              {{ csrfField() }}
+              <input type="hidden" name="hash" value="{{ hash }}">
+
+              <div class="field">
+                <label for="token" class="label has-text-white">{{ antl.forLocale(globals().default_locale).formatMessage('static.sicherheitscode') }}</label>
+                <div class="control has-icons-left">
                   <input
-                    type="text"
-                    class="form-control {{ hasErrorFor('token') ? 'is-invalid' : '' }}"
+                    type="token"
+                    class="input is-medium {{ hasErrorFor('token') ? 'is-danger' : '' }}"
                     name="token"
                     id="token"
                     autofocus
                     autocomplete="off">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-unlock"></i>
+                  </span>
+                  {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('token'), hasErrorFor('token')) }}
                 </div>
-                {{ elIf('<div class="invalid-feedback d-block">$self</div>', getErrorFor('token'), hasErrorFor('token')) }}
               </div>
-            </div>
-            <div class="card-footer">
-              <button type="submit" class="btn btn-primary btn-block"><i class="far fa-paper-plane fa-fw"></i> {{ antl.forLocale(globals().default_locale).formatMessage('static.anmelden') }}</button>
-            </div>
-          </form>
-        </div>
+              <button type="submit" class="button is-primary is-inverted is-outlined is-fullwidth m-b-sm m-t-lg"><i class="far fa-paper-plane fa-fw"></i>&nbsp;&nbsp;{{ antl.forLocale(globals().default_locale).formatMessage('static.anmelden') }}</button>
+            </form>
+          @endslot
+        @endcomponent
       </div>
     </div>
   </div>

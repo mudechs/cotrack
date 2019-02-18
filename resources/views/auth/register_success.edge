@@ -1,12 +1,20 @@
 @layout('layouts.app')
 
 @section('content')
-  <div class="container-fluid mt-5 d-flex justify-content-center text-center">
-    <div class="card" style="width: 300px;">
-      <div class="card-body">
-        <small><code>Yeah!</code></small>
-        <hr>
-        {{ antl.forLocale(globals().default_locale).formatMessage('static.register_success') }}
+  <div class="container">
+    <div class="columns is-mobile">
+      <div class="column is-half-tablet is-offset-one-quarter-tablet is-one-third-desktop is-offset-one-third-desktop">
+        @component('components.card', {
+          antl,
+          locale: globals().default_locale,
+          title: 'static.registrieren',
+          styles: 'has-background-primary has-rounded-white-border',
+          footer: false
+        })
+          @slot('content')
+            {{ antl.forLocale(globals().default_locale).formatMessage('static.register_success') }}
+          @endslot
+        @endcomponent
       </div>
     </div>
   </div>

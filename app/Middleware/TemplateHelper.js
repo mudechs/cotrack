@@ -15,7 +15,7 @@ class TemplateHelper {
     View.global('activeRoute', function(url) {
       url = '/' + url.replace('*', '(.*)')
 
-      return request.match(url) ? 'active' : ''
+      return request.match(url) ? 'is-active' : ''
     })
 
     await next()

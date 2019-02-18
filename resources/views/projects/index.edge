@@ -1,117 +1,107 @@
 @layout('layouts.app')
 
 @section('content')
-  <div class="container-fluid mt-md-3 mt-0 px-md-3 px-0">
-    <div class="card">
-      <div class="card-header d-flex justify-content-between align-items-center">
-          <span>{{ antl.forLocale(auth.user.locale).formatMessage('static.projekte') }}</span>
-          @if(auth.user.is_admi || auth.user.is_superadmin)
-            <a href="{{ route('projectsCreate') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i></a>
-          @endif
-        </div>
-      <div class="card-body p-0">
-        <ul class="nav nav-tabs pl-3 pt-3" id="projects" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link py-1 active" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active" aria-selected="true">{{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link py-1" id="inactive-tab" data-toggle="tab" href="#inactive" role="tab" aria-controls="inactive" aria-selected="false">{{ antl.forLocale(auth.user.locale).formatMessage('static.inaktiv') }}</a>
-          </li>
-        </ul>
-        <div class="tab-content" id="projectsContent">
-          <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="active-tab">
-            <div class="table-responsive">
-              <table class="table table-hover table-striped table-sm text-nowrap m-0 data-table-active linkable">
-                <thead>
-                  <tr>
-                    <th scope="col">ID</th>
-                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.titel') }}</th>
-                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.phase') }}</th>
-                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.erstellt') }}</th>
-                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.autor') }}</th>
-                    <th class="text-center">Status</th>
-                    <th class="text-right"><i class="fas fa-cog"></i></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @each(project in projectsActive)
-                    <tr class="clickable" data-href="{{ route('projectsShow', { id: project.id }) }}">
-                      <td scope="row">{{ project.id }}</td>
-                      <td>{{ project.title }}</td>
-                      <td>
-                        @each(phase in phases)
-                          @if(phase.value == $parent.project.phase)
-                            {{ phase.label }}
-                          @endif
-                        @endeach
-                      </td>
-                      <td>{{ project.created_at }}</td>
-                      <td>{{ project.projectAuthor.first_name }} {{ project.projectAuthor.last_name }}</td>
-                      <td class="text-center">
-                          @if(user.is_active == 0)
-                            <span class="text-danger">{{ antl.forLocale(auth.user.locale).formatMessage('static.inaktiv') }}</span>
-                          @else
-                            <span class="text-success">{{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}</span>
-                          @endif
-                      </td>
-                      <td class="text-right">
-                        @if(auth.user.id == project.author_id || auth.user.is_admin || auth.user.is_superadmin)
-                          <a href="{{ route('projectsEdit', { id: project.id }) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pencil-alt"></i></a>
-                        @endif
-                      </td>
-                    </tr>
+  <div class="tabs is-toggle is-toggle-rounded">
+    <ul id="projects">
+      <li class="tab is-active" onclick="helpers.openTab(event,'active')">
+        <a>{{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}</a>
+      </li>
+      <li class="tab" onclick="helpers.openTab(event,'inactive')">
+        <a>{{ antl.forLocale(auth.user.locale).formatMessage('static.inaktiv') }}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="tab-content">
+    <div id="active" class="content-tab">
+      <div class="table-responsive">
+        <table class="table is-hoverable is-narrow table-borderless is-striped is-fullwidth text-nowrap data-table-active linkable">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.titel') }}</th>
+              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.phase') }}</th>
+              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.erstellt') }}</th>
+              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.autor') }}</th>
+              <th class="text-center">Status</th>
+              <th class="text-right"><i class="fas fa-cog"></i></th>
+            </tr>
+          </thead>
+          <tbody>
+            @each(project in projectsActive)
+              <tr class="clickable" data-href="{{ route('projectsShow', { id: project.id }) }}">
+                <td scope="row">{{ project.id }}</td>
+                <td>{{ project.title }}</td>
+                <td>
+                  @each(phase in phases)
+                    @if(phase.value == $parent.project.phase)
+                      {{ phase.label }}
+                    @endif
                   @endeach
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="tab-pane fade" id="inactive" role="tabpanel" aria-labelledby="inactive-tab">
-            <div class="table-responsive">
-              <table class="table table-hover table-striped table-sm text-nowrap m-0 data-table-inactive linkable">
-                <thead>
-                  <tr>
-                    <th scope="col">ID</th>
-                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.titel') }}</th>
-                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.phase') }}</th>
-                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.erstellt') }}</th>
-                    <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.autor') }}</th>
-                    <th class="text-center">Status</th>
-                    <th class="text-right"><i class="fas fa-cog"></i></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @each(project in projectsInactive)
-                    <tr class="clickable" data-href="{{ route('projectsShow', { id: project.id }) }}">
-                      <td scope="row">{{ project.id }}</td>
-                      <td>{{ project.title }}</td>
-                      <td>
-                        @each(phase in phases)
-                          @if(phase.value == $parent.project.phase)
-                            {{ phase.label }}
-                          @endif
-                        @endeach
-                      </td>
-                      <td>{{ project.created_at }}</td>
-                      <td>{{ project.projectAuthor.first_name }} {{ project.projectAuthor.last_name }}</td>
-                      <td class="text-center">
-                          @if(user.is_active == 0)
-                            <span class="text-danger">{{ antl.forLocale(auth.user.locale).formatMessage('static.inaktiv') }}</span>
-                          @else
-                            <span class="text-success">{{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}</span>
-                          @endif
-                      </td>
-                      <td class="text-right">
-                        @if(auth.user.id == project.author_id || auth.user.is_admin || auth.user.is_superadmin)
-                          <a href="{{ route('projectsEdit', { id: project.id }) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pencil-alt"></i></a>
-                        @endif
-                      </td>
-                    </tr>
+                </td>
+                <td>{{ project.created_at }}</td>
+                <td>{{ project.projectAuthor.first_name }} {{ project.projectAuthor.last_name }}</td>
+                <td class="text-center">
+                    @if(user.is_active == 0)
+                      <span class="text-danger">{{ antl.forLocale(auth.user.locale).formatMessage('static.inaktiv') }}</span>
+                    @else
+                      <span class="text-success">{{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}</span>
+                    @endif
+                </td>
+                <td class="text-right">
+                  @if(auth.user.id == project.author_id || auth.user.is_admin || auth.user.is_superadmin)
+                    <a href="{{ route('projectsEdit', { id: project.id }) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pencil-alt"></i></a>
+                  @endif
+                </td>
+              </tr>
+            @endeach
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="inactive" class="content-tab" style="display:none">
+      <div class="table-responsive">
+        <table class="table is-hoverable is-narrow table-borderless is-striped is-fullwidth text-nowrap data-table-inactive linkable">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.titel') }}</th>
+              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.phase') }}</th>
+              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.erstellt') }}</th>
+              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.autor') }}</th>
+              <th class="text-center">Status</th>
+              <th class="text-right"><i class="fas fa-cog"></i></th>
+            </tr>
+          </thead>
+          <tbody>
+            @each(project in projectsInactive)
+              <tr class="clickable" data-href="{{ route('projectsShow', { id: project.id }) }}">
+                <td scope="row">{{ project.id }}</td>
+                <td>{{ project.title }}</td>
+                <td>
+                  @each(phase in phases)
+                    @if(phase.value == $parent.project.phase)
+                      {{ phase.label }}
+                    @endif
                   @endeach
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+                </td>
+                <td>{{ project.created_at }}</td>
+                <td>{{ project.projectAuthor.first_name }} {{ project.projectAuthor.last_name }}</td>
+                <td class="text-center">
+                    @if(user.is_active == 0)
+                      <span class="text-danger">{{ antl.forLocale(auth.user.locale).formatMessage('static.inaktiv') }}</span>
+                    @else
+                      <span class="text-success">{{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}</span>
+                    @endif
+                </td>
+                <td class="text-right">
+                  @if(auth.user.id == project.author_id || auth.user.is_admin || auth.user.is_superadmin)
+                    <a href="{{ route('projectsEdit', { id: project.id }) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pencil-alt"></i></a>
+                  @endif
+                </td>
+              </tr>
+            @endeach
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

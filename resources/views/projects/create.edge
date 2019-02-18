@@ -1,24 +1,29 @@
 @layout('layouts.app')
 
 @section('content')
-  <div class="container-fluid mt-md-3 mt-0">
-    <div class="row">
-      <div class="col-lg-8 offset-lg-2 p-md-3 p-0 mb-3">
-        <div class="card">
-          <div class="card-header text-center">{{ antl.forLocale(auth.user.locale).formatMessage('static.neues_projekt_erstellen') }}</div>
-          <form action="{{ route('projectsStore') }}" method="post">
-            {{ csrfField() }}
+  <div class="container">
+    @component('components.card', {
+      antl,
+      csrf,
+      locale: auth.user.locale,
+      title: 'static.neues_projekt_erstellen',
+      styles: 'has-background-light has-rounded-white-border',
+      footer: false
+    })
+      @slot('content')
+        <form action="{{ route('projectsStore') }}" method="post">
+          {{ csrfField() }}
 
-            @include('projects.includes.formFields')
+          @include('projects.includes.formFields')
 
-            <div class="card-footer d-flex justify-content-center">
-              <a href="{{ route('projectsIndex') }}" class="btn btn-secondary mr-2"><i class="fas fa-times"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.abbrechen') }}</a>
-              <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.speichern') }}</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+          <hr>
+          <div class="has-text-right">
+            <a href="{{ route('projectsIndex') }}" class="button is-text"><i class="fas fa-times"></i>&nbsp;&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.abbrechen') }}</a>
+            <button type="submit" class="button is-primary"><i class="far fa-paper-plane fa-fw"></i>&nbsp;&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.speichern') }}</button>
+          </div>
+        </form>
+      @endslot
+    @endcomponent
   </div>
 @endsection
 

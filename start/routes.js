@@ -23,8 +23,8 @@ Route.get('register', 'Auth/RegisterController.showRegistrationForm')
 Route.post('register', 'Auth/RegisterController.register').as('register')
 Route.get('register/confirm/:token', 'Auth/RegisterController.confirmEmail')
 Route.get('register/success', ({ view }) => {
-  return view.render('register_success')
-}).as('registerSuccess')
+  return view.render('auth.register_success')
+}).as('register.success')
 
 Route.get('login', 'Auth/LoginController.showLoginForm').as('showLoginForm')
 Route.post('login', 'Auth/LoginController.login').as('login').validator('LoginUser')
@@ -32,10 +32,10 @@ Route.get('login/:hash', 'Auth/LoginController.loginTokenForm').as('loginTokenFo
 Route.post('login/token', 'Auth/LoginController.loginToken').as('loginToken')
 Route.get('logout', 'Auth/LogoutController.logout').middleware(['auth']).as('logout')
 
-Route.get('password/reset', 'Auth/PasswordResetController.showLinkRequestForm').as('passwordReset')
-Route.post('password/email', 'Auth/PasswordResetController.sendResetLinkEmail')
+Route.get('password/reset', 'Auth/PasswordResetController.showLinkRequestForm').as('passwordResetForm')
+Route.post('password/email', 'Auth/PasswordResetController.sendResetLinkEmail').as('passwordEmail')
 Route.get('password/reset/:token', 'Auth/PasswordResetController.showResetForm')
-Route.post('password/reset', 'Auth/PasswordResetController.reset')
+Route.post('password/reset', 'Auth/PasswordResetController.reset').as('passwordResetStore')
 
 Route
   .group(() => {
@@ -54,8 +54,8 @@ Route
     Route.get('projects/create', 'Project/ProjectController.create').middleware(['isAdmin']).as('projectsCreate')
     Route.get('projects/show/:id', 'Project/ProjectController.show').middleware(['projectOAM']).as('projectsShow')
     Route.get('projects/edit/:id', 'Project/ProjectController.edit').middleware(['isAdmin']).as('projectsEdit')
-    Route.post('projects/store', 'Project/ProjectController.store').middleware(['isAdmin']).as('projectsStore')
-    Route.post('projects/update/:id', 'Project/ProjectController.update').middleware(['isAdmin']).as('projectsUpdate')
+    Route.post('projects/store', 'Project/ProjectController.store').middleware(['isAdmin']).as('projectsStore').validator('StoreProject')
+    Route.post('projects/update/:id', 'Project/ProjectController.update').middleware(['isAdmin']).as('projectsUpdate').validator('StoreProject')
 
     Route.get('tickets', 'Ticket/TicketController.index').as('ticketsIndex')
     Route.get('tickets/p/:id', 'Ticket/TicketController.projectIndex').as('ticketsProjectIndex')

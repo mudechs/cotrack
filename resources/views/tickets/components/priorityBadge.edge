@@ -1,9 +1,9 @@
 <span>
   <span class="
-    badge badge-pill
+    button is-small is-rounded
     @each(priority in priorities)
     @if(priority.value == ticketPriority)
-    badge-{{ priority.color }}
+    is-{{ priority.color }}
     @endif
     @endeach
   ">

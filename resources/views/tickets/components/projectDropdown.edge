@@ -1,0 +1,27 @@
+<button id="showAllProjectsButton" class="button btn-show-all-projects">
+  <i class="fas fa-project-diagram fa-fw"></i>&nbsp;&nbsp;{{ antl.forLocale(locale).formatMessage('static.alle_zeigen') }}
+</button>
+<div class="dropdown has-dropdown">
+  <div class="dropdown-trigger">
+    <button class="button" aria-haspopup="true" aria-controls="projectDropdownMenu">
+      <span class="icon is-small">
+        <i class="fas fa-angle-down" aria-hidden="true"></i>
+      </span>
+    </button>
+  </div>
+  <div class="dropdown-menu" id="projectDropdownMenu" role="menu">
+    <div class="dropdown-content">
+      @each(userProject in userProjects)
+        <a href="#" class="dropdown-item">
+          {{ userProject.title }}
+          <span class="is-pulled-right">
+            <small>
+              <i class="fas fa-ticket-alt fa-fw"></i>
+              {{ userProject["__meta__"].tickets_count }}
+            </small>
+          </span>
+        </a>
+      @endeach
+    </div>
+  </div>
+</div>

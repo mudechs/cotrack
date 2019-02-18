@@ -1,115 +1,175 @@
 @layout('layouts.app')
 
 @section('content')
-  <div class="container-fluid mt-3">
-    <div class="row mb-3">
-      <div class="col pl-1">
-        <div class="btn-group dropright">
-          <button id="showAllProjectsButton" type="button" class="btn-show-all-projects btn btn-sm btn-primary"><i class="fas fa-project-diagram fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.alle_zeigen') }}</button>
-          <button type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="sr-only">Toggle Dropdown</span>
-          </button>
-          <div class="dropdown-menu">
-            @each(userProject in userProjects)
-              <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('ticketsProjectIndex', { id: userProject.id }) }}">
-                <span class="d-inline-block text-truncate mr-1" style="max-width:200px"><small>{{ userProject.title }}</small></span>
-                <span><small><i class="fas fa-ticket-alt fa-fw"></i> {{ userProject["__meta__"].tickets_count }}</small></span>
-              </a>
-            @endeach
-          </div>
-        </div>
-      </div>
+  @!component('tickets.components.projectDropdown', {
+    antl,
+    locale: auth.user.locale,
+    userProjects
+  })
+  <div class="columns draggable">
+    <div class="column">
+        @component('components.card', {
+          antl,
+          locale: auth.user.locale,
+          title: 'static.neu',
+          styles: 'has-rounded-white-border',
+          cardContentPadding: '0',
+          footer: false
+        })
+          @slot('content')
+            <div id="Neu" style="min-height: 100px">
+              @each(ticket in ticketsNeu)
+                <a
+                  href="{{ route('ticketsShow', { id: ticket.id }) }}"
+                  id="{{ ticket.id }}"
+                  class="
+                    box
+                    @each(priority in priorities)
+                    @if(priority.value == $parent.ticket.priority)
+                    has-background-{{ priority.color }}
+                    @endif
+                    @endeach
+                  ">
+                  <span><small>{{ ticket.created_at }}</small></span>
+                  <p class="subtitle">{{ ticket.subject }}</p>
+                  @include('tickets.includes.widgetFooter')
+                </a>
+              @endeach
+            </div>
+          @endslot
+        @endcomponent
     </div>
-    <div class="row draggable">
-      <div class="col-12 col-md-6 col-lg mb-3 px-1">
-        <div class="card">
-          <div class="card-header text-center"><i class="fas fa-bolt fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.neu') }}</div>
-          <div id="Neu" class="list-group list-group-flush" style="min-height: 100px">
-            @each(ticket in ticketsNeu)
-              <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
-                  <span><small>{{ ticket.created_at }}</small></span>
-                </div>
-                <p class="mb-0">{{ ticket.subject }}</p>
-                @include('tickets.includes.widgetFooter')
-              </a>
-            @endeach
-          </div>
-        </div>
-      </div>
 
-      <div class="col-12 col-md-6 col-lg mb-3 px-1">
-        <div class="card">
-          <div class="card-header text-center"><i class="far fa-thumbs-up fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.anerkannt') }}</div>
-          <div id="Anerkannt" class="list-group list-group-flush" style="min-height: 100px">
+    <div class="column">
+      @component('components.card', {
+        antl,
+        locale: auth.user.locale,
+        title: 'static.anerkannt',
+        styles: 'has-rounded-white-border',
+        cardContentPadding: '0',
+        footer: false
+      })
+        @slot('content')
+          <div id="Anerkannt" style="min-height: 100px">
             @each(ticket in ticketsAnerkannt)
-              <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
-                  <span><small>{{ ticket.created_at }}</small></span>
-                </div>
-                <p class="mb-0">{{ ticket.subject }}</p>
+              <a
+                href="{{ route('ticketsShow', { id: ticket.id }) }}"
+                id="{{ ticket.id }}"
+                class="
+                  box
+                  @each(priority in priorities)
+                  @if(priority.value == $parent.ticket.priority)
+                  has-background-{{ priority.color }}
+                  @endif
+                  @endeach
+                ">
+                <span><small>{{ ticket.created_at }}</small></span>
+                <p class="subtitle">{{ ticket.subject }}</p>
                 @include('tickets.includes.widgetFooter')
               </a>
             @endeach
           </div>
-        </div>
-      </div>
+        @endslot
+      @endcomponent
+    </div>
 
-      <div class="col-12 col-md-6 col-lg mb-3 px-1">
-        <div class="card">
-          <div class="card-header text-center"><i class="fas fa-hourglass-half fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.warten') }}</div>
-          <div id="Warten" class="list-group list-group-flush" style="min-height: 100px">
+    <div class="column">
+      @component('components.card', {
+        antl,
+        locale: auth.user.locale,
+        title: 'static.warten',
+        styles: 'has-rounded-white-border',
+        cardContentPadding: '0',
+        footer: false
+      })
+        @slot('content')
+          <div id="Warten" style="min-height: 100px">
             @each(ticket in ticketsWarten)
-              <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
-                  <span><small>{{ ticket.created_at }}</small></span>
-                </div>
-                <p class="mb-0">{{ ticket.subject }}</p>
+              <a
+                href="{{ route('ticketsShow', { id: ticket.id }) }}"
+                id="{{ ticket.id }}"
+                class="
+                  box
+                  @each(priority in priorities)
+                  @if(priority.value == $parent.ticket.priority)
+                  has-background-{{ priority.color }}
+                  @endif
+                  @endeach
+                ">
+                <span><small>{{ ticket.created_at }}</small></span>
+                <p class="subtitle">{{ ticket.subject }}</p>
                 @include('tickets.includes.widgetFooter')
               </a>
             @endeach
           </div>
-        </div>
-      </div>
+        @endslot
+      @endcomponent
+    </div>
 
-      <div class="col-12 col-md-6 col-lg mb-3 px-1">
-        <div class="card">
-          <div class="card-header text-center"><i class="fas fa-bullhorn fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.feedback_erwartet') }}</div>
-          <div id="Feedback" class="list-group list-group-flush" style="min-height: 100px">
+    <div class="column">
+      @component('components.card', {
+        antl,
+        locale: auth.user.locale,
+        title: 'static.feedback_erwartet',
+        styles: 'has-rounded-white-border',
+        cardContentPadding: '0',
+        footer: false
+      })
+        @slot('content')
+          <div id="Feedback" style="min-height: 100px">
             @each(ticket in ticketsFeedback)
-              <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
-                  <span><small>{{ ticket.created_at }}</small></span>
-                </div>
-                <p class="mb-0">{{ ticket.subject }}</p>
+              <a
+                href="{{ route('ticketsShow', { id: ticket.id }) }}"
+                id="{{ ticket.id }}"
+                class="
+                  box
+                  @each(priority in priorities)
+                  @if(priority.value == $parent.ticket.priority)
+                  has-background-{{ priority.color }}
+                  @endif
+                  @endeach
+                ">
+                <span><small>{{ ticket.created_at }}</small></span>
+                <p class="subtitle">{{ ticket.subject }}</p>
                 @include('tickets.includes.widgetFooter')
               </a>
             @endeach
           </div>
-        </div>
-      </div>
+        @endslot
+      @endcomponent
+    </div>
 
-      <div class="col-12 col-md-6 col-lg mb-3 px-1">
-        <div class="card">
-          <div class="card-header text-center"><i class="fas fa-pencil-alt fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.in_bearbeitung') }}</div>
-          <div id="Bearbeitung" class="list-group list-group-flush" style="min-height: 100px">
+    <div class="column">
+      @component('components.card', {
+        antl,
+        locale: auth.user.locale,
+        title: 'static.in_bearbeitung',
+        styles: 'has-rounded-white-border',
+        cardContentPadding: '0',
+        footer: false
+      })
+        @slot('content')
+          <div id="Bearbeitung" style="min-height: 100px">
             @each(ticket in ticketsBearbeitung)
-              <a href="{{ route('ticketsShow', { id: ticket.id }) }}" id="{{ ticket.id }}" class="list-group-item list-group-item-action">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
-                  <span><small>{{ ticket.created_at }}</small></span>
-                </div>
-                <p class="mb-0">{{ ticket.subject }}</p>
+              <a
+                href="{{ route('ticketsShow', { id: ticket.id }) }}"
+                id="{{ ticket.id }}"
+                class="
+                  box
+                  @each(priority in priorities)
+                  @if(priority.value == $parent.ticket.priority)
+                  has-background-{{ priority.color }}
+                  @endif
+                  @endeach
+                ">
+                <span><small>{{ ticket.created_at }}</small></span>
+                <p class="subtitle">{{ ticket.subject }}</p>
                 @include('tickets.includes.widgetFooter')
               </a>
             @endeach
           </div>
-        </div>
-      </div>
+        @endslot
+      @endcomponent
     </div>
   </div>
 @endsection

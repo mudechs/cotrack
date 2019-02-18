@@ -1,12 +1,20 @@
 @layout('layouts.app')
 
 @section('content')
-  <div class="container-fluid mt-5 d-flex justify-content-center text-center">
-    <div class="card" style="width: 200px;">
-      <div class="card-body">
-        <small><code>ERROR</code></small>
-        <hr>
-        {{ antl.forLocale(auth.user.locale).formatMessage('static.kein_zugriff') }}
+  <div class="container">
+    <div class="columns is-mobile">
+      <div class="column is-half-tablet is-offset-one-quarter-tablet is-one-third-desktop is-offset-one-third-desktop">
+        @component('components.card', {
+          antl,
+          locale: auth.user.locale,
+          title: 'static.error',
+          styles: 'has-background-danger has-rounded-white-border',
+          footer: false
+        })
+          @slot('content')
+            {{ antl.forLocale(auth.user.locale).formatMessage('static.kein_zugriff') }}
+          @endslot
+        @endcomponent
       </div>
     </div>
   </div>

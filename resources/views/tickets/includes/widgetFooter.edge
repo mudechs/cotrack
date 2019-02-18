@@ -1,9 +1,9 @@
-<div class="d-flex justify-content-between align-items-center">
-  <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}: </b>{{ ticket.project.title }}</small>
-  <div>
-    @if(ticket.attachments)
-      <small class="mr-2"><i class="fas fa-paperclip fa-fw"></i></small>
-    @endif
-    <small><i class="far fa-comments fa-fw"></i> {{ ticket["__meta__"].comments_count }}</small>
-  </div>
+<div>
+  <small>{{ ticket.project.title }}</small>
+</div>
+<div class="is-clearfix p-t-sm">
+  @if(ticket.attachments)
+    <small class="is-pulled-left"><i class="fas fa-paperclip fa-fw"></i></small>
+  @endif
+  <small class="is-pulled-right"><i class="far fa-comments fa-fw"></i>&nbsp;{{ ticket["__meta__"].comments_count }}</small>
 </div>
