@@ -29,7 +29,7 @@ Route.get('register/success', ({
 }).middleware(['mMode']).as('register.success');
 
 Route.get('login', 'Auth/LoginController.showLoginForm').as('showLoginForm');
-Route.post('login', 'Auth/LoginController.login').middleware(['mMode']).as('login').validator('LoginUser');
+Route.post('login', 'Auth/LoginController.login').as('login').validator('LoginUser');
 Route.get('login/:hash', 'Auth/LoginController.loginTokenForm').middleware(['mMode']).as('loginTokenForm');
 Route.post('login/token', 'Auth/LoginController.loginToken').middleware(['mMode']).as('loginToken');
 Route.get('logout', 'Auth/LogoutController.logout').middleware(['auth', 'mMode']).as('logout');
