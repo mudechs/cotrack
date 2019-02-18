@@ -1,17 +1,10 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 // const webpack = require('webpack')
-const path = require('path')
+const path = require('path');
 
 const extractSass = new ExtractTextPlugin({
   filename: 'public/app.css'
-})
-
-/* const jquery = new webpack.ProvidePlugin({
-  jQuery: 'jquery',
-  $: 'jquery',
-  jquery: 'jquery',
-  'window.jQuery': 'jquery'
-}) */
+});
 
 function sassRules() {
   return [{
@@ -20,7 +13,7 @@ function sassRules() {
       fallback: 'style-loader',
       use: ['css-loader', 'sass-loader']
     })
-  }]
+  }];
 }
 
 function cssRules() {
@@ -30,7 +23,7 @@ function cssRules() {
       fallback: 'style-loader',
       use: 'css-loader'
     })
-  }]
+  }];
 }
 
 function scriptRules() {
@@ -41,7 +34,7 @@ function scriptRules() {
     options: {
       presets: ['env']
     }
-  }]
+  }];
 }
 
 module.exports = {
@@ -60,4 +53,4 @@ module.exports = {
     extractSass,
     new ExtractTextPlugin('[name].css')
   ]
-}
+};

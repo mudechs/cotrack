@@ -1,8 +1,8 @@
 {
-  "name": "adonis-fullstack-app",
-  "version": "4.1.0",
+  "name": "cotrack-ticket-app",
+  "version": "0.9",
   "adonis-version": "4.1.0",
-  "description": "The fullstack application boilerplate for Adonisjs",
+  "description": "Project- and Team-based Ticket-App using AdonisJs 4.1",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
@@ -15,8 +15,8 @@
     "adonisjs",
     "adonis-app"
   ],
-  "author": "",
-  "license": "UNLICENSED",
+  "author": "Omar De-Giuli",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@adonisjs/ace": "^5.0.8",
