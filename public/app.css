@@ -14388,7 +14388,7 @@ button.dropdown-item {
 .card-header {
   border-bottom: 1px solid white; }
 
-.draggable .box {
+.draggable {
   cursor: move; }
 
 hr {
