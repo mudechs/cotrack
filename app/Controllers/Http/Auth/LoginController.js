@@ -1,6 +1,8 @@
 'use strict';
 
-const { validate } = use('Validator');
+const {
+  validate
+} = use('Validator');
 const User = use('App/Models/User');
 const Setting = use('App/Models/Setting');
 const Token = use('App/Models/Token');
@@ -11,14 +13,25 @@ const Event = use('Event');
 const Antl = use('Antl');
 
 class LoginController {
-  showLoginForm({ view }) {
+  showLoginForm({
+    view
+  }) {
     return view.render('auth.login');
   }
 
-  async login({ request, auth, session, response }) {
+  async login({
+    request,
+    auth,
+    session,
+    response
+  }) {
     try {
       // Get form data
-      const { email, password, remember } = request.all();
+      const {
+        email,
+        password,
+        remember
+      } = request.all();
 
       // Get user based on form data
       const user = await User.query()
@@ -49,9 +62,13 @@ class LoginController {
               .where('user_id', user.id)
               .delete();
 
-            const { token } = await Token.create({
+            const {
+              token
+            } = await Token.create({
               user_id: user.id,
-              token: RandomString({ length: 6 }),
+              token: RandomString({
+                length: 6
+              }),
               type: '2FA'
             });
 
@@ -62,10 +79,16 @@ class LoginController {
             const locale = user.locale;
 
             // mail mit token senden
-            Event.fire('new::login', { token, email, locale });
+            Event.fire('new::login', {
+              token,
+              email,
+              locale
+            });
 
             // auf token formular weiterleiten
-            return response.route('loginTokenForm', { hash: hash });
+            return response.route('loginTokenForm', {
+              hash: hash
+            });
           } else {
             // Login the user
             await auth.remember(!!remember).login(user);
@@ -84,8 +107,9 @@ class LoginController {
             } else {
               if (auth.user.is_admin == true) {
                 const message = Antl.forLocale(auth.user.locale).formatMessage(
-                  'messages.message9',
-                  { firstName: user.first_name }
+                  'messages.message9', {
+                    firstName: user.first_name
+                  }
                 );
 
                 session.flash({
@@ -95,7 +119,9 @@ class LoginController {
                   }
                 });
 
-                return response.route('settings.edit', { id: settings.id });
+                return response.route('settings.edit', {
+                  id: settings.id
+                });
               } else {
                 return response
                   .status(403)
@@ -133,7 +159,10 @@ class LoginController {
     }
   }
 
-  loginTokenForm({ params, view }) {
+  loginTokenForm({
+    params,
+    view
+  }) {
     const hash = decodeURIComponent(params.hash);
 
     return view.render('auth.login_token', {
@@ -141,7 +170,12 @@ class LoginController {
     });
   }
 
-  async loginToken({ request, auth, session, response }) {
+  async loginToken({
+    request,
+    auth,
+    session,
+    response
+  }) {
     // Validate
     const validation = await validate(request.only('token'), {
       token: 'required'

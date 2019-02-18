@@ -1,14 +1,20 @@
-'use strict'
+'use strict';
 
-const Config = use('Config')
-const { statuses, priorities } = Config.get('ticket')
-const Ticket = use('App/Models/Ticket')
-const TicketServices = use('App/Services/ticketServices')
+const Config = use('Config');
+const {
+  statuses,
+  priorities
+} = Config.get('ticket');
+const Ticket = use('App/Models/Ticket');
+const TicketServices = use('App/Services/ticketServices');
 
 class DashboardController {
-  async index({ auth, view }) {
+  async index({
+    auth,
+    view
+  }) {
     // Hole Statusgruppe "open"
-    const customStatuses = await TicketServices.ticketStatuses('open', auth.user.locale)
+    const customStatuses = await TicketServices.ticketStatuses('open', auth.user.locale);
 
     // Lade tickets die mir zugewiesen wurden und den Status "Neu" haben
     const ticketsAssignedToMe = await Ticket.query()
@@ -16,10 +22,10 @@ class DashboardController {
       .where('status', 'Neu')
       .orderBy('created_at', 'desc')
       .with('project', (builder) => {
-        builder.select('id', 'title')
+        builder.select('id', 'title');
       })
       .withCount('comments')
-      .fetch()
+      .fetch();
 
     // Lade tickets die ich anderen zugewiesen habe und die Statusgruppe "open" haben
     const ticketsAssignedToOthers = await Ticket.query()
@@ -28,10 +34,10 @@ class DashboardController {
       .whereIn('status', customStatuses)
       .orderBy('created_at', 'desc')
       .with('project', (builder) => {
-        builder.select('id', 'title')
+        builder.select('id', 'title');
       })
       .withCount('comments')
-      .fetch()
+      .fetch();
 
     // Lade tickets die noch keinen recipient haben und in der Statusgruppe "open" sind
     const ticketsNotAssigned = await Ticket.query()
@@ -39,10 +45,10 @@ class DashboardController {
       .whereIn('status', customStatuses)
       .orderBy('created_at', 'desc')
       .with('project', (builder) => {
-        builder.select('id', 'title')
+        builder.select('id', 'title');
       })
       .withCount('comments')
-      .fetch()
+      .fetch();
 
     return view.render('dashboard', {
       ticketsAssignedToMe: ticketsAssignedToMe.toJSON(),
@@ -50,8 +56,8 @@ class DashboardController {
       ticketsNotAssigned: ticketsNotAssigned.toJSON(),
       priorities: priorities[0][auth.user.locale],
       statuses: statuses[0][auth.user.locale]
-    })
+    });
   }
 }
 
-module.exports = DashboardController
+module.exports = DashboardController;
