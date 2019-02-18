@@ -15,12 +15,9 @@
         <a href="{{ route('ticketsProjectIndex', { id: userProject.id }) }}" class="dropdown-item">
           {{ userProject.title }}
           @if(userProject["__meta__"].tickets_count > 0)
-            <span class="is-pulled-right">
-              <small>
-                <i class="fas fa-ticket-alt fa-fw"></i>
-                {{ userProject["__meta__"].tickets_count }}
-              </small>
-            </span>
+            <small class="has-text-primary">
+              ({{ userProject["__meta__"].tickets_count }})
+            </small>
           @endif
         </a>
       @endeach
