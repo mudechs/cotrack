@@ -12,7 +12,7 @@
   <div class="dropdown-menu" id="projectDropdownMenu" role="menu">
     <div class="dropdown-content">
       @each(userProject in userProjects)
-        <a href="#" class="dropdown-item">
+        <a href="{{ route('ticketsProjectIndex', { id: userProject.id }) }}" class="dropdown-item">
           {{ userProject.title }}
           <span class="is-pulled-right">
             <small>

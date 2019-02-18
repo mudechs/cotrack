@@ -14412,7 +14412,7 @@ footer {
   position: fixed;
   left: 50%;
   margin-left: -160px;
-  bottom: 10px;
+  bottom: 0;
   z-index: 40;
   padding: 10px; }
   #notification p {
