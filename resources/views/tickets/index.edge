@@ -31,9 +31,12 @@
                     @endif
                     @endeach
                   ">
-                  <span><small>{{ ticket.created_at }}</small></span>
-                  <p class="m-b-sm"><b>{{ ticket.subject }}</b></p>
-                  @include('tickets.includes.widgetFooter')
+                  <span><small>{{ ticket.created_at }}</small></span><br>
+                  <span class="m-b-sm"><b>{{ ticket.subject }}</b></span><br>
+                  <span><small>{{ ticket.project.title }}</small></span>
+                  <div class="icon-box">
+                    @include('tickets.includes.widgetFooter')
+                  </div>
                 </a>
               @endeach
             </div>
@@ -65,9 +68,12 @@
                   @endif
                   @endeach
                 ">
-                <span><small>{{ ticket.created_at }}</small></span>
-                <p class="m-b-sm"><b>{{ ticket.subject }}</b></p>
-                @include('tickets.includes.widgetFooter')
+                <span><small>{{ ticket.created_at }}</small></span><br>
+                <span class="m-b-sm"><b>{{ ticket.subject }}</b></span><br>
+                <span><small>{{ ticket.project.title }}</small></span>
+                <div class="icon-box">
+                  @include('tickets.includes.widgetFooter')
+                </div>
               </a>
             @endeach
           </div>
@@ -99,9 +105,12 @@
                   @endif
                   @endeach
                 ">
-                <span><small>{{ ticket.created_at }}</small></span>
-                <p class="m-b-sm"><b>{{ ticket.subject }}</b></p>
-                @include('tickets.includes.widgetFooter')
+                <span><small>{{ ticket.created_at }}</small></span><br>
+                <span class="m-b-sm"><b>{{ ticket.subject }}</b></span><br>
+                <span><small>{{ ticket.project.title }}</small></span>
+                <div class="icon-box">
+                  @include('tickets.includes.widgetFooter')
+                </div>
               </a>
             @endeach
           </div>
@@ -133,9 +142,12 @@
                   @endif
                   @endeach
                 ">
-                <span><small>{{ ticket.created_at }}</small></span>
-                <p class="m-b-sm"><b>{{ ticket.subject }}</b></p>
-                @include('tickets.includes.widgetFooter')
+                <span><small>{{ ticket.created_at }}</small></span><br>
+                <span class="m-b-sm"><b>{{ ticket.subject }}</b></span><br>
+                <span><small>{{ ticket.project.title }}</small></span>
+                <div class="icon-box">
+                  @include('tickets.includes.widgetFooter')
+                </div>
               </a>
             @endeach
           </div>
@@ -167,9 +179,12 @@
                   @endif
                   @endeach
                 ">
-                <span><small>{{ ticket.created_at }}</small></span>
-                <p class="m-b-sm"><b>{{ ticket.subject }}</b></p>
-                @include('tickets.includes.widgetFooter')
+                <span><small>{{ ticket.created_at }}</small></span><br>
+                <span class="m-b-sm"><b>{{ ticket.subject }}</b></span><br>
+                <span><small>{{ ticket.project.title }}</small></span>
+                <div class="icon-box">
+                  @include('tickets.includes.widgetFooter')
+                </div>
               </a>
             @endeach
           </div>

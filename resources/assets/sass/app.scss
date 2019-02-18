@@ -38,11 +38,19 @@ button.dropdown-item {
   margin-bottom: .25rem !important;
 }
 
+.icon-box {
+  position: absolute;
+  right: 8px;
+  top: 5px;
+  font-size: .75rem;
+}
+
 .card-header {
   border-bottom: 1px solid $white;
 }
 
 .draggable {
+  position: relative;
   cursor: move;
 }
 
