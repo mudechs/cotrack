@@ -14,12 +14,14 @@
       @each(userProject in userProjects)
         <a href="{{ route('ticketsProjectIndex', { id: userProject.id }) }}" class="dropdown-item">
           {{ userProject.title }}
-          <span class="is-pulled-right">
-            <small>
-              <i class="fas fa-ticket-alt fa-fw"></i>
-              {{ userProject["__meta__"].tickets_count }}
-            </small>
-          </span>
+          @if(userProject["__meta__"].tickets_count > 0)
+            <span class="is-pulled-right">
+              <small>
+                <i class="fas fa-ticket-alt fa-fw"></i>
+                {{ userProject["__meta__"].tickets_count }}
+              </small>
+            </span>
+          @endif
         </a>
       @endeach
     </div>
