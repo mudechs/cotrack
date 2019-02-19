@@ -52,6 +52,7 @@
   "abgeschlossen": "Closed",
   "offene_tickets": "Open tickets",
   "geschlossene_tickets": "Closed tickets",
+  "tickets": "Tickets",
   "neues_projekt_erstellen": "Create new project",
   "projekt_bearbeiten": "Edit project",
   "hinweis": "Note",
@@ -97,5 +98,6 @@
   "abwesend": "Not available",
   "fehler": "Error",
   "service_unavailable": "Offline",
-  "service_unavailable_message": "The App is currently not available for maintenance."
+  "service_unavailable_message": "The App is currently not available for maintenance.",
+  "versions": "Versions"
 }

@@ -1,27 +1,24 @@
 'use strict';
 
 const Config = use('Config');
-const {
-  statuses,
-  priorities
-} = Config.get('ticket');
+const { statuses, priorities } = Config.get('ticket');
 const Ticket = use('App/Models/Ticket');
 const TicketServices = use('App/Services/ticketServices');
 
 class DashboardController {
-  async index({
-    auth,
-    view
-  }) {
+  async index({ auth, view }) {
     // Hole Statusgruppe "open"
-    const customStatuses = await TicketServices.ticketStatuses('open', auth.user.locale);
+    const customStatuses = await TicketServices.ticketStatuses(
+      'open',
+      auth.user.locale
+    );
 
     // Lade tickets die mir zugewiesen wurden und den Status "Neu" haben
     const ticketsAssignedToMe = await Ticket.query()
       .where('recipient_id', auth.user.id)
       .where('status', 'Neu')
       .orderBy('created_at', 'desc')
-      .with('project', (builder) => {
+      .with('project', builder => {
         builder.select('id', 'title');
       })
       .withCount('comments')
@@ -33,7 +30,7 @@ class DashboardController {
       .whereNot('recipient_id', auth.user.id)
       .whereIn('status', customStatuses)
       .orderBy('created_at', 'desc')
-      .with('project', (builder) => {
+      .with('project', builder => {
         builder.select('id', 'title');
       })
       .withCount('comments')
@@ -44,7 +41,7 @@ class DashboardController {
       .whereNull('recipient_id')
       .whereIn('status', customStatuses)
       .orderBy('created_at', 'desc')
-      .with('project', (builder) => {
+      .with('project', builder => {
         builder.select('id', 'title');
       })
       .withCount('comments')

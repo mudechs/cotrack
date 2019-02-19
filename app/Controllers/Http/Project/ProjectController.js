@@ -1,13 +1,8 @@
 'use strict';
 
 const Config = use('Config');
-const {
-  phases
-} = Config.get('project');
-const {
-  statuses,
-  priorities
-} = Config.get('ticket');
+const { phases } = Config.get('project');
+const { statuses, priorities } = Config.get('ticket');
 const Project = use('App/Models/Project');
 const Ticket = use('App/Models/Ticket');
 const User = use('App/Models/User');
@@ -16,10 +11,7 @@ const RandomString = require('random-string');
 const Antl = use('Antl');
 
 class ProjectController {
-  async index({
-    auth,
-    view
-  }) {
+  async index({ auth, view }) {
     let projectsActive = [];
     let projectsInactive = [];
 
@@ -74,13 +66,7 @@ class ProjectController {
     });
   }
 
-  async show({
-    auth,
-    params,
-    session,
-    view,
-    response
-  }) {
+  async show({ auth, params, session, view, response }) {
     const project = await Project.query()
       .where('id', params.id)
       .with('projectAuthor', (builder) => {
@@ -139,10 +125,7 @@ class ProjectController {
     return response.redirect('back');
   }
 
-  async create({
-    auth,
-    view
-  }) {
+  async create({ auth, view }) {
     const users = await User.query()
       .select('id', 'first_name', 'last_name')
       .orderBy('last_name', 'asc')
@@ -155,12 +138,7 @@ class ProjectController {
     });
   }
 
-  async store({
-    request,
-    auth,
-    session,
-    response
-  }) {
+  async store({ request, auth, session, response }) {
     let isActive = request.input('is_active');
     isActive = (isActive == 'on') ? true : false;
 
@@ -192,17 +170,14 @@ class ProjectController {
     });
   }
 
-  async edit({
-    auth,
-    params,
-    view
-  }) {
+  async edit({ auth, params, view }) {
     const project = await Project.query()
       .where('id', params.id)
       .with('members', (builder) => {
         builder.select('id', 'first_name', 'last_name')
           .where('is_active', true);
       })
+      .with('versions')
       .first();
 
     const users = await User.query()
@@ -218,13 +193,7 @@ class ProjectController {
     });
   }
 
-  async update({
-    params,
-    request,
-    auth,
-    session,
-    response
-  }) {
+  async update({ params, request, auth, session, response }) {
     const project = await Project.find(params.id);
 
     let isActive = request.input('is_active');
@@ -233,6 +202,7 @@ class ProjectController {
     project.title = request.input('title');
     project.description = request.input('description');
     project.phase = request.input('phase');
+    project.default_version = request.input('default_version');
     project.is_active = isActive;
 
     await project.save();

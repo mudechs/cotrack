@@ -289,17 +289,17 @@
 
       // Status wechseln
       if(document.querySelectorAll('.status-change-item')) {
-        const elements = document.querySelectorAll('.status-change-item')
+        const elements = document.querySelectorAll('.status-change-item');
 
         elements.forEach(element => {
           element.addEventListener('click', (event) => {
-            event.preventDefault()
+            event.preventDefault();
 
-            const status = element.dataset.status
+            const status = element.dataset.status;
 
-            document.getElementById('status-change-input').value = status
+            document.getElementById('status-change-input').value = status;
 
-            document.getElementById('statusChangeForm').submit()
+            document.getElementById('statusChangeForm').submit();
           })
         })
       }

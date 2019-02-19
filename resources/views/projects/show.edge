@@ -20,10 +20,6 @@
         @endslot
 
         @slot('content')
-          <div class="content">
-            {{{ project.descriptionHtml }}}
-          </div>
-          <hr>
           <div class="tabs is-small is-centered">
             <ul>
               <li class="tab is-active" onclick="helpers.openTab(event,'infos')">
@@ -36,6 +32,10 @@
           </div>
           <div class="tab-content">
             <div id="infos" class="content-tab">
+              <div class="content">
+                {{{ project.descriptionHtml }}}
+              </div>
+              <hr>
               <table class="table is-narrow table-borderless is-fullwidth text-nowrap">
                 <tbody>
                   <tr>
@@ -61,6 +61,10 @@
                         @endif
                       @endeach
                     </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Version:</th>
+                    <td>{{ project.default_version }}</td>
                   </tr>
                   <tr>
                     <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.autor') }}:</th>
@@ -103,45 +107,98 @@
         @endslot
       @endcomponent
     </div>
-    <div class="column is-8-tablet">
-      <div class="tabs is-small is-centered">
-        <ul>
-          <li class="tab is-active" onclick="helpers.openTab(event,'open')">
-            <a>{{ antl.forLocale(auth.user.locale).formatMessage('static.offene_tickets') }}</a>
-          </li>
-          <li class="tab" onclick="helpers.openTab(event,'closed')">
-            <a>{{ antl.forLocale(auth.user.locale).formatMessage('static.geschlossene_tickets') }}</a>
-          </li>
-        </ul>
-      </div>
-      <div class="tab-content">
-        <div id="open" class="content-tab">
-          @!component('projects.components.ticketListing', {
-            priority: antl.forLocale(auth.user.locale).formatMessage('static.prioritaet'),
-            subject: antl.forLocale(auth.user.locale).formatMessage('static.betreff'),
-            from: antl.forLocale(auth.user.locale).formatMessage('static.von'),
-            to: antl.forLocale(auth.user.locale).formatMessage('static.an'),
-            dateLabel: antl.forLocale(auth.user.locale).formatMessage('static.erstellt'),
-            tickets: ticketsOpen,
-            dataTable: 'data-table-open',
-            priorities,
-            statuses
-          })
-        </div>
-        <div id="closed" class="content-tab" style="display: none;">
-          @!component('projects.components.ticketListing', {
-            priority: antl.forLocale(auth.user.locale).formatMessage('static.prioritaet'),
-            subject: antl.forLocale(auth.user.locale).formatMessage('static.betreff'),
-            from: antl.forLocale(auth.user.locale).formatMessage('static.von'),
-            to: antl.forLocale(auth.user.locale).formatMessage('static.an'),
-            dateLabel: antl.forLocale(auth.user.locale).formatMessage('static.abgeschlossen'),
-            tickets: ticketsClosed,
-            dataTable: 'data-table-closed',
-            priorities,
-            statuses
-          })
-        </div>
-      </div>
+    <div class="column is-4-tablet is-2-desktop">
+      @component('components.card', {
+        antl,
+        csrf,
+        locale: auth.user.locale,
+        title: 'static.versions',
+        styles: 'has-background-light has-rounded-white-border',
+        footer: false
+      })
+        @slot('header')
+          <h1 class="subtitle">Versionen</h1>
+        @endslot
+
+        @slot('content')
+          <div class="columns">
+            <div class="column">
+              <form id="createVersionForm" action="{{ route('versionsCreate', { id: project.id }) }}" method="post">
+                {{ csrfField() }}
+                <div class="field has-addons">
+                  <div class="control has-icons-left has-icons-right is-expanded">
+                    <input type="text" id="version" class="input is-small" name="version">
+                    <span class="icon is-medium is-left">
+                      <i class="fas fa-code-branch"></i>
+                    </span>
+                  </div>
+                  <p class="control">
+                    <a id="createVersionButton" class="button is-primary is-small"><i class="far fa-save"></i></a>
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+          <table id="versionsTable" data-projectid="{{ project.id }}" data-version="{{ project.default_version }}" class="table is-narrow table-borderless is-fullwidth text-nowrap m-t-sm">
+            <tbody>
+              {{--  Projektversionen aus Ajax Call  --}}
+            </tbody>
+          </table>
+        @endslot
+      @endcomponent
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column">
+      @component('components.card', {
+        antl,
+        csrf,
+        locale: auth.user.locale,
+        title: 'static.tickets',
+        styles: 'has-background-light has-rounded-white-border',
+        footer: false
+      })
+        @slot('content')
+          <div class="tabs is-small is-centered">
+            <ul>
+              <li class="tab is-active" onclick="helpers.openTab(event,'open')">
+                <a>{{ antl.forLocale(auth.user.locale).formatMessage('static.offene_tickets') }}</a>
+              </li>
+              <li class="tab" onclick="helpers.openTab(event,'closed')">
+                <a>{{ antl.forLocale(auth.user.locale).formatMessage('static.geschlossene_tickets') }}</a>
+              </li>
+            </ul>
+          </div>
+          <div class="tab-content">
+            <div id="open" class="content-tab">
+              @!component('projects.components.ticketListing', {
+                priority: antl.forLocale(auth.user.locale).formatMessage('static.prioritaet'),
+                subject: antl.forLocale(auth.user.locale).formatMessage('static.betreff'),
+                from: antl.forLocale(auth.user.locale).formatMessage('static.von'),
+                to: antl.forLocale(auth.user.locale).formatMessage('static.an'),
+                dateLabel: antl.forLocale(auth.user.locale).formatMessage('static.erstellt'),
+                tickets: ticketsOpen,
+                dataTableHandler: 'data-table-open',
+                priorities,
+                statuses
+              })
+            </div>
+            <div id="closed" class="content-tab" style="display: none;">
+              @!component('projects.components.ticketListing', {
+                priority: antl.forLocale(auth.user.locale).formatMessage('static.prioritaet'),
+                subject: antl.forLocale(auth.user.locale).formatMessage('static.betreff'),
+                from: antl.forLocale(auth.user.locale).formatMessage('static.von'),
+                to: antl.forLocale(auth.user.locale).formatMessage('static.an'),
+                dateLabel: antl.forLocale(auth.user.locale).formatMessage('static.abgeschlossen'),
+                tickets: ticketsClosed,
+                dataTableHandler: 'data-table-closed',
+                priorities,
+                statuses
+              })
+            </div>
+          </div>
+        @endslot
+      @endcomponent
     </div>
   </div>
   @if(auth.user.is_admin || auth.user.is_superadmin)
@@ -159,4 +216,88 @@
       helpers.clickableRow();
     })
   </script>
+
+  @if(auth.user.id == project.author_id || auth.user.is_admin || auth.user.is_superadmin)
+    <script>
+      document.addEventListener('DOMContentLoaded', function(event) {
+        getVersions();
+      });
+
+      // Erstelle eine neue Version
+      document.getElementById('createVersionButton').addEventListener('click', function(event) {
+        event.preventDefault();
+
+        const formData = document.getElementById('createVersionForm');
+        const data = helpers.formSerialize(formData);
+        const url = formData.getAttribute('action');
+
+        axios.post(url, {
+          data: data
+        })
+        .then(function (response) {
+          document.getElementById('version').value = '';
+          getVersions();
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+      });
+
+      // Lade die Versionen, lösche Versionen
+      function getVersions() {
+        const table = document.getElementById('versionsTable');
+        const projectId = table.dataset.projectid;
+        const defaultVersion = table.dataset.version;
+        const url = '/api/versions/' + projectId;
+
+        table.innerHTML = '';
+
+        axios.get(url)
+        .then(function (response) {
+          const elements = response.data;
+          let row, cell1, cell2, cell3, disabled, color;
+
+          elements.forEach(element => {
+            row = table.insertRow(0);
+            cell1 = row.insertCell(0);
+            cell2 = row.insertCell(1);
+            cell3 = row.insertCell(2);
+
+            if(element.title == defaultVersion) {
+              disabled = 'disabled';
+              color = 'has-text-success';
+            } else {
+              disabled = '';
+              color = '';
+            }
+
+            cell1.innerHTML = '<b class="' + color + '">' + element.title + '</b>';
+            cell2.innerHTML = element.created_at;
+            cell3.innerHTML = '<button class="version-delete-handler button is-small is-text is-pulled-right" data-id="' + element.id + '" ' + disabled + '><i class="far fa-times-circle has-text-danger"></i></button>';
+
+            // Lösche eine Version die nicht default ist
+            if(document.querySelectorAll('.version-delete-handler')) {
+              const elements = document.querySelectorAll('.version-delete-handler')
+              elements.forEach(element => {
+                element.addEventListener('click', (event) => {
+                  event.preventDefault();
+
+                  const versionId = element.dataset.id;
+                  const url = '/api/versions/delete/' + versionId;
+                  axios.post(url)
+                    .then(function(response){
+                      getVersions();
+                    })
+                    .catch();
+                })
+              })
+            }
+          })
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+      }
+    </script>
+  @endif
 @endsection

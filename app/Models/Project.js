@@ -50,6 +50,15 @@ class Project extends Model {
   tickets() {
     return this.hasMany('App/Models/Ticket', 'id', 'project_id');
   }
+
+  /**
+   * @method versions
+   *
+   * @return {Object}
+   */
+  versions() {
+    return this.hasMany('App/Models/Version', 'id', 'project_id');
+  }
 }
 
 module.exports = Project;

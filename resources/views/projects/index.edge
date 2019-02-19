@@ -13,96 +13,22 @@
   </div>
   <div class="tab-content">
     <div id="active" class="content-tab">
-      <div class="table-responsive">
-        <table class="table is-hoverable is-narrow table-borderless is-striped is-fullwidth text-nowrap data-table-active linkable">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.titel') }}</th>
-              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.phase') }}</th>
-              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.erstellt') }}</th>
-              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.autor') }}</th>
-              <th class="text-center">Status</th>
-              <th class="text-right"><i class="fas fa-cog"></i></th>
-            </tr>
-          </thead>
-          <tbody>
-            @each(project in projectsActive)
-              <tr class="clickable" data-href="{{ route('projectsShow', { id: project.id }) }}">
-                <td scope="row">{{ project.id }}</td>
-                <td>{{ project.title }}</td>
-                <td>
-                  @each(phase in phases)
-                    @if(phase.value == $parent.project.phase)
-                      {{ phase.label }}
-                    @endif
-                  @endeach
-                </td>
-                <td>{{ project.created_at }}</td>
-                <td>{{ project.projectAuthor.first_name }} {{ project.projectAuthor.last_name }}</td>
-                <td class="text-center">
-                    @if(user.is_active == 0)
-                      <span class="text-danger">{{ antl.forLocale(auth.user.locale).formatMessage('static.inaktiv') }}</span>
-                    @else
-                      <span class="text-success">{{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}</span>
-                    @endif
-                </td>
-                <td class="text-right">
-                  @if(auth.user.id == project.author_id || auth.user.is_admin || auth.user.is_superadmin)
-                    <a href="{{ route('projectsEdit', { id: project.id }) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pencil-alt"></i></a>
-                  @endif
-                </td>
-              </tr>
-            @endeach
-          </tbody>
-        </table>
-      </div>
+      @!component('projects.components.projectListing', {
+        antl,
+        locale: auth.user.locale,
+        projectsActive,
+        phases,
+        dataTableHandler: 'data-table-active'
+      })
     </div>
     <div id="inactive" class="content-tab" style="display:none">
-      <div class="table-responsive">
-        <table class="table is-hoverable is-narrow table-borderless is-striped is-fullwidth text-nowrap data-table-inactive linkable">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.titel') }}</th>
-              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.phase') }}</th>
-              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.erstellt') }}</th>
-              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.autor') }}</th>
-              <th class="text-center">Status</th>
-              <th class="text-right"><i class="fas fa-cog"></i></th>
-            </tr>
-          </thead>
-          <tbody>
-            @each(project in projectsInactive)
-              <tr class="clickable" data-href="{{ route('projectsShow', { id: project.id }) }}">
-                <td scope="row">{{ project.id }}</td>
-                <td>{{ project.title }}</td>
-                <td>
-                  @each(phase in phases)
-                    @if(phase.value == $parent.project.phase)
-                      {{ phase.label }}
-                    @endif
-                  @endeach
-                </td>
-                <td>{{ project.created_at }}</td>
-                <td>{{ project.projectAuthor.first_name }} {{ project.projectAuthor.last_name }}</td>
-                <td class="text-center">
-                    @if(user.is_active == 0)
-                      <span class="text-danger">{{ antl.forLocale(auth.user.locale).formatMessage('static.inaktiv') }}</span>
-                    @else
-                      <span class="text-success">{{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}</span>
-                    @endif
-                </td>
-                <td class="text-right">
-                  @if(auth.user.id == project.author_id || auth.user.is_admin || auth.user.is_superadmin)
-                    <a href="{{ route('projectsEdit', { id: project.id }) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pencil-alt"></i></a>
-                  @endif
-                </td>
-              </tr>
-            @endeach
-          </tbody>
-        </table>
-      </div>
+      @!component('projects.components.projectListing', {
+        antl,
+        locale: auth.user.locale,
+        projectsInactive,
+        phases,
+        dataTableHandler: 'data-table-inactive'
+      })
     </div>
   </div>
 @endsection

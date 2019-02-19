@@ -22,9 +22,7 @@ Route.on('/privacy-policy').render('auth.privacy_policy').middleware(['mMode']).
 Route.get('register', 'Auth/RegisterController.showRegistrationForm').middleware(['mMode']);
 Route.post('register', 'Auth/RegisterController.register').as('register').middleware(['mMode']);
 Route.get('register/confirm/:token', 'Auth/RegisterController.confirmEmail').middleware(['mMode']);
-Route.get('register/success', ({
-  view
-}) => {
+Route.get('register/success', ({ view }) => {
   return view.render('auth.register_success');
 }).middleware(['mMode']).as('register.success');
 
@@ -78,15 +76,11 @@ Route
   .middleware(['mMode', 'auth']);
 
 // Error pages
-Route.get('error-403', ({
-  view
-}) => {
+Route.get('error-403', ({ view }) => {
   return view.render('errors/403');
 }).middleware(['mMode']).as('error403');
 
-Route.get('error-503', ({
-  view
-}) => {
+Route.get('error-503', ({ view }) => {
   return view.render('errors/503');
 }).as('error503');
 
@@ -105,6 +99,9 @@ Route
 // Internal API
 Route.get('api/tickets/projectMembers/:id', 'Ticket/TicketController.apiGetProjectMembers').middleware(['mMode', 'auth']);
 Route.get('api/comments/:id', 'Comment/CommentController.apiGetComment').middleware(['mMode', 'auth']);
+Route.get('api/versions/:id', 'Version/VersionController.show').middleware(['mMode', 'isAdmin']);
+Route.post('api/versions/create/:id', 'Version/VersionController.create').middleware(['mMode', 'isAdmin']).as('versionsCreate');
+Route.post('api/versions/delete/:id', 'Version/VersionController.delete').middleware(['mMode', 'isAdmin']);
 
 // Public API
 Route.post('api/public/tickets/create', 'Ticket/TicketController.apiPublicTicketCreate').middleware(['mMode', 'publicApi']);

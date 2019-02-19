@@ -63,6 +63,24 @@
         </select>
       </div>
     </div>
+    @if(project != undefined)
+      <div class="field">
+        <label for="default_version" class="label">Version</label>
+        <div class="select">
+          <select name="default_version">
+            <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
+            @each(version in project.versions)
+              <option value="{{ version.title }}"
+                @if(version.title == project.default_version)
+                  selected
+                @endif
+                {{ old('phase') == version.title ? 'selected' : ''  }}
+              >{{ version.title }}</option>
+            @endeach
+          </select>
+        </div>
+      </div>
+    @endif
     <div class="field">
       <label for="members" class="label">Members</label>
       <select id="members" name="members[]" class="custom-select" multiple="multiple">

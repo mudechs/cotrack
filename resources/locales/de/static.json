@@ -52,6 +52,7 @@
   "abgeschlossen": "Abgeschlossen",
   "offene_tickets": "Offene Tickets",
   "geschlossene_tickets": "Geschlossene Tickets",
+  "tickets": "Tickets",
   "neues_projekt_erstellen": "Neues Projekt erstellen",
   "projekt_bearbeiten": "Projekt bearbeiten",
   "hinweis": "Hinweis",
@@ -97,5 +98,6 @@
   "abwesend": "Abwesend",
   "fehler": "Fehler",
   "service_unavailable": "Offline",
-  "service_unavailable_message": "Die App steht zur Zeit wegen Wartungsarbeiten nicht zur Verfügung."
+  "service_unavailable_message": "Die App steht zur Zeit wegen Wartungsarbeiten nicht zur Verfügung.",
+  "versions": "Versionen"
 }

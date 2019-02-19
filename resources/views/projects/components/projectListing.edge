@@ -1,0 +1,46 @@
+<div class="table-responsive">
+  <table class="table is-hoverable is-narrow table-borderless is-striped is-fullwidth text-nowrap {{ dataTableHandler }} linkable">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th>{{ antl.forLocale(locale).formatMessage('static.titel') }}</th>
+        <th>{{ antl.forLocale(locale).formatMessage('static.phase') }}</th>
+        <th class="has-text-centered">Version</th>
+        <th>{{ antl.forLocale(locale).formatMessage('static.erstellt') }}</th>
+        <th>{{ antl.forLocale(locale).formatMessage('static.autor') }}</th>
+        <th class="has-text-centered">Status</th>
+        <th class="has-text-right"><i class="fas fa-cog"></i></th>
+      </tr>
+    </thead>
+    <tbody>
+      @each(project in projectsActive)
+        <tr class="clickable" data-href="{{ route('projectsShow', { id: project.id }) }}">
+          <td scope="row">{{ project.id }}</td>
+          <td>{{ project.title }}</td>
+          <td>
+            @each(phase in phases)
+              @if(phase.value == $parent.project.phase)
+                {{ phase.label }}
+              @endif
+            @endeach
+          </td>
+          <td class="has-text-centered">{{ project.current_version }}</td>
+          <td>{{ project.created_at }}</td>
+          <td>{{ project.projectAuthor.first_name }} {{ project.projectAuthor.last_name }}</td>
+          <td class="has-text-centered">
+              @if(user.is_active == 0)
+                <span class="text-danger">{{ antl.forLocale(locale).formatMessage('static.inaktiv') }}</span>
+              @else
+                <span class="text-success">{{ antl.forLocale(locale).formatMessage('static.aktiv') }}</span>
+              @endif
+          </td>
+          <td class="has-text-right">
+            @if(auth.user.id == project.author_id || auth.user.is_admin || auth.user.is_superadmin)
+              <a href="{{ route('projectsEdit', { id: project.id }) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pencil-alt"></i></a>
+            @endif
+          </td>
+        </tr>
+      @endeach
+    </tbody>
+  </table>
+</div>
