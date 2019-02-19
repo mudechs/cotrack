@@ -89,6 +89,11 @@ function saveDraggedTicket(evt) {
     });
 }
 
+function validateRegex(data, pattern) {
+  var rgx = pattern;
+  return data.match(rgx);
+}
+
 export default {
   openTab,
   showNotification,
@@ -96,5 +101,6 @@ export default {
   formSerialize,
   clickableRow,
   dataTable,
-  saveDraggedTicket
+  saveDraggedTicket,
+  validateRegex
 };

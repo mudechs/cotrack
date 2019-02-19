@@ -2,6 +2,9 @@
   @if(title)
     <div class="card-header has-text-centered">
       <p class="card-header-title is-family-monospace is-centered has-text-black">
+        @if(icon)
+        <i class="{{ icon }} m-r-sm"></i>
+        @endif
         {{ antl.forLocale(locale).formatMessage(title) }}
       </p>
     </div>

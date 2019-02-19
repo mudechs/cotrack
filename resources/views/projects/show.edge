@@ -113,24 +113,18 @@
         csrf,
         locale: auth.user.locale,
         title: 'static.versions',
+        icon: 'fas fa-code-branch',
         styles: 'has-background-light has-rounded-white-border',
         footer: false
       })
-        @slot('header')
-          <h1 class="subtitle">Versionen</h1>
-        @endslot
-
         @slot('content')
           <div class="columns">
             <div class="column">
               <form id="createVersionForm" action="{{ route('versionsCreate', { id: project.id }) }}" method="post">
                 {{ csrfField() }}
                 <div class="field has-addons">
-                  <div class="control has-icons-left has-icons-right is-expanded">
-                    <input type="text" id="version" class="input is-small" name="version">
-                    <span class="icon is-medium is-left">
-                      <i class="fas fa-code-branch"></i>
-                    </span>
+                  <div class="control has-icons-right is-expanded">
+                    <input type="text" id="version" class="input is-small" name="version" placeholder="Format: 0.0.0">
                   </div>
                   <p class="control">
                     <a id="createVersionButton" class="button is-primary is-small"><i class="far fa-save"></i></a>
@@ -155,6 +149,7 @@
         csrf,
         locale: auth.user.locale,
         title: 'static.tickets',
+        icon: 'fas fa-ticket-alt',
         styles: 'has-background-light has-rounded-white-border',
         footer: false
       })
@@ -231,17 +226,24 @@
         const data = helpers.formSerialize(formData);
         const url = formData.getAttribute('action');
 
-        axios.post(url, {
-          data: data
-        })
-        .then(function (response) {
-          document.getElementById('version').value = '';
-          helpers.showToast();
-          getVersions();
-        })
-        .catch(function (error) {
-          console.log(error);
-        })
+        console.log(data.version);
+
+        const validate = helpers.validateRegex(data.version, '^[0-9]+\.+[0-9]+\.+[0-9]$');
+        if(validate) {
+          axios.post(url, {
+            data: data
+          })
+          .then(function (response) {
+            document.getElementById('version').value = '';
+            helpers.showToast();
+            getVersions();
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+        } else {
+          alert('Not valid');
+        }
       });
 
       // Lade die Versionen, lösche Versionen
