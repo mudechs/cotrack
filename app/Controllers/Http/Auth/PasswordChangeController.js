@@ -5,23 +5,14 @@ const Hash = use('Hash');
 const Antl = use('Antl');
 
 class PasswordChangeController {
-  async edit({
-    params,
-    view
-  }) {
+  async edit({ params, view }) {
     const user = await User.find(params.id);
     return view.render('auth.password_edit', {
       user: user
     });
   }
 
-  async update({
-    params,
-    request,
-    auth,
-    session,
-    response
-  }) {
+  async update({ params, request, auth, session, response }) {
     // formdaten auslesen
     const password_current = request.input('password_current');
 

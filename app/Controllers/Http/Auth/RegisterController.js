@@ -1,23 +1,15 @@
 'use strict';
 
 const Config = use('Config');
-const {
-  salutations
-} = Config.get('user');
-const {
-  validateAll
-} = use('Validator');
+const { salutations } = Config.get('user');
+const { validateAll } = use('Validator');
 const User = use('App/Models/User');
 const randomString = require('random-string');
 const Event = use('Event');
 const Antl = use('Antl');
 
 class RegisterController {
-  showRegistrationForm({
-    request,
-    view,
-    response
-  }) {
+  showRegistrationForm({ request, view, response }) {
     if (request.globals.allow_registration) {
       return view.render('auth.register', {
         salutations: salutations[0]['en']
@@ -27,11 +19,7 @@ class RegisterController {
     }
   }
 
-  async register({
-    request,
-    session,
-    response
-  }) {
+  async register({ request, session, response }) {
     // Validate
     const validation = await validateAll(request.all(), {
       salutation: 'required',
@@ -84,12 +72,7 @@ class RegisterController {
     return response.route('register.success');
   }
 
-  async confirmEmail({
-    params,
-    request,
-    session,
-    response
-  }) {
+  async confirmEmail({ params, request, session, response }) {
     const user = await User.findBy('confirmation_token', params.token);
 
     user.confirmation_token = null;

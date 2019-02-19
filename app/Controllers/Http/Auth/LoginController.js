@@ -1,8 +1,6 @@
 'use strict';
 
-const {
-  validate
-} = use('Validator');
+const { validate } = use('Validator');
 const User = use('App/Models/User');
 const Setting = use('App/Models/Setting');
 const Token = use('App/Models/Token');
@@ -13,18 +11,11 @@ const Event = use('Event');
 const Antl = use('Antl');
 
 class LoginController {
-  showLoginForm({
-    view
-  }) {
+  showLoginForm({ view }) {
     return view.render('auth.login');
   }
 
-  async login({
-    request,
-    auth,
-    session,
-    response
-  }) {
+  async login({ request, auth, session, response }) {
     try {
       // Get form data
       const {
@@ -159,10 +150,7 @@ class LoginController {
     }
   }
 
-  loginTokenForm({
-    params,
-    view
-  }) {
+  loginTokenForm({ params, view }) {
     const hash = decodeURIComponent(params.hash);
 
     return view.render('auth.login_token', {
@@ -170,12 +158,7 @@ class LoginController {
     });
   }
 
-  async loginToken({
-    request,
-    auth,
-    session,
-    response
-  }) {
+  async loginToken({ request, auth, session, response }) {
     // Validate
     const validation = await validate(request.only('token'), {
       token: 'required'

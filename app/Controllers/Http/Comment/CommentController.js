@@ -6,12 +6,7 @@ const Event = use('Event');
 const FileuploadServices = use('App/Services/fileuploadServices');
 
 class CommentController {
-  async store({
-    params,
-    request,
-    auth,
-    response
-  }) {
+  async store({ params, request, auth, response }) {
     const comment = await Comment.create({
       body: request.input('body'),
       author_id: auth.user.id,
@@ -65,12 +60,7 @@ class CommentController {
     });
   }
 
-  async update({
-    params,
-    request,
-    session,
-    response
-  }) {
+  async update({ params, request, session, response }) {
     const comment = await Comment.find(params.id);
     const ticketId = request.input('ticket_id');
 
@@ -90,10 +80,7 @@ class CommentController {
     });
   }
 
-  async apiGetComment({
-    params,
-    response
-  }) {
+  async apiGetComment({ params, response }) {
     const comment = await Comment.query()
       .where('id', params.id)
       .first();

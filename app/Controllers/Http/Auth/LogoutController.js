@@ -1,10 +1,7 @@
 'use strict';
 
 class LogoutController {
-  async logout({
-    auth,
-    response
-  }) {
+  async logout({ auth, response }) {
     await auth.logout();
 
     return response.redirect('/login');

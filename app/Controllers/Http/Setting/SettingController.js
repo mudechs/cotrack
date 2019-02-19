@@ -4,9 +4,7 @@ const Setting = use('App/Models/Setting');
 const Antl = use('Antl');
 
 class SettingController {
-  async index({
-    view
-  }) {
+  async index({ view }) {
     const settings = await Setting.first();
 
     if (settings) {
@@ -19,10 +17,7 @@ class SettingController {
 
   }
 
-  async edit({
-    params,
-    view
-  }) {
+  async edit({ params, view }) {
     const settings = await Setting.find(params.id);
 
     return view.render('settings.edit', {
@@ -30,13 +25,7 @@ class SettingController {
     });
   }
 
-  async update({
-    params,
-    request,
-    auth,
-    session,
-    response
-  }) {
+  async update({ params, request, auth, session, response }) {
     const setting = await Setting.find(params.id);
 
     let allowRegistration = request.input('allow_registration');

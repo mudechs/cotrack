@@ -1,12 +1,8 @@
 'use strict';
 
 const Config = use('Config');
-const {
-  salutations
-} = Config.get('user');
-const {
-  validateAll
-} = use('Validator');
+const { salutations } = Config.get('user');
+const { validateAll } = use('Validator');
 const User = use('App/Models/User');
 const Event = use('Event');
 const FileuploadServices = use('App/Services/fileuploadServices');
@@ -14,9 +10,7 @@ const Antl = use('Antl');
 const RandomString = require('random-string');
 
 class UserController {
-  async index({
-    view
-  }) {
+  async index({ view }) {
     const usersActive = await User.query()
       .select(
         'id',
@@ -51,11 +45,7 @@ class UserController {
     });
   }
 
-  async show({
-    auth,
-    params,
-    view
-  }) {
+  async show({ auth, params, view }) {
     const user = await User.query()
       .where('id', params.id)
       .with('lastLogin')
@@ -73,21 +63,13 @@ class UserController {
     });
   }
 
-  async create({
-    auth,
-    view
-  }) {
+  async create({ auth, view }) {
     return view.render('users.create', {
       salutations: salutations[0][auth.user.locale]
     });
   }
 
-  async store({
-    request,
-    auth,
-    session,
-    response
-  }) {
+  async store({ request, auth, session, response }) {
     // Validate
     const validation = await validateAll(request.all(), {
       salutation: 'required',
@@ -170,11 +152,7 @@ class UserController {
     });
   }
 
-  async edit({
-    auth,
-    params,
-    view
-  }) {
+  async edit({ auth, params, view }) {
     const user = await User.find(params.id);
     return view.render('users.edit', {
       user: user,
@@ -182,13 +160,7 @@ class UserController {
     });
   }
 
-  async update({
-    params,
-    request,
-    auth,
-    session,
-    response
-  }) {
+  async update({ params, request, auth, session, response }) {
     const userId = params.id;
 
     const validation = await validateAll(request.all(), {
@@ -256,12 +228,7 @@ class UserController {
     });
   }
 
-  async userChangeAvailability({
-    params,
-    auth,
-    request,
-    response
-  }) {
+  async userChangeAvailability({ params, auth, request, response }) {
     const user = await User.find(params.id);
 
     user.is_available = request.body.data.is_available;

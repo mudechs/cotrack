@@ -1,9 +1,6 @@
 'use strict';
 
-const {
-  validate,
-  validateAll
-} = use('Validator');
+const { validate, validateAll } = use('Validator');
 const User = use('App/Models/User');
 const PasswordReset = use('App/Models/PasswordReset');
 const randomString = require('random-string');
@@ -12,17 +9,11 @@ const Event = use('Event');
 const Antl = use('Antl');
 
 class PasswordResetController {
-  showLinkRequestForm({
-    view
-  }) {
+  showLinkRequestForm({ view }) {
     return view.render('auth.password_reset_email');
   }
 
-  async sendResetLinkEmail({
-    request,
-    session,
-    response
-  }) {
+  async sendResetLinkEmail({ request, session, response }) {
     const validation = await validate(request.only('email'), {
       email: 'required|email'
     });
@@ -85,20 +76,13 @@ class PasswordResetController {
     }
   }
 
-  showResetForm({
-    params,
-    view
-  }) {
+  showResetForm({ params, view }) {
     return view.render('auth.password_reset', {
       token: params.token
     });
   }
 
-  async reset({
-    request,
-    session,
-    response
-  }) {
+  async reset({ request, session, response }) {
     const validation = await validateAll(request.all(), {
       token: 'required',
       email: 'required|email',

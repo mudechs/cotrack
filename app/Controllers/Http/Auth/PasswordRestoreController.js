@@ -1,8 +1,6 @@
 'use strict';
 
-const {
-  validate
-} = use('Validator');
+const { validate } = use('Validator');
 const Hash = use('Hash');
 const RandomString = require('random-string');
 const Antl = use('Antl');
@@ -10,13 +8,7 @@ const User = use('App/Models/User');
 const Event = use('Event');
 
 class PasswordRestoreController {
-  async restorePassword({
-    params,
-    request,
-    auth,
-    session,
-    response
-  }) {
+  async restorePassword({ params, request, auth, session, response }) {
     // Validate
     const validation = await validate(request.only('password'), {
       password: 'required|min:6'
