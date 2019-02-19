@@ -236,6 +236,7 @@
         })
         .then(function (response) {
           document.getElementById('version').value = '';
+          helpers.showToast();
           getVersions();
         })
         .catch(function (error) {
@@ -285,10 +286,13 @@
                   const versionId = element.dataset.id;
                   const url = '/api/versions/delete/' + versionId;
                   axios.post(url)
-                    .then(function(response){
+                    .then(function(response) {
+                      helpers.showToast();
                       getVersions();
                     })
-                    .catch();
+                    .catch(function (error) {
+                      console.log(error);
+                    })
                 })
               })
             }

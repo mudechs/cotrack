@@ -99,5 +99,7 @@
   "fehler": "Fehler",
   "service_unavailable": "Offline",
   "service_unavailable_message": "Die App steht zur Zeit wegen Wartungsarbeiten nicht zur Verfügung.",
-  "versions": "Versionen"
+  "versions": "Versionen",
+  "affected_version": "Betroffene Version",
+  "resolved_version": "Gelöst in Version"
 }

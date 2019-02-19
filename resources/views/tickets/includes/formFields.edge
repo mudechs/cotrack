@@ -30,10 +30,30 @@
     @endif
 
     @if(ticket == undefined)
-      <div class="field" style="display: none;">
-        <label for="recipient" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.empfaenger') }} (optional)</label>
-        <div class="control">
-          <div id="recipientSelect" class="select"></div>
+      <div class="columns">
+        <div class="column">
+          <div class="field" style="display: none;">
+            <label for="recipient" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.empfaenger') }} (optional)</label>
+            <div class="control">
+              <div id="recipientSelect" class="select"></div>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="field is-horizontal">
+            <div class="field m-r-lg" style="display: none;">
+              <label for="affected_version" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.affected_version') }}</label>
+              <div class="control">
+                <div id="affectedVersionSelect" class="select"></div>
+              </div>
+            </div>
+            <div class="field" style="display: none;">
+              <label for="resolved_version" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.resolved_version') }}</label>
+                <div class="control">
+                  <div id="resolvedVersionSelect" class="select"></div>
+                </div>
+              </div>
+            </div>
         </div>
       </div>
     @endif
@@ -129,6 +149,44 @@
         </select>
       </div>
     </div>
+    @if(ticket != undefined)
+      <div class="field">
+        <div class="control">
+          <label for="affected_version" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.affected_version') }}</label>
+          <div class="select">
+            <select name="affected_version">
+              <option value=""></option>
+              @each(version in versions)
+                <option value="{{ version.title }}"
+                  @if(version.title == ticket.affected_version)
+                    selected
+                  @endif
+                  {{ old('affected_version') == version.title ? 'selected' : ''  }}
+                >{{ version.title }}</option>
+              @endeach
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <label for="resolved_version" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.resolved_version') }}</label>
+          <div class="select">
+            <select name="resolved_version">
+              <option value=""></option>
+              @each(version in versions)
+                <option value="{{ version.title }}"
+                  @if(version.title == ticket.resolved_version)
+                    selected
+                  @endif
+                  {{ old('resolved_version') == version.title ? 'selected' : ''  }}
+                >{{ version.title }}</option>
+              @endeach
+            </select>
+          </div>
+        </div>
+      </div>
+    @endif
     <div class="field">
       <label for="done_until" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.zu_erledigen_bis') }}</label>
       <input

@@ -120,6 +120,12 @@
               @endeach
             </small><br>
           @endif
+          @if(ticket.affected_version)
+            <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.affected_version') }}: </b><span class="text-danger">{{ ticket.affected_version }}</span></small><br>
+          @endif
+          @if(ticket.resolved_version)
+            <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.resolved_version') }}: </b><span class="text-danger">{{ ticket.resolved_version }}</span></small><br>
+          @endif
           @if(ticket.done_until)
             <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.zu_erledigen_bis') }}: </b><span class="text-danger">{{ ticket.done_until }}</span></small><br>
           @endif

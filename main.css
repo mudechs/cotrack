@@ -14364,6 +14364,9 @@ html {
 body {
   min-height: 100%; }
 
+.field .label {
+  font-size: .75rem; }
+
 .section {
   padding: 1rem; }
 

@@ -99,5 +99,7 @@
   "fehler": "Error",
   "service_unavailable": "Offline",
   "service_unavailable_message": "The App is currently not available for maintenance.",
-  "versions": "Versions"
+  "versions": "Versions",
+  "affected_version": "Affected version",
+  "resolved_version": "Resolved in version"
 }

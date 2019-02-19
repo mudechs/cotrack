@@ -7,7 +7,7 @@
       csrf,
       locale: auth.user.locale,
       title: 'static.neues_ticket_erstellen',
-      styles: 'has-background-light has-rounded-white-border',
+      styles: 'has-background-light has-rounded-white-border p-sm',
       footer: false
     })
       @slot('content')
@@ -35,45 +35,98 @@
     function projectSelectorHandler(event) {
       const projectId = event.target.value;
       const url = '/api/tickets/projectMembers/' + projectId;
-      const container = document.getElementById('recipientSelect');
+      const recipientSelectWrapper = document.getElementById('recipientSelect');
+      const affectedVersionSelectWrapper = document.getElementById('affectedVersionSelect');
+      const resolvedVersionSelectWrapper = document.getElementById('resolvedVersionSelect');
 
-      const select = document.createElement('select');
-      select.name = 'recipient';
-      select.id = 'recipient';
-      select.className = 'select';
+      const recipientSelect = document.createElement('select');
+      recipientSelect.name = 'recipient';
+      recipientSelect.id = 'recipient';
+      recipientSelect.className = 'select';
+
+      const affectedVersionSelect = document.createElement('select');
+      affectedVersionSelect.name = 'affected_version';
+      affectedVersionSelect.id = 'affected_version';
+      affectedVersionSelect.className = 'select';
+
+      const resolvedVersionSelect = document.createElement('select');
+      resolvedVersionSelect.name = 'resolved_version';
+      resolvedVersionSelect.id = 'resolved_version';
+      resolvedVersionSelect.className = 'select';
 
       axios.get(url)
       .then(function (response) {
-        const elements = response.data;
-        let option = '';
+        const { members, versions } = response.data;
+        let recipientOption, affectedVersionOption, resolvedVersionOption;
 
-        option = document.createElement('option');
-        option.text = '';
-        select.add(option);
+        recipientOption = document.createElement('option');
+        recipientOption.text = '';
+        recipientSelect.add(recipientOption);
 
-        elements.forEach(element => {
+        affectedVersionOption = document.createElement('option');
+        affectedVersionOption.text = '';
+        affectedVersionSelect.add(affectedVersionOption);
+
+        resolvedVersionOption = document.createElement('option');
+        resolvedVersionOption.text = '';
+        resolvedVersionSelect.add(resolvedVersionOption);
+
+        members.forEach(element => {
           const fullName = element.first_name + " " + element.last_name;
           const available = element.is_available;
+
           let state = "";
 
           if(available == 0) {
             state = "disabled";
           }
-          option = document.createElement('option');
-          option.text = fullName;
-          option.value = element.id;
+          recipientOption = document.createElement('option');
+          recipientOption.text = fullName;
+          recipientOption.value = element.id;
           if(element.is_available === false) {
-            option.disabled = true;
+            recipientOption.disabled = true;
           }
-          select.add(option);
+          recipientSelect.add(recipientOption);
         })
 
-        container.appendChild(select);
-        container.closest('.field').style.display = 'block';
+        recipientSelectWrapper.appendChild(recipientSelect);
+        recipientSelectWrapper.closest('.field').style.display = 'block';
+
+        versions.forEach(element => {
+          const title = element.title;
+
+          affectedVersionOption = document.createElement('option');
+          affectedVersionOption.text = title;
+          affectedVersionOption.value = title;
+
+          affectedVersionSelect.add(affectedVersionOption);
+        })
+
+        affectedVersionSelectWrapper.appendChild(affectedVersionSelect);
+        affectedVersionSelectWrapper.closest('.field').style.display = 'block';
+
+        versions.forEach(element => {
+          const title = element.title;
+
+          resolvedVersionOption = document.createElement('option');
+          resolvedVersionOption.text = title;
+          resolvedVersionOption.value = title;
+
+          resolvedVersionSelect.add(resolvedVersionOption);
+        })
+
+        resolvedVersionSelectWrapper.appendChild(resolvedVersionSelect);
+        resolvedVersionSelectWrapper.closest('.field').style.display = 'block';
       })
       .catch(function (error) {
-        container.innerHTML = '';
-        container.closest('.field').style.display = 'none';
+        recipientSelectWrapper.innerHTML = '';
+        recipientSelectWrapper.closest('.field').style.display = 'none';
+
+        affectedVersionSelectWrapper.innerHTML = '';
+        affectedVersionSelectWrapper.closest('.field').style.display = 'none';
+
+        resolvedVersionSelectWrapper.innerHTML = '';
+        resolvedVersionSelectWrapper.closest('.field').style.display = 'none';
       })
     }
   </script>

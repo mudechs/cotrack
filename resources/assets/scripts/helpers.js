@@ -1,8 +1,6 @@
 'use strict';
 
-import {
-  DataTable
-} from 'simple-datatables';
+import { DataTable } from 'simple-datatables';
 import axios from 'axios';
 
 // Tabs
