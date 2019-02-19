@@ -12,7 +12,7 @@
     aria-label="main navigation"
   >
     <div class="navbar-brand">
-      <a class="navbar-item" href="{{ route('dashboard') }}">{{ globals().app_name }}</a>
+      <a class="navbar-item {{ activeRoute('') }}" href="{{ route('dashboard') }}">{{ globals().app_name }}</a>
 
       @loggedIn
         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="topNavigation">
