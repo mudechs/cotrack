@@ -19,7 +19,6 @@
         locale: auth.user.locale,
         projectsActive,
         phases,
-        clickableRow,
         dataTableHandler: 'data-table-active'
       })
     </div>
@@ -30,7 +29,6 @@
         locale: auth.user.locale,
         projectsInactive,
         phases,
-        clickableRow,
         dataTableHandler: 'data-table-inactive'
       })
     </div>
@@ -42,7 +40,7 @@
     document.addEventListener('DOMContentLoaded', function(event) {
       helpers.dataTable('.data-table-active', 1, 'asc');
       helpers.dataTable('.data-table-inactive', 1, 'asc');
-      const clickableRow = helpers.clickableRow();
+      //helpers.clickableRow();
     })
   </script>
 @endsection

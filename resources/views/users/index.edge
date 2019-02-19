@@ -29,7 +29,7 @@
           </thead>
           <tbody>
             @each(user in usersActive)
-              <tr class="clickable" data-href="{{ route('usersShow', { id: user.id }) }}">
+              <tr onclick="helpers.clickableRow(event)" data-href="{{ route('usersShow', { id: user.id }) }}">
                 <th scope="row" width="20">
                   @!component('users.components.availableCircle', { user })
                 </th>
@@ -77,7 +77,7 @@
           </thead>
           <tbody>
             @each(user in usersInactive)
-              <tr class="clickable" data-href="{{ route('usersShow', { id: user.id }) }}">
+              <tr onclick="helpers.clickableRow(event)" data-href="{{ route('usersShow', { id: user.id }) }}">
                 <th scope="row" width="20">
                   @!component('users.components.availableCircle', { user })
                 </th>
@@ -117,7 +117,6 @@
     document.addEventListener('DOMContentLoaded', function(event) {
       helpers.dataTable('.data-table-active', 2, 'desc');
       helpers.dataTable('.data-table-inactive', 2, 'desc');
-      helpers.clickableRow();
     })
   </script>
 @endsection

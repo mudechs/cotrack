@@ -45,13 +45,8 @@ function formSerialize(formElement) {
   return values;
 }
 
-function clickableRow() {
-  const rows = document.querySelectorAll('tr[data-href]');
-  rows.forEach(row => {
-    row.addEventListener('click', () => {
-      window.location.href = row.dataset.href;
-    });
-  });
+function clickableRow(event) {
+  window.location.href = event.currentTarget.dataset.href;
 }
 
 function dataTable(table, col, order) {

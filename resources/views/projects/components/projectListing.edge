@@ -14,7 +14,7 @@
     </thead>
     <tbody>
       @each(project in projectsActive)
-        <tr class="clickable" data-href="{{ route('projectsShow', { id: project.id }) }}">
+        <tr onclick="helpers.clickableRow(event)" data-href="{{ route('projectsShow', { id: project.id }) }}">
           <td scope="row">{{ project.id }}</td>
           <td>{{ project.title }}</td>
           <td>

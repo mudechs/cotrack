@@ -151,7 +151,7 @@
           <table class="table is-hoverable is-narrow table-borderless is-striped is-fullwidth text-nowrap linkable">
             <tbody>
               @each(project in user.authorOfProjects)
-                <tr class="clickable" data-href="{{ route('projectsShow', { id: project.id }) }}">
+                <tr onclick="helpers.clickableRow(event)" data-href="{{ route('projectsShow', { id: project.id }) }}">
                   <td>{{ project.title }}</td>
                   <td>{{ project.phase }}</td>
                 </tr>
@@ -163,7 +163,7 @@
           <table class="table is-hoverable is-narrow table-borderless is-striped is-fullwidth text-nowrap linkable">
             <tbody>
               @each(project in user.memberInProjects)
-                <tr class="clickable" data-href="{{ route('projectsShow', { id: project.id }) }}">
+                <tr onclick="helpers.clickableRow(event)" data-href="{{ route('projectsShow', { id: project.id }) }}">
                   <td>{{ project.title }}</td>
                   <td>{{ project.phase }}</td>
                 </tr>
@@ -191,7 +191,6 @@
     <script>
       document.addEventListener('DOMContentLoaded', function(event) {
         document.getElementById('password').value = '';
-        helpers.clickableRow();
       })
 
       function availabilityHandler(event) {
