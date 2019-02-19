@@ -14,21 +14,23 @@
   <div class="tab-content">
     <div id="active" class="content-tab">
       @!component('projects.components.projectListing', {
+        auth,
         antl,
         locale: auth.user.locale,
         projectsActive,
-        auth,
         phases,
+        clickableRow,
         dataTableHandler: 'data-table-active'
       })
     </div>
     <div id="inactive" class="content-tab" style="display:none">
       @!component('projects.components.projectListing', {
+        auth,
         antl,
         locale: auth.user.locale,
         projectsInactive,
-        auth,
         phases,
+        clickableRow,
         dataTableHandler: 'data-table-inactive'
       })
     </div>
@@ -40,7 +42,7 @@
     document.addEventListener('DOMContentLoaded', function(event) {
       helpers.dataTable('.data-table-active', 1, 'asc');
       helpers.dataTable('.data-table-inactive', 1, 'asc');
-      helpers.clickableRow();
+      const clickableRow = helpers.clickableRow();
     })
   </script>
 @endsection
