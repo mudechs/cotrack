@@ -9,6 +9,7 @@ html {
 
 body {
   min-height: 100%;
+  padding-bottom: 50px;
 }
 
 .field .label {
@@ -77,9 +78,13 @@ hr {
 }
 
 footer {
-  padding: .5rem !important;
-  background: transparent !important;
+  padding: .25rem !important;
+  background: #fff;
   border-top: 1px solid $turquoise;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 #notification {

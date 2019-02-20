@@ -14362,7 +14362,8 @@ html {
   height: 100%; }
 
 body {
-  min-height: 100%; }
+  min-height: 100%;
+  padding-bottom: 50px; }
 
 .field .label {
   font-size: .75rem; }
@@ -14416,9 +14417,13 @@ hr {
   border-radius: 6px; }
 
 footer {
-  padding: .5rem !important;
-  background: transparent !important;
-  border-top: 1px solid #00d1b2; }
+  padding: .25rem !important;
+  background: #fff;
+  border-top: 1px solid #00d1b2;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0; }
 
 #notification {
   width: 320px;
