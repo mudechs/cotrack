@@ -13,10 +13,10 @@ class DashboardController {
       auth.user.locale
     );
 
-    // Lade tickets die mir zugewiesen wurden und den Status "Neu" haben
+    // Lade tickets die mir zugewiesen wurden und den Status "1 (Neu)" haben
     const ticketsAssignedToMe = await Ticket.query()
       .where('recipient_id', auth.user.id)
-      .where('status', 'Neu')
+      .where('status', 1)
       .orderBy('created_at', 'desc')
       .with('project', builder => {
         builder.select('id', 'title');

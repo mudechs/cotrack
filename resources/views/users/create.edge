@@ -88,8 +88,8 @@
                   <select name="salutation">
                     <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
                     @each(salutation in salutations)
-                      <option value="{{ salutation.value }}"
-                      {{ old('salutation') == salutation.value ? 'selected' : ''  }}
+                      <option value="{{ salutation.code }}"
+                      {{ old('salutation') == salutation.code ? 'selected' : ''  }}
                       >{{ salutation.label }}</option>
                     @endeach
                   </select>

@@ -4,28 +4,28 @@ module.exports = {
   salutations: [{
     de: [{
       'label': 'Frau',
-      'value': 'Frau'
+      'code': '1'
     },
     {
       'label': 'Herr',
-      'value': 'Herr'
+      'code': '2'
     },
     {
       'label': 'Divers',
-      'value': 'Divers'
+      'code': '3'
     }
     ],
     en: [{
       'label': 'Mrs',
-      'value': 'Frau'
+      'code': '1'
     },
     {
       'label': 'Mr',
-      'value': 'Herr'
+      'code': '2'
     },
     {
       'label': 'Third',
-      'value': 'Divers'
+      'code': '3'
     }
     ]
   }]

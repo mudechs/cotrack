@@ -4,98 +4,98 @@ module.exports = {
   statuses: [{
     de: [{
       'label': 'Neu',
-      'value': 'Neu',
+      'code': '1',
       'type': 'open',
       'icon': 'fas fa-bolt'
     },
     {
       'label': 'Anerkannt',
-      'value': 'Anerkannt',
+      'code': '2',
       'type': 'open',
       'icon': 'fas fa-thumbs-up'
     },
     {
       'label': 'Abgelehnt',
-      'value': 'Abgelehnt',
+      'code': '3',
       'type': 'closed',
       'icon': 'fas fa-thumbs-down'
     },
     {
       'label': 'Warten',
-      'value': 'Warten',
+      'code': '4',
       'type': 'open',
       'icon': 'fas fa-hourglass-start'
     },
     {
       'label': 'Feedback',
-      'value': 'Feedback',
+      'code': '5',
       'type': 'open',
       'icon': 'fas fa-bullhorn'
     },
     {
       'label': 'Bearbeitung',
-      'value': 'Bearbeitung',
+      'code': '6',
       'type': 'open',
       'icon': 'fas fa-pencil-alt'
     },
     {
       'label': 'Erledigt',
-      'value': 'Erledigt',
+      'code': '7',
       'type': 'closed',
       'icon': 'fas fa-check'
     },
     {
       'label': 'Sistiert',
-      'value': 'Sistiert',
+      'code': '8',
       'type': 'closed',
       'icon': 'fas fa-ban'
     }
     ],
     en: [{
       'label': 'New',
-      'value': 'Neu',
+      'code': '1',
       'type': 'open',
       'icon': 'fas fa-bolt'
     },
     {
       'label': 'Accepted',
-      'value': 'Anerkannt',
+      'code': '2',
       'type': 'open',
       'icon': 'fas fa-thumbs-up'
     },
     {
       'label': 'Rejected',
-      'value': 'Abgelehnt',
+      'code': '3',
       'type': 'closed',
       'icon': 'fas fa-thumbs-down'
     },
     {
       'label': 'Waiting',
-      'value': 'Warten',
+      'code': '4',
       'type': 'open',
       'icon': 'fas fa-hourglass-start'
     },
     {
       'label': 'Feedback',
-      'value': 'Feedback',
+      'code': '5',
       'type': 'open',
       'icon': 'fas fa-bullhorn'
     },
     {
       'label': 'Progress',
-      'value': 'Bearbeitung',
+      'code': '6',
       'type': 'open',
       'icon': 'fas fa-pencil-alt'
     },
     {
       'label': 'Done',
-      'value': 'Erledigt',
+      'code': '7',
       'type': 'closed',
       'icon': 'fas fa-check'
     },
     {
       'label': 'Suspended',
-      'value': 'Sistiert',
+      'code': '8',
       'type': 'closed',
       'icon': 'fas fa-ban'
     }
@@ -104,33 +104,33 @@ module.exports = {
   priorities: [{
     de: [{
       'label': 'Normal',
-      'value': 'Normal',
+      'code': '1',
       'color': 'light'
     },
     {
       'label': 'Hoch',
-      'value': 'Hoch',
+      'code': '2',
       'color': 'warning'
     },
     {
       'label': 'Dringend',
-      'value': 'Dringend',
+      'code': '3',
       'color': 'danger'
     }
     ],
     en: [{
       'label': 'Normal',
-      'value': 'Normal',
+      'code': '1',
       'color': 'light'
     },
     {
       'label': 'High',
-      'value': 'Hoch',
+      'code': '2',
       'color': 'warning'
     },
     {
       'label': 'Urgent',
-      'value': 'Dringend',
+      'code': '3',
       'color': 'danger'
     }
     ]
@@ -138,104 +138,104 @@ module.exports = {
   impacts: [{
     de: [{
       'label': 'Feature-Wunsch',
-      'value': 'Feature-Wunsch'
+      'code': '1'
     },
     {
       'label': 'Trivial',
-      'value': 'Trivial'
+      'code': '2'
     },
     {
       'label': 'Unschönheit',
-      'value': 'Unschönheit'
+      'code': '3'
     },
     {
       'label': 'kleiner Fehler',
-      'value': 'kleiner Fehler'
+      'code': '4'
     },
     {
       'label': 'schwerer Fehler',
-      'value': 'schwerer Fehler'
+      'code': '5'
     },
     {
       'label': 'Absturz',
-      'value': 'Absturz'
+      'code': '6'
     },
     {
       'label': 'Showstopper',
-      'value': 'Showstopper'
+      'code': '7'
     }
     ],
     en: [{
       'label': 'feature',
-      'value': 'Feature-Wunsch'
+      'code': '1'
     },
     {
       'label': 'trivial',
-      'value': 'Trivial'
+      'code': '2'
     },
     {
       'label': 'inelegance',
-      'value': 'Unschönheit'
+      'code': '3'
     },
     {
       'label': 'minor',
-      'value': 'kleiner Fehler'
+      'code': '4'
     },
     {
       'label': 'major',
-      'value': 'schwerer Fehler'
+      'code': '5'
     },
     {
       'label': 'crash',
-      'value': 'Absturz'
+      'code': '6'
     },
     {
       'label': 'showstopper',
-      'value': 'Showstopper'
+      'code': '7'
     }
     ]
   }],
   reproducibles: [{
     de: [{
       'label': 'immer',
-      'value': 'immer'
+      'code': '1'
     },
     {
       'label': 'manchmal',
-      'value': 'manchmal'
+      'code': '2'
     },
     {
       'label': 'zufällig',
-      'value': 'zufällig'
+      'code': '3'
     },
     {
       'label': 'nicht getestet',
-      'value': 'nicht getestet'
+      'code': '4'
     },
     {
       'label': 'nicht reproduzierbar',
-      'value': 'nicht reproduzierbar'
+      'code': '5'
     }
     ],
     en: [{
       'label': 'always',
-      'value': 'immer'
+      'code': '1'
     },
     {
       'label': 'sometimes',
-      'value': 'manchmal'
+      'code': '2'
     },
     {
       'label': 'random',
-      'value': 'zufällig'
+      'code': '3'
     },
     {
       'label': 'have not tried',
-      'value': 'nicht getestet'
+      'code': '4'
     },
     {
       'label': 'unable to reproduce',
-      'value': 'nicht reproduzierbar'
+      'code': '5'
     }
     ]
   }]

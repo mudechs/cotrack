@@ -53,11 +53,11 @@
         <select name="phase">
           <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
           @each(phase in phases)
-            <option value="{{ phase.value }}"
-              @if(phase.value == project.phase)
+            <option value="{{ phase.code }}"
+              @if(phase.code == project.phase)
                 selected
               @endif
-              {{ old('phase') == phase.value ? 'selected' : ''  }}
+              {{ old('phase') == phase.code ? 'selected' : ''  }}
             >{{ phase.label }}</option>
           @endeach
         </select>

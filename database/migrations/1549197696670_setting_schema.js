@@ -7,7 +7,9 @@ class SettingSchema extends Schema {
   up() {
     this.create('settings', (table) => {
       table.increments();
+      table.string('app_name');
       table.string('company', 100);
+      table.string('contact_person');
       table.string('address', 100);
       table.string('zip_code', 20);
       table.string('area', 50);

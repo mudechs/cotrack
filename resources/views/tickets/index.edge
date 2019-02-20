@@ -17,7 +17,7 @@
           footer: false
         })
           @slot('content')
-            <div id="Neu" style="min-height: 100px">
+            <div id="status_code_1" style="min-height: 100px">
               @each(ticket in ticketsNeu)
                 <a
                   href="{{ route('ticketsShow', { id: ticket.id }) }}"
@@ -54,7 +54,7 @@
         footer: false
       })
         @slot('content')
-          <div id="Anerkannt" style="min-height: 100px">
+          <div id="status_code_2" style="min-height: 100px">
             @each(ticket in ticketsAnerkannt)
               <a
                 href="{{ route('ticketsShow', { id: ticket.id }) }}"
@@ -91,7 +91,7 @@
         footer: false
       })
         @slot('content')
-          <div id="Warten" style="min-height: 100px">
+          <div id="status_code_4" style="min-height: 100px">
             @each(ticket in ticketsWarten)
               <a
                 href="{{ route('ticketsShow', { id: ticket.id }) }}"
@@ -128,7 +128,7 @@
         footer: false
       })
         @slot('content')
-          <div id="Feedback" style="min-height: 100px">
+          <div id="status_code_5" style="min-height: 100px">
             @each(ticket in ticketsFeedback)
               <a
                 href="{{ route('ticketsShow', { id: ticket.id }) }}"
@@ -165,7 +165,7 @@
         footer: false
       })
         @slot('content')
-          <div id="Bearbeitung" style="min-height: 100px">
+          <div id="status_code_6" style="min-height: 100px">
             @each(ticket in ticketsBearbeitung)
               <a
                 href="{{ route('ticketsShow', { id: ticket.id }) }}"
@@ -204,35 +204,35 @@
         window.location.href = '/tickets';
       })
 
-      new sortable(Neu, {
+      new sortable(status_code_1, {
         group: 'tickets',
         animation: 150,
         onEnd: function(evt) {
           helpers.saveDraggedTicket(evt);
         }
       })
-      new sortable(Anerkannt, {
+      new sortable(status_code_2, {
         group: 'tickets',
         animation: 150,
         onEnd: function(evt) {
           helpers.saveDraggedTicket(evt);
         }
       })
-      new sortable(Warten, {
+      new sortable(status_code_4, {
         group: 'tickets',
         animation: 150,
         onEnd: function(evt) {
           helpers.saveDraggedTicket(evt);
         }
       })
-      new sortable(Feedback, {
+      new sortable(status_code_5, {
         group: 'tickets',
         animation: 150,
         onEnd: function(evt) {
           helpers.saveDraggedTicket(evt);
         }
       })
-      new sortable(Bearbeitung, {
+      new sortable(status_code_6, {
         group: 'tickets',
         animation: 150,
         onEnd: function(evt) {

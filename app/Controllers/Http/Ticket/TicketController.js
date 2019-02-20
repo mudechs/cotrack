@@ -16,26 +16,11 @@ const Logger = use('Logger');
 
 class TicketController {
   async index({ auth, view }) {
-    const ticketsNeu = await TicketServices.ticketGroupedByStatus(
-      'Neu',
-      auth.user.id
-    );
-    const ticketsAnerkannt = await TicketServices.ticketGroupedByStatus(
-      'Anerkannt',
-      auth.user.id
-    );
-    const ticketsWarten = await TicketServices.ticketGroupedByStatus(
-      'Warten',
-      auth.user.id
-    );
-    const ticketsFeedback = await TicketServices.ticketGroupedByStatus(
-      'Feedback',
-      auth.user.id
-    );
-    const ticketsBearbeitung = await TicketServices.ticketGroupedByStatus(
-      'Bearbeitung',
-      auth.user.id
-    );
+    const ticketsNeu = await TicketServices.ticketGroupedByStatus(1, auth.user.id);
+    const ticketsAnerkannt = await TicketServices.ticketGroupedByStatus(2, auth.user.id);
+    const ticketsWarten = await TicketServices.ticketGroupedByStatus(4, auth.user.id);
+    const ticketsFeedback = await TicketServices.ticketGroupedByStatus(5, auth.user.id);
+    const ticketsBearbeitung = await TicketServices.ticketGroupedByStatus(6, auth.user.id);
 
     const userProjects = await ProjectServices.getUserProjects(
       auth.user.id,
@@ -56,27 +41,27 @@ class TicketController {
 
   async projectIndex({ params, auth, view }) {
     const ticketsNeu = await TicketServices.ticketGroupedByStatusAndProject(
-      'Neu',
+      1,
       auth.user.id,
       params.id
     );
     const ticketsAnerkannt = await TicketServices.ticketGroupedByStatusAndProject(
-      'Anerkannt',
+      2,
       auth.user.id,
       params.id
     );
     const ticketsWarten = await TicketServices.ticketGroupedByStatusAndProject(
-      'Warten',
+      4,
       auth.user.id,
       params.id
     );
     const ticketsFeedback = await TicketServices.ticketGroupedByStatusAndProject(
-      'Feedback',
+      5,
       auth.user.id,
       params.id
     );
     const ticketsBearbeitung = await TicketServices.ticketGroupedByStatusAndProject(
-      'Bearbeitung',
+      6,
       auth.user.id,
       params.id
     );
@@ -388,8 +373,8 @@ class TicketController {
 
     if (
       author.id != auth.user.id &&
-      ticket.status != 'Feedback' &&
-      ticket.status != 'Sistiert'
+      ticket.status != 5 &&
+      ticket.status != 8
     ) {
       Event.fire('new::ticketStatusChange', {
         ticket,
@@ -494,7 +479,7 @@ class TicketController {
     const ticket = await Ticket.find(params.id);
 
     ticket.recipient_id = request.input('recipient_id');
-    ticket.status = 'Neu';
+    ticket.status = 1;
     ticket.forwarder_id = auth.user.id;
 
     await ticket.save();

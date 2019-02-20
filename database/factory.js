@@ -16,7 +16,7 @@ const Factory = use('Factory');
 
 Factory.blueprint('App/Models/User', async () => {
   return {
-    salutation: 'Herr',
+    salutation: 1,
     first_name: 'Superadmin',
     last_name: 'Superadmin',
     profession: 'Superadministrator',

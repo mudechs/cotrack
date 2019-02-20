@@ -4,68 +4,68 @@ module.exports = {
   phases: [{
     de: [{
       'label': 'Vorprojekt',
-      'value': 'Vorprojekt'
+      'code': '1'
     },
     {
       'label': 'Projektphase',
-      'value': 'Projektphase'
+      'code': '2'
     },
     {
       'label': 'Alpha',
-      'value': 'Alpha'
+      'code': '3'
     },
     {
       'label': 'Beta',
-      'value': 'Beta'
+      'code': '4'
     },
     {
       'label': 'Pre-release',
-      'value': 'Pre-release'
+      'code': '5'
     },
     {
       'label': 'Live',
-      'value': 'Live'
+      'code': '6'
     },
     {
       'label': 'Refactoring',
-      'value': 'Refactoring'
+      'code': '7'
     },
     {
       'label': 'Veraltet',
-      'value': 'Veraltet'
+      'code': '8'
     }
     ],
     en: [{
       'label': 'Preliminary',
-      'value': 'Vorprojekt'
+      'code': '1'
     },
     {
       'label': 'Project phase',
-      'value': 'Projektphase'
+      'code': '2'
     },
     {
       'label': 'Alpha',
-      'value': 'Alpha'
+      'code': '3'
     },
     {
       'label': 'Beta',
-      'value': 'Beta'
+      'code': '4'
     },
     {
       'label': 'Pre-release',
-      'value': 'Pre-release'
+      'code': '5'
     },
     {
       'label': 'Live',
-      'value': 'Live'
+      'code': '6'
     },
     {
       'label': 'Refactoring',
-      'value': 'Refactoring'
+      'code': '7'
     },
     {
       'label': 'Outdated',
-      'value': 'Veraltet'
+      'code': '8'
     }
     ]
   }]

@@ -9,9 +9,11 @@ class ProjectSchema extends Schema {
       table.increments();
       table.string('title');
       table.text('description');
-      table.string('phase');
+      table.integer('phase', 5);
       table.boolean('is_active').defaultTo(1);
       table.integer('author_id').unsigned().references('id').inTable('users');
+      table.string('token', 64).notNullable();
+      table.string('default_version');
       table.timestamps();
     });
   }

@@ -120,7 +120,7 @@ This informations must be set in the body of the request via GET
 	"token": "xxxxxxxx",
 	"subject": "The subject of the ticket",
 	"description": "This is the description of the Ticket",
-	"priority": "Normal or Hoch or Dringend",
+	"priority": "1 (Normal) or 2 (Hoch) or 3 (Dringend)",
 	"email": "user@domain.com"
 }
 ```

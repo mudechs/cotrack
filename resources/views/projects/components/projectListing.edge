@@ -19,7 +19,7 @@
           <td>{{ project.title }}</td>
           <td>
             @each(phase in phases)
-              @if(phase.value == $parent.project.phase)
+              @if(phase.code == $parent.project.phase)
                 {{ phase.label }}
               @endif
             @endeach

@@ -11,13 +11,13 @@
   @slot('header')
     <div class="is-fullwidth">
       {{--  Ticket übernehmen  --}}
-      @if(ticket.recipient_id != auth.user.id && ticket.status != "Erledigt" && ticket.status != "Sistiert" && ticket.status != "Abgelehnt" )
+      @if(ticket.recipient_id != auth.user.id && ticket.status != 7 && ticket.status != 8 && ticket.status != 3 )
         <button class="button is-small is-danger" type="button" id="assignToMeButton" data-recipient="{{ auth.user.id }}">
           {{ antl.forLocale(auth.user.locale).formatMessage('static.uebernehmen') }}
         </button>
       @endif
       {{--  Status wechseln  --}}
-      @if(ticket.recipient_id == auth.user.id && ticket.status != "Erledigt" && ticket.status != "Sistiert" && ticket.status != "Abgelehnt")
+      @if(ticket.recipient_id == auth.user.id && ticket.status != 7 && ticket.status != 8 && ticket.status != 3)
         <div class="dropdown has-dropdown">
           <div class="dropdown-trigger">
             <button class="button is-small" id="statusDropdownButtons" aria-haspopup="true" aria-controls="statusDropdownButtons">
@@ -34,7 +34,7 @@
           <div class="dropdown-menu" id="statusDropdownButtons">
             <div class="dropdown-content">
               @each(status in statuses)
-                @if(status.value != ticket.status && status.value != "Erledigt")
+                @if(status.value != ticket.status && status.value != 7)
                   <a class="
                     dropdown-item
                     status-change-item
@@ -45,16 +45,16 @@
           </div>
         </div>
       @endif
-      {{--  Ticket auf "Erledigt" setzen  --}}
-      @if((ticket.recipient_id == auth.user.id || ticket.author_id == auth.user.id) && ticket.recipient_id != null && ticket.status != "Erledigt" && ticket.status != "Sistiert" && ticket.status != "Abgelehnt")
-        <button class="status-change-item button is-small is-success" data-status="Erledigt"><i class="fas fa-check fa-fw"></i>&nbsp;&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.erledigt') }}</button>
+      {{--  Ticket auf 7 setzen  --}}
+      @if((ticket.recipient_id == auth.user.id || ticket.author_id == auth.user.id) && ticket.recipient_id != null && ticket.status != 7 && ticket.status != 8 && ticket.status != 3)
+        <button class="status-change-item button is-small is-success" data-status=7><i class="fas fa-check fa-fw"></i>&nbsp;&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.erledigt') }}</button>
       @endif
       {{--  Ticket wiedereröffnen  --}}
-      @if((ticket.recipient_id == auth.user.id || ticket.author_id == auth.user.id) && ticket.status == "Erledigt" || ticket.status == "Sistiert" || ticket.status == "Abgelehnt")
+      @if((ticket.recipient_id == auth.user.id || ticket.author_id == auth.user.id) && ticket.status == 7 || ticket.status == 8 || ticket.status == 3)
         <button id="ticketReopenButton" class="button is-small is-warning"><i class="fas fa-lock-open fa-fw"></i>&nbsp;&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.wiedereroeffnen') }}</button>
       @endif
       {{--  Ticket weiterleiten  --}}
-      @if(ticket.status != "Abgelehnt" && ticket.status != "Erledigt" && ticket.status != "Sistiert" && ticket.recipient_id == auth.user.id)
+      @if(ticket.status != 3 && ticket.status != 7 && ticket.status != 8 && ticket.recipient_id == auth.user.id)
         <div class="dropdown has-dropdown">
           <div class="dropdown-trigger">
             <button class="button is-small" type="button" id="statusDropdownButtons" aria-haspopup="true" aria-controls="statusDropdownButtons">
@@ -85,7 +85,7 @@
       @if(ticket.author_id == auth.user.id || ticket.recipient_id == auth.user.id || auth.user.is_superadmin)
         <a href="{{ route('ticketsEdit', { id: ticket.id }) }}"
           class="button is-small
-          @if(ticket.status == "Erledigt" && ticket.status == "Sistiert" && ticket.status == "Abgelehnt")
+          @if(ticket.status == 7 && ticket.status == 8 && ticket.status == 3)
             disabled
           @endif
           "><i class="fas fa-pencil-alt"></i>
@@ -206,7 +206,7 @@
   </form>
   <form id="ticketReopenForm" action="{{ route('ticketsReopen', { id: ticket.id }) }}" method="post">
     {{ csrfField() }}
-    <input type="hidden" name="status" value="Neu">
+    <input type="hidden" name="status" value="1">
     <input type="hidden" name="recipient_id" value="{{ auth.user.id }}">
   </form>
   <form id="recipientChangeForm" action="{{ route('ticketsChangeRecipient', { id: ticket.id }) }}" method="post">
@@ -216,7 +216,7 @@
   <form id="assignChangeForm" action="{{ route('ticketsAssignToMe', { id: ticket.id }) }}" method="post">
     {{ csrfField() }}
     <input type="hidden" name="recipient_id" id="recipient-assign-input" value="{{ ticket.recipient_id }}">
-    <input type="hidden" name="status" value="Anerkannt">
+    <input type="hidden" name="status" value="2">
   </form>
 
 @endsection

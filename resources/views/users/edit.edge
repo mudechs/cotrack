@@ -107,8 +107,8 @@
                     <select name="salutation">
                       <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
                       @each(salutation in salutations)
-                        <option value="{{ salutation.value }}"
-                          @if(salutation.value == user.salutation)
+                        <option value="{{ salutation.code }}"
+                          @if(salutation.code == user.salutation)
                             selected
                           @endif
                         >{{ salutation.label }}</option>
