@@ -107,11 +107,11 @@
       <div class="select">
         <select name="priority">
           @each(priority in priorities)
-            <option value="{{ priority.value }}"
-              @if(priority.value == ticket.priority)
+            <option value="{{ priority.code }}"
+              @if(priority.code == ticket.priority)
                 selected
               @endif
-              {{ old('priority') == priority.value ? 'selected' : ''  }}
+              {{ old('priority') == priority.code ? 'selected' : ''  }}
             >{{ priority.label }}</option>
           @endeach
         </select>
@@ -123,11 +123,11 @@
         <select name="impact">
           <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
           @each(impact in impacts)
-            <option value="{{ impact.value }}"
-              @if(impact.value == ticket.impact)
+            <option value="{{ impact.code }}"
+              @if(impact.code == ticket.impact)
                 selected
               @endif
-              {{ old('impact') == impact.value ? 'selected' : ''  }}
+              {{ old('impact') == impact.code ? 'selected' : ''  }}
             >{{ impact.label }}</option>
           @endeach
         </select>
@@ -139,11 +139,11 @@
         <select name="reproducible">
           <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
           @each(reproducible in reproducibles)
-            <option value="{{ reproducible.value }}"
-              @if(reproducible.value == ticket.reproducible)
+            <option value="{{ reproducible.code }}"
+              @if(reproducible.code == ticket.reproducible)
                 selected
               @endif
-              {{ old('reproducible') == reproducible.value ? 'selected' : ''  }}
+              {{ old('reproducible') == reproducible.code ? 'selected' : ''  }}
             >{{ reproducible.label }}</option>
           @endeach
         </select>

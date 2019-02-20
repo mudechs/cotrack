@@ -1,6 +1,6 @@
 <span class="button is-small is-rounded">
   @each(status in statuses)
-    @if(status.value == ticketStatus)
+    @if(status.code == ticketStatus)
       {{ status.label }}
     @endif
   @endeach

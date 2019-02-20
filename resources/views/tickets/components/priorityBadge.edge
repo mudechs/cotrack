@@ -2,13 +2,13 @@
   <span class="
     button is-small is-rounded
     @each(priority in priorities)
-    @if(priority.value == ticketPriority)
+    @if(priority.code == ticketPriority)
     is-{{ priority.color }}
     @endif
     @endeach
   ">
     @each(priority in priorities)
-      @if(priority.value == ticketPriority)
+      @if(priority.code == ticketPriority)
         {{ priority.label }}
       @endif
     @endeach

@@ -22,7 +22,7 @@
           <div class="dropdown-trigger">
             <button class="button is-small" id="statusDropdownButtons" aria-haspopup="true" aria-controls="statusDropdownButtons">
               @each(status in statuses)
-                @if(status.value == ticket.status)
+                @if(status.code == ticket.status)
                   <span>{{ status.label }}</span>
                 @endif
               @endeach
@@ -34,11 +34,11 @@
           <div class="dropdown-menu" id="statusDropdownButtons">
             <div class="dropdown-content">
               @each(status in statuses)
-                @if(status.value != ticket.status && status.value != 7)
+                @if(status.code != ticket.status && status.code != 7)
                   <a class="
                     dropdown-item
                     status-change-item
-                  " href="#" data-status="{{ status.value }}">{{ status.label }}</a>
+                  " href="#" data-status="{{ status.code }}">{{ status.label }}</a>
                 @endif
               @endeach
             </div>
@@ -105,7 +105,7 @@
           @if(ticket.impact)
             <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.auswirkung') }}: </b>
               @each(impact in impacts)
-                @if(impact.value == ticket.impact)
+                @if(impact.code == ticket.impact)
                   {{ impact.label }}
                 @endif
               @endeach
@@ -114,7 +114,7 @@
           @if(ticket.reproducible)
             <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.reproduzierbar') }}: </b>
               @each(reproducible in reproducibles)
-                @if(reproducible.value == ticket.reproducible)
+                @if(reproducible.code == ticket.reproducible)
                   {{ reproducible.label }}
                 @endif
               @endeach
