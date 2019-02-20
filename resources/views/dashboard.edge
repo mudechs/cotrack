@@ -21,7 +21,8 @@
                 </span>
                 <span class="is-pulled-right"><small>{{ ticket.created_at }}</small></span>
               </div>
-              <p class="m-b-sm"><b>{{ ticket.subject }}</b></p>
+              <span class="m-b-sm"><b>{{ ticket.subject }}</b></span><br>
+              <span><small>{{ ticket.project.title }}</small></span>
               @include('tickets.includes.widgetFooter')
             </a>
           @endeach
@@ -47,7 +48,8 @@
                 </span>
                 <span class="is-pulled-right"><small>{{ ticket.created_at }}</small></span>
               </div>
-              <p class="m-b-sm"><b>{{ ticket.subject }}</b></p>
+              <span class="m-b-sm"><b>{{ ticket.subject }}</b></span><br>
+              <span><small>{{ ticket.project.title }}</small></span>
               @include('tickets.includes.widgetFooter')
             </a>
           @endeach
