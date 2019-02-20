@@ -11,7 +11,7 @@ class ticketServices {
 
     for (let i in localizedStatuses)
       if (localizedStatuses[i].type == statusGroup)
-        data[data.length] = localizedStatuses[i].value;
+        data[data.length] = localizedStatuses[i].code;
     return data;
   }
 
