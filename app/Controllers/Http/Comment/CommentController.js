@@ -30,15 +30,15 @@ class CommentController {
       .select('id', 'author_id', 'recipient_id')
       .first();
 
-    const author = await ticket.ticketAuthor().select('email', 'locale').first();
-    const recipient = await ticket.ticketRecipient().select('email', 'locale').first();
+    const author = await ticket.ticketAuthor().select('id', 'email', 'locale').fetch();
+    const recipient = await ticket.ticketRecipient().select('id', 'email', 'locale').fetch();
 
     const commentRaw = await Comment.findBy('id', comment.id);
     const commentAuthorId = comment.author_id;
-    const ticketAuthorId = author.author_id;
+    const ticketAuthorId = author.id;
     const ticketAuthorLocale = author.locale;
     const authorEmail = author.email;
-    const ticketRecipientId = recipient.recipient_id;
+    const ticketRecipientId = recipient.id;
     const ticketRecipientLocale = recipient.locale;
     const recipientEmail = recipient.email;
 
