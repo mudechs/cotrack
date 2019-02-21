@@ -3,7 +3,10 @@
 const Version = use('App/Models/Version');
 
 class VersionController {
-  async show({ params, response }) {
+  async show({
+    params,
+    response
+  }) {
     const versions = await Version.query()
       .where('project_id', params.id)
       .fetch();
@@ -11,7 +14,11 @@ class VersionController {
     return response.status(200).send(versions.toJSON());
   }
 
-  async create({ params, request, response }) {
+  async create({
+    params,
+    request,
+    response
+  }) {
     const version = await Version.create({
       title: request.body.data.version,
       project_id: params.id
@@ -23,7 +30,10 @@ class VersionController {
     return response.status(200).send(version);
   }
 
-  async delete({ params, response }) {
+  async delete({
+    params,
+    response
+  }) {
     const version = await Version.find(params.id);
 
     await version.delete();

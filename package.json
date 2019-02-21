@@ -52,7 +52,6 @@
     "css-loader": "^2.1.0",
     "eslint": "^5.13.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "image-webpack-loader": "^4.6.0",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
