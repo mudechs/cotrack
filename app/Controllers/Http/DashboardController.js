@@ -1,12 +1,18 @@
 'use strict';
 
 const Config = use('Config');
-const { statuses, priorities } = Config.get('ticket');
+const {
+  statuses,
+  priorities
+} = Config.get('ticket');
 const Ticket = use('App/Models/Ticket');
 const TicketServices = use('App/Services/ticketServices');
 
 class DashboardController {
-  async index({ auth, view }) {
+  async index({
+    auth,
+    view
+  }) {
     // Hole Statusgruppe "open"
     const customStatuses = await TicketServices.ticketStatuses(
       'open',
