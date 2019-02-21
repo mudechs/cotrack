@@ -16,11 +16,26 @@ const Logger = use('Logger');
 
 class TicketController {
   async index({ auth, view }) {
-    const ticketsNeu = await TicketServices.ticketGroupedByStatus(1, auth.user.id);
-    const ticketsAnerkannt = await TicketServices.ticketGroupedByStatus(2, auth.user.id);
-    const ticketsWarten = await TicketServices.ticketGroupedByStatus(4, auth.user.id);
-    const ticketsFeedback = await TicketServices.ticketGroupedByStatus(5, auth.user.id);
-    const ticketsBearbeitung = await TicketServices.ticketGroupedByStatus(6, auth.user.id);
+    const ticketsNeu = await TicketServices.ticketGroupedByStatus(
+      1,
+      auth.user.id
+    );
+    const ticketsAnerkannt = await TicketServices.ticketGroupedByStatus(
+      2,
+      auth.user.id
+    );
+    const ticketsWarten = await TicketServices.ticketGroupedByStatus(
+      4,
+      auth.user.id
+    );
+    const ticketsFeedback = await TicketServices.ticketGroupedByStatus(
+      5,
+      auth.user.id
+    );
+    const ticketsBearbeitung = await TicketServices.ticketGroupedByStatus(
+      6,
+      auth.user.id
+    );
 
     const userProjects = await ProjectServices.getUserProjects(
       auth.user.id,
@@ -120,7 +135,7 @@ class TicketController {
     const projects = await Project.query()
       .select('id', 'title')
       .where('is_active', true)
-      .andWhere(function () {
+      .andWhere(function() {
         this.where('author_id', auth.user.id).orWhereHas('members', builder => {
           builder.where('user_id', auth.user.id);
         });
@@ -209,7 +224,8 @@ class TicketController {
     });
 
     Logger.info(
-      `Ticket created by ${auth.user.first_name} ${auth.user.last_name}`, {
+      `Ticket created by ${auth.user.first_name} ${auth.user.last_name}`,
+      {
         url: request.url(),
         user: auth.user.id,
         record: ticket.id,
@@ -301,7 +317,8 @@ class TicketController {
     });
 
     Logger.info(
-      `Ticket updated by ${auth.user.first_name} ${auth.user.last_name}`, {
+      `Ticket updated by ${auth.user.first_name} ${auth.user.last_name}`,
+      {
         url: request.url(),
         user: auth.user.id,
         record: ticket.id,
@@ -371,11 +388,7 @@ class TicketController {
       .select('id', 'title')
       .fetch();
 
-    if (
-      author.id != auth.user.id &&
-      ticket.status != 5 &&
-      ticket.status != 8
-    ) {
+    if (author.id != auth.user.id && ticket.status != 5 && ticket.status != 8) {
       Event.fire('new::ticketStatusChange', {
         ticket,
         project,
