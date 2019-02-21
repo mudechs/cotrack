@@ -30,8 +30,14 @@ class CommentController {
       .select('id', 'author_id', 'recipient_id')
       .first();
 
-    const author = await ticket.ticketAuthor().select('id', 'email', 'locale').fetch();
-    const recipient = await ticket.ticketRecipient().select('id', 'email', 'locale').fetch();
+    const author = await ticket
+      .ticketAuthor()
+      .select('id', 'email', 'locale')
+      .fetch();
+    const recipient = await ticket
+      .ticketRecipient()
+      .select('id', 'email', 'locale')
+      .fetch();
 
     const commentRaw = await Comment.findBy('id', comment.id);
     const commentAuthorId = comment.author_id;
@@ -42,17 +48,50 @@ class CommentController {
     const ticketRecipientLocale = recipient.locale;
     const recipientEmail = recipient.email;
 
-    if (commentAuthorId != ticketAuthorId && commentAuthorId != ticketRecipientId) {
+    if (
+      commentAuthorId != ticketAuthorId &&
+      commentAuthorId != ticketRecipientId
+    ) {
       if (ticketAuthorId == ticketRecipientId) {
-        Event.fire('new::comment', ticket, commentRaw, authorEmail, ticketAuthorLocale);
+        Event.fire(
+          'new::comment',
+          ticket,
+          commentRaw,
+          authorEmail,
+          ticketAuthorLocale
+        );
       } else {
-        Event.fire('new::comment', ticket, commentRaw, authorEmail, ticketAuthorLocale);
-        Event.fire('new::comment', ticket, commentRaw, recipientEmail, ticketRecipientLocale);
+        Event.fire(
+          'new::comment',
+          ticket,
+          commentRaw,
+          authorEmail,
+          ticketAuthorLocale
+        );
+        Event.fire(
+          'new::comment',
+          ticket,
+          commentRaw,
+          recipientEmail,
+          ticketRecipientLocale
+        );
       }
     } else if (commentAuthorId == ticketAuthorId) {
-      Event.fire('new::comment', ticket, commentRaw, recipientEmail, ticketRecipientLocale);
+      Event.fire(
+        'new::comment',
+        ticket,
+        commentRaw,
+        recipientEmail,
+        ticketRecipientLocale
+      );
     } else if (commentAuthorId == ticketRecipientId) {
-      Event.fire('new::comment', ticket, commentRaw, authorEmail, ticketAuthorLocale);
+      Event.fire(
+        'new::comment',
+        ticket,
+        commentRaw,
+        authorEmail,
+        ticketAuthorLocale
+      );
     }
 
     return response.route('ticketsShow', {

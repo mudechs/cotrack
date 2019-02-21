@@ -23,7 +23,9 @@ class PasswordChangeController {
     const passwordVerified = await Hash.verify(password_current, user.password);
 
     if (!passwordVerified) {
-      const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message13');
+      const message = Antl.forLocale(auth.user.locale).formatMessage(
+        'messages.message13'
+      );
 
       session.flash({
         notification: {
@@ -42,7 +44,9 @@ class PasswordChangeController {
     await user.save();
 
     // meldung zeigen
-    const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message14');
+    const message = Antl.forLocale(auth.user.locale).formatMessage(
+      'messages.message14'
+    );
 
     session.flash({
       notification: {

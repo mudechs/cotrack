@@ -36,7 +36,7 @@ class RegisterController {
     }
 
     let tfaActive = request.input('tfa_active');
-    tfaActive = (tfaActive == 'on') ? true : false;
+    tfaActive = tfaActive == 'on' ? true : false;
 
     // Create User
     const user = await User.create({
@@ -60,7 +60,9 @@ class RegisterController {
     });
 
     // Show success Message
-    const message = Antl.forLocale(request.globals.default_locale).formatMessage('messages.message19');
+    const message = Antl.forLocale(
+      request.globals.default_locale
+    ).formatMessage('messages.message19');
 
     session.flash({
       notification: {
@@ -80,7 +82,9 @@ class RegisterController {
 
     await user.save();
 
-    const message = Antl.forLocale(request.globals.default_locale).formatMessage('messages.message20');
+    const message = Antl.forLocale(
+      request.globals.default_locale
+    ).formatMessage('messages.message20');
 
     session.flash({
       notification: {

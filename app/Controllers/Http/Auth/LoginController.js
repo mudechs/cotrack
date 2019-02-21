@@ -18,11 +18,7 @@ class LoginController {
   async login({ request, auth, session, response }) {
     try {
       // Get form data
-      const {
-        email,
-        password,
-        remember
-      } = request.all();
+      const { email, password, remember } = request.all();
 
       // Get user based on form data
       const user = await User.query()
@@ -53,9 +49,7 @@ class LoginController {
               .where('user_id', user.id)
               .delete();
 
-            const {
-              token
-            } = await Token.create({
+            const { token } = await Token.create({
               user_id: user.id,
               token: RandomString({
                 length: 6
@@ -98,7 +92,8 @@ class LoginController {
             } else {
               if (auth.user.is_admin == true) {
                 const message = Antl.forLocale(auth.user.locale).formatMessage(
-                  'messages.message9', {
+                  'messages.message9',
+                  {
                     firstName: user.first_name
                   }
                 );

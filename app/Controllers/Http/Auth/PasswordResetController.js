@@ -31,9 +31,7 @@ class PasswordResetController {
         .where('email', user.email)
         .delete();
 
-      const {
-        token
-      } = await PasswordReset.create({
+      const { token } = await PasswordReset.create({
         email: user.email,
         token: randomString({
           length: 40
@@ -51,7 +49,9 @@ class PasswordResetController {
       });
 
       // Show success Message
-      const message = Antl.forLocale(request.globals.default_locale).formatMessage('messages.message15');
+      const message = Antl.forLocale(
+        request.globals.default_locale
+      ).formatMessage('messages.message15');
 
       session.flash({
         notification: {
@@ -61,9 +61,10 @@ class PasswordResetController {
       });
 
       return response.redirect('back');
-
     } catch (error) {
-      const message = Antl.forLocale(request.globals.default_locale).formatMessage('messages.message16');
+      const message = Antl.forLocale(
+        request.globals.default_locale
+      ).formatMessage('messages.message16');
 
       session.flash({
         notification: {
@@ -90,7 +91,9 @@ class PasswordResetController {
     });
 
     if (validation.fails()) {
-      session.withErrors(validation.messages()).flashExcept(['password', 'password_confirmation']);
+      session
+        .withErrors(validation.messages())
+        .flashExcept(['password', 'password_confirmation']);
 
       return response.redirect('back');
     }
@@ -104,7 +107,9 @@ class PasswordResetController {
         .first();
 
       if (!token) {
-        const message = Antl.forLocale(request.globals.default_locale).formatMessage('messages.message17');
+        const message = Antl.forLocale(
+          request.globals.default_locale
+        ).formatMessage('messages.message17');
 
         session.flash({
           notification: {
@@ -121,9 +126,13 @@ class PasswordResetController {
       await user.save();
 
       // delete the password token
-      await PasswordReset.query().where('email', user.email).delete();
+      await PasswordReset.query()
+        .where('email', user.email)
+        .delete();
 
-      const message = Antl.forLocale(request.globals.default_locale).formatMessage('messages.message18');
+      const message = Antl.forLocale(
+        request.globals.default_locale
+      ).formatMessage('messages.message18');
 
       session.flash({
         notification: {
@@ -133,7 +142,6 @@ class PasswordResetController {
       });
 
       return response.redirect('/login');
-
     } catch (error) {
       session.flash({
         notification: {

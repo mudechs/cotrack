@@ -21,7 +21,10 @@ class PasswordRestoreController {
     const superadminPassword = request.input('password');
 
     // superadmin passwort prüfen
-    const passwordVerified = await Hash.verify(superadminPassword, auth.user.password);
+    const passwordVerified = await Hash.verify(
+      superadminPassword,
+      auth.user.password
+    );
 
     if (passwordVerified) {
       const user = await User.find(params.id);
@@ -40,7 +43,9 @@ class PasswordRestoreController {
           password
         });
 
-        const message = Antl.forLocale(user.locale).formatMessage('static.new_password_sent');
+        const message = Antl.forLocale(user.locale).formatMessage(
+          'static.new_password_sent'
+        );
 
         session.flash({
           notification: {
@@ -56,7 +61,9 @@ class PasswordRestoreController {
     }
 
     // Error message if password check fails
-    const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message13');
+    const message = Antl.forLocale(auth.user.locale).formatMessage(
+      'messages.message13'
+    );
 
     session.flash({
       notification: {

@@ -1,13 +1,8 @@
 'use strict';
 
 const Config = use('Config');
-const {
-  phases
-} = Config.get('project');
-const {
-  statuses,
-  priorities
-} = Config.get('ticket');
+const { phases } = Config.get('project');
+const { statuses, priorities } = Config.get('ticket');
 const Project = use('App/Models/Project');
 const Ticket = use('App/Models/Ticket');
 const User = use('App/Models/User');
@@ -16,52 +11,51 @@ const RandomString = require('random-string');
 const Antl = use('Antl');
 
 class ProjectController {
-  async index({
-    auth,
-    view
-  }) {
+  async index({ auth, view }) {
     let projectsActive = [];
     let projectsInactive = [];
 
     if (auth.user.is_admin) {
       projectsActive = await Project.query()
         .where('is_active', true)
-        .with('projectAuthor', (builder) => {
+        .with('projectAuthor', builder => {
           builder.select('id', 'first_name', 'last_name');
         })
         .fetch();
 
       projectsInactive = await Project.query()
         .where('is_active', false)
-        .with('projectAuthor', (builder) => {
+        .with('projectAuthor', builder => {
           builder.select('id', 'first_name', 'last_name');
         })
         .fetch();
     } else {
       projectsActive = await Project.query()
         .where('is_active', true)
-        .andWhere(function () {
-          this
-            .where('author_id', auth.user.id)
-            .orWhereHas('members', (builder) => {
+        .andWhere(function() {
+          this.where('author_id', auth.user.id).orWhereHas(
+            'members',
+            builder => {
               builder.where('user_id', auth.user.id);
-            });
+            }
+          );
         })
-        .with('projectAuthor', (builder) => {
+        .with('projectAuthor', builder => {
           builder.select('id', 'first_name', 'last_name');
         })
         .fetch();
 
       projectsInactive = await Project.query()
         .where('is_active', false)
-        .andWhere(function () {
-          this
-            .where('author_id', auth.user.id)
-            .orWhereHas('members', (builder) => {
+        .andWhere(function() {
+          this.where('author_id', auth.user.id).orWhereHas(
+            'members',
+            builder => {
               builder.where('user_id', auth.user.id);
-            });
+            }
+          );
         })
-        .with('projectAuthor', (builder) => {
+        .with('projectAuthor', builder => {
           builder.select('id', 'first_name', 'last_name');
         })
         .fetch();
@@ -74,34 +68,43 @@ class ProjectController {
     });
   }
 
-  async show({
-    auth,
-    params,
-    session,
-    view,
-    response
-  }) {
+  async show({ auth, params, session, view, response }) {
     const project = await Project.query()
       .where('id', params.id)
-      .with('projectAuthor', (builder) => {
+      .with('projectAuthor', builder => {
         builder.select('id', 'first_name', 'last_name');
       })
-      .with('members', (builder) => {
-        builder.select('id', 'first_name', 'last_name', 'profession', 'avatar', 'is_available').orderBy('last_name', 'asc');
+      .with('members', builder => {
+        builder
+          .select(
+            'id',
+            'first_name',
+            'last_name',
+            'profession',
+            'avatar',
+            'is_available'
+          )
+          .orderBy('last_name', 'asc');
       })
       .first();
 
     if (project) {
-      const statusesOpen = await TicketServices.ticketStatuses('open', auth.user.locale);
-      const statusesClosed = await TicketServices.ticketStatuses('closed', auth.user.locale);
+      const statusesOpen = await TicketServices.ticketStatuses(
+        'open',
+        auth.user.locale
+      );
+      const statusesClosed = await TicketServices.ticketStatuses(
+        'closed',
+        auth.user.locale
+      );
 
       const ticketsOpen = await Ticket.query()
         .where('project_id', project.id)
         .whereIn('status', statusesOpen)
-        .with('ticketAuthor', (builder) => {
+        .with('ticketAuthor', builder => {
           builder.select('id', 'first_name', 'last_name');
         })
-        .with('ticketRecipient', (builder) => {
+        .with('ticketRecipient', builder => {
           builder.select('id', 'first_name', 'last_name');
         })
         .orderBy('created_at', 'desc')
@@ -110,10 +113,10 @@ class ProjectController {
       const ticketsClosed = await Ticket.query()
         .where('project_id', project.id)
         .whereIn('status', statusesClosed)
-        .with('ticketAuthor', (builder) => {
+        .with('ticketAuthor', builder => {
           builder.select('id', 'first_name', 'last_name');
         })
-        .with('ticketRecipient', (builder) => {
+        .with('ticketRecipient', builder => {
           builder.select('id', 'first_name', 'last_name');
         })
         .orderBy('created_at', 'desc')
@@ -139,10 +142,7 @@ class ProjectController {
     return response.redirect('back');
   }
 
-  async create({
-    auth,
-    view
-  }) {
+  async create({ auth, view }) {
     const users = await User.query()
       .select('id', 'first_name', 'last_name')
       .orderBy('last_name', 'asc')
@@ -155,14 +155,9 @@ class ProjectController {
     });
   }
 
-  async store({
-    request,
-    auth,
-    session,
-    response
-  }) {
+  async store({ request, auth, session, response }) {
     let isActive = request.input('is_active');
-    isActive = (isActive == 'on') ? true : false;
+    isActive = isActive == 'on' ? true : false;
 
     // Create Project
     const project = await Project.create({
@@ -178,7 +173,9 @@ class ProjectController {
 
     await project.members().attach(request.input('members'));
 
-    const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message8');
+    const message = Antl.forLocale(auth.user.locale).formatMessage(
+      'messages.message8'
+    );
 
     session.flash({
       notification: {
@@ -192,15 +189,12 @@ class ProjectController {
     });
   }
 
-  async edit({
-    auth,
-    params,
-    view
-  }) {
+  async edit({ auth, params, view }) {
     const project = await Project.query()
       .where('id', params.id)
-      .with('members', (builder) => {
-        builder.select('id', 'first_name', 'last_name')
+      .with('members', builder => {
+        builder
+          .select('id', 'first_name', 'last_name')
           .where('is_active', true);
       })
       .with('versions')
@@ -219,17 +213,11 @@ class ProjectController {
     });
   }
 
-  async update({
-    params,
-    request,
-    auth,
-    session,
-    response
-  }) {
+  async update({ params, request, auth, session, response }) {
     const project = await Project.find(params.id);
 
     let isActive = request.input('is_active');
-    isActive = (isActive == 'on') ? true : false;
+    isActive = isActive == 'on' ? true : false;
 
     project.title = request.input('title');
     project.description = request.input('description');
@@ -241,7 +229,9 @@ class ProjectController {
 
     await project.members().sync(request.input('members'));
 
-    const message = Antl.forLocale(auth.user.locale).formatMessage('messages.message2');
+    const message = Antl.forLocale(auth.user.locale).formatMessage(
+      'messages.message2'
+    );
 
     session.flash({
       notification: {
