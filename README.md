@@ -11,9 +11,15 @@ Intranet-App using AdonisJs 4.1
 - German (default)
 - English
 
-## Working demo
+## Updating Live-Server
 
-coming soon...
+URL: https://intranet.codiac.ch
+
+```bash
+pm2 kill
+git pull
+pm2 start server.js -i 0
+```
 
 ## Used technologies
 
