@@ -1,5 +1,5 @@
 {
-  "name": "cotrack-ticket-app",
+  "name": "intranet-app",
   "version": "0.9.0",
   "adonis-version": "4.1.0",
   "description": "Project- and Team-based Ticket-App using AdonisJs 4.1",

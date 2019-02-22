@@ -218,7 +218,7 @@ module.exports = {
     */
     file: {
       driver: 'file',
-      name: 'cotrack-app',
+      name: 'intranet',
       filename: Env.get('LOGGER_FILE_PATH'),
       level: 'info'
     }

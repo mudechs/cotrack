@@ -1,6 +1,6 @@
-# CoTrack Ticket-App
+# Intranet
 
-Project- and Team-based Ticket-App using AdonisJs 4.1
+Intranet-App using AdonisJs 4.1
 
 ## Version
 
@@ -98,7 +98,7 @@ There can be created Tickets from other Applications. As identifiers are used 3 
 
 ### E-Mail
 
-The JSON key `email` will be checked and assigned against a active user in the cotrack database.
+The JSON key `email` will be checked and assigned against a active user in the "intranet" database.
 
 ### Project
 
