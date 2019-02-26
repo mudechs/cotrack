@@ -38,18 +38,21 @@
       const recipientSelectWrapper = document.getElementById('recipientSelect');
       const affectedVersionSelectWrapper = document.getElementById('affectedVersionSelect');
       const resolvedVersionSelectWrapper = document.getElementById('resolvedVersionSelect');
+      const recipientSelect = '';
+      const affectedVersionSelect = '';
+      const resolvedVersionSelect = '';
 
-      const recipientSelect = document.createElement('select');
+      recipientSelect = document.createElement('select');
       recipientSelect.name = 'recipient';
       recipientSelect.id = 'recipient';
       recipientSelect.className = 'select';
 
-      const affectedVersionSelect = document.createElement('select');
+      affectedVersionSelect = document.createElement('select');
       affectedVersionSelect.name = 'affected_version';
       affectedVersionSelect.id = 'affected_version';
       affectedVersionSelect.className = 'select';
 
-      const resolvedVersionSelect = document.createElement('select');
+      resolvedVersionSelect = document.createElement('select');
       resolvedVersionSelect.name = 'resolved_version';
       resolvedVersionSelect.id = 'resolved_version';
       resolvedVersionSelect.className = 'select';
