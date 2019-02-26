@@ -22,7 +22,7 @@
                     id="is_active"
                     name="is_active"
                     class="switch"
-                    @if(user.is_active == true)
+                    @if(user.is_active)
                       checked
                     @endif
                   >
@@ -38,7 +38,7 @@
                     id="tfa_active"
                     name="tfa_active"
                     class="switch"
-                    @if(user.tfa_active == 1)
+                    @if(user.tfa_active)
                       checked
                     @endif
                   >
@@ -47,22 +47,24 @@
                   </label>
                 </div>
               </div>
-              <div class="field">
-                <div class="control">
-                  <input
-                    type="checkbox"
-                    id="is_admin"
-                    name="is_admin"
-                    class="switch"
-                    @if(user.is_admin == 1)
-                      checked
-                    @endif
-                  >
-                  <label class="checkbox" for="is_admin">
-                    Administrator
-                  </label>
+              @if(auth.user.is_admin || auth.user.is_superadmin)
+                <div class="field">
+                  <div class="control">
+                    <input
+                      type="checkbox"
+                      id="is_admin"
+                      name="is_admin"
+                      class="switch"
+                      @if(user.is_admin)
+                        checked
+                      @endif
+                    >
+                    <label class="checkbox" for="is_admin">
+                      Administrator
+                    </label>
+                  </div>
                 </div>
-              </div>
+              @endif
               @if(auth.user.is_superadmin)
                 <div class="field">
                   <div class="control">
@@ -71,7 +73,7 @@
                       id="is_superadmin"
                       name="is_superadmin"
                       class="switch"
-                      @if(user.is_superadmin == 1)
+                      @if(user.is_superadmin)
                         checked
                       @endif
                     >
