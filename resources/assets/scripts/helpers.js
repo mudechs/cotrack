@@ -1,6 +1,8 @@
 'use strict';
 
-import { DataTable } from 'simple-datatables';
+import {
+  DataTable
+} from 'simple-datatables';
 import axios from 'axios';
 
 // Tabs
@@ -66,13 +68,11 @@ function dataTable(table, col, order) {
 }
 
 function saveDraggedTicket(evt) {
-  const status = evt.to.id;
   const id = evt.item.id;
-
   const url = '/tickets/change/dragged/status/' + id;
 
   axios.post(url, {
-    status: status
+    status: evt.to.dataset.statusid
   })
     .then(function () {
       showToast();
