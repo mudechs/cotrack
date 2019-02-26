@@ -1,7 +1,9 @@
 'use strict';
 
 const Config = use('Config');
-const { statuses } = Config.get('ticket');
+const {
+  statuses
+} = Config.get('ticket');
 const Ticket = use('App/Models/Ticket');
 
 class ticketServices {
@@ -12,6 +14,15 @@ class ticketServices {
     for (let i in localizedStatuses)
       if (localizedStatuses[i].type == statusGroup)
         data[data.length] = localizedStatuses[i].code;
+    return data;
+  }
+
+  translatedStatus(locale, code) {
+    let data = [];
+    let localizedStatuses = statuses[0][locale];
+    for (let i in localizedStatuses)
+      if (localizedStatuses[i].code == code)
+        data[data.length] = localizedStatuses[i].label;
     return data;
   }
 
