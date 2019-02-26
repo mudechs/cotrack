@@ -156,19 +156,22 @@ Event.on('new::ticketReopen', async ({
   author,
   recipient
 }) => {
+  const locale = author.locale;
+  const status = TicketServices.translatedStatus(locale, ticket.status);
   const fullName = recipient.first_name + ' ' + recipient.last_name;
+
   const messages = {
-    subject: Antl.forLocale(author.locale).formatMessage('emails.message25', {
+    subject: Antl.forLocale(locale).formatMessage('emails.message25', {
       ticketId: ticket.id,
-      status: ticket.status,
+      status: status,
       name: fullName
     }),
-    link: Antl.forLocale(author.locale).formatMessage('emails.message6'),
-    hint: Antl.forLocale(author.locale).formatMessage('emails.hint'),
-    titleLabel: Antl.forLocale(author.locale).formatMessage('static.betreff'),
-    projectLabel: Antl.forLocale(author.locale).formatMessage('static.projekt'),
-    authorLabel: Antl.forLocale(author.locale).formatMessage('emails.message24'),
-    recipientLabel: Antl.forLocale(author.locale).formatMessage('emails.message26')
+    link: Antl.forLocale(locale).formatMessage('emails.message6'),
+    hint: Antl.forLocale(locale).formatMessage('emails.hint'),
+    titleLabel: Antl.forLocale(locale).formatMessage('static.betreff'),
+    projectLabel: Antl.forLocale(locale).formatMessage('static.projekt'),
+    authorLabel: Antl.forLocale(locale).formatMessage('emails.message24'),
+    recipientLabel: Antl.forLocale(locale).formatMessage('emails.message26')
   };
 
   await Mail.send('emails.new_ticket_notification', {
