@@ -523,6 +523,16 @@ class TicketController {
   }) {
     const ticket = await Ticket.find(params.id);
 
+    const recipient = await ticket
+      .ticketRecipient()
+      .select('id', 'email', 'first_name', 'last_name', 'locale')
+      .fetch();
+
+    const project = await ticket
+      .project()
+      .select('id', 'title')
+      .fetch();
+
     ticket.status = request.body.status;
 
     /* Informiere den Author, dass sich der Ticket-Status verändert hat.
@@ -532,7 +542,9 @@ class TicketController {
     if (author.id != auth.user.id) {
       Event.fire('new::ticketStatusChange', {
         ticket,
-        author
+        author,
+        recipient,
+        project
       });
     }
 
