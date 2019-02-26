@@ -19,11 +19,11 @@ class Ticket extends Model {
     return super.formatDates(field, value);
   }
 
-  // Konvertieren von MD -> HTML
   static get computed() {
     return ['descriptionHtml'];
   }
 
+  // Konvertieren von MD -> HTML
   getDescriptionHtml({
     description
   }) {

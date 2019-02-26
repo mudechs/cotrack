@@ -1,203 +1,203 @@
 @layout('layouts.app')
 
 @section('content')
-@component('components.card', {
-  antl,
-  csrf,
-  locale: auth.user.id,
-  styles: ' has-rounded-white-border',
-  footer: false
-})
-  @slot('header')
-    <div class="is-fullwidth">
-      {{--  Ticket übernehmen  --}}
-      @if(ticket.recipient_id != auth.user.id && ticket.status != 7 && ticket.status != 8 && ticket.status != 3 )
-        <button class="button is-small is-danger" type="button" id="assignToMeButton" data-recipient="{{ auth.user.id }}">
-          {{ antl.forLocale(auth.user.locale).formatMessage('static.uebernehmen') }}
-        </button>
-      @endif
-      {{--  Status wechseln  --}}
-      @if(ticket.recipient_id == auth.user.id && ticket.status != 7 && ticket.status != 8 && ticket.status != 3)
-        <div class="dropdown has-dropdown">
-          <div class="dropdown-trigger">
-            <button class="button is-small" id="statusDropdownButtons" aria-haspopup="true" aria-controls="statusDropdownButtons">
-              @each(status in statuses)
-                @if(status.code == ticket.status)
-                  <span>{{ status.label }}</span>
-                @endif
-              @endeach
-              <span class="icon is-small">
-                <i class="fas fa-angle-down" aria-hidden="true"></i>
-              </span>
-            </button>
+  @component('components.card', {
+    antl,
+    csrf,
+    locale: auth.user.id,
+    styles: ' has-rounded-white-border',
+    footer: false
+  })
+    @slot('header')
+      <div class="is-fullwidth">
+        {{--  Ticket übernehmen  --}}
+        @if(ticket.recipient_id != auth.user.id && ticket.status != 7 && ticket.status != 8 && ticket.status != 3 )
+          <button class="button is-small is-danger" type="button" id="assignToMeButton" data-recipient="{{ auth.user.id }}">
+            {{ antl.forLocale(auth.user.locale).formatMessage('static.uebernehmen') }}
+          </button>
+        @endif
+        {{--  Status wechseln  --}}
+        @if(ticket.recipient_id == auth.user.id && ticket.status != 7 && ticket.status != 8 && ticket.status != 3)
+          <div class="dropdown has-dropdown">
+            <div class="dropdown-trigger">
+              <button class="button is-small" id="statusDropdownButtons" aria-haspopup="true" aria-controls="statusDropdownButtons">
+                @each(status in statuses)
+                  @if(status.code == ticket.status)
+                    <span>{{ status.label }}</span>
+                  @endif
+                @endeach
+                <span class="icon is-small">
+                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="statusDropdownButtons">
+              <div class="dropdown-content">
+                @each(status in statuses)
+                  @if(status.code != ticket.status && status.code != 7)
+                    <a class="
+                      dropdown-item
+                      status-change-item
+                    " href="#" data-status="{{ status.code }}">{{ status.label }}</a>
+                  @endif
+                @endeach
+              </div>
+            </div>
           </div>
-          <div class="dropdown-menu" id="statusDropdownButtons">
-            <div class="dropdown-content">
-              @each(status in statuses)
-                @if(status.code != ticket.status && status.code != 7)
+        @endif
+        {{--  Ticket auf 7 setzen  --}}
+        @if((ticket.recipient_id == auth.user.id || ticket.author_id == auth.user.id) && ticket.recipient_id != null && ticket.status != 7 && ticket.status != 8 && ticket.status != 3)
+          <button class="status-change-item button is-small is-success" data-status=7><i class="fas fa-check fa-fw"></i>&nbsp;&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.erledigt') }}</button>
+        @endif
+        {{--  Ticket wiedereröffnen  --}}
+        @if((ticket.recipient_id == auth.user.id || ticket.author_id == auth.user.id) && ticket.status == 7 || ticket.status == 8 || ticket.status == 3)
+          <button id="ticketReopenButton" class="button is-small is-warning"><i class="fas fa-lock-open fa-fw"></i>&nbsp;&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.wiedereroeffnen') }}</button>
+        @endif
+        {{--  Ticket weiterleiten  --}}
+        @if(ticket.status != 3 && ticket.status != 7 && ticket.status != 8 && ticket.recipient_id == auth.user.id)
+          <div class="dropdown has-dropdown">
+            <div class="dropdown-trigger">
+              <button class="button is-small" type="button" id="statusDropdownButtons" aria-haspopup="true" aria-controls="statusDropdownButtons">
+                  <span>{{ antl.forLocale(auth.user.locale).formatMessage('static.weiterleiten') }} <i class="fas fa-arrow-right fa-fw"></i></span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="statusDropdownButtons" role="menu">
+              <div class="dropdown-content">
+                @each(member in ticket.project.members)
                   <a class="
                     dropdown-item
-                    status-change-item
-                  " href="#" data-status="{{ status.code }}">{{ status.label }}</a>
-                @endif
-              @endeach
+                    recipient-dropdown-item
+                    @if(member.id == ticket.recipient_id || member.is_available == 0)
+                      is-disabled
+                    @endif
+                  " href="#" data-recipient="{{ member.id }}">
+                    @if(member.id == ticket.recipient_id || member.is_available == 0)
+                      <i class="fas fa-user-alt-slash fa-fw"></i>
+                    @endif
+                    {{ member.first_name }} {{ member.last_name }}
+                  </a>
+                @endeach
+              </div>
             </div>
           </div>
-        </div>
-      @endif
-      {{--  Ticket auf 7 setzen  --}}
-      @if((ticket.recipient_id == auth.user.id || ticket.author_id == auth.user.id) && ticket.recipient_id != null && ticket.status != 7 && ticket.status != 8 && ticket.status != 3)
-        <button class="status-change-item button is-small is-success" data-status=7><i class="fas fa-check fa-fw"></i>&nbsp;&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.erledigt') }}</button>
-      @endif
-      {{--  Ticket wiedereröffnen  --}}
-      @if((ticket.recipient_id == auth.user.id || ticket.author_id == auth.user.id) && ticket.status == 7 || ticket.status == 8 || ticket.status == 3)
-        <button id="ticketReopenButton" class="button is-small is-warning"><i class="fas fa-lock-open fa-fw"></i>&nbsp;&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.wiedereroeffnen') }}</button>
-      @endif
-      {{--  Ticket weiterleiten  --}}
-      @if(ticket.status != 3 && ticket.status != 7 && ticket.status != 8 && ticket.recipient_id == auth.user.id)
-        <div class="dropdown has-dropdown">
-          <div class="dropdown-trigger">
-            <button class="button is-small" type="button" id="statusDropdownButtons" aria-haspopup="true" aria-controls="statusDropdownButtons">
-                <span>{{ antl.forLocale(auth.user.locale).formatMessage('static.weiterleiten') }} <i class="fas fa-arrow-right fa-fw"></i></span>
-            </button>
-          </div>
-          <div class="dropdown-menu" id="statusDropdownButtons" role="menu">
-            <div class="dropdown-content">
-              @each(member in ticket.project.members)
-                <a class="
-                  dropdown-item
-                  recipient-dropdown-item
-                  @if(member.id == ticket.recipient_id || member.is_available == 0)
-                    is-disabled
-                  @endif
-                " href="#" data-recipient="{{ member.id }}">
-                  @if(member.id == ticket.recipient_id || member.is_available == 0)
-                    <i class="fas fa-user-alt-slash fa-fw"></i>
-                  @endif
-                  {{ member.first_name }} {{ member.last_name }}
-                </a>
-              @endeach
-            </div>
-          </div>
-        </div>
-      @endif
-      {{--  Ticket bearbeiten  --}}
-      @if(ticket.author_id == auth.user.id || ticket.recipient_id == auth.user.id || auth.user.is_superadmin)
-        <a href="{{ route('ticketsEdit', { id: ticket.id }) }}"
-          class="button is-small
-          @if(ticket.status == 7 && ticket.status == 8 && ticket.status == 3)
-            disabled
-          @endif
-          "><i class="fas fa-pencil-alt"></i>
-        </a>
-      @endif
-    </div>
-  @endslot
-
-  @slot('content')
-    <div class="columns">
-      <div class="column is-8-tablet">
-        <div class="content">
-          <h3 class="subtitle">{{ ticket.subject }}</h3>
-          @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
-          @!component('tickets.components.statusBadge', { statuses, ticketStatus: ticket.status })
-          <div class="m-t-md m-b-md">
-          @if(ticket.impact)
-            <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.auswirkung') }}: </b>
-              @each(impact in impacts)
-                @if(impact.code == ticket.impact)
-                  {{ impact.label }}
-                @endif
-              @endeach
-            </small><br>
-          @endif
-          @if(ticket.reproducible)
-            <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.reproduzierbar') }}: </b>
-              @each(reproducible in reproducibles)
-                @if(reproducible.code == ticket.reproducible)
-                  {{ reproducible.label }}
-                @endif
-              @endeach
-            </small><br>
-          @endif
-          @if(ticket.affected_version)
-            <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.affected_version') }}: </b><span class="text-danger">{{ ticket.affected_version }}</span></small><br>
-          @endif
-          @if(ticket.resolved_version)
-            <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.resolved_version') }}: </b><span class="text-danger">{{ ticket.resolved_version }}</span></small><br>
-          @endif
-          @if(ticket.done_until)
-            <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.zu_erledigen_bis') }}: </b><span class="text-danger">{{ ticket.done_until }}</span></small><br>
-          @endif
-          </div>
-          <small>
-            @!component('users.components.availableCircle', { user: ticket.ticketAuthor })
-            {{ ticket.ticketAuthor.first_name }} {{ ticket.ticketAuthor.last_name }} &rarr;
-            @!component('users.components.availableCircle', { user: ticket.ticketRecipient })
-            @!component('tickets.components.recipientInfo', { antl, locale: auth.user.locale, recipient: ticket.ticketRecipient })
-          </small>
-          <hr>
-
-          {{{ ticket.descriptionHtml }}}
-          <hr>
-          @each(attachment in ticket.attachments)
-            <a href="/uploads/tickets/{{ ticket.id }}/{{ attachment.fileName }}" target="_blank"><i class="fas fa-paperclip fa-fw"></i> {{ attachment.clientName }}</a><br>
-          @endeach
-        </div>
-        <div class="box has-background-light m-t-lg">
-          <div class="p-xs m-b-lg">
-            <span><i class="far fa-comments fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.kommentare') }}</span>
-            @if(ticket.recipient_id)
-              <button type="button" id="createCommentButton" class="button is-small is-primary is-pulled-right">
-                <i class="fas fa-plus"></i>
-              </button>
+        @endif
+        {{--  Ticket bearbeiten  --}}
+        @if(ticket.author_id == auth.user.id || ticket.recipient_id == auth.user.id || auth.user.is_superadmin)
+          <a href="{{ route('ticketsEdit', { id: ticket.id }) }}"
+            class="button is-small
+            @if(ticket.status == 7 && ticket.status == 8 && ticket.status == 3)
+              disabled
             @endif
-          </div>
-          @include('tickets.includes.commentCreateForm')
-          @include('tickets.includes.comments')
-        </div>
+            "><i class="fas fa-pencil-alt"></i>
+          </a>
+        @endif
       </div>
-      <div class="column is-4-tablet">
-        <div class="content">
-          <table class="table is-narrow table-borderless is-fullwidth text-nowrap">
-            <tbody>
-              <tr>
-                <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.aufwand_std') }}:</th>
-                <td>
-                  @if(ticket.time_expenses)
-                    <i class="far fa-clock fa-fw"></i> {{ ticket.time_expenses }} h
+    @endslot
+
+    @slot('content')
+      <div class="columns">
+        <div class="column is-8-tablet">
+          <div class="content">
+            <h3 class="subtitle">{{ ticket.subject }}</h3>
+            @!component('tickets.components.priorityBadge', { priorities, ticketPriority: ticket.priority })
+            @!component('tickets.components.statusBadge', { statuses, ticketStatus: ticket.status })
+            <div class="m-t-md m-b-md">
+            @if(ticket.impact)
+              <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.auswirkung') }}: </b>
+                @each(impact in impacts)
+                  @if(impact.code == ticket.impact)
+                    {{ impact.label }}
                   @endif
-                </td>
-              </tr>
-              <tr>
-                <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}:</th>
-                <td><a href="{{ route('projectsShow', { id: ticket.project.id }) }}">{{ ticket.project.title }}</a></td>
-              </tr>
-              <tr>
-                <th scope="row">ID:</th>
-                <td>{{ ticket.id }}</td>
-              </tr>
-              @if(ticket.forwarder_id)
-                <tr>
-                  <th>Forwarder:</th>
-                  <td>{{ ticket.ticketForwarder.first_name }} {{ ticket.ticketForwarder.last_name }}</td>
-                </tr>
+                @endeach
+              </small><br>
+            @endif
+            @if(ticket.reproducible)
+              <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.reproduzierbar') }}: </b>
+                @each(reproducible in reproducibles)
+                  @if(reproducible.code == ticket.reproducible)
+                    {{ reproducible.label }}
+                  @endif
+                @endeach
+              </small><br>
+            @endif
+            @if(ticket.affected_version)
+              <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.affected_version') }}: </b><span class="text-danger">{{ ticket.affected_version }}</span></small><br>
+            @endif
+            @if(ticket.resolved_version)
+              <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.resolved_version') }}: </b><span class="text-danger">{{ ticket.resolved_version }}</span></small><br>
+            @endif
+            @if(ticket.done_until)
+              <small><b>{{ antl.forLocale(auth.user.locale).formatMessage('static.zu_erledigen_bis') }}: </b><span class="text-danger">{{ ticket.done_until }}</span></small><br>
+            @endif
+            </div>
+            <small>
+              @!component('users.components.availableCircle', { user: ticket.ticketAuthor })
+              {{ ticket.ticketAuthor.first_name }} {{ ticket.ticketAuthor.last_name }} &rarr;
+              @!component('users.components.availableCircle', { user: ticket.ticketRecipient })
+              @!component('tickets.components.recipientInfo', { antl, locale: auth.user.locale, recipient: ticket.ticketRecipient })
+            </small>
+            <hr>
+
+            {{{ ticket.descriptionHtml }}}
+            <hr>
+            @each(attachment in ticket.attachments)
+              <a href="/uploads/tickets/{{ ticket.id }}/{{ attachment.fileName }}" target="_blank"><i class="fas fa-paperclip fa-fw"></i> {{ attachment.clientName }}</a><br>
+            @endeach
+          </div>
+          <div class="box has-background-light m-t-lg">
+            <div class="p-xs m-b-lg">
+              <span><i class="far fa-comments fa-fw"></i> {{ antl.forLocale(auth.user.locale).formatMessage('static.kommentare') }}</span>
+              @if(ticket.recipient_id)
+                <button type="button" id="createCommentButton" class="button is-small is-primary is-pulled-right">
+                  <i class="fas fa-plus"></i>
+                </button>
               @endif
-              <tr>
-                <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.erstellt') }}:</th>
-                <td>{{ ticket.created_at }}</td>
-              </tr>
-              <tr>
-                <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.geaendert') }}:</th>
-                <td>{{ ticket.updated_at }}</td>
-              </tr>
-            </tbody>
-          </table>
+            </div>
+            @include('tickets.includes.commentCreateForm')
+            @include('tickets.includes.comments')
+          </div>
+        </div>
+        <div class="column is-4-tablet">
+          <div class="content">
+            <table class="table is-narrow table-borderless is-fullwidth text-nowrap">
+              <tbody>
+                <tr>
+                  <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.aufwand_std') }}:</th>
+                  <td>
+                    @if(ticket.time_expenses)
+                      <i class="far fa-clock fa-fw"></i> {{ ticket.time_expenses }} h
+                    @endif
+                  </td>
+                </tr>
+                <tr>
+                  <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}:</th>
+                  <td><a href="{{ route('projectsShow', { id: ticket.project.id }) }}">{{ ticket.project.title }}</a></td>
+                </tr>
+                <tr>
+                  <th scope="row">ID:</th>
+                  <td>{{ ticket.id }}</td>
+                </tr>
+                @if(ticket.forwarder_id)
+                  <tr>
+                    <th>Forwarder:</th>
+                    <td>{{ ticket.ticketForwarder.first_name }} {{ ticket.ticketForwarder.last_name }}</td>
+                  </tr>
+                @endif
+                <tr>
+                  <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.erstellt') }}:</th>
+                  <td>{{ ticket.created_at }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">{{ antl.forLocale(auth.user.locale).formatMessage('static.geaendert') }}:</th>
+                  <td>{{ ticket.updated_at }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
-  @endslot
-@endcomponent
+    @endslot
+  @endcomponent
 
   {{--  Forms  TODO: Konsolidieren --}}
   <form id="statusChangeForm" action="{{ route('ticketsChangeStatus', { id: ticket.id }) }}" method="post">
