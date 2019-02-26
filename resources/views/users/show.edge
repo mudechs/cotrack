@@ -73,9 +73,11 @@
           <li class="tab is-active" onclick="helpers.openTab(event,'info')">
             <a><i class="fas fa-info-circle fa-fw"></i></a>
           </li>
-          <li class="tab" onclick="helpers.openTab(event,'myProjects')">
-            <a><i class="fas fa-project-diagram fa-fw"></i></a>
-          </li>
+          @if(auth.user.is_admin || auth.user.is_superadmin)
+            <li class="tab" onclick="helpers.openTab(event,'myProjects')">
+              <a><i class="fas fa-project-diagram fa-fw"></i></a>
+            </li>
+          @endif
           <li class="tab" onclick="helpers.openTab(event,'memberInProjects')">
             <a><i class="fas fa-hands-helping fa-fw"></i></a>
           </li>
@@ -147,18 +149,20 @@
             </tbody>
           </table>
         </div>
-        <div id="myProjects" class="content-tab" style="display: none;">
-          <table class="table is-hoverable is-narrow table-borderless is-striped is-fullwidth text-nowrap linkable">
-            <tbody>
-              @each(project in user.authorOfProjects)
-                <tr onclick="helpers.clickableRow(event)" data-href="{{ route('projectsShow', { id: project.id }) }}">
-                  <td>{{ project.title }}</td>
-                  <td>{{ project.phase }}</td>
-                </tr>
-              @endeach
-            </tbody>
-          </table>
-        </div>
+        @if(auth.user.is_admin || auth.user.is_superadmin)
+          <div id="myProjects" class="content-tab" style="display: none;">
+            <table class="table is-hoverable is-narrow table-borderless is-striped is-fullwidth text-nowrap linkable">
+              <tbody>
+                @each(project in user.authorOfProjects)
+                  <tr onclick="helpers.clickableRow(event)" data-href="{{ route('projectsShow', { id: project.id }) }}">
+                    <td>{{ project.title }}</td>
+                    <td>{{ project.phase }}</td>
+                  </tr>
+                @endeach
+              </tbody>
+            </table>
+          </div>
+        @endif
         <div id="memberInProjects" class="content-tab" style="display: none;">
           <table class="table is-hoverable is-narrow table-borderless is-striped is-fullwidth text-nowrap linkable">
             <tbody>
