@@ -3,10 +3,6 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model');
 const markdown = require('showdown');
-const Config = use('Config');
-const {
-  statuses
-} = Config.get('ticket');
 
 class Ticket extends Model {
   static get dates() {
@@ -24,7 +20,7 @@ class Ticket extends Model {
   }
 
   static get computed() {
-    return ['descriptionHtml', 'readableStatus'];
+    return ['descriptionHtml'];
   }
 
   // Konvertieren von MD -> HTML
@@ -33,20 +29,6 @@ class Ticket extends Model {
   }) {
     const mdc = new markdown.Converter();
     return mdc.makeHtml(description);
-  }
-
-  // Konvertieren des Status-Codes in lesbaren Text
-  readableStatus({
-    status,
-    auth
-  }) {
-    const locale = auth.user.locale;
-
-    for (var i = 0; i < statuses.length; i++) {
-      if (statuses[i][locale].code == status) {
-        return statuses[i].locale.label;
-      }
-    }
   }
 
   // Parsen um im Frontend iterieren zu können
