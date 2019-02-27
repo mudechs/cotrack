@@ -497,6 +497,39 @@ class TicketController {
     return response.status(200).send(message);
   }
 
+  async changeRecipient({ params, auth, request, session, response }) {
+    const ticket = await Ticket.find(params.id);
+
+    ticket.recipient_id = request.input('recipient_id');
+    ticket.status = 1;
+    ticket.forwarder_id = auth.user.id;
+
+    await ticket.save();
+
+    // Informiere den neuen Recipient, dass ihm ein Ticket zugewiesen wurde
+    const user = await ticket.ticketRecipient().fetch();
+
+    Event.fire('new::ticket', {
+      ticket,
+      user
+    });
+
+    const message = Antl.forLocale(auth.user.locale).formatMessage(
+      'messages.message6'
+    );
+
+    session.flash({
+      notification: {
+        type: 'success',
+        message: message
+      }
+    });
+
+    return response.route('ticketsShow', {
+      id: ticket.id
+    });
+  }
+
   
 }
 
