@@ -530,6 +530,27 @@ class TicketController {
     });
   }
 
+  // Private API
+  async apiGetProjectMembers({ params, response }) {
+    const project = await Project.query()
+      .select('id', 'title')
+      .where('id', params.id)
+      .first();
+
+    const versions = await project.versions().fetch();
+
+    const members = await project
+      .members()
+      .select('id', 'first_name', 'last_name', 'is_available')
+      .where('is_active', true)
+      .fetch();
+
+    response.status(200).send({
+      members,
+      versions
+    });
+  }
+
   
 }
 
