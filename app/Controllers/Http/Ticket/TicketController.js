@@ -551,7 +551,100 @@ class TicketController {
     });
   }
 
-  
+  // Public API (all informations in headers)
+  async apiPublicTicketCreate({ request, response }) {
+    try {
+      const validation = await validateAll(request.all(), {
+        token: 'required',
+        subject: 'required',
+        description: 'required',
+        priority: 'required',
+        email: 'required'
+      });
+
+      if (validation.fails()) {
+        return response.status(406).send(validation.messages());
+      }
+
+      const data = request.all();
+
+      const author = await User.query()
+        .select('id', 'first_name', 'last_name', 'email', 'locale')
+        .where('email', data.email)
+        .first();
+
+      const project = await Project.query()
+        .select('id', 'title', 'author_id')
+        .where('token', data.token)
+        .first();
+
+      if (author && project) {
+        const ticket = await Ticket.create({
+          subject: data.subject,
+          description: data.description,
+          priority: data.priority,
+          author_id: author.id,
+          project_id: project.id
+        });
+
+        const recipient = await project
+          .projectAuthor()
+          .select('id', 'email', 'first_name', 'last_name', 'locale')
+          .fetch();
+
+        Event.fire('new::ticketUnassigned', {
+          ticket,
+          project,
+          author,
+          recipient
+        });
+
+        return response.status(200).send('OK');
+      }
+    } catch {
+      return response.status(404).send('Error');
+    }
+  }
+
+  async apiPublicTicketFetch({ request, response }) {
+    const validation = await validateAll(request.headers(), {
+      token: 'required',
+      email: 'required'
+    });
+
+    if (validation.fails()) {
+      return response.status(406).send(validation.messages());
+    }
+
+    const user = await User.query()
+      .where('email', request.header('email'))
+      .first();
+
+    const project = await Project.query()
+      .where('token', request.header('token'))
+      .first();
+
+    if (user && project) {
+      const tickets = await Ticket.query()
+        .where('project_id', project.id)
+        .where('author_id', user.id)
+        .fetch();
+
+      if (tickets) {
+        return response.status(200).send(tickets);
+      }
+
+      return response
+        .status(404)
+        .send('Keine Tickets vorhanden für diesen User');
+    }
+
+    return response
+      .status(500)
+      .send(
+        'Die Tickets konnten nicht abgerufen werden weil entweder der User oder das Projekt nicht existieren.'
+      );
+  }
 }
 
 module.exports = TicketController;
