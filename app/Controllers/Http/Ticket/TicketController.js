@@ -14,10 +14,7 @@ const Antl = use('Antl');
 const Logger = use('Logger');
 
 class TicketController {
-  async index({
-    auth,
-    view
-  }) {
+  async index({ auth, view }) {
     const ticketsNeu = await TicketServices.ticketGroupedByStatus(
       1,
       auth.user.id
@@ -56,11 +53,7 @@ class TicketController {
     });
   }
 
-  async projectIndex({
-    params,
-    auth,
-    view
-  }) {
+  async projectIndex({ params, auth, view }) {
     const ticketsNeu = await TicketServices.ticketGroupedByStatusAndProject(
       1,
       auth.user.id,
@@ -104,11 +97,7 @@ class TicketController {
     });
   }
 
-  async show({
-    auth,
-    params,
-    view
-  }) {
+  async show({ auth, params, view }) {
     const ticket = await Ticket.query()
       .where('id', params.id)
       .with('ticketAuthor', builder => {
@@ -141,10 +130,7 @@ class TicketController {
     });
   }
 
-  async create({
-    auth,
-    view
-  }) {
+  async create({ auth, view }) {
     const projects = await Project.query()
       .select('id', 'title')
       .where('is_active', true)
@@ -164,12 +150,7 @@ class TicketController {
     });
   }
 
-  async store({
-    request,
-    auth,
-    session,
-    response
-  }) {
+  async store({ request, auth, session, response }) {
     // Get formdata
     const ticket = await Ticket.create({
       subject: request.input('subject'),
@@ -255,11 +236,7 @@ class TicketController {
     });
   }
 
-  async edit({
-    auth,
-    params,
-    view
-  }) {
+  async edit({ auth, params, view }) {
     const ticket = await Ticket.query()
       .where('id', params.id)
       .with('ticketAuthor', builder => {
@@ -296,13 +273,7 @@ class TicketController {
     });
   }
 
-  async update({
-    params,
-    auth,
-    request,
-    session,
-    response
-  }) {
+  async update({ params, auth, request, session, response }) {
     const ticket = await Ticket.find(params.id);
 
     const newFiles = request.file('attachments');
@@ -357,13 +328,7 @@ class TicketController {
     });
   }
 
-  async assignToMe({
-    params,
-    request,
-    auth,
-    session,
-    response
-  }) {
+  async assignToMe({ params, request, auth, session, response }) {
     const ticket = await Ticket.find(params.id);
 
     ticket.recipient_id = request.input('recipient_id');
@@ -400,13 +365,7 @@ class TicketController {
     });
   }
 
-  async changeStatus({
-    params,
-    request,
-    auth,
-    session,
-    response
-  }) {
+  async changeStatus({ params, request, auth, session, response }) {
     const ticket = await Ticket.find(params.id);
 
     ticket.status = request.input('status');
@@ -453,13 +412,7 @@ class TicketController {
     });
   }
 
-  async reopen({
-    params,
-    request,
-    auth,
-    session,
-    response
-  }) {
+  async reopen({ params, request, auth, session, response }) {
     const ticket = await Ticket.find(params.id);
 
     ticket.status = request.input('status');
@@ -507,12 +460,7 @@ class TicketController {
     });
   }
 
-  async changeDraggedStatus({
-    params,
-    request,
-    auth,
-    response
-  }) {
+  async changeDraggedStatus({ params, request, auth, response }) {
     const ticket = await Ticket.find(params.id);
 
     const recipient = await ticket
@@ -549,13 +497,7 @@ class TicketController {
     return response.status(200).send(message);
   }
 
-  async changeRecipient({
-    params,
-    auth,
-    request,
-    session,
-    response
-  }) {
+  async changeRecipient({ params, auth, request, session, response }) {
     const ticket = await Ticket.find(params.id);
 
     ticket.recipient_id = request.input('recipient_id');
@@ -589,10 +531,7 @@ class TicketController {
   }
 
   // Private API
-  async apiGetProjectMembers({
-    params,
-    response
-  }) {
+  async apiGetProjectMembers({ params, response }) {
     const project = await Project.query()
       .select('id', 'title')
       .where('id', params.id)
@@ -613,10 +552,7 @@ class TicketController {
   }
 
   // Public API (all informations in headers)
-  async apiPublicTicketCreate({
-    request,
-    response
-  }) {
+  async apiPublicTicketCreate({ request, response }) {
     try {
       const validation = await validateAll(request.all(), {
         token: 'required',
@@ -670,10 +606,7 @@ class TicketController {
     }
   }
 
-  async apiPublicTicketFetch({
-    request,
-    response
-  }) {
+  async apiPublicTicketFetch({ request, response }) {
     const validation = await validateAll(request.headers(), {
       token: 'required',
       email: 'required'
