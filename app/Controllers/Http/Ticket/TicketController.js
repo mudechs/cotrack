@@ -1,14 +1,7 @@
 'use strict';
 const Config = use('Config');
-const {
-  statuses,
-  priorities,
-  impacts,
-  reproducibles
-} = Config.get('ticket');
-const {
-  validateAll
-} = use('Validator');
+const { statuses, priorities, impacts, reproducibles } = Config.get('ticket');
+const { validateAll } = use('Validator');
 const Ticket = use('App/Models/Ticket');
 const Project = use('App/Models/Project');
 const User = use('App/Models/User');
