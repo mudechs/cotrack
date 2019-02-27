@@ -460,28 +460,77 @@ class TicketController {
     });
   }
 
-  
+  async changeDraggedStatus({ params, request, auth, response }) {
+    const ticket = await Ticket.find(params.id);
 
-  // Private API
-  async apiGetProjectMembers({ params, response }) {
-    const project = await Project.query()
-      .select('id', 'title')
-      .where('id', params.id)
-      .first();
-
-    const versions = await project.versions().fetch();
-
-    const members = await project
-      .members()
-      .select('id', 'first_name', 'last_name', 'is_available')
-      .where('is_active', true)
+    const recipient = await ticket
+      .ticketRecipient()
+      .select('id', 'email', 'first_name', 'last_name', 'locale')
       .fetch();
 
-    response.status(200).send({
-      members,
-      versions
+    const project = await ticket
+      .project()
+      .select('id', 'title')
+      .fetch();
+
+    ticket.status = request.body.status;
+
+    /* Informiere den Author, dass sich der Ticket-Status verändert hat.
+    Informiere NICHT, wenn der Author die selbe Person wie der Recipient ist! */
+    const author = await ticket.ticketAuthor().fetch();
+
+    if (author.id != auth.user.id) {
+      Event.fire('new::ticketStatusChange', {
+        ticket,
+        author,
+        recipient,
+        project
+      });
+    }
+
+    await ticket.save();
+
+    const message = Antl.forLocale(auth.user.locale).formatMessage(
+      'messages.message5'
+    );
+
+    return response.status(200).send(message);
+  }
+
+  async changeRecipient({ params, auth, request, session, response }) {
+    const ticket = await Ticket.find(params.id);
+
+    ticket.recipient_id = request.input('recipient_id');
+    ticket.status = 1;
+    ticket.forwarder_id = auth.user.id;
+
+    await ticket.save();
+
+    // Informiere den neuen Recipient, dass ihm ein Ticket zugewiesen wurde
+    const user = await ticket.ticketRecipient().fetch();
+
+    Event.fire('new::ticket', {
+      ticket,
+      user
+    });
+
+    const message = Antl.forLocale(auth.user.locale).formatMessage(
+      'messages.message6'
+    );
+
+    session.flash({
+      notification: {
+        type: 'success',
+        message: message
+      }
+    });
+
+    return response.route('ticketsShow', {
+      id: ticket.id
     });
   }
+
+  
 
   // Public API (all informations in headers)
   async apiPublicTicketCreate({ request, response }) {
