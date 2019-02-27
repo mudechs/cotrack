@@ -412,6 +412,91 @@ class TicketController {
     });
   }
 
+  async reopen({ params, request, auth, session, response }) {
+    const ticket = await Ticket.find(params.id);
+
+    ticket.status = request.input('status');
+    ticket.recipient_id = request.input('recipient_id');
+
+    /* Informiere den Author, dass das Ticket wiedereröffnet wurde.
+    Informiere NICHT, wenn der Author die selbe Person wie der Recipient ist! */
+    const author = await ticket
+      .ticketAuthor()
+      .select('id', 'email', 'first_name', 'last_name', 'locale')
+      .fetch();
+    const recipient = await ticket
+      .ticketRecipient()
+      .select('id', 'email', 'first_name', 'last_name', 'locale')
+      .fetch();
+    const project = await ticket
+      .project()
+      .select('id', 'title')
+      .fetch();
+
+    if (author.id != auth.user.id) {
+      Event.fire('new::ticketReopen', {
+        ticket,
+        project,
+        author,
+        recipient
+      });
+    }
+
+    await ticket.save();
+
+    const message = Antl.forLocale(auth.user.locale).formatMessage(
+      'messages.message5'
+    );
+
+    session.flash({
+      notification: {
+        type: 'success',
+        message: message
+      }
+    });
+
+    return response.route('ticketsShow', {
+      id: ticket.id
+    });
+  }
+
+  async changeDraggedStatus({ params, request, auth, response }) {
+    const ticket = await Ticket.find(params.id);
+
+    const recipient = await ticket
+      .ticketRecipient()
+      .select('id', 'email', 'first_name', 'last_name', 'locale')
+      .fetch();
+
+    const project = await ticket
+      .project()
+      .select('id', 'title')
+      .fetch();
+
+    ticket.status = request.body.status;
+
+    /* Informiere den Author, dass sich der Ticket-Status verändert hat.
+    Informiere NICHT, wenn der Author die selbe Person wie der Recipient ist! */
+    const author = await ticket.ticketAuthor().fetch();
+
+    if (author.id != auth.user.id) {
+      Event.fire('new::ticketStatusChange', {
+        ticket,
+        author,
+        recipient,
+        project
+      });
+    }
+
+    await ticket.save();
+
+    const message = Antl.forLocale(auth.user.locale).formatMessage(
+      'messages.message5'
+    );
+
+    return response.status(200).send(message);
+  }
+
   
 }
 
