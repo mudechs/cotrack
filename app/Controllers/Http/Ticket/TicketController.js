@@ -328,6 +328,90 @@ class TicketController {
     });
   }
 
+  async assignToMe({ params, request, auth, session, response }) {
+    const ticket = await Ticket.find(params.id);
+
+    ticket.recipient_id = request.input('recipient_id');
+    ticket.status = request.input('status');
+
+    await ticket.save();
+
+    /* Informiere den Author, dass das Ticket übernommen und anerkannt wurde.
+    Informiere NICHT, wenn der Author die selbe Person wie der Recipient ist! */
+    if (ticket.recipient_id != ticket.author_id) {
+      const author = await ticket.ticketAuthor().fetch();
+      const recipient = await ticket.ticketRecipient().fetch();
+
+      Event.fire('new::ticketAssigned', {
+        ticket,
+        author,
+        recipient
+      });
+    }
+
+    const message = Antl.forLocale(auth.user.locale).formatMessage(
+      'messages.message4'
+    );
+
+    session.flash({
+      notification: {
+        type: 'success',
+        message: message
+      }
+    });
+
+    return response.route('ticketsShow', {
+      id: ticket.id
+    });
+  }
+
+  async changeStatus({ params, request, auth, session, response }) {
+    const ticket = await Ticket.find(params.id);
+
+    ticket.status = request.input('status');
+
+    /* Informiere den Author, dass sich der Ticket-Status verändert hat.
+    Informiere NICHT, wenn der Author die selbe Person wie der Recipient ist! */
+    const author = await ticket
+      .ticketAuthor()
+      .select('id', 'email', 'first_name', 'last_name', 'locale')
+      .fetch();
+    const recipient = await ticket
+      .ticketRecipient()
+      .select('id', 'email', 'first_name', 'last_name', 'locale')
+      .fetch();
+    const project = await ticket
+      .project()
+      .select('id', 'title')
+      .fetch();
+
+    if (author.id != auth.user.id && ticket.status != 5 && ticket.status != 8) {
+      Event.fire('new::ticketStatusChange', {
+        ticket,
+        project,
+        author,
+        recipient
+      });
+    }
+
+    await ticket.save();
+
+    const message = Antl.forLocale(auth.user.locale).formatMessage(
+      'messages.message5'
+    );
+
+    session.flash({
+      notification: {
+        type: 'success',
+        message: message
+      }
+    });
+
+    return response.route('ticketsShow', {
+      id: ticket.id
+    });
+  }
+
   
 }
 
