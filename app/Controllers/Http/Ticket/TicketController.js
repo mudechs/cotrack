@@ -53,6 +53,50 @@ class TicketController {
     });
   }
 
+  async projectIndex({ params, auth, view }) {
+    const ticketsNeu = await TicketServices.ticketGroupedByStatusAndProject(
+      1,
+      auth.user.id,
+      params.id
+    );
+    const ticketsAnerkannt = await TicketServices.ticketGroupedByStatusAndProject(
+      2,
+      auth.user.id,
+      params.id
+    );
+    const ticketsWarten = await TicketServices.ticketGroupedByStatusAndProject(
+      4,
+      auth.user.id,
+      params.id
+    );
+    const ticketsFeedback = await TicketServices.ticketGroupedByStatusAndProject(
+      5,
+      auth.user.id,
+      params.id
+    );
+    const ticketsBearbeitung = await TicketServices.ticketGroupedByStatusAndProject(
+      6,
+      auth.user.id,
+      params.id
+    );
+
+    const userProjects = await ProjectServices.getUserProjects(
+      auth.user.id,
+      'open',
+      auth.user.locale
+    );
+
+    return view.render('tickets.index', {
+      ticketsNeu: ticketsNeu.toJSON(),
+      ticketsAnerkannt: ticketsAnerkannt.toJSON(),
+      ticketsWarten: ticketsWarten.toJSON(),
+      ticketsFeedback: ticketsFeedback.toJSON(),
+      ticketsBearbeitung: ticketsBearbeitung.toJSON(),
+      userProjects: userProjects.toJSON(),
+      priorities: priorities[0][auth.user.locale]
+    });
+  }
+
   
 }
 
