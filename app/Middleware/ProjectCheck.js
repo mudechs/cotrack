@@ -5,17 +5,13 @@
 
 const Project = use('App/Models/Project');
 
-class ProjectOam {
+class ProjectCheck {
   /**
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Function} next
    */
-  async handle({
-    params,
-    auth,
-    response
-  }, next) {
+  async handle({ params, auth, response }, next) {
     const project = await Project.query()
       .where('id', params.id)
       .andWhere(function () {
@@ -35,4 +31,4 @@ class ProjectOam {
   }
 }
 
-module.exports = ProjectOam;
+module.exports = ProjectCheck;
