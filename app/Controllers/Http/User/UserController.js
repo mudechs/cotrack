@@ -2,7 +2,6 @@
 
 const Config = use('Config');
 const { salutations } = Config.get('user');
-const { validateAll } = use('Validator');
 const User = use('App/Models/User');
 const Event = use('Event');
 const FileuploadServices = use('App/Services/fileuploadServices');
@@ -70,20 +69,6 @@ class UserController {
   }
 
   async store({ request, auth, session, response }) {
-    // Validate
-    const validation = await validateAll(request.all(), {
-      salutation: 'required',
-      first_name: 'required',
-      last_name: 'required',
-      email: 'required|email|unique:users, email'
-    });
-
-    if (validation.fails()) {
-      session.withErrors(validation.messages());
-
-      return response.redirect('back');
-    }
-
     let tfaActive = request.input('tfa_active');
     tfaActive = tfaActive == 'on' ? true : false;
 
@@ -161,21 +146,6 @@ class UserController {
   }
 
   async update({ params, request, auth, session, response }) {
-    const userId = params.id;
-
-    const validation = await validateAll(request.all(), {
-      salutation: 'required',
-      first_name: 'required',
-      last_name: 'required',
-      email: `required|email|min:6|unique:users, email, id, ${userId}`
-    });
-
-    if (validation.fails()) {
-      session.withErrors(validation.messages()).flashAll();
-
-      return response.redirect('back');
-    }
-
     const user = await User.find(params.id);
 
     const file = request.file('avatar', {
@@ -208,7 +178,8 @@ class UserController {
     user.is_admin = isAdmin;
     user.is_superadmin = isSuperAdmin;
     user.is_active = isActive;
-    (user.tfa_active = tfaActive), (user.locale = request.input('locale'));
+    user.tfa_active = tfaActive;
+    user.locale = request.input('locale');
 
     await user.save();
 

@@ -5,12 +5,13 @@
       <div class="control">
         <input
           type="text"
-          class="input"
+          class="input {{ hasErrorFor('company') ? 'is-danger' : '' }}"
           name="company"
           id="company"
           value="{{ settings == undefined ? old('company', '') : settings.company }}"
           autofocus
-          >
+        >
+        {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('company'), hasErrorFor('company')) }}
       </div>
     </div>
     <div class="field">
@@ -18,11 +19,12 @@
       <div class="control">
         <input
           type="text"
-          class="input"
+          class="input {{ hasErrorFor('contact_person') ? 'is-danger' : '' }}"
           name="contact_person"
           id="contact_person"
           value="{{ settings == undefined ? old('contact_person', '') : settings.contact_person }}"
         >
+        {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('contact_person'), hasErrorFor('contact_person')) }}
       </div>
     </div>
     <div class="field">
@@ -30,11 +32,12 @@
       <div class="control">
         <input
           type="text"
-          class="input"
+          class="input {{ hasErrorFor('address') ? 'is-danger' : '' }}"
           name="address"
           id="address"
           value="{{ settings == undefined ? old('address', '') : settings.address }}"
         >
+        {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('address'), hasErrorFor('address')) }}
       </div>
     </div>
     <div class="field">
@@ -44,11 +47,12 @@
           <div class="control">
             <input
               type="text"
-              class="input"
+              class="input {{ hasErrorFor('zip_code') ? 'is-danger' : '' }}"
               name="zip_code"
               id="zip_code"
               value="{{ settings == undefined ? old('zip_code', '') : settings.zip_code }}"
             >
+            {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('zip_code'), hasErrorFor('zip_code')) }}
           </div>
         </div>
         <div class="column is-8">
@@ -56,11 +60,12 @@
           <div class="control">
             <input
               type="text"
-              class="input"
+              class="input {{ hasErrorFor('city') ? 'is-danger' : '' }}"
               name="city"
               id="city"
               value="{{ settings == undefined ? old('city', '') : settings.city }}"
             >
+            {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('city'), hasErrorFor('city')) }}
           </div>
         </div>
       </div>
@@ -84,11 +89,12 @@
           <div class="control">
             <input
               type="text"
-              class="input"
+              class="input {{ hasErrorFor('country') ? 'is-danger' : '' }}"
               name="country"
               id="country"
               value="{{ settings == undefined ? old('country', '') : settings.country }}"
             >
+            {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('country'), hasErrorFor('country')) }}
           </div>
         </div>
       </div>
@@ -128,11 +134,12 @@
       <div class="control has-icons-left">
         <input
           type="email"
-          class="input"
+          class="input {{ hasErrorFor('email') ? 'is-danger' : '' }}"
           name="email"
           id="email"
           value="{{ settings == undefined ? old('email', '') : settings.email }}"
         >
+        {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('email'), hasErrorFor('email')) }}
         <span class="icon is-small is-left">
           <i class="fas fa-at"></i>
         </span>
@@ -173,19 +180,16 @@
         <div class="select">
           <select id="default_locale" name="default_locale" class="form-control">
             <option value="de"
-              @if(settings.default_locale == 'de')
+              @if(settings == undefined || settings.default_locale == 'de')
                 selected
               @endif
-              @if(settings == undefined)
-                selected
-              @endif
-              {{ old('default_locale') == 'on' ? 'checked' : ''  }}
+              {{ old('default_locale') == 'on' ? 'selected' : ''  }}
             >Deutsch</option>
             <option value="en"
               @if(settings.default_locale == 'en')
                 selected
               @endif
-              {{ old('default_locale') == 'on' ? 'checked' : ''  }}
+              {{ old('default_locale') == 'on' ? 'selected' : ''  }}
             >English</option>
           </select>
         </div>
