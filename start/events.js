@@ -67,7 +67,7 @@ Event.on('new::ticket', async ({
     recipientLabel: Antl.forLocale(recipient.locale).formatMessage('emails.message26')
   };
 
-  await Mail.send('emails.new_ticket_notification', {
+  await Mail.send('emails.ticket_notification', {
     messages,
     ticket,
     project,
@@ -100,7 +100,7 @@ Event.on('new::ticketUnassigned', async ({
     recipientLabel: Antl.forLocale(recipient.locale).formatMessage('emails.message26')
   };
 
-  await Mail.send('emails.new_ticket_notification', {
+  await Mail.send('emails.ticket_notification', {
     messages,
     ticket,
     project,
@@ -136,7 +136,7 @@ Event.on('new::ticketStatusChange', async ({
     recipientLabel: Antl.forLocale(locale).formatMessage('emails.message26')
   };
 
-  await Mail.send('emails.new_ticket_notification', {
+  await Mail.send('emails.ticket_notification', {
     messages,
     ticket,
     project,
@@ -174,7 +174,7 @@ Event.on('new::ticketReopen', async ({
     recipientLabel: Antl.forLocale(locale).formatMessage('emails.message26')
   };
 
-  await Mail.send('emails.new_ticket_notification', {
+  await Mail.send('emails.ticket_notification', {
     messages,
     ticket,
     project,

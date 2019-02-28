@@ -31,9 +31,10 @@ Route.get('login', 'Auth/LoginController.showLoginForm').as('showLoginForm');
 Route.post('login', 'Auth/LoginController.login').as('login').validator('LoginUser');
 Route.get('login/:hash', 'Auth/LoginController.loginTokenForm').as('loginTokenForm');
 Route.post('login/token', 'Auth/LoginController.loginToken').as('loginToken');
-Route.get('logout', 'Auth/LogoutController.logout').middleware(['auth', 'mMode']).as('logout');
-Route.get('password/reset', 'Auth/PasswordResetController.showLinkRequestForm').middleware(['mMode']).as('passwordResetForm');
 
+Route.get('logout', 'Auth/LogoutController.logout').middleware(['auth', 'mMode']).as('logout');
+
+Route.get('password/reset', 'Auth/PasswordResetController.showLinkRequestForm').middleware(['mMode']).as('passwordResetForm');
 Route.post('password/email', 'Auth/PasswordResetController.sendResetLinkEmail').middleware(['mMode']).as('passwordEmail');
 Route.get('password/reset/:token', 'Auth/PasswordResetController.showResetForm').middleware(['mMode']);
 Route.post('password/reset', 'Auth/PasswordResetController.reset').middleware(['mMode']).as('passwordResetStore');
@@ -52,7 +53,7 @@ Route.group(() => {
 
   Route.get('projects', 'Project/ProjectController.index').as('projectsIndex');
   Route.get('projects/create', 'Project/ProjectController.create').middleware(['isAdmin']).as('projectsCreate');
-  Route.get('projects/show/:id', 'Project/ProjectController.show').middleware(['projectOAM']).as('projectsShow');
+  Route.get('projects/show/:id', 'Project/ProjectController.show').middleware(['projectCheck']).as('projectsShow');
   Route.get('projects/edit/:id', 'Project/ProjectController.edit').middleware(['isAdmin']).as('projectsEdit');
   Route.post('projects/store', 'Project/ProjectController.store').middleware(['isAdmin']).as('projectsStore').validator('StoreProject');
   Route.post('projects/update/:id', 'Project/ProjectController.update').middleware(['isAdmin']).as('projectsUpdate').validator('StoreProject');
