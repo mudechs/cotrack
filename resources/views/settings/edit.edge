@@ -11,7 +11,7 @@
       footer: false
     })
       @slot('content')
-        <form action="{{ route('settings.update', { id: settings.id }) }}?_method=PUT" method="post">
+        <form action="{{ route('settings.update', { id: settings.id }) }}" method="post">
           {{ csrfField() }}
 
           @include('settings.includes.formFields')

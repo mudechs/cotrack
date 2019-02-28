@@ -13,100 +13,22 @@
   </div>
   <div class="tab-content">
     <div id="active" class="content-tab">
-      <div class="table-responsive">
-        <table class="table is-hoverable is-narrow table-borderless is-striped is-fullwidth text-nowrap data-table-active linkable">
-          <thead>
-            <tr>
-              <th scope="col"></th>
-              <th>ID</th>
-              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.vorname') }}</th>
-              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.nachname') }}</th>
-              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.funktion') }}</th>
-              <th class="has-text-centered">Status</th>
-              <th class="has-text-centered">Admin</th>
-              <th class="has-text-right"><i class="fas fa-cog"></i></th>
-            </tr>
-          </thead>
-          <tbody>
-            @each(user in usersActive)
-              <tr onclick="helpers.clickableRow(event)" data-href="{{ route('usersShow', { id: user.id }) }}">
-                <th scope="row" width="20">
-                  @!component('users.components.availableCircle', { user })
-                </th>
-                <th>{{ user.id }}</th>
-                <td>{{ user.first_name }}</td>
-                <td><b>{{ user.last_name }}</b></td>
-                <td>{{ user.profession }}</td>
-                <td class="has-text-centered">
-                  @if(user.is_active == 0)
-                    {{ antl.forLocale(auth.user.locale).formatMessage('static.inaktiv') }}
-                  @else
-                    {{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}
-                  @endif
-                </td>
-                <td class="has-text-centered">
-                  @if(user.is_admin == 1)
-                    <i class="fas fa-check"></i>
-                  @endif
-                </td>
-                <td class="has-text-right">
-                  @if(auth.user.id == user.id || auth.user.is_admin || auth.user.is_superadmin)
-                    <a href="{{ route('usersEdit', { id: user.id }) }}" class="button is-small is-text"><i class="fas fa-pencil-alt"></i></a>
-                  @endif
-                </td>
-              </tr>
-            @endeach
-          </tbody>
-        </table>
-      </div>
+      @!component('users.components.userListing', {
+        auth,
+        antl,
+        locale: auth.user.locale,
+        users: usersActive,
+        dataTableHandler: 'data-table-active'
+      })
     </div>
     <div id="inactive" class="content-tab" style="display:none">
-      <div class="table-responsive">
-        <table class="table is-hoverable is-narrow table-borderless is-striped is-fullwidth text-nowrap data-table-inactive linkable">
-          <thead>
-            <tr>
-              <th scope="col"></th>
-              <th>ID</th>
-              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.vorname') }}</th>
-              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.nachname') }}</th>
-              <th>{{ antl.forLocale(auth.user.locale).formatMessage('static.funktion') }}</th>
-              <th class="has-text-centered">Status</th>
-              <th class="has-text-centered">Admin</th>
-              <th class="has-text-right"><i class="fas fa-cog"></i></th>
-            </tr>
-          </thead>
-          <tbody>
-            @each(user in usersInactive)
-              <tr onclick="helpers.clickableRow(event)" data-href="{{ route('usersShow', { id: user.id }) }}">
-                <th scope="row" width="20">
-                  @!component('users.components.availableCircle', { user })
-                </th>
-                <th>{{ user.id }}</th>
-                <td>{{ user.first_name }}</td>
-                <td><b>{{ user.last_name }}</b></td>
-                <td>{{ user.profession }}</td>
-                <td class="has-text-centered">
-                  @if(user.is_active == 0)
-                    {{ antl.forLocale(auth.user.locale).formatMessage('static.inaktiv') }}
-                  @else
-                    {{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}
-                  @endif
-                </td>
-                <td class="has-text-centered">
-                  @if(user.is_admin == 1)
-                    <i class="fas fa-check"></i>
-                  @endif
-                </td>
-                <td class="has-text-right">
-                  @if(auth.user.id == user.id || auth.user.is_admin || auth.user.is_superadmin)
-                    <a href="{{ route('usersEdit', { id: user.id }) }}" class="button is-small is-text"><i class="fas fa-pencil-alt"></i></a>
-                  @endif
-                </td>
-              </tr>
-            @endeach
-          </tbody>
-        </table>
-      </div>
+      @!component('users.components.userListing', {
+        auth,
+        antl,
+        locale: auth.user.locale,
+        users: usersInactive,
+        dataTableHandler: 'data-table-active'
+      })
     </div>
   </div>
 

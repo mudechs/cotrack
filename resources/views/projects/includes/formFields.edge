@@ -9,7 +9,8 @@
           name="title"
           id="title"
           value="{{ project == undefined ? old('title', '') : project.title }}"
-          autofocus>
+          autofocus
+        >
         {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('title'), hasErrorFor('title')) }}
       </div>
     </div>
@@ -20,7 +21,8 @@
           name="description"
           class="textarea {{ hasErrorFor('description') ? 'is-danger' : '' }}"
           id="description"
-          rows="10">{{ project == undefined ? old('description', '') : project.description }}</textarea>
+          rows="10">{{ project == undefined ? old('description', '') : project.description }}
+        </textarea>
         {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('description'), hasErrorFor('description')) }}
       </div>
     </div>
@@ -33,13 +35,9 @@
           type="checkbox"
           name="is_active"
           id="is_active"
-          @if(project.is_active == 1)
+          @if(project.is_active || project == undefined)
             checked
           @endif
-          @if(project == undefined)
-            checked
-          @endif
-          {{ old('is_active') == 'on' ? 'checked' : ''  }}
         >
         <label class="checkbox" for="is_active">
           {{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}

@@ -1,0 +1,245 @@
+<div class="columns">
+  <div class="column">
+    <div class="field">
+      <div class="control">
+        <input
+          type="checkbox"
+          id="is_active"
+          name="is_active"
+          class="switch"
+          @if(user == undefined || user.is_active)
+            checked
+          @endif
+        >
+        <label class="checkbox" for="is_active">
+          {{ antl.forLocale(auth.user.locale).formatMessage('static.aktiv') }}
+        </label>
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <input
+          type="checkbox"
+          id="tfa_active"
+          name="tfa_active"
+          class="switch"
+          @if(user.tfa_active)
+            checked
+          @endif
+        >
+        <label class="checkbox" for="tfa_active">
+          2-FA
+        </label>
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <input
+          type="checkbox"
+          id="is_admin"
+          name="is_admin"
+          class="switch"
+          @if(user.is_admin)
+            checked
+          @endif
+        >
+        <label class="checkbox" for="is_admin">
+          Administrator
+        </label>
+      </div>
+    </div>
+    @if(auth.user.is_superadmin)
+      <div class="field">
+        <div class="control">
+          <input
+            type="checkbox"
+            id="is_superadmin"
+            name="is_superadmin"
+            class="switch"
+            @if(user.is_superadmin)
+              checked
+            @endif
+          >
+          <label class="checkbox" for="is_superadmin">
+            Super-Administrator
+          </label>
+        </div>
+      </div>
+    @endif
+    <hr>
+    <div class="field">
+      <label for="locale" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.sprache') }}</label>
+      <div class="select">
+        <select id="locale" name="locale">
+          <option value="de"
+            @if(user == undefined || user.locale == 'de')
+              selected
+            @endif
+          >Deutsch</option>
+          <option value="en"
+            @if(user.locale == 'en')
+              selected
+            @endif
+          >English</option>
+        </select>
+      </div>
+    </div>
+    <hr>
+    <div class="field">
+      <label for="salutation" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.anrede') }}</label>
+      <div class="control">
+        <div class="select {{ hasErrorFor('salutation') ? 'is-danger' : '' }}">
+          <select name="salutation" required>
+            <option value="">{{ antl.forLocale(auth.user.locale).formatMessage('static.bitte_waehlen') }}</option>
+            @each(salutation in salutations)
+              <option value="{{ salutation.code }}"
+                @if(user == undefined)
+                  {{ old('salutation') == salutation.code ? 'selected' : ''  }}
+                @elseif(user.salutation == salutation.code)
+                  selected
+                @endif
+              >{{ salutation.label }}</option>
+            @endeach
+          </select>
+          {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('salutation'), hasErrorFor('salutation')) }}
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label for="first_name" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.vorname') }}</label>
+      <div class="control">
+        <input
+          type="text"
+          class="input {{ hasErrorFor('first_name') ? 'is-danger' : '' }}"
+          name="first_name"
+          id="first_name"
+          @if(user == undefined)
+            value="{{ old('first_name', '') }}"
+          @else
+            value="{{ user.first_name }}"
+          @endif
+          autofocus
+          required
+        >
+        {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('first_name'), hasErrorFor('first_name')) }}
+      </div>
+    </div>
+    <div class="field">
+      <label for="last_name" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.nachname') }}</label>
+      <div class="control">
+        <input
+          type="text"
+          class="input {{ hasErrorFor('last_name') ? 'is-danger' : '' }}"
+          name="last_name"
+          id="last_name"
+          @if(user == undefined)
+            value="{{ old('last_name', '') }}"
+          @else
+            value="{{ user.last_name }}"
+          @endif
+          required
+        >
+        {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('last_name'), hasErrorFor('last_name')) }}
+      </div>
+    </div>
+    <div class="field">
+      <label for="profession" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.funktion') }}</label>
+      <div class="control">
+        <input
+          type="text"
+          class="input {{ hasErrorFor('profession') ? 'is-danger' : '' }}"
+          name="profession"
+          id="profession"
+          @if(user == undefined)
+            value="{{ old('profession', '') }}"
+          @else
+            value="{{ user.profession }}"
+          @endif
+        >
+        {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('profession'), hasErrorFor('profession')) }}
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="field">
+      <label for="phone" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.telefon') }}</label>
+      <div class="control has-icons-left">
+        <input
+          type="text"
+          class="input {{ hasErrorFor('phone') ? 'is-danger' : '' }}"
+          name="phone"
+          id="phone"
+          @if(user == undefined)
+            value="{{ old('phone', '') }}"
+          @else
+            value="{{ user.phone }}"
+          @endif
+        >
+        <span class="icon is-small is-left">
+          <i class="fas fa-phone"></i>
+        </span>
+        {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('phone'), hasErrorFor('phone')) }}
+      </div>
+    </div>
+    <div class="field">
+      <label for="mobile" class="label">Mobile</label>
+      <div class="control has-icons-left">
+        <input
+          type="text"
+          class="input {{ hasErrorFor('mobile') ? 'is-danger' : '' }}"
+          name="mobile"
+          id="mobile"
+          @if(user == undefined)
+            value="{{ old('mobile', '') }}"
+          @else
+            value="{{ user.mobile }}"
+          @endif
+        >
+        <span class="icon is-small is-left">
+          <i class="fas fa-mobile"></i>
+        </span>
+        {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('mobile'), hasErrorFor('mobile')) }}
+      </div>
+    </div>
+    <div class="field">
+      <label for="email" class="label">E-Mail</label>
+      <div class="control has-icons-left">
+        <input
+          type="email"
+          class="input {{ hasErrorFor('email') ? 'is-danger' : '' }}"
+          name="email"
+          id="email"
+          @if(user == undefined)
+            value="{{ old('email', '') }}"
+          @else
+            value="{{ user.email }}"
+          @endif
+          required
+        >
+        <span class="icon is-small is-left">
+          <i class="fas fa-at"></i>
+        </span>
+        {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('email'), hasErrorFor('email')) }}
+      </div>
+    </div>
+    <label for="avatar" class="label m-t-sm">{{ antl.forLocale(auth.user.locale).formatMessage('static.foto') }}</label>
+    <input type="file" name="avatar"/>
+    @if(user == undefined)
+      <hr>
+      <div class="field">
+        <div class="control">
+          <input
+            type="checkbox"
+            id="send_email"
+            name="send_email"
+            class="is-checkradio"
+            checked
+          >
+          <label class="checkbox" for="send_email">
+            {{ antl.forLocale(auth.user.locale).formatMessage('static.kontodaten_per_mail_senden') }}
+          </label>
+        </div>
+      </div>
+    @endif
+  </div>
+</div>

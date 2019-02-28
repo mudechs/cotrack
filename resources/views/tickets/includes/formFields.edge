@@ -1,11 +1,6 @@
 <div class="columns">
   <div class="column is-8-tablet">
-    @if(ticket != undefined)
-      <b>{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}: </b>{{ ticket.project.title }}<br>
-      <b>{{ antl.forLocale(auth.user.locale).formatMessage('static.empfaenger') }}: </b>
-      @!component('tickets.components.recipientInfo', { antl, locale: auth.user.locale, recipient: ticket.ticketRecipient })
-      <hr>
-    @else
+    @if(ticket == undefined)
       <div class="field">
         <label for="project" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}</label>
         <div class="control">
@@ -27,6 +22,11 @@
           </div>
         </div>
       </div>
+    @else
+      <b>{{ antl.forLocale(auth.user.locale).formatMessage('static.projekt') }}: </b>{{ ticket.project.title }}<br>
+      <b>{{ antl.forLocale(auth.user.locale).formatMessage('static.empfaenger') }}: </b>
+      @!component('tickets.components.recipientInfo', { antl, locale: auth.user.locale, recipient: ticket.ticketRecipient })
+      <hr>
     @endif
 
     @if(ticket == undefined)
@@ -149,7 +149,7 @@
         </select>
       </div>
     </div>
-    @if(ticket != undefined)
+    @if(ticket)
       <div class="field">
         <div class="control">
           <label for="affected_version" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.affected_version') }}</label>
@@ -194,7 +194,8 @@
         class="input"
         name="done_until"
         id="done_until"
-        value="{{ ticket == undefined ? old('done_until', '') : doneUntil }}">
+        value="{{ ticket == undefined ? old('done_until', '') : doneUntil }}"
+      >
     </div>
     <div class="field">
       <label for="time_expenses" class="label">{{ antl.forLocale(auth.user.locale).formatMessage('static.aufwand_std') }}</label>
