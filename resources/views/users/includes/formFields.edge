@@ -6,7 +6,7 @@
           type="checkbox"
           id="is_active"
           name="is_active"
-          class="switch"
+          class="switch is-info"
           @if(user == undefined || user.is_active)
             checked
           @endif
@@ -22,7 +22,7 @@
           type="checkbox"
           id="tfa_active"
           name="tfa_active"
-          class="switch"
+          class="switch is-info"
           @if(user.tfa_active)
             checked
           @endif
@@ -38,7 +38,7 @@
           type="checkbox"
           id="is_admin"
           name="is_admin"
-          class="switch"
+          class="switch is-info"
           @if(user.is_admin)
             checked
           @endif
@@ -55,7 +55,7 @@
             type="checkbox"
             id="is_superadmin"
             name="is_superadmin"
-            class="switch"
+            class="switch is-info"
             @if(user.is_superadmin)
               checked
             @endif

@@ -85,10 +85,10 @@
     <label for="attachments" class="label m-t-lg">Attachments</label>
     @if(ticket != undefined)
       @each(attachment in attachments)
-        <div class="box has-background-primary" style="margin-bottom: .5rem;">
+        <div class="box has-background-info" style="margin-bottom: .5rem;">
           <div class="is-clearfix is-fullwidth">
             <span>{{ attachment.clientName }} ({{ attachment.size / 1000 }} kb)</span>
-            <button type="button" class="btn-files-remover button is-small is-primary is-inverted is-outlined is-pulled-right" data-index="{{ $loop.index }}"><i class="far fa-trash-alt"></i></button>
+            <button type="button" class="btn-files-remover button is-small is-info is-inverted is-outlined is-pulled-right" data-index="{{ $loop.index }}"><i class="far fa-trash-alt"></i></button>
           </div>
         </div>
       @endeach

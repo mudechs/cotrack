@@ -12,7 +12,7 @@
     @slot('header')
       <h1 class="subtitle">
         {{ antl.forLocale(auth.user.locale).formatMessage('settings.titel') }}
-        <a href="{{ route('settings.edit', { id: settings.id }) }}" class="button is-small is-primary is-pulled-right"><i class="fas fa-pencil-alt"></i></a>
+        <a href="{{ route('settings.edit', { id: settings.id }) }}" class="button is-small is-info is-pulled-right"><i class="fas fa-pencil-alt"></i></a>
       </h1>
     @endslot
 
