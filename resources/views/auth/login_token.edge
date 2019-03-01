@@ -1,7 +1,7 @@
 @layout('layouts.app')
 
 @section('bodyClass')
-  has-background-primary
+  has-background-info
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
           csrf,
           locale: globals().default_locale,
           title: 'static.login_bestaetigen',
-          styles: 'has-background-primary has-rounded-white-border',
+          styles: 'has-background-white has-rounded-white-border',
           footer: false
         })
           @slot('content')
@@ -22,7 +22,7 @@
               <input type="hidden" name="hash" value="{{ hash }}">
 
               <div class="field">
-                <label for="token" class="label has-text-white">{{ antl.forLocale(globals().default_locale).formatMessage('static.sicherheitscode') }}</label>
+                <label for="token" class="label">{{ antl.forLocale(globals().default_locale).formatMessage('static.sicherheitscode') }}</label>
                 <div class="control has-icons-left">
                   <input
                     type="token"
@@ -30,14 +30,15 @@
                     name="token"
                     id="token"
                     autofocus
-                    autocomplete="off">
+                    autocomplete="off"
+                  >
                   <span class="icon is-small is-left">
                     <i class="fas fa-unlock"></i>
                   </span>
                   {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('token'), hasErrorFor('token')) }}
                 </div>
               </div>
-              <button type="submit" class="button is-primary is-inverted is-outlined is-fullwidth m-b-sm m-t-lg"><i class="far fa-paper-plane fa-fw"></i>&nbsp;&nbsp;{{ antl.forLocale(globals().default_locale).formatMessage('static.anmelden') }}</button>
+              <button type="submit" class="button is-info is-fullwidth m-b-sm m-t-lg"><i class="far fa-paper-plane fa-fw"></i>&nbsp;&nbsp;{{ antl.forLocale(globals().default_locale).formatMessage('static.anmelden') }}</button>
             </form>
           @endslot
         @endcomponent

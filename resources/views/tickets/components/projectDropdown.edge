@@ -11,12 +11,12 @@
   </div>
   <div class="dropdown-menu" id="projectDropdownMenu" role="menu">
     <div class="dropdown-content">
-      @each(userProject in userProjects)
-        <a href="{{ route('ticketsProjectIndex', { id: userProject.id }) }}" class="dropdown-item">
-          {{ userProject.title }}
-          @if(userProject["__meta__"].tickets_count > 0)
-            <small class="has-text-primary">
-              ({{ userProject["__meta__"].tickets_count }})
+      @each(project in userProjects)
+        <a href="{{ route('ticketsProjectIndex', { id: project.id }) }}" class="dropdown-item">
+          {{ project.title }}
+          @if(project["__meta__"].tickets_count > 0)
+            <small class="has-text-danger">
+              ({{ project["__meta__"].tickets_count }})
             </small>
           @endif
         </a>

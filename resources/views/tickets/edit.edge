@@ -18,7 +18,7 @@
 
           <div class="has-text-right">
             <a href="{{ route('ticketsShow', { id: ticket.id }) }}" class="button is-text"><i class="fas fa-times"></i>&nbsp;&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.abbrechen') }}</a>
-            <button type="submit" class="button is-primary"><i class="far fa-paper-plane fa-fw"></i>&nbsp;&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.speichern') }}</button>
+            <button type="submit" class="button is-info"><i class="far fa-paper-plane fa-fw"></i>&nbsp;&nbsp;{{ antl.forLocale(auth.user.locale).formatMessage('static.speichern') }}</button>
           </div>
         </form>
       @endslot

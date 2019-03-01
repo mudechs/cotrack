@@ -14,7 +14,7 @@
           <h1 class="subtitle">
             {{ project.title }}
             @if(auth.user.id == project.author_id || auth.user.is_admin || auth.user.is_superadmin)
-              <a href="{{ route('projectsEdit', { id: project.id }) }}" class="button is-small is-primary is-pulled-right"><i class="fas fa-pencil-alt"></i></a>
+              <a href="{{ route('projectsEdit', { id: project.id }) }}" class="button is-small is-info is-pulled-right"><i class="fas fa-pencil-alt"></i></a>
             @endif
           </h1>
         @endslot
@@ -127,7 +127,7 @@
                     <input type="text" id="version" class="input is-small" name="version" placeholder="Format: 0.0.0">
                   </div>
                   <p class="control">
-                    <a id="createVersionButton" class="button is-primary is-small"><i class="far fa-save"></i></a>
+                    <a id="createVersionButton" class="button is-info is-small"><i class="far fa-save"></i></a>
                   </p>
                 </div>
               </form>

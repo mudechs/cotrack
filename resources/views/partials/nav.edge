@@ -3,7 +3,7 @@
     class="
       navbar
       @if(globals().maintenance_mode == false)
-        is-primary
+        is-info
       @else
         is-danger
       @endif
@@ -61,7 +61,7 @@
           @endif
 
           <div class="navbar-item">
-            <a href="{{ route('ticketsCreate') }}" class="button is-primary is-inverted is-outlined">
+            <a href="{{ route('ticketsCreate') }}" class="button is-info is-inverted is-outlined">
               <strong><i class="fas fa-plus"></i>&nbsp;Ticket</a></strong>
             </a>
           </div>
@@ -92,7 +92,7 @@
           @if(globals().allow_registration == true)
             <div class="navbar-item">
               <div class="buttons">
-                <a href="{{ route('register') }}" class="button is-primary">
+                <a href="{{ route('register') }}" class="button is-info">
                   <strong>Register</strong>
                 </a>
               </div>
