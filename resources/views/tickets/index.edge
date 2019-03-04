@@ -18,7 +18,7 @@
         })
           @slot('content')
             <div id="status_code_1" data-statusid="1" style="min-height: 100px">
-              @each(ticket in ticketsNeu)
+              @each(ticket in ticketsStatusCode1)
                 <a
                   href="{{ route('ticketsShow', { id: ticket.id }) }}"
                   id="{{ ticket.id }}"
@@ -55,7 +55,7 @@
       })
         @slot('content')
           <div id="status_code_2" data-statusid="2" style="min-height: 100px">
-            @each(ticket in ticketsAnerkannt)
+            @each(ticket in ticketsStatusCode2)
               <a
                 href="{{ route('ticketsShow', { id: ticket.id }) }}"
                 id="{{ ticket.id }}"
@@ -92,7 +92,7 @@
       })
         @slot('content')
           <div id="status_code_4" data-statusid="4" style="min-height: 100px">
-            @each(ticket in ticketsWarten)
+            @each(ticket in ticketsStatusCode4)
               <a
                 href="{{ route('ticketsShow', { id: ticket.id }) }}"
                 id="{{ ticket.id }}"
@@ -129,7 +129,7 @@
       })
         @slot('content')
           <div id="status_code_5" data-statusid="5" style="min-height: 100px">
-            @each(ticket in ticketsFeedback)
+            @each(ticket in ticketsStatusCode5)
               <a
                 href="{{ route('ticketsShow', { id: ticket.id }) }}"
                 id="{{ ticket.id }}"
@@ -166,7 +166,7 @@
       })
         @slot('content')
           <div id="status_code_6" data-statusid="6" style="min-height: 100px">
-            @each(ticket in ticketsBearbeitung)
+            @each(ticket in ticketsStatusCode6)
               <a
                 href="{{ route('ticketsShow', { id: ticket.id }) }}"
                 id="{{ ticket.id }}"

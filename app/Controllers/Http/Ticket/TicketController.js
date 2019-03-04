@@ -19,20 +19,20 @@ class TicketController {
     const userId = auth.user.id;
     const userLocale = auth.user.locale;
 
-    const ticketsNeu = await TicketServices.ticketGroupedByStatus(1, userId);
-    const ticketsAnerkannt = await TicketServices.ticketGroupedByStatus(2, userId);
-    const ticketsWarten = await TicketServices.ticketGroupedByStatus(4, userId);
-    const ticketsFeedback = await TicketServices.ticketGroupedByStatus(5, userId);
-    const ticketsBearbeitung = await TicketServices.ticketGroupedByStatus(6, userId);
+    const ticketsStatusCode1 = await TicketServices.ticketGroupedByStatus(1, userId);
+    const ticketsStatusCode2 = await TicketServices.ticketGroupedByStatus(2, userId);
+    const ticketsStatusCode4 = await TicketServices.ticketGroupedByStatus(4, userId);
+    const ticketsStatusCode5 = await TicketServices.ticketGroupedByStatus(5, userId);
+    const ticketsStatusCode6 = await TicketServices.ticketGroupedByStatus(6, userId);
 
     const userProjects = await ProjectServices.getUserProjects(userLocale, 'open', userId);
 
     return view.render('tickets.index', {
-      ticketsNeu: ticketsNeu.toJSON(),
-      ticketsAnerkannt: ticketsAnerkannt.toJSON(),
-      ticketsWarten: ticketsWarten.toJSON(),
-      ticketsFeedback: ticketsFeedback.toJSON(),
-      ticketsBearbeitung: ticketsBearbeitung.toJSON(),
+      ticketsStatusCode1: ticketsStatusCode1.toJSON(),
+      ticketsStatusCode2: ticketsStatusCode2.toJSON(),
+      ticketsStatusCode4: ticketsStatusCode4.toJSON(),
+      ticketsStatusCode5: ticketsStatusCode5.toJSON(),
+      ticketsStatusCode6: ticketsStatusCode6.toJSON(),
       userProjects: userProjects.toJSON(),
       priorities: priorities[0][userLocale]
     });
@@ -43,20 +43,20 @@ class TicketController {
     const userLocale = auth.user.locale;
     const projectId = params.id;
 
-    const ticketsNeu = await TicketServices.ticketGroupedByStatusAndProject(1, userId, projectId);
-    const ticketsAnerkannt = await TicketServices.ticketGroupedByStatusAndProject(2, userId, projectId);
-    const ticketsWarten = await TicketServices.ticketGroupedByStatusAndProject(4, userId, projectId);
-    const ticketsFeedback = await TicketServices.ticketGroupedByStatusAndProject(5, userId, projectId);
-    const ticketsBearbeitung = await TicketServices.ticketGroupedByStatusAndProject(6, userId, projectId);
+    const ticketsStatusCode1 = await TicketServices.ticketGroupedByStatusAndProject(1, userId, projectId);
+    const ticketsStatusCode2 = await TicketServices.ticketGroupedByStatusAndProject(2, userId, projectId);
+    const ticketsStatusCode4 = await TicketServices.ticketGroupedByStatusAndProject(4, userId, projectId);
+    const ticketsStatusCode5 = await TicketServices.ticketGroupedByStatusAndProject(5, userId, projectId);
+    const ticketsStatusCode6 = await TicketServices.ticketGroupedByStatusAndProject(6, userId, projectId);
 
     const userProjects = await ProjectServices.getUserProjects(userId, 'open', userLocale);
 
     return view.render('tickets.index', {
-      ticketsNeu: ticketsNeu.toJSON(),
-      ticketsAnerkannt: ticketsAnerkannt.toJSON(),
-      ticketsWarten: ticketsWarten.toJSON(),
-      ticketsFeedback: ticketsFeedback.toJSON(),
-      ticketsBearbeitung: ticketsBearbeitung.toJSON(),
+      ticketsStatusCode1: ticketsStatusCode1.toJSON(),
+      ticketsStatusCode2: ticketsStatusCode2.toJSON(),
+      ticketsStatusCode4: ticketsStatusCode4.toJSON(),
+      ticketsStatusCode5: ticketsStatusCode5.toJSON(),
+      ticketsStatusCode6: ticketsStatusCode6.toJSON(),
       userProjects: userProjects.toJSON(),
       priorities: priorities[0][userLocale]
     });
