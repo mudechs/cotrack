@@ -1,4 +1,5 @@
 'use strict';
+
 const Config = use('Config');
 const { statuses, priorities, impacts, reproducibles } = Config.get('ticket');
 const { validateAll } = use('Validator');
