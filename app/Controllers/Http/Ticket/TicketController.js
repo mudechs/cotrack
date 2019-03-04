@@ -16,32 +16,16 @@ const Logger = use('Logger');
 
 class TicketController {
   async index({ auth, view }) {
-    const ticketsNeu = await TicketServices.ticketGroupedByStatus(
-      1,
-      auth.user.id
-    );
-    const ticketsAnerkannt = await TicketServices.ticketGroupedByStatus(
-      2,
-      auth.user.id
-    );
-    const ticketsWarten = await TicketServices.ticketGroupedByStatus(
-      4,
-      auth.user.id
-    );
-    const ticketsFeedback = await TicketServices.ticketGroupedByStatus(
-      5,
-      auth.user.id
-    );
-    const ticketsBearbeitung = await TicketServices.ticketGroupedByStatus(
-      6,
-      auth.user.id
-    );
+    const userId = auth.user.id;
+    const userLocale = auth.user.locale;
 
-    const userProjects = await ProjectServices.getUserProjects(
-      auth.user.id,
-      'open',
-      auth.user.locale
-    );
+    const ticketsNeu = await TicketServices.ticketGroupedByStatus(1, userId);
+    const ticketsAnerkannt = await TicketServices.ticketGroupedByStatus(2, userId);
+    const ticketsWarten = await TicketServices.ticketGroupedByStatus(4, userId);
+    const ticketsFeedback = await TicketServices.ticketGroupedByStatus(5, userId);
+    const ticketsBearbeitung = await TicketServices.ticketGroupedByStatus(6, userId);
+
+    const userProjects = await ProjectServices.getUserProjects(userLocale, 'open', userId);
 
     return view.render('tickets.index', {
       ticketsNeu: ticketsNeu.toJSON(),
@@ -50,42 +34,22 @@ class TicketController {
       ticketsFeedback: ticketsFeedback.toJSON(),
       ticketsBearbeitung: ticketsBearbeitung.toJSON(),
       userProjects: userProjects.toJSON(),
-      priorities: priorities[0][auth.user.locale]
+      priorities: priorities[0][userLocale]
     });
   }
 
   async projectIndex({ params, auth, view }) {
-    const ticketsNeu = await TicketServices.ticketGroupedByStatusAndProject(
-      1,
-      auth.user.id,
-      params.id
-    );
-    const ticketsAnerkannt = await TicketServices.ticketGroupedByStatusAndProject(
-      2,
-      auth.user.id,
-      params.id
-    );
-    const ticketsWarten = await TicketServices.ticketGroupedByStatusAndProject(
-      4,
-      auth.user.id,
-      params.id
-    );
-    const ticketsFeedback = await TicketServices.ticketGroupedByStatusAndProject(
-      5,
-      auth.user.id,
-      params.id
-    );
-    const ticketsBearbeitung = await TicketServices.ticketGroupedByStatusAndProject(
-      6,
-      auth.user.id,
-      params.id
-    );
+    const userId = auth.user.id;
+    const userLocale = auth.user.locale;
+    const projectId = params.id;
 
-    const userProjects = await ProjectServices.getUserProjects(
-      auth.user.id,
-      'open',
-      auth.user.locale
-    );
+    const ticketsNeu = await TicketServices.ticketGroupedByStatusAndProject(1, userId, projectId);
+    const ticketsAnerkannt = await TicketServices.ticketGroupedByStatusAndProject(2, userId, projectId);
+    const ticketsWarten = await TicketServices.ticketGroupedByStatusAndProject(4, userId, projectId);
+    const ticketsFeedback = await TicketServices.ticketGroupedByStatusAndProject(5, userId, projectId);
+    const ticketsBearbeitung = await TicketServices.ticketGroupedByStatusAndProject(6, userId, projectId);
+
+    const userProjects = await ProjectServices.getUserProjects(userId, 'open', userLocale);
 
     return view.render('tickets.index', {
       ticketsNeu: ticketsNeu.toJSON(),
@@ -94,7 +58,7 @@ class TicketController {
       ticketsFeedback: ticketsFeedback.toJSON(),
       ticketsBearbeitung: ticketsBearbeitung.toJSON(),
       userProjects: userProjects.toJSON(),
-      priorities: priorities[0][auth.user.locale]
+      priorities: priorities[0][userLocale]
     });
   }
 
