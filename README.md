@@ -1,4 +1,4 @@
-# Intranet
+# CoTrack
 
 Ticket-App using AdonisJs 4.1
 
@@ -10,12 +10,6 @@ Ticket-App using AdonisJs 4.1
 
 - German (default)
 - English
-
-```bash
-pm2 kill
-git pull
-pm2 start server.js -i 0
-```
 
 ## Used technologies
 
