@@ -1,6 +1,6 @@
 # Intranet
 
-Intranet-App using AdonisJs 4.1
+Ticket-App using AdonisJs 4.1
 
 ## Version
 
@@ -10,10 +10,6 @@ Intranet-App using AdonisJs 4.1
 
 - German (default)
 - English
-
-## Updating Live-Server
-
-URL: https://intranet.codiac.ch
 
 ```bash
 pm2 kill
@@ -35,7 +31,7 @@ pm2 start server.js -i 0
 - HTML5
 - CSS3
 - ES6 JavaScript
-- [Visual Studio Code](https://code.visualstudio.com/)
+- Developed under Ubuntu Linux 18.04 with [Visual Studio Code](https://code.visualstudio.com/)
 
 ## Usage
 
